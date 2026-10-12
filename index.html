@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chronos Nexus - Zeitberechnungen</title>
+    <title>CHRONOS NEXUS // Temporales Observatorium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- & durch &amp; ersetzt, um den VS-Code HTML-Linter-Fehler zu beheben -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&amp;family=Plus+Jakarta+Sans:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0a1a;
-            --bg-secondary: #0f0f2a;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --glass-highlight: rgba(255, 255, 255, 0.05);
-            --accent-1: #6c5ce7;
-            --accent-2: #a855f7;
-            --accent-3: #3b82f6;
-            --accent-4: #06b6d4;
-            --gradient-1: linear-gradient(135deg, #6c5ce7, #a855f7);
-            --gradient-2: linear-gradient(135deg, #3b82f6, #06b6d4);
-            --gradient-3: linear-gradient(135deg, #f59e0b, #ef4444);
-            --text-primary: #e2e8f0;
-            --text-secondary: #94a3b8;
-            --text-accent: #c4b5fd;
-            --neon-glow: 0 0 20px rgba(108, 92, 231, 0.3), 0 0 40px rgba(108, 92, 231, 0.1);
-            --neon-glow-2: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
-            --border-radius: 20px;
-            --blur: blur(20px);
+            --bg-void: #07090e;
+            --bg-surface: #0e121b;
+            --bg-card: #131826;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(0, 229, 255, 0.4);
+            
+            --cyan-glow: #00e5ff;
+            --purple-core: #7c4dff;
+            --amber-warn: #ffb300;
+            --emerald-sync: #00e676;
+            
+            --text-main: #f1f5f9;
+            --text-muted: #8290a5;
+            --text-dim: #4d5b70;
+            
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
         }
 
         * {
@@ -35,1001 +40,1406 @@
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: var(--bg-primary);
+            background-color: var(--bg-void);
             background-image: 
-                radial-gradient(ellipse at 20% 50%, rgba(108, 92, 231, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding: 40px 20px;
+                radial-gradient(circle at 50% 0%, rgba(124, 77, 255, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(0, 229, 255, 0.05) 0%, transparent 50%);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            padding: 24px 16px 60px;
             min-height: 100vh;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-subtle) var(--bg-void);
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.005) 2px, rgba(255,255,255,0.005) 4px),
-                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.005) 2px, rgba(255,255,255,0.005) 4px);
-            pointer-events: none;
-            z-index: 0;
+        .dashboard-wrapper {
+            max-width: 1520px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
         }
 
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-        }
-
+        /* HEADER */
         header {
-            text-align: center;
-            margin-bottom: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .logo-container {
-            display: inline-block;
-            margin-bottom: 16px;
+        .brand-block {
+            display: flex;
+            align-items: center;
+            gap: 14px;
         }
 
-        .logo-icon {
-            font-size: 3.5rem;
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px rgba(108, 92, 231, 0.5));
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--purple-core), var(--cyan-glow));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            background: var(--gradient-1);
+        .brand-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.03em;
-            margin-bottom: 8px;
         }
 
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 1.15rem;
-            letter-spacing: 0.05em;
-            font-weight: 300;
+        .brand-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
         }
 
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
+        .system-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 40px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--emerald-sync);
+            box-shadow: 0 0 10px var(--emerald-sync);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        /* HERO CHRONOMETER */
+        .hero-chronos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 28px;
+            grid-template-columns: 1.3fr 1fr 1fr;
+            gap: 20px;
         }
 
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: var(--blur);
-            -webkit-backdrop-filter: var(--blur);
-            border-radius: var(--border-radius);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
-            padding: 28px;
+        @media (max-width: 1100px) {
+            .hero-chronos { grid-template-columns: 1fr; }
+        }
+
+        .hero-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.3s;
         }
 
-        .card::before {
+        .hero-card:hover { border-color: var(--border-active); }
+
+        .hero-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%);
-            border-radius: var(--border-radius);
-            pointer-events: none;
+            width: 100%;
+            height: 3px;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: var(--glass-shadow), var(--neon-glow), inset 0 1px 0 var(--glass-highlight);
+        .hero-card.system-clock::before { background: linear-gradient(90deg, var(--cyan-glow), var(--purple-core)); }
+        .hero-card.clock-1949::before { background: linear-gradient(90deg, #ff4d4d, var(--amber-warn)); }
+        .hero-card.clock-2022::before { background: linear-gradient(90deg, var(--purple-core), var(--cyan-glow)); }
+
+        .card-tag {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
         }
 
-        .card.full-width {
-            grid-column: 1 / -1;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(108, 92, 231, 0.15), rgba(168, 85, 247, 0.1));
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            box-shadow: var(--neon-glow);
+        .clock-huge {
+            font-family: var(--font-mono);
+            font-size: clamp(2rem, 3.2vw, 2.7rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: #ffffff;
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+            margin-bottom: 4px;
         }
 
-        .card.full-width:hover {
-            box-shadow: 0 0 30px rgba(108, 92, 231, 0.4), 0 0 60px rgba(168, 85, 247, 0.2);
-        }
-
-        .card.full-width .output {
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid var(--accent-2);
-            font-size: 1.4rem;
+        .date-prominent {
+            font-size: 1.05rem;
             font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
         }
 
-        .card-header {
+        /* 5-FACH ZYKLUS-FORTSCHRITTE */
+        .cycles-container {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-top: 10px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .cycle-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .cycle-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+        }
+
+        .cycle-header strong {
+            color: var(--cyan-glow);
+        }
+
+        .cycle-track {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .cycle-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--cyan-glow), var(--purple-core));
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* EWIGE INTERVALL-DISPLAY */
+        .interval-counter {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+        }
+
+        .counter-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 4px;
+        }
+
+        .counter-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            padding-top: 4px;
+            font-weight: 700;
+            color: var(--cyan-glow);
+        }
+
+        /* BENTO GRID */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+            gap: 20px;
+        }
+
+        .bento-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+            transition: border-color 0.25s;
+        }
+
+        .bento-card:hover {
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .card-head {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 16px;
         }
 
-        .card-icon {
-            font-size: 1.8rem;
+        .card-head-icon {
+            font-size: 1.25rem;
+            width: 34px;
+            height: 34px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        h2 {
-            font-size: 1.3rem;
-            color: var(--text-primary);
+        .card-head h2 {
+            font-size: 1.05rem;
             font-weight: 700;
-            letter-spacing: 0.02em;
+            color: var(--text-main);
         }
 
-        .input-group {
+        .form-cluster {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 16px;
         }
 
-        .grid-inputs {
+        .input-row-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            grid-template-columns: 1fr auto;
             gap: 10px;
             align-items: center;
         }
 
-        .input-subgroup {
+        @media (max-width: 480px) {
+            .input-row-grid { grid-template-columns: 1fr; }
+        }
+
+        .field-group {
             display: flex;
             flex-direction: column;
+            gap: 5px;
+            min-width: 0;
         }
 
-        .input-subgroup label {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-            font-weight: 600;
+        label {
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Spezielle Styles für historische Datumseingabe */
-        .date-era-group {
-            display: flex;
-            gap: 10px;
-            align-items: flex-end;
-        }
-
-        .date-era-group .date-input-wrapper {
-            flex: 2;
-        }
-
-        .date-era-group .era-select-wrapper {
-            flex: 1;
-        }
-
-        .era-select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .era-select:focus {
-            outline: none;
-            border-color: var(--accent-1);
-            background: rgba(108, 92, 231, 0.05);
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15), 0 0 20px rgba(108, 92, 231, 0.2);
-        }
-
-        .era-select option {
-            background: #1a1a2e;
-            color: var(--text-primary);
-        }
-
-        input[type="datetime-local"], 
-        input[type="number"],
-        input[type="text"] {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--accent-1);
-            background: rgba(108, 92, 231, 0.05);
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15), 0 0 20px rgba(108, 92, 231, 0.2);
-        }
-
-        input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        button {
-            width: 100%;
-            padding: 14px 24px;
-            background: var(--gradient-1);
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-size: 1rem;
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            letter-spacing: 0.03em;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
         }
 
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        input, select {
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        button:hover {
-            box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
-            transform: translateY(-2px);
-        }
-
-        button:hover::before {
-            left: 100%;
-        }
-
-        button:active {
-            transform: translateY(0px) scale(0.98);
-        }
-
-        button.secondary {
-            background: var(--gradient-2);
-        }
-
-        button.secondary:hover {
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
-        }
-
-        .output {
-            margin-top: 16px;
-            padding: 18px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            color: var(--text-accent);
+            min-width: 0;
+            background: #090c13;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            color: var(--text-main);
+            font-family: var(--font-sans);
             font-size: 0.9rem;
-            min-height: 50px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus-visible, select:focus-visible, button:focus-visible {
+            outline: none;
+            border-color: var(--cyan-glow);
+            box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.25);
+        }
+
+        .shift-inputs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+            gap: 6px;
+        }
+
+        button.action-btn {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border-radius: var(--radius-sm);
+            padding: 11px 16px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
             gap: 8px;
-            border-left: 4px solid var(--accent-1);
-            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
         }
 
-        .output p {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 6px;
+        button.action-btn:hover {
+            background: linear-gradient(135deg, var(--purple-core), #4a148c);
+            border-color: var(--purple-core);
+            box-shadow: 0 0 15px rgba(124, 77, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        button.action-btn.cyan-btn:hover {
+            background: linear-gradient(135deg, #0097a7, #006064);
+            border-color: var(--cyan-glow);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+        }
+
+        .output-deck {
+            position: relative;
+            background: #090c13;
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--purple-core);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        .copy-trigger {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            border-radius: var(--radius-sm);
+            padding: 4px 8px;
+            font-size: 0.68rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-trigger:hover {
+            background: var(--cyan-glow);
+            color: #000000;
+        }
+
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .badge-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        .badge-box .k {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .badge-box .v {
+            font-size: 0.86rem;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* 4-DATEN PROZENTLEISTE */
+        .timeline-visual {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            position: relative;
+            margin: 12px 0 6px;
+            overflow: hidden;
+        }
+
+        .timeline-span {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, var(--cyan-glow), var(--purple-core));
+            border-radius: 6px;
             transition: all 0.3s ease;
         }
 
-        .output p:hover {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 4px;
-            padding: 4px 8px;
-            margin: 0 -8px;
-        }
-
-        .output p:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-            font-weight: 700;
-            margin-top: 4px;
-            color: #e2e8f0;
-            font-size: 1.05rem;
-        }
-
-        .converter-card {
-            border: 1px solid rgba(6, 182, 212, 0.2);
-            box-shadow: var(--neon-glow-2);
-        }
-
-        .converter-card:hover {
-            border-color: rgba(6, 182, 212, 0.4);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), 0 0 60px rgba(6, 182, 212, 0.2);
-        }
-
-        .converter-section {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .converter-group {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .converter-group h3 {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .converter-inputs {
-            display: flex;
+        /* KOMPAKTE CONVERTER GRIDS */
+        .compact-pair-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             gap: 10px;
-            align-items: flex-end;
+            align-items: center;
         }
 
-        .converter-inputs .input-subgroup {
-            flex: 1;
-        }
-
-        .converter-arrow {
-            font-size: 1.5rem;
-            color: var(--accent-4);
-            margin-bottom: 8px;
-        }
-
-        .info-text {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 8px;
-            font-style: italic;
-        }
-
-        .historical-note {
-            font-size: 0.75rem;
-            color: var(--accent-4);
-            margin-top: 4px;
-            font-style: italic;
-        }
-
-        @media (max-width: 768px) {
-            body { 
-                padding: 20px 12px; 
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .container { 
-                grid-template-columns: 1fr; 
-            }
-            
-            .card {
-                padding: 20px;
-            }
-            
-            .converter-inputs {
-                flex-direction: column;
-            }
-            
-            .converter-arrow {
-                transform: rotate(90deg);
-                align-self: center;
-            }
-            
-            .date-era-group {
-                flex-direction: column;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--gradient-1);
-            border-radius: 10px;
+        @media (max-width: 500px) {
+            .compact-pair-grid { grid-template-columns: 1fr; }
         }
 
         footer {
+            margin-top: 40px;
             text-align: center;
-            margin-top: 60px;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            opacity: 0.7;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-family: var(--font-mono);
         }
     </style>
 </head>
 <body>
-    <div class="content-wrapper">
+    <div class="dashboard-wrapper">
+        
+        <!-- HEADER -->
         <header>
-            <div class="logo-container">
-                <span class="logo-icon">⏱️</span>
+            <div class="brand-block">
+                <div class="brand-icon" aria-hidden="true">⏳</div>
+                <div>
+                    <h1 class="brand-title">Chronos Nexus</h1>
+                    <div class="brand-subtitle">Temporales Observatorium &amp; Kalender-Harmonisierung</div>
+                </div>
             </div>
-            <h1>Chronos Nexus</h1>
-            <div class="subtitle">Präzise Zeitanalysen & Echtzeit-Intervalle</div>
+            <div class="system-pill">
+                <div class="pulse-dot"></div>
+                <span id="systemTimezoneBadge">Lokalzeit: Synchronisiere...</span>
+            </div>
         </header>
 
-        <div class="container">
-            <!-- Aktuelles Datum -->
-            <div class="card full-width">
-                <div class="card-header">
-                    <span class="card-icon">🕐</span>
-                    <h2>Aktuelles Datum und Uhrzeit</h2>
+        <!-- HERO CHRONOMETER -->
+        <section class="hero-chronos" aria-label="Ewige Uhren und Systemzeit">
+            
+            <!-- AKTUELL: LOKALE SYSTEMZEIT & 5-FACH ZYKLUSFORTSCHRITT -->
+            <article class="hero-card system-clock">
+                <div>
+                    <div class="card-tag">
+                        <span>Echtzeit-Referenz</span>
+                        <span style="color: var(--cyan-glow);">System-Master</span>
+                    </div>
+                    <div class="clock-huge" id="liveLocalClock">--:--:--</div>
+                    <div class="date-prominent" id="liveLocalDate">Lade Datum...</div>
                 </div>
-                <div class="output" id="currentDateTime">Lade...</div>
-            </div>
+                
+                <!-- 5 ZYKLUS-FORTSCHRITTE -->
+                <div class="cycles-container">
+                    <div class="cycle-row">
+                        <div class="cycle-header"><span>Stunde (0–60 Min)</span><strong id="progHour">0.000%</strong></div>
+                        <div class="cycle-track"><div class="cycle-fill" id="fillHour"></div></div>
+                    </div>
+                    <div class="cycle-row">
+                        <div class="cycle-header"><span>Tag (0–24 Std)</span><strong id="progDay">0.000%</strong></div>
+                        <div class="cycle-track"><div class="cycle-fill" id="fillDay"></div></div>
+                    </div>
+                    <div class="cycle-row">
+                        <div class="cycle-header"><span>Woche (Mo–So)</span><strong id="progWeek">0.000%</strong></div>
+                        <div class="cycle-track"><div class="cycle-fill" id="fillWeek"></div></div>
+                    </div>
+                    <div class="cycle-row">
+                        <div class="cycle-header"><span id="lblMonthProg">Monat</span><strong id="progMonth">0.000%</strong></div>
+                        <div class="cycle-track"><div class="cycle-fill" id="fillMonth"></div></div>
+                    </div>
+                    <div class="cycle-row">
+                        <div class="cycle-header"><span>Jahr</span><strong id="progYear">0.000%</strong></div>
+                        <div class="cycle-track"><div class="cycle-fill" id="fillYear"></div></div>
+                    </div>
+                </div>
+            </article>
 
-            <!-- Seit 1949 -->
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-icon">🇨🇳</span>
-                    <h2>Seit dem 01.10.1949 (15:00 UTC+8)</h2>
+            <!-- EWIGE UHR 1: 1949 (PRC DEKLARATION) -->
+            <article class="hero-card clock-1949">
+                <div class="card-tag">
+                    <span>Ewiger Chronometer I</span>
+                    <span style="color: #ff4d4d;">01.10.1949 15:00 UTC+8</span>
                 </div>
-                <div class="output" id="since1949">Lade...</div>
-            </div>
+                <div style="font-size: 0.82rem; color: var(--text-muted);">
+                    Verstrichen seit Gründung der VR China (07:00:00 UTC):
+                </div>
+                <div class="interval-counter" id="output1949">
+                    Initialisiere Takt...
+                </div>
+            </article>
 
-            <!-- Seit 04.10.2022 -->
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-icon">📅</span>
-                    <h2>Seit dem 04.10.2022 (20:00 UTC+1)</h2>
+            <!-- EWIGE UHR 2: 2022 (OVERWATCH 2 LAUNCH - 20:00 UTC+2) -->
+            <article class="hero-card clock-2022">
+                <div class="card-tag">
+                    <span>Ewiger Chronometer II</span>
+                    <span style="color: var(--purple-core);">04.10.2022 20:00 UTC+2</span>
                 </div>
-                <div class="output" id="since2022">Lade...</div>
-            </div>
+                <div style="font-size: 0.82rem; color: var(--text-muted);">
+                    Verstrichen seit Epoch-Event (18:00:00 UTC):
+                </div>
+                <div class="interval-counter" id="output2022">
+                    Initialisiere Takt...
+                </div>
+            </article>
+        </section>
 
-            <!-- Seit ausgewähltem Datum (mit v. Chr. Unterstützung) -->
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-icon">🎯</span>
-                    <h2>Seit / Bis zu Wunschdatum</h2>
-                </div>
-                <div class="input-group">
-                    <div class="date-era-group">
-                        <div class="date-input-wrapper">
-                            <label style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; text-transform: uppercase;">Datum & Uhrzeit</label>
-                            <input type="datetime-local" id="selectedDate" />
+        <!-- BENTO ARBEITSBEREICH -->
+        <main class="bento-grid">
+            
+            <!-- 1. WUNSCHDATUM (SEIT / BIS) -->
+            <section class="bento-card" aria-labelledby="custom-date-title">
+                <div>
+                    <div class="card-head">
+                        <div class="card-head-icon" aria-hidden="true">🎯</div>
+                        <h2 id="custom-date-title">Wunschdatum: Seit / Bis zu</h2>
+                    </div>
+                    <div class="form-cluster" style="margin-top: 14px;">
+                        <div class="input-row-grid">
+                            <div class="field-group">
+                                <label for="selectedDate">Lokales Datum &amp; Uhrzeit</label>
+                                <input type="datetime-local" id="selectedDate" />
+                            </div>
+                            <div class="field-group" style="width: 120px;">
+                                <label for="selectedDateEra">Ära</label>
+                                <select id="selectedDateEra">
+                                    <option value="AD" selected>n. Chr.</option>
+                                    <option value="BC">v. Chr.</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="era-select-wrapper">
-                            <label style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; text-transform: uppercase;">Zeitrechnung</label>
-                            <select id="selectedDateEra" class="era-select">
-                                <option value="AD">n. Chr.</option>
-                                <option value="BC">v. Chr.</option>
+                        <button type="button" class="action-btn cyan-btn" id="btnStartSelected">Live-Berechnung Starten</button>
+                    </div>
+                </div>
+                <div class="output-deck">
+                    <button class="copy-trigger" onclick="copySnippet('sinceSelectedDate')">Kopieren</button>
+                    <div id="sinceSelectedDate">Wähle Datum und starte Berechnung.</div>
+                </div>
+            </section>
+
+            <!-- 2. INTERVALL ZWISCHEN ZWEI ZEITPUNKTEN -->
+            <section class="bento-card" aria-labelledby="between-dates-title">
+                <div>
+                    <div class="card-head">
+                        <div class="card-head-icon" aria-hidden="true">⚡</div>
+                        <h2 id="between-dates-title">Intervall zwischen zwei Daten</h2>
+                    </div>
+                    <div class="form-cluster" style="margin-top: 14px;">
+                        <div class="input-row-grid">
+                            <div class="field-group">
+                                <label for="startRangeDate">Startpunkt</label>
+                                <input type="datetime-local" id="startRangeDate" />
+                            </div>
+                            <div class="field-group" style="width: 120px;">
+                                <label for="startRangeEra">Ära</label>
+                                <select id="startRangeEra">
+                                    <option value="AD" selected>n. Chr.</option>
+                                    <option value="BC">v. Chr.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-row-grid">
+                            <div class="field-group">
+                                <label for="endRangeDate">Endpunkt</label>
+                                <input type="datetime-local" id="endRangeDate" />
+                            </div>
+                            <div class="field-group" style="width: 120px;">
+                                <label for="endRangeEra">Ära</label>
+                                <select id="endRangeEra">
+                                    <option value="AD" selected>n. Chr.</option>
+                                    <option value="BC">v. Chr.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="action-btn" id="btnCalcBetween">Differenz Berechnen</button>
+                    </div>
+                </div>
+                <div class="output-deck">
+                    <button class="copy-trigger" onclick="copySnippet('betweenDatesOutput')">Kopieren</button>
+                    <div id="betweenDatesOutput">Bestimme Start- und Endzeitpunkt.</div>
+                </div>
+            </section>
+
+            <!-- 3. NEUES 4-DATEN PROZENTUALES ZEITSYSTEM -->
+            <section class="bento-card" style="grid-column: 1 / -1;" aria-labelledby="rel-percent-title">
+                <div>
+                    <div class="card-head">
+                        <div class="card-head-icon" aria-hidden="true">📊</div>
+                        <h2 id="rel-percent-title">Prozentuale Zeitanteile: Referenz- vs. Teilintervall</h2>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 14px;">
+                        
+                        <!-- Referenzrahmen (100%) -->
+                        <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--cyan-glow); text-transform: uppercase;">1. Gesamtes Referenzsystem (100 %)</span>
+                            <div class="field-group" style="margin-top: 8px;">
+                                <label for="refStart">Referenz Start</label>
+                                <input type="datetime-local" id="refStart" />
+                            </div>
+                            <div class="field-group" style="margin-top: 8px;">
+                                <label for="refEnd">Referenz Ende</label>
+                                <input type="datetime-local" id="refEnd" />
+                            </div>
+                        </div>
+
+                        <!-- Zu messendes Teilintervall -->
+                        <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--purple-core); text-transform: uppercase;">2. Zu analysierendes Intervall</span>
+                            <div class="field-group" style="margin-top: 8px;">
+                                <label for="subStart">Intervall Start</label>
+                                <input type="datetime-local" id="subStart" />
+                            </div>
+                            <div class="field-group" style="margin-top: 8px;">
+                                <label for="subEnd">Intervall Ende</label>
+                                <input type="datetime-local" id="subEnd" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <button type="button" class="action-btn cyan-btn" id="btnCalcRelPercent" style="margin-top: 14px;">Relativen Anteil Berechnen (3 Dezimalen)</button>
+                </div>
+                <div class="output-deck" id="relPercentOutput">
+                    <span style="color: var(--text-muted);">Definiere beide Zeiträume, um den exakten Anteil des Sub-Intervalls am Referenzrahmen ohne Dimensionsverzerrung zu analysieren.</span>
+                </div>
+            </section>
+
+            <!-- 4. DATUM SICHER VERSCHIEBEN (VOLLSTÄNDIG REPARIERT) -->
+            <section class="bento-card" aria-labelledby="shift-title">
+                <div>
+                    <div class="card-head">
+                        <div class="card-head-icon" aria-hidden="true">🔮</div>
+                        <h2 id="shift-title">Datum sicher verschieben</h2>
+                    </div>
+                    <div class="form-cluster" style="margin-top: 14px;">
+                        <div class="field-group">
+                            <label for="shiftBaseDate">Ausgangsdatum (leer = Jetzt)</label>
+                            <input type="datetime-local" id="shiftBaseDate" />
+                        </div>
+                        <div class="shift-inputs-grid">
+                            <div class="field-group"><label for="sYears">Jahre</label><input type="number" id="sYears" placeholder="0" class="shift-dyn" /></div>
+                            <div class="field-group"><label for="sMonths">Monate</label><input type="number" id="sMonths" placeholder="0" class="shift-dyn" /></div>
+                            <div class="field-group"><label for="sWeeks">Wochen</label><input type="number" id="sWeeks" placeholder="0" class="shift-dyn" /></div>
+                            <div class="field-group"><label for="sDays">Tage</label><input type="number" id="sDays" placeholder="0" class="shift-dyn" /></div>
+                            <div class="field-group"><label for="sHours">Std</label><input type="number" id="sHours" placeholder="0" class="shift-dyn" /></div>
+                            <div class="field-group"><label for="sMin">Min</label><input type="number" id="sMin" placeholder="0" class="shift-dyn" /></div>
+                            <div class="field-group"><label for="sSec">Sek</label><input type="number" id="sSec" placeholder="0" class="shift-dyn" /></div>
+                        </div>
+                        <button type="button" class="action-btn" id="btnShiftDate">Verschiebung Berechnen</button>
+                    </div>
+                </div>
+                <div class="output-deck">
+                    <button class="copy-trigger" onclick="copySnippet('shiftResultOutput')">Kopieren</button>
+                    <div id="shiftResultOutput">Ergebnisdatum erscheint hier.</div>
+                </div>
+            </section>
+
+            <!-- 5. UNIVERSELLE EPOCHEN-CHRONOLOGIE & KALENDER-SYNCHRONISATION -->
+            <section class="bento-card" aria-labelledby="chrono-sync-title">
+                <div>
+                    <div class="card-head">
+                        <div class="card-head-icon" aria-hidden="true">🏛️</div>
+                        <h2 id="chrono-sync-title">Epochen-Chronologie &amp; Kalenderwechsel</h2>
+                    </div>
+                    <div class="form-cluster" style="margin-top: 14px;">
+                        <div class="field-group">
+                            <label for="chronInputSystem">Eingegebenes Datum ist im...</label>
+                            <select id="chronInputSystem">
+                                <option value="GREG" selected>Gregorianischen Kalender</option>
+                                <option value="JUL">Julianischen Kalender</option>
                             </select>
                         </div>
+                        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 8px;">
+                            <div class="field-group">
+                                <label for="chronYear">Jahr</label>
+                                <input type="number" id="chronYear" value="1582" />
+                            </div>
+                            <div class="field-group">
+                                <label for="chronMonth">Monat</label>
+                                <input type="number" id="chronMonth" min="1" max="12" value="10" />
+                            </div>
+                            <div class="field-group">
+                                <label for="chronDay">Tag</label>
+                                <input type="number" id="chronDay" min="1" max="31" value="15" />
+                            </div>
+                            <div class="field-group" style="width: 100px;">
+                                <label for="chronEra">Ära</label>
+                                <select id="chronEra">
+                                    <option value="AD" selected>n. Chr.</option>
+                                    <option value="BC">v. Chr.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="action-btn cyan-btn" id="btnCalcChrono">Chronologie Analysieren</button>
                     </div>
                 </div>
-                <button id="btnSelectedDate">Berechnen starten</button>
-                <div class="output" id="sinceSelectedDate">Bitte Datum wählen und starten.</div>
-            </div>
-
-            <!-- Zeit zwischen zwei Daten (mit v. Chr. Unterstützung) -->
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-icon">⚡</span>
-                    <h2>Zeit zwischen zwei Daten</h2>
+                <div class="output-deck" id="chronoResultOutput">
+                    <span style="color: var(--text-muted);">Ermittelt für jedes historische Datum (auch v. Chr.) den kontinuierlichen Wochentag, beide Kalenderäquivalente, den Tagesversatz und die Julianische Tageszahl.</span>
                 </div>
-                <div class="input-group">
-                    <div class="date-era-group">
-                        <div class="date-input-wrapper">
-                            <label style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; text-transform: uppercase;">Startdatum</label>
-                            <input type="datetime-local" id="startDate" />
-                        </div>
-                        <div class="era-select-wrapper">
-                            <label style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; text-transform: uppercase;">Ära</label>
-                            <select id="startDateEra" class="era-select">
-                                <option value="AD">n. Chr.</option>
-                                <option value="BC">v. Chr.</option>
+            </section>
+
+            <!-- 6. KOMPRIMIERTER DEZIMALZEIT-RECHNER -->
+            <section class="bento-card" aria-labelledby="comp-dec-title">
+                <div>
+                    <div class="card-head">
+                        <div class="card-head-icon" aria-hidden="true">🔢</div>
+                        <h2 id="comp-dec-title">Französische Dezimalzeit (10h)</h2>
+                    </div>
+                    <div class="form-cluster" style="margin-top: 14px;">
+                        <div class="field-group">
+                            <label for="decConvMode">Konvertierungsmodus</label>
+                            <select id="decConvMode">
+                                <option value="NtoD">Normalzeit (24h) → Dezimalzeit (10h)</option>
+                                <option value="DtoN">Dezimalzeit (10h) → Normalzeit (24h)</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="date-era-group">
-                        <div class="date-input-wrapper">
-                            <label style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; text-transform: uppercase;">Enddatum</label>
-                            <input type="datetime-local" id="endDate" />
+                        <div class="compact-pair-grid">
+                            <div class="field-group">
+                                <label id="lblDecIn">Eingabe (HH:MM:SS)</label>
+                                <input type="text" id="decTimeInput" placeholder="12:00:00" value="12:00:00" />
+                            </div>
+                            <span style="font-size: 1.4rem; color: var(--cyan-glow); margin-top: 16px;">⇄</span>
+                            <div class="field-group">
+                                <label id="lblDecOut">Ausgabe</label>
+                                <input type="text" id="decTimeResult" readonly placeholder="5:00:00" style="color: var(--cyan-glow); font-weight: 700;" />
+                            </div>
                         </div>
-                        <div class="era-select-wrapper">
-                            <label style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; text-transform: uppercase;">Ära</label>
-                            <select id="endDateEra" class="era-select">
-                                <option value="AD">n. Chr.</option>
-                                <option value="BC">v. Chr.</option>
+                        <button type="button" class="action-btn" id="btnRunDecConv">Zeit Konvertieren</button>
+                    </div>
+                </div>
+                <div class="output-deck" style="font-size: 0.75rem;">
+                    <span>1 Dezimaltag = 10 Dezimalstunden = 1.000 Dezimalminuten = 100.000 Dezimalsekunden</span>
+                </div>
+            </section>
+
+            <!-- 7. ASTRONOMISCHER JULIANISCHES DATUM (JD / MJD) KONVERTER (NEU) -->
+            <section class="bento-card" aria-labelledby="comp-jd-title">
+                <div>
+                    <div class="card-head">
+                        <div class="card-head-icon" aria-hidden="true">🌌</div>
+                        <h2 id="comp-jd-title">Julianisches Datum Konverter (JD / MJD)</h2>
+                    </div>
+                    <div class="form-cluster" style="margin-top: 14px;">
+                        <div class="field-group">
+                            <label for="jdConvMode">Richtung</label>
+                            <select id="jdConvMode">
+                                <option value="dateToJd">Datum &amp; Zeit → Julianisches Datum (JD)</option>
+                                <option value="jdToDate">Julianisches Datum (JD) → Datum &amp; Zeit</option>
                             </select>
                         </div>
+                        <div id="jdDateInputWrap" class="field-group">
+                            <label for="jdInputDate">Datum &amp; Uhrzeit</label>
+                            <input type="datetime-local" id="jdInputDate" />
+                        </div>
+                        <div id="jdValInputWrap" class="field-group" style="display: none;">
+                            <label for="jdInputNumber">Julianische Tageszahl (JD)</label>
+                            <input type="number" step="0.00001" id="jdInputNumber" placeholder="2460000.5" />
+                        </div>
+                        <button type="button" class="action-btn cyan-btn" id="btnRunJdConv">JD Konvertieren</button>
                     </div>
                 </div>
-                <button id="btnBetweenDates">Berechnen</button>
-                <div class="output" id="betweenDates">Wähle zwei Zeitpunkte.</div>
-            </div>
+                <div class="output-deck" id="jdConvertResult">
+                    <span style="color: var(--text-muted);">Berechnet die kontinuierliche astronomische Tageszählung seit 1. Januar 4713 v. Chr. 12:00 UTC.</span>
+                </div>
+            </section>
 
-            <!-- Prozentualer Anteil (mit v. Chr. Unterstützung) -->
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-icon">📊</span>
-                    <h2>Prozentualer Anteil</h2>
-                </div>
-                <div class="input-group">
-                    <div class="date-era-group">
-                        <div class="date-input-wrapper">
-                            <label style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; text-transform: uppercase;">Startdatum</label>
-                            <input type="datetime-local" id="percentStartDate" />
-                        </div>
-                        <div class="era-select-wrapper">
-                            <label style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; text-transform: uppercase;">Ära</label>
-                            <select id="percentStartDateEra" class="era-select">
-                                <option value="AD">n. Chr.</option>
-                                <option value="BC">v. Chr.</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="date-era-group">
-                        <div class="date-input-wrapper">
-                            <label style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; text-transform: uppercase;">Enddatum</label>
-                            <input type="datetime-local" id="percentEndDate" />
-                        </div>
-                        <div class="era-select-wrapper">
-                            <label style="font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; font-weight: 600; text-transform: uppercase;">Ära</label>
-                            <select id="percentEndDateEra" class="era-select">
-                                <option value="AD">n. Chr.</option>
-                                <option value="BC">v. Chr.</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <button id="btnPercentDates">Berechnen</button>
-                <div class="output" id="percentBetweenDates">Berechnet Anteile an Zeitstrukturen.</div>
-            </div>
-
-            <!-- Datum verschieben -->
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-icon">🔮</span>
-                    <h2>Datum vor / in...</h2>
-                </div>
-                <div class="input-group">
-                    <input type="datetime-local" id="baseDate" />
-                    <div class="grid-inputs">
-                        <div class="input-subgroup"><label>Jahre</label><input type="number" id="yearsValue" placeholder="0" /></div>
-                        <div class="input-subgroup"><label>Monate</label><input type="number" id="monthsValue" placeholder="0" /></div>
-                        <div class="input-subgroup"><label>Wochen</label><input type="number" id="weeksValue" placeholder="0" /></div>
-                        <div class="input-subgroup"><label>Tage</label><input type="number" id="daysValue" placeholder="0" /></div>
-                        <div class="input-subgroup"><label>Stunden</label><input type="number" id="hoursValue" placeholder="0" /></div>
-                        <div class="input-subgroup"><label>Min.</label><input type="number" id="minutesValue" placeholder="0" /></div>
-                        <div class="input-subgroup"><label>Sek.</label><input type="number" id="secondsValue" placeholder="0" /></div>
-                    </div>
-                </div>
-                <button id="btnRelativeDate">Datum berechnen</button>
-                <div class="output" id="relativeDate">Gib Modifikatoren ein.</div>
-            </div>
-
-            <!-- Dezimalzeit Konverter -->
-            <div class="card converter-card full-width">
-                <div class="card-header">
-                    <span class="card-icon">🔢</span>
-                    <h2>Dezimalzeit ↔ Normalzeit Konverter</h2>
-                </div>
-                <div class="info-text">Dezimalzeit: 1 Tag = 10 Stunden à 100 Minuten à 100 Sekunden</div>
-                <div class="converter-section">
-                    <!-- Normal zu Dezimal -->
-                    <div class="converter-group">
-                        <h3>Normalzeit (24h) → Dezimalzeit (10h)</h3>
-                        <div class="converter-inputs">
-                            <div class="input-subgroup">
-                                <label>Stunden (0-23)</label>
-                                <input type="number" id="normalHours" placeholder="0" min="0" max="23" />
-                            </div>
-                            <div class="input-subgroup">
-                                <label>Minuten (0-59)</label>
-                                <input type="number" id="normalMinutes" placeholder="0" min="0" max="59" />
-                            </div>
-                            <div class="input-subgroup">
-                                <label>Sekunden (0-59)</label>
-                                <input type="number" id="normalSeconds" placeholder="0" min="0" max="59" />
-                            </div>
-                            <span class="converter-arrow">→</span>
-                            <div class="input-subgroup" style="flex: 2;">
-                                <label>Dezimalzeit</label>
-                                <input type="text" id="decimalTimeResult" readonly placeholder="0:00:00" />
-                            </div>
-                        </div>
-                        <button id="btnNormalToDecimal" class="secondary" style="margin-top: 12px;">Konvertieren</button>
-                    </div>
-
-                    <!-- Dezimal zu Normal -->
-                    <div class="converter-group">
-                        <h3>Dezimalzeit (10h) → Normalzeit (24h)</h3>
-                        <div class="converter-inputs">
-                            <div class="input-subgroup">
-                                <label>Std (0-9)</label>
-                                <input type="number" id="decimalHours" placeholder="0" min="0" max="9" />
-                            </div>
-                            <div class="input-subgroup">
-                                <label>Min (0-99)</label>
-                                <input type="number" id="decimalMinutes" placeholder="0" min="0" max="99" />
-                            </div>
-                            <div class="input-subgroup">
-                                <label>Sek (0-99)</label>
-                                <input type="number" id="decimalSeconds" placeholder="0" min="0" max="99" />
-                            </div>
-                            <span class="converter-arrow">→</span>
-                            <div class="input-subgroup" style="flex: 2;">
-                                <label>Normalzeit</label>
-                                <input type="text" id="normalTimeResult" readonly placeholder="0:00:00" />
-                            </div>
-                        </div>
-                        <button id="btnDecimalToNormal" class="secondary" style="margin-top: 12px;">Konvertieren</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </main>
 
         <footer>
-            Chronos Nexus v5.0 &bull; Liquid Glass Edition &bull; Zeit jenseits der Grenzen
+            CHRONOS NEXUS v9.0 // TEMPORALE HYPER-PRÄZISION // SYSTEMZEIT-BASIERTE EPOS-ENGINE
         </footer>
     </div>
 
     <script>
-        let selectedDateInterval;
+        /**
+         * 1. HILFSFUNKTIONEN FÜR SYSTEMZEIT & FORMATIERUNG
+         */
+        function getLocalIsoString(date = new Date()) {
+            const pad = (n) => String(n).padStart(2, '0');
+            const y = date.getFullYear();
+            const m = pad(date.getMonth() + 1);
+            const d = pad(date.getDate());
+            const h = pad(date.getHours());
+            const min = pad(date.getMinutes());
+            return `${y}-${m}-${d}T${h}:${min}`;
+        }
 
-        // Tausendertrennzeichen (Punkte)
         function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            return Math.floor(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
         }
 
-        // Konvertiert ein Datum mit Ära in ein JavaScript Date-Objekt
-        function createHistoricalDate(dateString, era) {
-            if (!dateString) return null;
-            
-            const [datePart, timePart] = dateString.split('T');
-            const [year, month, day] = datePart.split('-').map(Number);
-            const [hours, minutes] = timePart ? timePart.split(':').map(Number) : [0, 0];
-            
-            // Erstelle ein Date-Objekt
-            let date;
+        window.copySnippet = function(elementId) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            navigator.clipboard.writeText(el.innerText).then(() => {
+                const btn = el.parentElement.querySelector('.copy-trigger');
+                if (btn) {
+                    const original = btn.textContent;
+                    btn.textContent = 'Kopiert!';
+                    btn.style.background = 'var(--emerald-sync)';
+                    btn.style.color = '#000';
+                    setTimeout(() => {
+                        btn.textContent = original;
+                        btn.style.background = '';
+                        btn.style.color = '';
+                    }, 1500);
+                }
+            });
+        };
+
+        /**
+         * 2. DATUMSVERARBEITUNG OHNE 1900-BUG
+         */
+        function makeSafeLocalDate(year, monthIndex, day, hours = 0, minutes = 0, seconds = 0) {
+            const d = new Date();
+            d.setFullYear(year, monthIndex, day);
+            d.setHours(hours, minutes, seconds, 0);
+            return d;
+        }
+
+        function parseLocalEraDate(isoString, era) {
+            if (!isoString) return null;
+            const [datePart, timePart] = isoString.split('T');
+            const [rawY, m, d] = datePart.split('-').map(Number);
+            const [h, min] = timePart ? timePart.split(':').map(Number) : [0, 0];
+
+            let year = rawY;
             if (era === 'BC') {
-                // Für v. Chr.: Negatives Jahr verwenden
-                // JavaScript Date kann mit Jahr 0 und negativen Jahren umgehen
-                // Jahr 1 v. Chr. = Jahr 0 in JS
-                // Jahr 2 v. Chr. = Jahr -1 in JS, etc.
-                const jsYear = -(year - 1);
-                date = new Date(jsYear, month - 1, day, hours || 0, minutes || 0);
-            } else {
-                date = new Date(year, month - 1, day, hours || 0, minutes || 0);
+                year = -(rawY - 1);
             }
-            
-            return date;
+            return makeSafeLocalDate(year, m - 1, d, h, min, 0);
         }
 
-        // Formatiert ein historisches Datum für die Anzeige
-        function formatHistoricalDate(date) {
-            const year = date.getFullYear();
-            let displayYear;
-            let era;
-            
-            if (year <= 0) {
-                // v. Chr. Darstellung
-                displayYear = Math.abs(year - 1); // JS Jahr 0 = 1 v. Chr.
-                era = 'v. Chr.';
-            } else {
-                displayYear = year;
-                era = 'n. Chr.';
+        /**
+         * 3. EXAKTE KALENDERDIFFERENZEN
+         */
+        function computeDateDiff(d1, d2) {
+            const isNegative = d2.getTime() < d1.getTime();
+            let start = new Date(Math.min(d1.getTime(), d2.getTime()));
+            const end = new Date(Math.max(d1.getTime(), d2.getTime()));
+
+            let years = 0, months = 0, days = 0;
+
+            while (true) {
+                const nextY = new Date(start.getTime());
+                nextY.setFullYear(nextY.getFullYear() + 1);
+                if (nextY <= end) { years++; start = nextY; } else break;
             }
-            
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
-            
-            return `${displayYear}.${month}.${day} ${hours}:${minutes} ${era}`;
+            while (true) {
+                const nextM = new Date(start.getTime());
+                nextM.setMonth(nextM.getMonth() + 1);
+                if (nextM <= end) { months++; start = nextM; } else break;
+            }
+            while (true) {
+                const nextD = new Date(start.getTime());
+                nextD.setDate(nextD.getDate() + 1);
+                if (nextD <= end) { days++; start = nextD; } else break;
+            }
+
+            const remMs = end.getTime() - start.getTime();
+            const hours = Math.floor(remMs / 3600000);
+            const minutes = Math.floor((remMs % 3600000) / 60000);
+            const seconds = Math.floor((remMs % 60000) / 1000);
+            const totalSec = Math.floor(Math.abs(d2.getTime() - d1.getTime()) / 1000);
+
+            return { isNegative, totalSec, years, months, days, hours, minutes, seconds };
         }
 
-        // Detaillierte Ausgabe für Zeitberechnungen
-        function renderDetailedOutput(diffSeconds, isNegative, startDate, endDate) {
-            const prefix = isNegative ? '-' : '';
-            const absSecs = Math.abs(diffSeconds);
-
-            let years = 0, months = 0, days = 0, hours = 0, minutes = 0, secs = 0;
-
-            if (startDate && endDate) {
-                let d1 = new Date(startDate);
-                let d2 = new Date(endDate);
-
-                years = d2.getFullYear() - d1.getFullYear();
-                months = d2.getMonth() - d1.getMonth();
-                days = d2.getDate() - d1.getDate();
-                hours = d2.getHours() - d1.getHours();
-                minutes = d2.getMinutes() - d1.getMinutes();
-                secs = d2.getSeconds() - d1.getSeconds();
-
-                // Unterläufe korrigieren
-                if (secs < 0) { secs += 60; minutes--; }
-                if (minutes < 0) { minutes += 60; hours--; }
-                if (hours < 0) { hours += 24; days--; }
-                if (days < 0) {
-                    const prevMonth = new Date(d2.getFullYear(), d2.getMonth(), 0);
-                    days += prevMonth.getDate();
-                    months--;
-                }
-                if (months < 0) {
-                    months += 12;
-                    years--;
-                }
-                // Korrektur für negative Jahre (v. Chr.)
-                if (years < 0) {
-                    years = Math.abs(years);
-                }
-            }
-
+        function buildDiffMarkup(diff) {
+            const prefix = diff.isNegative ? '- ' : '';
             return `
-                <p><span>Sekunden:</span> <span>${prefix}${formatNumber(absSecs)}</span></p>
-                <p><span>Minuten:</span> <span>${prefix}${formatNumber(Math.floor(absSecs / 60))}</span></p>
-                <p><span>Stunden:</span> <span>${prefix}${formatNumber(Math.floor(absSecs / 3600))}</span></p>
-                <p><span>Tage:</span> <span>${prefix}${formatNumber(Math.floor(absSecs / 86400))}</span></p>
-                <p><span>Wochen:</span> <span>${prefix}${formatNumber(Math.floor(absSecs / 604800))}</span></p>
-                <p><span>Monate:</span> <span>${prefix}${formatNumber(Math.floor(absSecs / 2629800))}</span></p>
-                <p><span>Zusammenfassung:</span> <span>${prefix}${years}J ${months}M ${days}T ${hours}Std ${minutes}Min ${secs}Sek</span></p>
+                <div class="counter-row"><span>Sekunden:</span> <span>${prefix}${formatNumber(diff.totalSec)}</span></div>
+                <div class="counter-row"><span>Minuten:</span> <span>${prefix}${formatNumber(diff.totalSec / 60)}</span></div>
+                <div class="counter-row"><span>Stunden:</span> <span>${prefix}${formatNumber(diff.totalSec / 3600)}</span></div>
+                <div class="counter-row"><span>Tage:</span> <span>${prefix}${formatNumber(diff.totalSec / 86400)}</span></div>
+                <div class="counter-row"><span>Wochen:</span> <span>${prefix}${formatNumber(diff.totalSec / 604800)}</span></div>
+                <div class="counter-row">
+                    <span>Zusammenfassung:</span>
+                    <span>${prefix}${diff.years}J ${diff.months}M ${diff.days}T ${diff.hours}h ${diff.minutes}m ${diff.seconds}s</span>
+                </div>
             `;
         }
 
-        // 1. Aktuelle Uhrzeit
-        function updateCurrentDateTime() {
+        /**
+         * 4. ASTRONOMISCHE JULIANISCHE TAGESZAHL & EPOCHEN-ALGORITHMEN
+         */
+        function gregorianToJdn(year, month, day) {
+            let y = year, m = month;
+            if (m <= 2) { y -= 1; m += 12; }
+            const a = Math.floor(y / 100);
+            const b = 2 - a + Math.floor(a / 4);
+            return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
+        }
+
+        function julianToJdn(year, month, day) {
+            let y = year, m = month;
+            if (m <= 2) { y -= 1; m += 12; }
+            return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day - 1524;
+        }
+
+        function jdnToJulian(jdn) {
+            const j = jdn + 1402;
+            const k = Math.floor((j - 1) / 1461);
+            const l = j - 1461 * k;
+            const n = Math.floor((l - 1) / 365) - Math.floor(l / 1461);
+            const i = l - 365 * n + 30;
+            const m = Math.floor((80 * i) / 2447);
+            const day = i - Math.floor((2447 * m) / 80);
+            const i2 = Math.floor(m / 11);
+            const month = m + 2 - 12 * i2;
+            const year = 4 * k + n + i2 - 4716;
+            return { year, month, day };
+        }
+
+        function jdnToGregorian(jdn) {
+            const z = jdn;
+            const w = Math.floor((z - 1867216.25) / 36524.25);
+            const x = Math.floor(w / 4);
+            const a = z + 1 + w - x;
+            const b = a + 1524;
+            const c = Math.floor((b - 122.1) / 365.25);
+            const d = Math.floor(365.25 * c);
+            const e = Math.floor((b - d) / 30.6001);
+            const day = b - d - Math.floor(30.6001 * e);
+            const month = e < 14 ? e - 1 : e - 13;
+            const year = month > 2 ? c - 4716 : c - 4715;
+            return { year, month, day };
+        }
+
+        const WEEKDAYS_DE = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+        function getWeekdayFromJdn(jdn) {
+            const idx = Math.floor(jdn) % 7;
+            return WEEKDAYS_DE[idx];
+        }
+
+        // Exaktes JD aus Date-Objekt (inkl. Uhrzeit)
+        function dateToExactJd(d) {
+            return (d.getTime() / 86400000) + 2440587.5;
+        }
+
+        // Exaktes Date-Objekt aus JD
+        function exactJdToDate(jd) {
+            return new Date((jd - 2440587.5) * 86400000);
+        }
+
+        /**
+         * 5. MASTER HEARTBEAT (UHREN & 5-FACH ZYKLEN)
+         */
+        const epoch1949 = new Date(Date.UTC(1949, 9, 1, 7, 0, 0));
+        const epoch2022 = new Date(Date.UTC(2022, 9, 4, 18, 0, 0));
+        let userSelectedTarget = null;
+
+        function updateMasterTicker() {
             const now = new Date();
-            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('de-DE', {
-                weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit',
+
+            document.getElementById('liveLocalClock').textContent = now.toLocaleTimeString('de-DE', {
                 hour: '2-digit', minute: '2-digit', second: '2-digit'
             });
+            document.getElementById('liveLocalDate').textContent = now.toLocaleDateString('de-DE', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+
+            // 1. STUNDE
+            const msInHour = (now.getMinutes() * 60 + now.getSeconds()) * 1000 + now.getMilliseconds();
+            const pctHour = (msInHour / 3600000) * 100;
+            document.getElementById('progHour').textContent = pctHour.toFixed(3) + '%';
+            document.getElementById('fillHour').style.width = pctHour + '%';
+
+            // 2. TAG
+            const msInDay = (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()) * 1000 + now.getMilliseconds();
+            const pctDay = (msInDay / 86400000) * 100;
+            document.getElementById('progDay').textContent = pctDay.toFixed(3) + '%';
+            document.getElementById('fillDay').style.width = pctDay + '%';
+
+            // 3. WOCHE
+            const dayOfWeek = (now.getDay() + 6) % 7;
+            const msInWeek = dayOfWeek * 86400000 + msInDay;
+            const pctWeek = (msInWeek / (7 * 86400000)) * 100;
+            document.getElementById('progWeek').textContent = pctWeek.toFixed(3) + '%';
+            document.getElementById('fillWeek').style.width = pctWeek + '%';
+
+            // 4. MONAT
+            const currentYear = now.getFullYear();
+            const currentMonth = now.getMonth();
+            const startOfMonth = new Date(currentYear, currentMonth, 1, 0, 0, 0);
+            const endOfMonth = new Date(currentYear, currentMonth + 1, 1, 0, 0, 0);
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const pctMonth = ((now - startOfMonth) / (endOfMonth - startOfMonth)) * 100;
+            document.getElementById('lblMonthProg').textContent = `Monat (${daysInMonth} Tage)`;
+            document.getElementById('progMonth').textContent = pctMonth.toFixed(3) + '%';
+            document.getElementById('fillMonth').style.width = pctMonth + '%';
+
+            // 5. JAHR
+            const startOfYear = new Date(currentYear, 0, 1, 0, 0, 0);
+            const endOfYear = new Date(currentYear + 1, 0, 1, 0, 0, 0);
+            const pctYear = ((now - startOfYear) / (endOfYear - startOfYear)) * 100;
+            document.getElementById('progYear').textContent = pctYear.toFixed(3) + '%';
+            document.getElementById('fillYear').style.width = pctYear + '%';
+
+            // Ewige Uhren
+            const diff1949 = computeDateDiff(epoch1949, now);
+            document.getElementById('output1949').innerHTML = buildDiffMarkup(diff1949);
+
+            const diff2022 = computeDateDiff(epoch2022, now);
+            document.getElementById('output2022').innerHTML = buildDiffMarkup(diff2022);
+
+            // Wunschdatum
+            if (userSelectedTarget) {
+                const diffSelected = computeDateDiff(userSelectedTarget, now);
+                document.getElementById('sinceSelectedDate').innerHTML = buildDiffMarkup(diffSelected);
+            }
         }
 
-        // 2. Seit 1949
-        function calculateSince1949() {
-            const start = new Date('1949-10-01T07:00:00Z'); // 15:00 UTC+8 = 07:00 UTC
-            const now = new Date();
-            const diffSeconds = Math.floor((now - start) / 1000);
-            document.getElementById('since1949').innerHTML = renderDetailedOutput(diffSeconds, false, start, now);
-        }
+        /**
+         * 6. EVENT-LISTENER & BERECHNUNGEN
+         */
 
-        // 3. Seit 04.10.2022 (20:00 UTC+1)
-        function calculateSince2022() {
-            const start = new Date('2022-10-04T19:00:00Z'); // 20:00 UTC+1 = 19:00 UTC
-            const now = new Date();
-            const diffSeconds = Math.floor((now - start) / 1000);
-            document.getElementById('since2022').innerHTML = renderDetailedOutput(diffSeconds, false, start, now);
-        }
-
-        // 4. Seit ausgewähltem Datum (mit v. Chr. Unterstützung)
-        function calculateSinceSelectedDate() {
-            const inputVal = document.getElementById('selectedDate').value;
-            if (!inputVal) return;
-
+        // Wunschdatum starten
+        document.getElementById('btnStartSelected').addEventListener('click', () => {
+            const val = document.getElementById('selectedDate').value;
+            if (!val) {
+                alert('Bitte ein gültiges Datum wählen.');
+                return;
+            }
             const era = document.getElementById('selectedDateEra').value;
-            const selectedDate = createHistoricalDate(inputVal, era);
-            if (!selectedDate) return;
-            
-            const now = new Date();
-            const diffSeconds = Math.floor((now - selectedDate) / 1000);
-            const isNegative = diffSeconds < 0;
+            userSelectedTarget = parseLocalEraDate(val, era);
+            updateMasterTicker();
+        });
 
-            document.getElementById('sinceSelectedDate').innerHTML = renderDetailedOutput(
-                diffSeconds, 
-                isNegative, 
-                isNegative ? now : selectedDate, 
-                isNegative ? selectedDate : now
-            );
-        }
-
-        function startSelectedDateInterval() {
-            const inputVal = document.getElementById('selectedDate').value;
-            if (!inputVal) {
-                alert('Bitte ein Datum auswählen!');
+        // Intervall zwischen zwei Daten
+        document.getElementById('btnCalcBetween').addEventListener('click', () => {
+            const sVal = document.getElementById('startRangeDate').value;
+            const eVal = document.getElementById('endRangeDate').value;
+            if (!sVal || !eVal) {
+                alert('Bitte Start- und Endzeitpunkt angeben.');
                 return;
             }
-            clearInterval(selectedDateInterval);
-            calculateSinceSelectedDate();
-            selectedDateInterval = setInterval(calculateSinceSelectedDate, 1000);
-        }
+            const d1 = parseLocalEraDate(sVal, document.getElementById('startRangeEra').value);
+            const d2 = parseLocalEraDate(eVal, document.getElementById('endRangeEra').value);
+            const diff = computeDateDiff(d1, d2);
+            document.getElementById('betweenDatesOutput').innerHTML = buildDiffMarkup(diff);
+        });
 
-        // 5. Zwischen zwei Daten (mit v. Chr. Unterstützung)
-        function calculateBetweenDates() {
-            const startVal = document.getElementById('startDate').value;
-            const endVal = document.getElementById('endDate').value;
-            if (!startVal || !endVal) {
-                alert('Bitte beide Daten auswählen!');
+        // 4-PUNKTE PROZENTUALES ZEITSYSTEM
+        document.getElementById('btnCalcRelPercent').addEventListener('click', () => {
+            const rS = document.getElementById('refStart').value;
+            const rE = document.getElementById('refEnd').value;
+            const sS = document.getElementById('subStart').value;
+            const sE = document.getElementById('subEnd').value;
+
+            if (!rS || !rE || !sS || !sE) {
+                alert('Bitte alle 4 Daten angeben.');
                 return;
             }
 
-            const startEra = document.getElementById('startDateEra').value;
-            const endEra = document.getElementById('endDateEra').value;
-            
-            const startDate = createHistoricalDate(startVal, startEra);
-            const endDate = createHistoricalDate(endVal, endEra);
-            
-            if (!startDate || !endDate) {
-                alert('Fehler bei der Datumserstellung!');
-                return;
-            }
-            
-            const diffSeconds = Math.floor((endDate - startDate) / 1000);
-            const isNegative = diffSeconds < 0;
+            const tRefStart = new Date(rS).getTime();
+            const tRefEnd = new Date(rE).getTime();
+            const tSubStart = new Date(sS).getTime();
+            const tSubEnd = new Date(sE).getTime();
 
-            document.getElementById('betweenDates').innerHTML = renderDetailedOutput(
-                diffSeconds, 
-                isNegative, 
-                isNegative ? endDate : startDate, 
-                isNegative ? startDate : endDate
-            );
-        }
+            const refDurationMs = Math.abs(tRefEnd - tRefStart);
+            const subDurationMs = Math.abs(tSubEnd - tSubStart);
 
-        // 6. Prozentualer Anteil (mit v. Chr. Unterstützung)
-        function calculatePercentBetweenDates() {
-            const startVal = document.getElementById('percentStartDate').value;
-            const endVal = document.getElementById('percentEndDate').value;
-            if (!startVal || !endVal) {
-                alert('Bitte beide Daten auswählen!');
+            if (refDurationMs === 0) {
+                alert('Die Referenz-Zeitspanne darf nicht 0 sein.');
                 return;
             }
 
-            const startEra = document.getElementById('percentStartDateEra').value;
-            const endEra = document.getElementById('percentEndDateEra').value;
-            
-            const startDate = createHistoricalDate(startVal, startEra);
-            const endDate = createHistoricalDate(endVal, endEra);
-            
-            if (!startDate || !endDate) {
-                alert('Fehler bei der Datumserstellung!');
-                return;
+            const percentage = (subDurationMs / refDurationMs) * 100;
+            const pctFormatted = percentage.toFixed(3);
+
+            const refDays = (refDurationMs / 86400000).toFixed(2);
+            const subDays = (subDurationMs / 86400000).toFixed(2);
+
+            const minRef = Math.min(tRefStart, tRefEnd);
+            const minSub = Math.min(tSubStart, tSubEnd);
+
+            const offsetPct = Math.max(0, Math.min(100, ((minSub - minRef) / refDurationMs) * 100));
+            const widthPct = Math.min(100 - offsetPct, Math.max(0, (subDurationMs / refDurationMs) * 100));
+
+            document.getElementById('relPercentOutput').innerHTML = `
+                <div style="font-size: 1.25rem; font-weight: 800; color: var(--cyan-glow); margin-bottom: 6px;">
+                    Anteil am Referenzsystem: ${pctFormatted} %
+                </div>
+                <div class="timeline-visual" title="Visualisierung des Sub-Intervalls im Referenzrahmen">
+                    <div class="timeline-span" style="left: ${offsetPct.toFixed(2)}%; width: ${widthPct.toFixed(2)}%;"></div>
+                </div>
+                <div class="badge-grid" style="margin-top: 10px;">
+                    <div class="badge-box"><span class="k">Referenzrahmen (100 %)</span><span class="v">${refDays} Tage (${formatNumber(refDurationMs/1000)} s)</span></div>
+                    <div class="badge-box"><span class="k">Sub-Intervall</span><span class="v">${subDays} Tage (${formatNumber(subDurationMs/1000)} s)</span></div>
+                </div>
+            `;
+        });
+
+        // 4. DATUM SICHER VERSCHIEBEN (ROBUST & FEHLERFREI)
+        function performSafeShift() {
+            let baseVal = document.getElementById('shiftBaseDate').value;
+            let date = baseVal ? new Date(baseVal) : new Date();
+            if (isNaN(date.getTime())) date = new Date();
+
+            const y = parseInt(document.getElementById('sYears').value, 10) || 0;
+            const m = parseInt(document.getElementById('sMonths').value, 10) || 0;
+            const w = parseInt(document.getElementById('sWeeks').value, 10) || 0;
+            const d = parseInt(document.getElementById('sDays').value, 10) || 0;
+            const h = parseInt(document.getElementById('sHours').value, 10) || 0;
+            const min = parseInt(document.getElementById('sMin').value, 10) || 0;
+            const sec = parseInt(document.getElementById('sSec').value, 10) || 0;
+
+            const baseDateSnapshot = new Date(date.getTime());
+
+            // 1. Jahr & Monat ohne Monatsüberlauf verschieben
+            if (y !== 0 || m !== 0) {
+                const originalDay = date.getDate();
+                const targetYear = date.getFullYear() + y;
+                const targetMonth = date.getMonth() + m;
+
+                date.setDate(1);
+                date.setFullYear(targetYear, targetMonth, 1);
+                const maxDays = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+                date.setDate(Math.min(originalDay, maxDays));
             }
 
-            const diffSeconds = Math.abs((endDate - startDate) / 1000);
-            
-            const dayPercent = (diffSeconds / 86400) * 100;
-            const weekPercent = (diffSeconds / 604800) * 100;
-            const monthPercent = (diffSeconds / 2629800) * 100;
-            const yearPercent = (diffSeconds / 31557600) * 100;
+            // 2. Tage & Wochen
+            const totalDaysToAdd = d + (w * 7);
+            if (totalDaysToAdd !== 0) {
+                date.setDate(date.getDate() + totalDaysToAdd);
+            }
 
-            document.getElementById('percentBetweenDates').innerHTML = `
-                <p><span>Eines Tages:</span> <span>${dayPercent.toFixed(2)}%</span></p>
-                <p><span>Einer Woche:</span> <span>${weekPercent.toFixed(2)}%</span></p>
-                <p><span>Eines Monats:</span> <span>${monthPercent.toFixed(2)}%</span></p>
-                <p><span>Eines Jahres:</span> <span>${yearPercent.toFixed(2)}%</span></p>
+            // 3. Stunden, Minuten, Sekunden
+            if (h !== 0) date.setHours(date.getHours() + h);
+            if (min !== 0) date.setMinutes(date.getMinutes() + min);
+            if (sec !== 0) date.setSeconds(date.getSeconds() + sec);
+
+            // Sichere Ausgabe mit vollständiger Datums- UND Uhrzeitangabe
+            const formattedResult = date.toLocaleString('de-DE', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            const diffSeconds = Math.round((date.getTime() - baseDateSnapshot.getTime()) / 1000);
+            const prefix = diffSeconds >= 0 ? '+' : '';
+
+            document.getElementById('shiftResultOutput').innerHTML = `
+                <div style="font-size: 1.05rem; font-weight: 800; color: var(--emerald-sync); margin-bottom: 6px;">
+                    Enddatum: ${formattedResult}
+                </div>
+                <div class="badge-grid">
+                    <div class="badge-box">
+                        <span class="k">ISO-Format</span>
+                        <span class="v">${getLocalIsoString(date)}</span>
+                    </div>
+                    <div class="badge-box">
+                        <span class="k">Netto-Verschiebung</span>
+                        <span class="v">${prefix}${formatNumber(diffSeconds)} s (${prefix}${(diffSeconds / 86400).toFixed(2)} T)</span>
+                    </div>
+                </div>
             `;
         }
 
-        // 7. Relatives Datum berechnen
-        function calculateRelativeDate() {
-            const baseDateValue = document.getElementById('baseDate').value;
-            if (!baseDateValue) {
-                alert('Bitte ein gültiges Startdatum auswählen!');
-                return;
-            }
-            
-            const futureDate = new Date(baseDateValue);
+        document.getElementById('btnShiftDate').addEventListener('click', performSafeShift);
+        document.getElementById('shiftBaseDate').addEventListener('input', performSafeShift);
+        document.getElementById('shiftBaseDate').addEventListener('change', performSafeShift);
+        document.querySelectorAll('.shift-dyn').forEach(el => {
+            el.addEventListener('input', performSafeShift);
+            el.addEventListener('change', performSafeShift);
+        });
 
-            const getVal = (id) => parseInt(document.getElementById(id).value) || 0;
+        // 5. UNIVERSELLE EPOCHEN-CHRONOLOGIE & KALENDER-SYNCHRONISATION
+        document.getElementById('btnCalcChrono').addEventListener('click', () => {
+            const system = document.getElementById('chronInputSystem').value;
+            let y = parseInt(document.getElementById('chronYear').value, 10);
+            const m = parseInt(document.getElementById('chronMonth').value, 10);
+            const d = parseInt(document.getElementById('chronDay').value, 10);
+            const era = document.getElementById('chronEra').value;
 
-            futureDate.setFullYear(futureDate.getFullYear() + getVal('yearsValue'));
-            futureDate.setMonth(futureDate.getMonth() + getVal('monthsValue'));
-            futureDate.setDate(futureDate.getDate() + getVal('daysValue') + (getVal('weeksValue') * 7));
-            futureDate.setHours(futureDate.getHours() + getVal('hoursValue'));
-            futureDate.setMinutes(futureDate.getMinutes() + getVal('minutesValue'));
-            futureDate.setSeconds(futureDate.getSeconds() + getVal('secondsValue'));
-
-            document.getElementById('relativeDate').innerHTML = `<strong>${formatHistoricalDate(futureDate)}</strong>`;
-        }
-
-        // 8. Dezimalzeit Konverter - Normal zu Dezimal (10-Stunden-System)
-        function convertNormalToDecimal() {
-            const hours = parseInt(document.getElementById('normalHours').value) || 0;
-            const minutes = parseInt(document.getElementById('normalMinutes').value) || 0;
-            const seconds = parseInt(document.getElementById('normalSeconds').value) || 0;
-
-            if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
-                alert('Bitte gültige Werte eingeben (Stunden: 0-23, Minuten: 0-59, Sekunden: 0-59)');
+            if (isNaN(y) || isNaN(m) || isNaN(d) || m < 1 || m > 12 || d < 1 || d > 31) {
+                alert('Bitte ein gültiges Kalenderdatum eingeben.');
                 return;
             }
 
-            // Gesamtsekunden im 24h-System
-            const totalSeconds24h = (hours * 3600) + (minutes * 60) + seconds;
-            
-            // Umrechnung: 86400 Sekunden (24h) = 100000 Dezimalsekunden (10h * 100min * 100sek)
-            const totalDecimalSeconds = Math.floor((totalSeconds24h / 86400) * 100000);
-            
-            const decimalHours = Math.floor(totalDecimalSeconds / 10000);
-            const decimalMinutes = Math.floor((totalDecimalSeconds % 10000) / 100);
-            const decimalSeconds = totalDecimalSeconds % 100;
+            let astroYear = (era === 'BC') ? -(y - 1) : y;
+            let jdn;
 
-            document.getElementById('decimalTimeResult').value = 
-                `${decimalHours}:${decimalMinutes.toString().padStart(2, '0')}:${decimalSeconds.toString().padStart(2, '0')}`;
-        }
-
-        // 9. Dezimalzeit Konverter - Dezimal zu Normal (10-Stunden-System)
-        function convertDecimalToNormal() {
-            const decimalHours = parseInt(document.getElementById('decimalHours').value) || 0;
-            const decimalMinutes = parseInt(document.getElementById('decimalMinutes').value) || 0;
-            const decimalSeconds = parseInt(document.getElementById('decimalSeconds').value) || 0;
-
-            if (decimalHours < 0 || decimalHours > 9 || 
-                decimalMinutes < 0 || decimalMinutes > 99 || 
-                decimalSeconds < 0 || decimalSeconds > 99) {
-                alert('Bitte gültige Werte eingeben (Stunden: 0-9, Minuten: 0-99, Sekunden: 0-99)');
-                return;
+            if (system === 'GREG') {
+                jdn = gregorianToJdn(astroYear, m, d);
+            } else {
+                jdn = julianToJdn(astroYear, m, d);
             }
 
-            // Gesamt-Dezimalsekunden im 10h-System
-            const totalDecimalSeconds = (decimalHours * 10000) + (decimalMinutes * 100) + decimalSeconds;
-            
-            // Umrechnung: 100000 Dezimalsekunden = 86400 normale Sekunden
-            const totalSeconds24h = Math.floor((totalDecimalSeconds / 100000) * 86400);
-            
-            const normalHours = Math.floor(totalSeconds24h / 3600);
-            const normalMinutes = Math.floor((totalSeconds24h % 3600) / 60);
-            const normalSeconds = totalSeconds24h % 60;
+            const gregDate = jdnToGregorian(jdn);
+            const julDate = jdnToJulian(jdn);
+            const weekday = getWeekdayFromJdn(jdn);
 
-            document.getElementById('normalTimeResult').value = 
-                `${normalHours}:${normalMinutes.toString().padStart(2, '0')}:${normalSeconds.toString().padStart(2, '0')}`;
+            const formatChronoYear = (yr) => {
+                if (yr <= 0) return `${Math.abs(yr - 1)} v. Chr.`;
+                return `${yr} n. Chr.`;
+            };
+
+            const dayOffset = Math.abs(gregorianToJdn(astroYear, m, d) - julianToJdn(astroYear, m, d));
+
+            document.getElementById('chronoResultOutput').innerHTML = `
+                <div style="font-size: 1.15rem; font-weight: 800; color: var(--cyan-glow); margin-bottom: 8px;">
+                    Wochentag: ${weekday}
+                </div>
+                <div class="badge-grid">
+                    <div class="badge-box">
+                        <span class="k">Gregorianischer Kalender</span>
+                        <span class="v">${String(gregDate.day).padStart(2,'0')}.${String(gregDate.month).padStart(2,'0')}.${formatChronoYear(gregDate.year)}</span>
+                    </div>
+                    <div class="badge-box">
+                        <span class="k">Julianischer Kalender</span>
+                        <span class="v">${String(julDate.day).padStart(2,'0')}.${String(julDate.month).padStart(2,'0')}.${formatChronoYear(julDate.year)}</span>
+                    </div>
+                    <div class="badge-box">
+                        <span class="k">Julianische Tageszahl (JDN)</span>
+                        <span class="v">${jdn}</span>
+                    </div>
+                    <div class="badge-box">
+                        <span class="k">Kalender-Drift (Verschiebung)</span>
+                        <span class="v">${dayOffset} Tag(e)</span>
+                    </div>
+                </div>
+            `;
+        });
+
+        // 6. DEZIMALZEIT-RECHNER
+        const decModeSelect = document.getElementById('decConvMode');
+        decModeSelect.addEventListener('change', () => {
+            if (decModeSelect.value === 'NtoD') {
+                document.getElementById('lblDecIn').textContent = 'Normalzeit (HH:MM:SS)';
+                document.getElementById('decTimeInput').placeholder = '12:00:00';
+            } else {
+                document.getElementById('lblDecIn').textContent = 'Dezimalzeit (H:MM:SS)';
+                document.getElementById('decTimeInput').placeholder = '5:00:00';
+            }
+        });
+
+        document.getElementById('btnRunDecConv').addEventListener('click', () => {
+            const mode = decModeSelect.value;
+            const val = document.getElementById('decTimeInput').value.trim();
+            const parts = val.split(':').map(Number);
+            const h = parts[0] || 0;
+            const m = parts[1] || 0;
+            const s = parts[2] || 0;
+
+            if (mode === 'NtoD') {
+                const totalSec = (Math.min(23, h) * 3600) + (Math.min(59, m) * 60) + Math.min(59, s);
+                const decSecTotal = Math.floor((totalSec / 86400) * 100000);
+                const dh = Math.floor(decSecTotal / 10000);
+                const dm = Math.floor((decSecTotal % 10000) / 100);
+                const ds = decSecTotal % 100;
+                document.getElementById('decTimeResult').value = `${dh}:${String(dm).padStart(2,'0')}:${String(ds).padStart(2,'0')}`;
+            } else {
+                const decSecTotal = (Math.min(9, h) * 10000) + (Math.min(99, m) * 100) + Math.min(99, s);
+                const totalSec = Math.round((decSecTotal / 100000) * 86400);
+                const nh = Math.floor(totalSec / 3600);
+                const nm = Math.floor((totalSec % 3600) / 60);
+                const ns = totalSec % 60;
+                document.getElementById('decTimeResult').value = `${String(nh).padStart(2,'0')}:${String(nm).padStart(2,'0')}:${String(ns).padStart(2,'0')}`;
+            }
+        });
+
+        // 7. ASTRONOMISCHER JULIANISCHES DATUM (JD / MJD) KONVERTER
+        const jdModeSelect = document.getElementById('jdConvMode');
+        jdModeSelect.addEventListener('change', () => {
+            if (jdModeSelect.value === 'dateToJd') {
+                document.getElementById('jdDateInputWrap').style.display = 'flex';
+                document.getElementById('jdValInputWrap').style.display = 'none';
+            } else {
+                document.getElementById('jdDateInputWrap').style.display = 'none';
+                document.getElementById('jdValInputWrap').style.display = 'flex';
+            }
+        });
+
+        document.getElementById('btnRunJdConv').addEventListener('click', () => {
+            const mode = jdModeSelect.value;
+            if (mode === 'dateToJd') {
+                const val = document.getElementById('jdInputDate').value;
+                if (!val) {
+                    alert('Bitte ein Datum angeben.');
+                    return;
+                }
+                const d = new Date(val);
+                const jd = dateToExactJd(d);
+                const mjd = jd - 2400000.5;
+                document.getElementById('jdConvertResult').innerHTML = `
+                    <div style="font-size: 1.1rem; font-weight: 800; color: var(--cyan-glow); margin-bottom: 6px;">
+                        JD: ${jd.toFixed(5)}
+                    </div>
+                    <div class="badge-grid">
+                        <div class="badge-box"><span class="k">Modifiziertes JD (MJD)</span><span class="v">${mjd.toFixed(5)}</span></div>
+                        <div class="badge-box"><span class="k">Referenzzeit (UTC)</span><span class="v">${d.toUTCString().slice(17, 25)} UTC</span></div>
+                    </div>
+                `;
+            } else {
+                const jdVal = parseFloat(document.getElementById('jdInputNumber').value);
+                if (isNaN(jdVal)) {
+                    alert('Bitte eine gültige Julianische Tageszahl eingeben.');
+                    return;
+                }
+                const d = exactJdToDate(jdVal);
+                const mjd = jdVal - 2400000.5;
+                document.getElementById('jdConvertResult').innerHTML = `
+                    <div style="font-size: 1.05rem; font-weight: 800; color: var(--emerald-sync); margin-bottom: 6px;">
+                        Lokal: ${d.toLocaleString('de-DE')}
+                    </div>
+                    <div class="badge-grid">
+                        <div class="badge-box"><span class="k">MJD</span><span class="v">${mjd.toFixed(5)}</span></div>
+                        <div class="badge-box"><span class="k">UTC Zeit</span><span class="v">${d.toUTCString()}</span></div>
+                    </div>
+                `;
+            }
+        });
+
+        /**
+         * 8. INITIALISIERUNG
+         */
+        const initNow = new Date();
+        const localIsoNow = getLocalIsoString(initNow);
+
+        document.getElementById('selectedDate').value = localIsoNow;
+        document.getElementById('startRangeDate').value = localIsoNow;
+        document.getElementById('endRangeDate').value = localIsoNow;
+        document.getElementById('shiftBaseDate').value = localIsoNow;
+        document.getElementById('jdInputDate').value = localIsoNow;
+        document.getElementById('jdInputNumber').value = dateToExactJd(initNow).toFixed(5);
+
+        const startOfYearIso = getLocalIsoString(new Date(initNow.getFullYear(), 0, 1, 0, 0));
+        document.getElementById('refStart').value = startOfYearIso;
+        document.getElementById('refEnd').value = localIsoNow;
+        document.getElementById('subStart').value = getLocalIsoString(new Date(initNow.getTime() - 7 * 86400000));
+        document.getElementById('subEnd').value = localIsoNow;
+
+        try {
+            const timeZoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const offsetMin = -initNow.getTimezoneOffset();
+            const offsetSign = offsetMin >= 0 ? '+' : '-';
+            const offsetHours = Math.floor(Math.abs(offsetMin) / 60);
+            document.getElementById('systemTimezoneBadge').textContent = 
+                `Systemzeit: ${timeZoneName} (UTC${offsetSign}${offsetHours})`;
+        } catch (e) {
+            document.getElementById('systemTimezoneBadge').textContent = 'Systemzeit Synchronisiert';
         }
 
-        // Event Listener
-        document.getElementById('btnSelectedDate').addEventListener('click', startSelectedDateInterval);
-        document.getElementById('btnBetweenDates').addEventListener('click', calculateBetweenDates);
-        document.getElementById('btnPercentDates').addEventListener('click', calculatePercentBetweenDates);
-        document.getElementById('btnRelativeDate').addEventListener('click', calculateRelativeDate);
-        document.getElementById('btnNormalToDecimal').addEventListener('click', convertNormalToDecimal);
-        document.getElementById('btnDecimalToNormal').addEventListener('click', convertDecimalToNormal);
-
-        // Initialisierung beim Laden
-        updateCurrentDateTime();
-        calculateSince1949();
-        calculateSince2022();
-        setInterval(updateCurrentDateTime, 1000);
-        setInterval(calculateSince1949, 1000);
-        setInterval(calculateSince2022, 1000);
-        
-        // Setzt das heutige Datum als Standard für die relative Berechnung
-        const now = new Date();
-        const localTzOffset = now.getTimezoneOffset() * 60000;
-        document.getElementById('baseDate').value = new Date(now - localTzOffset).toISOString().slice(0, 16);
+        // Takt starten und initiale Verschiebung sofort berechnen
+        updateMasterTicker();
+        setInterval(updateMasterTicker, 1000);
+        performSafeShift();
     </script>
 </body>
 </html>
