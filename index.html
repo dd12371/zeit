@@ -6,7 +6,6 @@
     <title>CHRONOS NEXUS // Temporales Observatorium</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- & durch &amp; ersetzt, um den VS-Code HTML-Linter-Fehler zu beheben -->
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&amp;family=Plus+Jakarta+Sans:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,6 +19,7 @@
             --purple-core: #7c4dff;
             --amber-warn: #ffb300;
             --emerald-sync: #00e676;
+            --rose-alert: #ff3366;
             
             --text-main: #f1f5f9;
             --text-muted: #8290a5;
@@ -201,7 +201,23 @@
             font-size: 1.05rem;
             font-weight: 600;
             color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        /* DEZIMALZEIT BADGE IN ECHTZEIT-REFERENZ */
+        .decimal-badge-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 229, 255, 0.07);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            border-radius: var(--radius-sm);
+            padding: 4px 10px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--cyan-glow);
             margin-bottom: 12px;
+            width: fit-content;
         }
 
         /* 5-FACH ZYKLUS-FORTSCHRITTE */
@@ -334,7 +350,7 @@
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 10px;
-            align-items: center;
+            align-items: flex-start;
         }
 
         @media (max-width: 480px) {
@@ -357,6 +373,12 @@
             font-family: var(--font-mono);
         }
 
+        .input-hint {
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+        }
+
         input, select {
             width: 100%;
             min-width: 0;
@@ -365,8 +387,8 @@
             border-radius: var(--radius-sm);
             padding: 10px 12px;
             color: var(--text-main);
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
@@ -374,6 +396,19 @@
             outline: none;
             border-color: var(--cyan-glow);
             box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.25);
+        }
+
+        .input-error {
+            border-color: var(--rose-alert) !important;
+            box-shadow: 0 0 0 2px rgba(255, 51, 102, 0.25) !important;
+        }
+
+        .field-error-msg {
+            font-size: 0.7rem;
+            color: var(--rose-alert);
+            font-family: var(--font-mono);
+            display: none;
+            margin-top: 2px;
         }
 
         .shift-inputs-grid {
@@ -424,6 +459,10 @@
             font-size: 0.8rem;
         }
 
+        .output-deck.alert-deck {
+            border-left-color: var(--rose-alert);
+        }
+
         .copy-trigger {
             position: absolute;
             top: 8px;
@@ -450,6 +489,10 @@
             margin-top: 6px;
         }
 
+        @media (max-width: 600px) {
+            .badge-grid { grid-template-columns: 1fr; }
+        }
+
         .badge-box {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -468,6 +511,7 @@
             font-size: 0.86rem;
             color: #ffffff;
             font-weight: 700;
+            word-break: break-all;
         }
 
         /* 4-DATEN PROZENTLEISTE */
@@ -530,7 +574,7 @@
         <!-- HERO CHRONOMETER -->
         <section class="hero-chronos" aria-label="Ewige Uhren und Systemzeit">
             
-            <!-- AKTUELL: LOKALE SYSTEMZEIT & 5-FACH ZYKLUSFORTSCHRITT -->
+            <!-- AKTUELL: LOKALE SYSTEMZEIT, DEZIMALZEIT & 5-FACH ZYKLUSFORTSCHRITT -->
             <article class="hero-card system-clock">
                 <div>
                     <div class="card-tag">
@@ -539,6 +583,12 @@
                     </div>
                     <div class="clock-huge" id="liveLocalClock">--:--:--</div>
                     <div class="date-prominent" id="liveLocalDate">Lade Datum...</div>
+                    
+                    <!-- KLEINERE DEZIMALZEIT-REFERENZ AN GEEIGNETER STELLE -->
+                    <div class="decimal-badge-box" title="Französische Dezimalzeit des laufenden Tages (10h-Rhythmus)">
+                        <span>🔢 Dezimalzeit:</span>
+                        <strong id="liveLocalDecimalClock">0:00:00</strong>
+                    </div>
                 </div>
                 
                 <!-- 5 ZYKLUS-FORTSCHRITTE -->
@@ -580,14 +630,14 @@
                 </div>
             </article>
 
-            <!-- EWIGE UHR 2: 2022 (OVERWATCH 2 LAUNCH - 20:00 UTC+2) -->
+            <!-- EWIGE UHR 2: 2022 (GROSSE NATIONALE OKTOBERREVOLUTION) -->
             <article class="hero-card clock-2022">
                 <div class="card-tag">
                     <span>Ewiger Chronometer II</span>
                     <span style="color: var(--purple-core);">04.10.2022 20:00 UTC+2</span>
                 </div>
                 <div style="font-size: 0.82rem; color: var(--text-muted);">
-                    Verstrichen seit Epoch-Event (18:00:00 UTC):
+                    Verstrichen seit der Großen Nationalen Oktoberrevolution (18:00:00 UTC):
                 </div>
                 <div class="interval-counter" id="output2022">
                     Initialisiere Takt...
@@ -608,10 +658,12 @@
                     <div class="form-cluster" style="margin-top: 14px;">
                         <div class="input-row-grid">
                             <div class="field-group">
-                                <label for="selectedDate">Lokales Datum &amp; Uhrzeit</label>
-                                <input type="datetime-local" id="selectedDate" />
+                                <label for="selectedDate">Datum eingeben</label>
+                                <input type="text" id="selectedDate" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ HH:MM:SS" spellcheck="false" autocomplete="off" />
+                                <span class="input-hint">Format: TT.MM.JJJJ oder JJJJ-MM-TT (Uhrzeit &amp; Sekunden optional)</span>
+                                <span class="field-error-msg" id="err_selectedDate"></span>
                             </div>
-                            <div class="field-group" style="width: 120px;">
+                            <div class="field-group" style="width: 110px;">
                                 <label for="selectedDateEra">Ära</label>
                                 <select id="selectedDateEra">
                                     <option value="AD" selected>n. Chr.</option>
@@ -624,7 +676,7 @@
                 </div>
                 <div class="output-deck">
                     <button class="copy-trigger" onclick="copySnippet('sinceSelectedDate')">Kopieren</button>
-                    <div id="sinceSelectedDate">Wähle Datum und starte Berechnung.</div>
+                    <div id="sinceSelectedDate">Gebe ein Datum ein und starte die Berechnung.</div>
                 </div>
             </section>
 
@@ -638,10 +690,12 @@
                     <div class="form-cluster" style="margin-top: 14px;">
                         <div class="input-row-grid">
                             <div class="field-group">
-                                <label for="startRangeDate">Startpunkt</label>
-                                <input type="datetime-local" id="startRangeDate" />
+                                <label for="startRangeDate">Startpunkt eingeben</label>
+                                <input type="text" id="startRangeDate" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ" spellcheck="false" autocomplete="off" />
+                                <span class="input-hint">Format: TT.MM.JJJJ oder JJJJ-MM-TT (Uhrzeit/Sekunden optional)</span>
+                                <span class="field-error-msg" id="err_startRangeDate"></span>
                             </div>
-                            <div class="field-group" style="width: 120px;">
+                            <div class="field-group" style="width: 110px;">
                                 <label for="startRangeEra">Ära</label>
                                 <select id="startRangeEra">
                                     <option value="AD" selected>n. Chr.</option>
@@ -651,10 +705,12 @@
                         </div>
                         <div class="input-row-grid">
                             <div class="field-group">
-                                <label for="endRangeDate">Endpunkt</label>
-                                <input type="datetime-local" id="endRangeDate" />
+                                <label for="endRangeDate">Endpunkt eingeben</label>
+                                <input type="text" id="endRangeDate" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ" spellcheck="false" autocomplete="off" />
+                                <span class="input-hint">Format: TT.MM.JJJJ oder JJJJ-MM-TT (Uhrzeit/Sekunden optional)</span>
+                                <span class="field-error-msg" id="err_endRangeDate"></span>
                             </div>
-                            <div class="field-group" style="width: 120px;">
+                            <div class="field-group" style="width: 110px;">
                                 <label for="endRangeEra">Ära</label>
                                 <select id="endRangeEra">
                                     <option value="AD" selected>n. Chr.</option>
@@ -678,18 +734,20 @@
                         <div class="card-head-icon" aria-hidden="true">📊</div>
                         <h2 id="rel-percent-title">Prozentuale Zeitanteile: Referenz- vs. Teilintervall</h2>
                     </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 14px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 14px;">
                         
                         <!-- Referenzrahmen (100%) -->
                         <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
                             <span style="font-size: 0.75rem; font-weight: 700; color: var(--cyan-glow); text-transform: uppercase;">1. Gesamtes Referenzsystem (100 %)</span>
                             <div class="field-group" style="margin-top: 8px;">
                                 <label for="refStart">Referenz Start</label>
-                                <input type="datetime-local" id="refStart" />
+                                <input type="text" id="refStart" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ" spellcheck="false" autocomplete="off" />
+                                <span class="field-error-msg" id="err_refStart"></span>
                             </div>
                             <div class="field-group" style="margin-top: 8px;">
                                 <label for="refEnd">Referenz Ende</label>
-                                <input type="datetime-local" id="refEnd" />
+                                <input type="text" id="refEnd" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ" spellcheck="false" autocomplete="off" />
+                                <span class="field-error-msg" id="err_refEnd"></span>
                             </div>
                         </div>
 
@@ -698,11 +756,13 @@
                             <span style="font-size: 0.75rem; font-weight: 700; color: var(--purple-core); text-transform: uppercase;">2. Zu analysierendes Intervall</span>
                             <div class="field-group" style="margin-top: 8px;">
                                 <label for="subStart">Intervall Start</label>
-                                <input type="datetime-local" id="subStart" />
+                                <input type="text" id="subStart" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ" spellcheck="false" autocomplete="off" />
+                                <span class="field-error-msg" id="err_subStart"></span>
                             </div>
                             <div class="field-group" style="margin-top: 8px;">
                                 <label for="subEnd">Intervall Ende</label>
-                                <input type="datetime-local" id="subEnd" />
+                                <input type="text" id="subEnd" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ" spellcheck="false" autocomplete="off" />
+                                <span class="field-error-msg" id="err_subEnd"></span>
                             </div>
                         </div>
 
@@ -710,11 +770,11 @@
                     <button type="button" class="action-btn cyan-btn" id="btnCalcRelPercent" style="margin-top: 14px;">Relativen Anteil Berechnen (3 Dezimalen)</button>
                 </div>
                 <div class="output-deck" id="relPercentOutput">
-                    <span style="color: var(--text-muted);">Definiere beide Zeiträume, um den exakten Anteil des Sub-Intervalls am Referenzrahmen ohne Dimensionsverzerrung zu analysieren.</span>
+                    <span style="color: var(--text-muted);">Definiere beide Zeiträume per Tastatur, um den Anteil des Sub-Intervalls exakt zu analysieren.</span>
                 </div>
             </section>
 
-            <!-- 4. DATUM SICHER VERSCHIEBEN (VOLLSTÄNDIG REPARIERT) -->
+            <!-- 4. DATUM SICHER VERSCHIEBEN -->
             <section class="bento-card" aria-labelledby="shift-title">
                 <div>
                     <div class="card-head">
@@ -724,7 +784,9 @@
                     <div class="form-cluster" style="margin-top: 14px;">
                         <div class="field-group">
                             <label for="shiftBaseDate">Ausgangsdatum (leer = Jetzt)</label>
-                            <input type="datetime-local" id="shiftBaseDate" />
+                            <input type="text" id="shiftBaseDate" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ (oder leer)" spellcheck="false" autocomplete="off" />
+                            <span class="input-hint">Optional Datum und Uhrzeit/Sekunden angeben</span>
+                            <span class="field-error-msg" id="err_shiftBaseDate"></span>
                         </div>
                         <div class="shift-inputs-grid">
                             <div class="field-group"><label for="sYears">Jahre</label><input type="number" id="sYears" placeholder="0" class="shift-dyn" /></div>
@@ -808,7 +870,7 @@
                                 <label id="lblDecIn">Eingabe (HH:MM:SS)</label>
                                 <input type="text" id="decTimeInput" placeholder="12:00:00" value="12:00:00" />
                             </div>
-                            <span style="font-size: 1.4rem; color: var(--cyan-glow); margin-top: 16px;">⇄</span>
+                            <span style="font-size: 1.4rem; color: var(--cyan-glow); margin-top: 16px; text-align: center;">⇄</span>
                             <div class="field-group">
                                 <label id="lblDecOut">Ausgabe</label>
                                 <input type="text" id="decTimeResult" readonly placeholder="5:00:00" style="color: var(--cyan-glow); font-weight: 700;" />
@@ -822,7 +884,7 @@
                 </div>
             </section>
 
-            <!-- 7. ASTRONOMISCHER JULIANISCHES DATUM (JD / MJD) KONVERTER (NEU) -->
+            <!-- 7. ASTRONOMISCHER JULIANISCHES DATUM (JD / MJD) KONVERTER -->
             <section class="bento-card" aria-labelledby="comp-jd-title">
                 <div>
                     <div class="card-head">
@@ -838,47 +900,50 @@
                             </select>
                         </div>
                         <div id="jdDateInputWrap" class="field-group">
-                            <label for="jdInputDate">Datum &amp; Uhrzeit</label>
-                            <input type="datetime-local" id="jdInputDate" />
+                            <label for="jdInputDate">Datum &amp; Uhrzeit eingeben</label>
+                            <input type="text" id="jdInputDate" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ HH:MM:SS" spellcheck="false" autocomplete="off" />
+                            <span class="input-hint">Format: TT.MM.JJJJ oder JJJJ-MM-TT (Uhrzeit &amp; Sekunden optional)</span>
+                            <span class="field-error-msg" id="err_jdInputDate"></span>
                         </div>
                         <div id="jdValInputWrap" class="field-group" style="display: none;">
                             <label for="jdInputNumber">Julianische Tageszahl (JD)</label>
-                            <input type="number" step="0.00001" id="jdInputNumber" placeholder="2460000.5" />
+                            <!-- Schrittweite auf 8 Nachkommastellen für sub-sekundengenaue Auflösung -->
+                            <input type="number" step="0.00000001" id="jdInputNumber" placeholder="2460000.50000000" />
+                            <span class="input-hint">Genauigkeit auf 8 Nachkommastellen (1 s ≈ 0,00001157 Tage)</span>
                         </div>
                         <button type="button" class="action-btn cyan-btn" id="btnRunJdConv">JD Konvertieren</button>
                     </div>
                 </div>
                 <div class="output-deck" id="jdConvertResult">
-                    <span style="color: var(--text-muted);">Berechnet die kontinuierliche astronomische Tageszählung seit 1. Januar 4713 v. Chr. 12:00 UTC.</span>
+                    <span style="color: var(--text-muted);">Berechnet die kontinuierliche astronomische Tageszählung mit 8 Nachkommastellen für sekundengenaue Auflösung.</span>
                 </div>
             </section>
 
         </main>
 
         <footer>
-            CHRONOS NEXUS v9.0 // TEMPORALE HYPER-PRÄZISION // SYSTEMZEIT-BASIERTE EPOS-ENGINE
+            CHRONOS NEXUS v9.2 // TEMPORALE HYPER-PRÄZISION // KALENDER- &amp; DEZIMALZEIT-ENGINE
         </footer>
     </div>
 
     <script>
         /**
-         * 1. HILFSFUNKTIONEN FÜR SYSTEMZEIT & FORMATIERUNG
+         * 1. HILFSFUNKTIONEN FÜR FORMATIERUNG & SYSTEMZEIT
          */
-        function getLocalIsoString(date = new Date()) {
-            const pad = (n) => String(n).padStart(2, '0');
-            const y = date.getFullYear();
-            const m = pad(date.getMonth() + 1);
-            const d = pad(date.getDate());
-            const h = pad(date.getHours());
-            const min = pad(date.getMinutes());
-            return `${y}-${m}-${d}T${h}:${min}`;
+        const pad = (n, len = 2) => String(n).padStart(len, '0');
+
+        function formatDateStringDE(d) {
+            return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
         }
 
         function formatNumber(num) {
-            return Math.floor(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            if (num === null || num === undefined || isNaN(num)) return '0';
+            const parts = num.toString().split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            return parts.join(',');
         }
 
-        window.copySnippet = function(elementId) {
+        function copySnippet(elementId) {
             const el = document.getElementById(elementId);
             if (!el) return;
             navigator.clipboard.writeText(el.innerText).then(() => {
@@ -895,29 +960,103 @@
                     }, 1500);
                 }
             });
-        };
-
-        /**
-         * 2. DATUMSVERARBEITUNG OHNE 1900-BUG
-         */
-        function makeSafeLocalDate(year, monthIndex, day, hours = 0, minutes = 0, seconds = 0) {
-            const d = new Date();
-            d.setFullYear(year, monthIndex, day);
-            d.setHours(hours, minutes, seconds, 0);
-            return d;
         }
 
-        function parseLocalEraDate(isoString, era) {
-            if (!isoString) return null;
-            const [datePart, timePart] = isoString.split('T');
-            const [rawY, m, d] = datePart.split('-').map(Number);
-            const [h, min] = timePart ? timePart.split(':').map(Number) : [0, 0];
-
-            let year = rawY;
-            if (era === 'BC') {
-                year = -(rawY - 1);
+        /**
+         * 2. UNIVERSELLER DATUMS- & ZEIT-PARSER
+         * Unterstützt manuelle Eingabe ohne Picker:
+         * - TT.MM.JJJJ oder JJJJ-MM-TT
+         * - Optional Uhrzeit HH:MM
+         * - Optional Sekunden HH:MM:SS
+         * Validiert Tage pro Monat inkl. Schaltjahre und zeigt klare Fehler an.
+         */
+        function parseManualDateString(rawInput, era = 'AD') {
+            if (!rawInput || typeof rawInput !== 'string') {
+                return { date: null, error: 'Bitte ein Datum eingeben.' };
             }
-            return makeSafeLocalDate(year, m - 1, d, h, min, 0);
+
+            const trimmed = rawInput.trim();
+            if (!trimmed) {
+                return { date: null, error: 'Bitte ein Datum eingeben.' };
+            }
+
+            // Regex für ISO (JJJJ-MM-TT) oder Deutsch (TT.MM.JJJJ) mit optionaler Zeit
+            const isoRegex = /^(\d{1,4})-(\d{1,2})-(\d{1,2})(?:[T\s](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/;
+            const deRegex  = /^(\d{1,2})\.(\d{1,2})\.(\d{1,4})(?:[T\s](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/;
+
+            let year, month, day, hour = 0, min = 0, sec = 0;
+
+            if (isoRegex.test(trimmed)) {
+                const m = trimmed.match(isoRegex);
+                year = parseInt(m[1], 10);
+                month = parseInt(m[2], 10);
+                day = parseInt(m[3], 10);
+                if (m[4] !== undefined) hour = parseInt(m[4], 10);
+                if (m[5] !== undefined) min = parseInt(m[5], 10);
+                if (m[6] !== undefined) sec = parseInt(m[6], 10);
+            } else if (deRegex.test(trimmed)) {
+                const m = trimmed.match(deRegex);
+                day = parseInt(m[1], 10);
+                month = parseInt(m[2], 10);
+                year = parseInt(m[3], 10);
+                if (m[4] !== undefined) hour = parseInt(m[4], 10);
+                if (m[5] !== undefined) min = parseInt(m[5], 10);
+                if (m[6] !== undefined) sec = parseInt(m[6], 10);
+            } else {
+                return {
+                    date: null,
+                    error: 'Ungültiges Format! Erlaubt: TT.MM.JJJJ oder JJJJ-MM-TT (optional mit HH:MM oder HH:MM:SS).'
+                };
+            }
+
+            // Validierung Monat
+            if (month < 1 || month > 12) {
+                return { date: null, error: `Ungültiger Monat (${month}). Erlaubt ist 1 bis 12.` };
+            }
+
+            // Validierung Tage im Monat inkl. Schaltjahr-Berechnung
+            let checkYear = (era === 'BC') ? -(year - 1) : year;
+            const isLeap = (checkYear % 4 === 0 && checkYear % 100 !== 0) || (checkYear % 400 === 0);
+            const daysInMonths = [31, (isLeap ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            const maxDays = daysInMonths[month - 1];
+
+            if (day < 1 || day > maxDays) {
+                return { date: null, error: `Ungültiger Tag (${day}). Der gewählte Monat hat max. ${maxDays} Tage.` };
+            }
+
+            // Validierung Uhrzeit
+            if (hour < 0 || hour > 23) {
+                return { date: null, error: `Ungültige Stunde (${hour}). Erlaubt ist 0 bis 23.` };
+            }
+            if (min < 0 || min > 59) {
+                return { date: null, error: `Ungültige Minute (${min}). Erlaubt ist 0 bis 59.` };
+            }
+            if (sec < 0 || sec > 59) {
+                return { date: null, error: `Ungültige Sekunde (${sec}). Erlaubt ist 0 bis 59.` };
+            }
+
+            const resultDate = new Date();
+            resultDate.setFullYear(checkYear, month - 1, day);
+            resultDate.setHours(hour, min, sec, 0);
+
+            return { date: resultDate, error: null };
+        }
+
+        // Fehlermeldung am Feld anzeigen / zurücksetzen
+        function setFieldValidation(inputId, errorMsgId, error) {
+            const input = document.getElementById(inputId);
+            const errEl = document.getElementById(errorMsgId);
+            if (!input || !errEl) return;
+
+            if (error) {
+                input.classList.add('input-error');
+                errEl.textContent = error;
+                errEl.style.display = 'block';
+            } else {
+                input.classList.remove('input-error');
+                errEl.textContent = '';
+                errEl.style.display = 'none';
+            }
         }
 
         /**
@@ -957,12 +1096,14 @@
 
         function buildDiffMarkup(diff) {
             const prefix = diff.isNegative ? '- ' : '';
+            const monthsExact = (diff.totalSec / (30.4375 * 86400)).toFixed(2);
             return `
-                <div class="counter-row"><span>Sekunden:</span> <span>${prefix}${formatNumber(diff.totalSec)}</span></div>
-                <div class="counter-row"><span>Minuten:</span> <span>${prefix}${formatNumber(diff.totalSec / 60)}</span></div>
-                <div class="counter-row"><span>Stunden:</span> <span>${prefix}${formatNumber(diff.totalSec / 3600)}</span></div>
-                <div class="counter-row"><span>Tage:</span> <span>${prefix}${formatNumber(diff.totalSec / 86400)}</span></div>
-                <div class="counter-row"><span>Wochen:</span> <span>${prefix}${formatNumber(diff.totalSec / 604800)}</span></div>
+                <div class="counter-row"><span>Sekunden:</span> <span>${prefix}${formatNumber(diff.totalSec)} s</span></div>
+                <div class="counter-row"><span>Minuten:</span> <span>${prefix}${formatNumber(Math.floor(diff.totalSec / 60))} min</span></div>
+                <div class="counter-row"><span>Stunden:</span> <span>${prefix}${formatNumber(Math.floor(diff.totalSec / 3600))} h</span></div>
+                <div class="counter-row"><span>Tage:</span> <span>${prefix}${formatNumber(Math.floor(diff.totalSec / 86400))} d</span></div>
+                <div class="counter-row"><span>Wochen:</span> <span>${prefix}${formatNumber((diff.totalSec / 604800).toFixed(2))} Wo</span></div>
+                <div class="counter-row"><span>Monate:</span> <span>${prefix}${formatNumber(monthsExact)} Mon</span></div>
                 <div class="counter-row">
                     <span>Zusammenfassung:</span>
                     <span>${prefix}${diff.years}J ${diff.months}M ${diff.days}T ${diff.hours}h ${diff.minutes}m ${diff.seconds}s</span>
@@ -971,7 +1112,7 @@
         }
 
         /**
-         * 4. ASTRONOMISCHE JULIANISCHE TAGESZAHL & EPOCHEN-ALGORITHMEN
+         * 4. ASTRONOMISCHE JULIANISCHE TAGESZAHL & WOCHENTAGE
          */
         function gregorianToJdn(year, month, day) {
             let y = year, m = month;
@@ -1017,23 +1158,24 @@
         }
 
         const WEEKDAYS_DE = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+        // Bugfix: Mathematisch korrekter Modulo auch bei negativen JDN-Zahlen
         function getWeekdayFromJdn(jdn) {
-            const idx = Math.floor(jdn) % 7;
+            const idx = ((Math.floor(jdn) % 7) + 7) % 7;
             return WEEKDAYS_DE[idx];
         }
 
-        // Exaktes JD aus Date-Objekt (inkl. Uhrzeit)
+        // Exaktes astronomisches JD aus Date (inkl. Millisekunden)
         function dateToExactJd(d) {
             return (d.getTime() / 86400000) + 2440587.5;
         }
 
-        // Exaktes Date-Objekt aus JD
+        // Exaktes Date aus JD mit Sub-Sekunden-Auflösung
         function exactJdToDate(jd) {
-            return new Date((jd - 2440587.5) * 86400000);
+            return new Date(Math.round((jd - 2440587.5) * 86400000));
         }
 
         /**
-         * 5. MASTER HEARTBEAT (UHREN & 5-FACH ZYKLEN)
+         * 5. MASTER HEARTBEAT (UHREN, DEZIMALZEIT & ZYKLEN)
          */
         const epoch1949 = new Date(Date.UTC(1949, 9, 1, 7, 0, 0));
         const epoch2022 = new Date(Date.UTC(2022, 9, 4, 18, 0, 0));
@@ -1042,6 +1184,7 @@
         function updateMasterTicker() {
             const now = new Date();
 
+            // 1. Lokale Echtzeit
             document.getElementById('liveLocalClock').textContent = now.toLocaleTimeString('de-DE', {
                 hour: '2-digit', minute: '2-digit', second: '2-digit'
             });
@@ -1049,26 +1192,35 @@
                 weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
             });
 
-            // 1. STUNDE
+            // 2. Echtzeit-Dezimalzeit (10-Stunden-Takt)
+            const secToday = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds() + (now.getMilliseconds() / 1000);
+            const decTotalSec = (secToday / 86400) * 100000;
+            const decHours = Math.floor(decTotalSec / 10000);
+            const decMinutes = Math.floor((decTotalSec % 10000) / 100);
+            const decSeconds = Math.floor(decTotalSec % 100);
+            document.getElementById('liveLocalDecimalClock').textContent = 
+                `${decHours}:${pad(decMinutes)}:${pad(decSeconds)}`;
+
+            // 3. Stunden-Zyklus
             const msInHour = (now.getMinutes() * 60 + now.getSeconds()) * 1000 + now.getMilliseconds();
             const pctHour = (msInHour / 3600000) * 100;
             document.getElementById('progHour').textContent = pctHour.toFixed(3) + '%';
             document.getElementById('fillHour').style.width = pctHour + '%';
 
-            // 2. TAG
+            // 4. Tages-Zyklus
             const msInDay = (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()) * 1000 + now.getMilliseconds();
             const pctDay = (msInDay / 86400000) * 100;
             document.getElementById('progDay').textContent = pctDay.toFixed(3) + '%';
             document.getElementById('fillDay').style.width = pctDay + '%';
 
-            // 3. WOCHE
+            // 5. Wochen-Zyklus
             const dayOfWeek = (now.getDay() + 6) % 7;
             const msInWeek = dayOfWeek * 86400000 + msInDay;
             const pctWeek = (msInWeek / (7 * 86400000)) * 100;
             document.getElementById('progWeek').textContent = pctWeek.toFixed(3) + '%';
             document.getElementById('fillWeek').style.width = pctWeek + '%';
 
-            // 4. MONAT
+            // 6. Monats-Zyklus
             const currentYear = now.getFullYear();
             const currentMonth = now.getMonth();
             const startOfMonth = new Date(currentYear, currentMonth, 1, 0, 0, 0);
@@ -1079,21 +1231,21 @@
             document.getElementById('progMonth').textContent = pctMonth.toFixed(3) + '%';
             document.getElementById('fillMonth').style.width = pctMonth + '%';
 
-            // 5. JAHR
+            // 7. Jahres-Zyklus
             const startOfYear = new Date(currentYear, 0, 1, 0, 0, 0);
             const endOfYear = new Date(currentYear + 1, 0, 1, 0, 0, 0);
             const pctYear = ((now - startOfYear) / (endOfYear - startOfYear)) * 100;
             document.getElementById('progYear').textContent = pctYear.toFixed(3) + '%';
             document.getElementById('fillYear').style.width = pctYear + '%';
 
-            // Ewige Uhren
+            // Ewige Chronometer
             const diff1949 = computeDateDiff(epoch1949, now);
             document.getElementById('output1949').innerHTML = buildDiffMarkup(diff1949);
 
             const diff2022 = computeDateDiff(epoch2022, now);
             document.getElementById('output2022').innerHTML = buildDiffMarkup(diff2022);
 
-            // Wunschdatum
+            // Wunschdatum Live-Update
             if (userSelectedTarget) {
                 const diffSelected = computeDateDiff(userSelectedTarget, now);
                 document.getElementById('sinceSelectedDate').innerHTML = buildDiffMarkup(diffSelected);
@@ -1101,57 +1253,96 @@
         }
 
         /**
-         * 6. EVENT-LISTENER & BERECHNUNGEN
+         * 6. EVENT-LISTENER & BERECHNUNGEN MIT FEHLERHINWEISEN
          */
 
-        // Wunschdatum starten
+        // 1. Wunschdatum
         document.getElementById('btnStartSelected').addEventListener('click', () => {
-            const val = document.getElementById('selectedDate').value;
-            if (!val) {
-                alert('Bitte ein gültiges Datum wählen.');
+            const raw = document.getElementById('selectedDate').value;
+            const era = document.getElementById('selectedDateEra').value;
+            const parseResult = parseManualDateString(raw, era);
+
+            if (parseResult.error) {
+                setFieldValidation('selectedDate', 'err_selectedDate', parseResult.error);
+                document.getElementById('sinceSelectedDate').innerHTML = `
+                    <span style="color: var(--rose-alert); font-weight: 700;">Hinweis:</span> ${parseResult.error}
+                `;
                 return;
             }
-            const era = document.getElementById('selectedDateEra').value;
-            userSelectedTarget = parseLocalEraDate(val, era);
+
+            setFieldValidation('selectedDate', 'err_selectedDate', null);
+            userSelectedTarget = parseResult.date;
             updateMasterTicker();
         });
 
-        // Intervall zwischen zwei Daten
+        // 2. Intervall zwischen zwei Daten
         document.getElementById('btnCalcBetween').addEventListener('click', () => {
-            const sVal = document.getElementById('startRangeDate').value;
-            const eVal = document.getElementById('endRangeDate').value;
-            if (!sVal || !eVal) {
-                alert('Bitte Start- und Endzeitpunkt angeben.');
+            const sRaw = document.getElementById('startRangeDate').value;
+            const sEra = document.getElementById('startRangeEra').value;
+            const eRaw = document.getElementById('endRangeDate').value;
+            const eEra = document.getElementById('endRangeEra').value;
+
+            const p1 = parseManualDateString(sRaw, sEra);
+            const p2 = parseManualDateString(eRaw, eEra);
+
+            let hasError = false;
+            if (p1.error) {
+                setFieldValidation('startRangeDate', 'err_startRangeDate', p1.error);
+                hasError = true;
+            } else {
+                setFieldValidation('startRangeDate', 'err_startRangeDate', null);
+            }
+
+            if (p2.error) {
+                setFieldValidation('endRangeDate', 'err_endRangeDate', p2.error);
+                hasError = true;
+            } else {
+                setFieldValidation('endRangeDate', 'err_endRangeDate', null);
+            }
+
+            if (hasError) {
+                document.getElementById('betweenDatesOutput').innerHTML = `
+                    <span style="color: var(--rose-alert); font-weight: 700;">Eingabefehler:</span> Bitte die rot markierten Datumsangaben korrigieren.
+                `;
                 return;
             }
-            const d1 = parseLocalEraDate(sVal, document.getElementById('startRangeEra').value);
-            const d2 = parseLocalEraDate(eVal, document.getElementById('endRangeEra').value);
-            const diff = computeDateDiff(d1, d2);
+
+            const diff = computeDateDiff(p1.date, p2.date);
             document.getElementById('betweenDatesOutput').innerHTML = buildDiffMarkup(diff);
         });
 
-        // 4-PUNKTE PROZENTUALES ZEITSYSTEM
+        // 3. Prozentuales 4-Punkte-Zeitsystem
         document.getElementById('btnCalcRelPercent').addEventListener('click', () => {
-            const rS = document.getElementById('refStart').value;
-            const rE = document.getElementById('refEnd').value;
-            const sS = document.getElementById('subStart').value;
-            const sE = document.getElementById('subEnd').value;
+            const rS = parseManualDateString(document.getElementById('refStart').value);
+            const rE = parseManualDateString(document.getElementById('refEnd').value);
+            const sS = parseManualDateString(document.getElementById('subStart').value);
+            const sE = parseManualDateString(document.getElementById('subEnd').value);
 
-            if (!rS || !rE || !sS || !sE) {
-                alert('Bitte alle 4 Daten angeben.');
+            let hasError = false;
+            setFieldValidation('refStart', 'err_refStart', rS.error);
+            setFieldValidation('refEnd', 'err_refEnd', rE.error);
+            setFieldValidation('subStart', 'err_subStart', sS.error);
+            setFieldValidation('subEnd', 'err_subEnd', sE.error);
+
+            if (rS.error || rE.error || sS.error || sE.error) {
+                document.getElementById('relPercentOutput').innerHTML = `
+                    <span style="color: var(--rose-alert); font-weight: 700;">Hinweis:</span> Bitte alle 4 Zeitpunkte im gültigen Format (TT.MM.JJJJ oder JJJJ-MM-TT) angeben.
+                `;
                 return;
             }
 
-            const tRefStart = new Date(rS).getTime();
-            const tRefEnd = new Date(rE).getTime();
-            const tSubStart = new Date(sS).getTime();
-            const tSubEnd = new Date(sE).getTime();
+            const tRefStart = rS.date.getTime();
+            const tRefEnd = rE.date.getTime();
+            const tSubStart = sS.date.getTime();
+            const tSubEnd = sE.date.getTime();
 
             const refDurationMs = Math.abs(tRefEnd - tRefStart);
             const subDurationMs = Math.abs(tSubEnd - tSubStart);
 
             if (refDurationMs === 0) {
-                alert('Die Referenz-Zeitspanne darf nicht 0 sein.');
+                document.getElementById('relPercentOutput').innerHTML = `
+                    <span style="color: var(--rose-alert); font-weight: 700;">Fehler:</span> Der Referenzrahmen darf nicht 0 Sekunden lang sein (Start = Ende).
+                `;
                 return;
             }
 
@@ -1175,17 +1366,31 @@
                     <div class="timeline-span" style="left: ${offsetPct.toFixed(2)}%; width: ${widthPct.toFixed(2)}%;"></div>
                 </div>
                 <div class="badge-grid" style="margin-top: 10px;">
-                    <div class="badge-box"><span class="k">Referenzrahmen (100 %)</span><span class="v">${refDays} Tage (${formatNumber(refDurationMs/1000)} s)</span></div>
-                    <div class="badge-box"><span class="k">Sub-Intervall</span><span class="v">${subDays} Tage (${formatNumber(subDurationMs/1000)} s)</span></div>
+                    <div class="badge-box"><span class="k">Referenzrahmen (100 %)</span><span class="v">${refDays} Tage (${formatNumber(Math.floor(refDurationMs/1000))} s)</span></div>
+                    <div class="badge-box"><span class="k">Sub-Intervall</span><span class="v">${subDays} Tage (${formatNumber(Math.floor(subDurationMs/1000))} s)</span></div>
                 </div>
             `;
         });
 
-        // 4. DATUM SICHER VERSCHIEBEN (ROBUST & FEHLERFREI)
+        // 4. Datum sicher verschieben
         function performSafeShift() {
-            let baseVal = document.getElementById('shiftBaseDate').value;
-            let date = baseVal ? new Date(baseVal) : new Date();
-            if (isNaN(date.getTime())) date = new Date();
+            const rawBase = document.getElementById('shiftBaseDate').value.trim();
+            let date = new Date();
+
+            if (rawBase !== '') {
+                const parseResult = parseManualDateString(rawBase);
+                if (parseResult.error) {
+                    setFieldValidation('shiftBaseDate', 'err_shiftBaseDate', parseResult.error);
+                    document.getElementById('shiftResultOutput').innerHTML = `
+                        <span style="color: var(--rose-alert); font-weight: 700;">Hinweis:</span> ${parseResult.error}
+                    `;
+                    return;
+                }
+                setFieldValidation('shiftBaseDate', 'err_shiftBaseDate', null);
+                date = parseResult.date;
+            } else {
+                setFieldValidation('shiftBaseDate', 'err_shiftBaseDate', null);
+            }
 
             const y = parseInt(document.getElementById('sYears').value, 10) || 0;
             const m = parseInt(document.getElementById('sMonths').value, 10) || 0;
@@ -1197,7 +1402,7 @@
 
             const baseDateSnapshot = new Date(date.getTime());
 
-            // 1. Jahr & Monat ohne Monatsüberlauf verschieben
+            // Jahre & Monate ohne unbeabsichtigten Überlauf
             if (y !== 0 || m !== 0) {
                 const originalDay = date.getDate();
                 const targetYear = date.getFullYear() + y;
@@ -1209,18 +1414,17 @@
                 date.setDate(Math.min(originalDay, maxDays));
             }
 
-            // 2. Tage & Wochen
+            // Tage & Wochen
             const totalDaysToAdd = d + (w * 7);
             if (totalDaysToAdd !== 0) {
                 date.setDate(date.getDate() + totalDaysToAdd);
             }
 
-            // 3. Stunden, Minuten, Sekunden
+            // Stunden, Minuten, Sekunden
             if (h !== 0) date.setHours(date.getHours() + h);
             if (min !== 0) date.setMinutes(date.getMinutes() + min);
             if (sec !== 0) date.setSeconds(date.getSeconds() + sec);
 
-            // Sichere Ausgabe mit vollständiger Datums- UND Uhrzeitangabe
             const formattedResult = date.toLocaleString('de-DE', {
                 weekday: 'long',
                 year: 'numeric',
@@ -1240,8 +1444,8 @@
                 </div>
                 <div class="badge-grid">
                     <div class="badge-box">
-                        <span class="k">ISO-Format</span>
-                        <span class="v">${getLocalIsoString(date)}</span>
+                        <span class="k">Formatiertes Datum</span>
+                        <span class="v">${formatDateStringDE(date)}</span>
                     </div>
                     <div class="badge-box">
                         <span class="k">Netto-Verschiebung</span>
@@ -1253,13 +1457,11 @@
 
         document.getElementById('btnShiftDate').addEventListener('click', performSafeShift);
         document.getElementById('shiftBaseDate').addEventListener('input', performSafeShift);
-        document.getElementById('shiftBaseDate').addEventListener('change', performSafeShift);
         document.querySelectorAll('.shift-dyn').forEach(el => {
             el.addEventListener('input', performSafeShift);
-            el.addEventListener('change', performSafeShift);
         });
 
-        // 5. UNIVERSELLE EPOCHEN-CHRONOLOGIE & KALENDER-SYNCHRONISATION
+        // 5. Epochen-Chronologie & Kalender-Synchronisation
         document.getElementById('btnCalcChrono').addEventListener('click', () => {
             const system = document.getElementById('chronInputSystem').value;
             let y = parseInt(document.getElementById('chronYear').value, 10);
@@ -1268,18 +1470,14 @@
             const era = document.getElementById('chronEra').value;
 
             if (isNaN(y) || isNaN(m) || isNaN(d) || m < 1 || m > 12 || d < 1 || d > 31) {
-                alert('Bitte ein gültiges Kalenderdatum eingeben.');
+                document.getElementById('chronoResultOutput').innerHTML = `
+                    <span style="color: var(--rose-alert); font-weight: 700;">Fehler:</span> Bitte ein gültiges Kalenderdatum eingeben.
+                `;
                 return;
             }
 
             let astroYear = (era === 'BC') ? -(y - 1) : y;
-            let jdn;
-
-            if (system === 'GREG') {
-                jdn = gregorianToJdn(astroYear, m, d);
-            } else {
-                jdn = julianToJdn(astroYear, m, d);
-            }
+            let jdn = (system === 'GREG') ? gregorianToJdn(astroYear, m, d) : julianToJdn(astroYear, m, d);
 
             const gregDate = jdnToGregorian(jdn);
             const julDate = jdnToJulian(jdn);
@@ -1299,11 +1497,11 @@
                 <div class="badge-grid">
                     <div class="badge-box">
                         <span class="k">Gregorianischer Kalender</span>
-                        <span class="v">${String(gregDate.day).padStart(2,'0')}.${String(gregDate.month).padStart(2,'0')}.${formatChronoYear(gregDate.year)}</span>
+                        <span class="v">${pad(gregDate.day)}.${pad(gregDate.month)}.${formatChronoYear(gregDate.year)}</span>
                     </div>
                     <div class="badge-box">
                         <span class="k">Julianischer Kalender</span>
-                        <span class="v">${String(julDate.day).padStart(2,'0')}.${String(julDate.month).padStart(2,'0')}.${formatChronoYear(julDate.year)}</span>
+                        <span class="v">${pad(julDate.day)}.${pad(julDate.month)}.${formatChronoYear(julDate.year)}</span>
                     </div>
                     <div class="badge-box">
                         <span class="k">Julianische Tageszahl (JDN)</span>
@@ -1317,7 +1515,7 @@
             `;
         });
 
-        // 6. DEZIMALZEIT-RECHNER
+        // 6. Dezimalzeit-Konverter
         const decModeSelect = document.getElementById('decConvMode');
         decModeSelect.addEventListener('change', () => {
             if (decModeSelect.value === 'NtoD') {
@@ -1343,18 +1541,19 @@
                 const dh = Math.floor(decSecTotal / 10000);
                 const dm = Math.floor((decSecTotal % 10000) / 100);
                 const ds = decSecTotal % 100;
-                document.getElementById('decTimeResult').value = `${dh}:${String(dm).padStart(2,'0')}:${String(ds).padStart(2,'0')}`;
+                document.getElementById('decTimeResult').value = `${dh}:${pad(dm)}:${pad(ds)}`;
             } else {
                 const decSecTotal = (Math.min(9, h) * 10000) + (Math.min(99, m) * 100) + Math.min(99, s);
                 const totalSec = Math.round((decSecTotal / 100000) * 86400);
                 const nh = Math.floor(totalSec / 3600);
                 const nm = Math.floor((totalSec % 3600) / 60);
                 const ns = totalSec % 60;
-                document.getElementById('decTimeResult').value = `${String(nh).padStart(2,'0')}:${String(nm).padStart(2,'0')}:${String(ns).padStart(2,'0')}`;
+                document.getElementById('decTimeResult').value = `${pad(nh)}:${pad(nm)}:${pad(ns)}`;
             }
         });
 
-        // 7. ASTRONOMISCHER JULIANISCHES DATUM (JD / MJD) KONVERTER
+        // 7. Astronomischer Julianisches Datum (JD / MJD) Konverter
+        // Mit 8 Nachkommastellen (1 Sekunde = 0.00001157 Tage)
         const jdModeSelect = document.getElementById('jdConvMode');
         jdModeSelect.addEventListener('change', () => {
             if (jdModeSelect.value === 'dateToJd') {
@@ -1369,37 +1568,47 @@
         document.getElementById('btnRunJdConv').addEventListener('click', () => {
             const mode = jdModeSelect.value;
             if (mode === 'dateToJd') {
-                const val = document.getElementById('jdInputDate').value;
-                if (!val) {
-                    alert('Bitte ein Datum angeben.');
+                const raw = document.getElementById('jdInputDate').value;
+                const p = parseManualDateString(raw);
+                if (p.error) {
+                    setFieldValidation('jdInputDate', 'err_jdInputDate', p.error);
+                    document.getElementById('jdConvertResult').innerHTML = `
+                        <span style="color: var(--rose-alert); font-weight: 700;">Hinweis:</span> ${p.error}
+                    `;
                     return;
                 }
-                const d = new Date(val);
-                const jd = dateToExactJd(d);
+                setFieldValidation('jdInputDate', 'err_jdInputDate', null);
+                const jd = dateToExactJd(p.date);
                 const mjd = jd - 2400000.5;
+
                 document.getElementById('jdConvertResult').innerHTML = `
-                    <div style="font-size: 1.1rem; font-weight: 800; color: var(--cyan-glow); margin-bottom: 6px;">
-                        JD: ${jd.toFixed(5)}
+                    <div style="font-size: 1.15rem; font-weight: 800; color: var(--cyan-glow); margin-bottom: 6px;">
+                        JD: ${jd.toFixed(8)}
                     </div>
                     <div class="badge-grid">
-                        <div class="badge-box"><span class="k">Modifiziertes JD (MJD)</span><span class="v">${mjd.toFixed(5)}</span></div>
-                        <div class="badge-box"><span class="k">Referenzzeit (UTC)</span><span class="v">${d.toUTCString().slice(17, 25)} UTC</span></div>
+                        <div class="badge-box"><span class="k">Modifiziertes JD (MJD)</span><span class="v">${mjd.toFixed(8)}</span></div>
+                        <div class="badge-box"><span class="k">Ermittelte UTC-Zeit</span><span class="v">${p.date.toUTCString()}</span></div>
+                        <div class="badge-box"><span class="k">Lokale Zeit (sekundengenau)</span><span class="v">${formatDateStringDE(p.date)}</span></div>
+                        <div class="badge-box"><span class="k">Präzisions-Auflösung</span><span class="v">8 Dezimalstellen (±0,86 ms)</span></div>
                     </div>
                 `;
             } else {
                 const jdVal = parseFloat(document.getElementById('jdInputNumber').value);
                 if (isNaN(jdVal)) {
-                    alert('Bitte eine gültige Julianische Tageszahl eingeben.');
+                    document.getElementById('jdConvertResult').innerHTML = `
+                        <span style="color: var(--rose-alert); font-weight: 700;">Fehler:</span> Bitte eine gültige Julianische Tageszahl eingeben.
+                    `;
                     return;
                 }
                 const d = exactJdToDate(jdVal);
                 const mjd = jdVal - 2400000.5;
+
                 document.getElementById('jdConvertResult').innerHTML = `
-                    <div style="font-size: 1.05rem; font-weight: 800; color: var(--emerald-sync); margin-bottom: 6px;">
-                        Lokal: ${d.toLocaleString('de-DE')}
+                    <div style="font-size: 1.1rem; font-weight: 800; color: var(--emerald-sync); margin-bottom: 6px;">
+                        Lokalzeit: ${formatDateStringDE(d)}
                     </div>
                     <div class="badge-grid">
-                        <div class="badge-box"><span class="k">MJD</span><span class="v">${mjd.toFixed(5)}</span></div>
+                        <div class="badge-box"><span class="k">MJD (8 Nachkommastellen)</span><span class="v">${mjd.toFixed(8)}</span></div>
                         <div class="badge-box"><span class="k">UTC Zeit</span><span class="v">${d.toUTCString()}</span></div>
                     </div>
                 `;
@@ -1407,23 +1616,25 @@
         });
 
         /**
-         * 8. INITIALISIERUNG
+         * 7. INITIALISIERUNG
          */
         const initNow = new Date();
-        const localIsoNow = getLocalIsoString(initNow);
+        const initFormatted = formatDateStringDE(initNow);
 
-        document.getElementById('selectedDate').value = localIsoNow;
-        document.getElementById('startRangeDate').value = localIsoNow;
-        document.getElementById('endRangeDate').value = localIsoNow;
-        document.getElementById('shiftBaseDate').value = localIsoNow;
-        document.getElementById('jdInputDate').value = localIsoNow;
-        document.getElementById('jdInputNumber').value = dateToExactJd(initNow).toFixed(5);
+        document.getElementById('selectedDate').value = initFormatted;
+        document.getElementById('startRangeDate').value = initFormatted;
+        document.getElementById('endRangeDate').value = initFormatted;
+        document.getElementById('shiftBaseDate').value = initFormatted;
+        document.getElementById('jdInputDate').value = initFormatted;
+        document.getElementById('jdInputNumber').value = dateToExactJd(initNow).toFixed(8);
 
-        const startOfYearIso = getLocalIsoString(new Date(initNow.getFullYear(), 0, 1, 0, 0));
-        document.getElementById('refStart').value = startOfYearIso;
-        document.getElementById('refEnd').value = localIsoNow;
-        document.getElementById('subStart').value = getLocalIsoString(new Date(initNow.getTime() - 7 * 86400000));
-        document.getElementById('subEnd').value = localIsoNow;
+        const startOfYear = new Date(initNow.getFullYear(), 0, 1, 0, 0, 0);
+        document.getElementById('refStart').value = formatDateStringDE(startOfYear);
+        document.getElementById('refEnd').value = initFormatted;
+
+        const sevenDaysAgo = new Date(initNow.getTime() - 7 * 86400000);
+        document.getElementById('subStart').value = formatDateStringDE(sevenDaysAgo);
+        document.getElementById('subEnd').value = initFormatted;
 
         try {
             const timeZoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -1436,7 +1647,7 @@
             document.getElementById('systemTimezoneBadge').textContent = 'Systemzeit Synchronisiert';
         }
 
-        // Takt starten und initiale Verschiebung sofort berechnen
+        // Takt starten und initiale Werte berechnen
         updateMasterTicker();
         setInterval(updateMasterTicker, 1000);
         performSafeShift();
