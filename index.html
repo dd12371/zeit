@@ -899,17 +899,25 @@
                                 <option value="jdToDate">Julianisches Datum (JD) → Datum &amp; Zeit</option>
                             </select>
                         </div>
-                        <div id="jdDateInputWrap" class="field-group">
-                            <label for="jdInputDate">Datum &amp; Uhrzeit eingeben</label>
-                            <input type="text" id="jdInputDate" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ HH:MM:SS" spellcheck="false" autocomplete="off" />
-                            <span class="input-hint">Format: TT.MM.JJJJ oder JJJJ-MM-TT (Uhrzeit &amp; Sekunden optional)</span>
-                            <span class="field-error-msg" id="err_jdInputDate"></span>
-                        </div>
-                        <div id="jdValInputWrap" class="field-group" style="display: none;">
-                            <label for="jdInputNumber">Julianische Tageszahl (JD)</label>
-                            <!-- Schrittweite auf 8 Nachkommastellen für sub-sekundengenaue Auflösung -->
-                            <input type="number" step="0.00000001" id="jdInputNumber" placeholder="2460000.50000000" />
-                            <span class="input-hint">Genauigkeit auf 8 Nachkommastellen (1 s ≈ 0,00001157 Tage)</span>
+                        <div style="display: grid; grid-template-columns: 1fr 140px; gap: 10px;">
+                            <div id="jdDateInputWrap" class="field-group">
+                                <label for="jdInputDate">Datum &amp; Uhrzeit eingeben</label>
+                                <input type="text" id="jdInputDate" placeholder="JJJJ-MM-TT HH:MM:SS oder TT.MM.JJJJ HH:MM:SS" spellcheck="false" autocomplete="off" />
+                                <span class="input-hint">TT.MM.JJJJ oder JJJJ-MM-TT</span>
+                                <span class="field-error-msg" id="err_jdInputDate"></span>
+                            </div>
+                            <div id="jdValInputWrap" class="field-group" style="display: none;">
+                                <label for="jdInputNumber">Julianische Tageszahl (JD)</label>
+                                <input type="number" step="0.00000001" id="jdInputNumber" placeholder="2460000.50000000" />
+                                <span class="input-hint">8 Nachkommastellen</span>
+                                <span class="field-error-msg" id="err_jdInputNumber"></span>
+                            </div>
+                            <div class="field-group">
+                                <label for="jdUtcOffset">UTC-Offset (±HH:MM)</label>
+                                <input type="text" id="jdUtcOffset" placeholder="+01:00" spellcheck="false" autocomplete="off" />
+                                <span class="input-hint">z. B. +01:00, +00:00</span>
+                                <span class="field-error-msg" id="err_jdUtcOffset"></span>
+                            </div>
                         </div>
                         <button type="button" class="action-btn cyan-btn" id="btnRunJdConv">JD Konvertieren</button>
                     </div>
@@ -1552,8 +1560,18 @@
             }
         });
 
-        // 7. Astronomischer Julianisches Datum (JD / MJD) Konverter
-        // Mit 8 Nachkommastellen (1 Sekunde = 0.00001157 Tage)
+        // 7. Astronomischer Julianisches Datum (JD / MJD) Konverter ohne Redundanzen
+        function parseUtcOffsetMinutes(str) {
+            if (!str || typeof str !== 'string') return null;
+            const match = str.trim().match(/^([+-])(\d{1,2}):(\d{2})$/);
+            if (!match) return null;
+            const sign = match[1] === '-' ? -1 : 1;
+            const h = parseInt(match[2], 10);
+            const m = parseInt(match[3], 10);
+            if (h > 14 || m > 59) return null;
+            return sign * (h * 60 + m);
+        }
+
         const jdModeSelect = document.getElementById('jdConvMode');
         jdModeSelect.addEventListener('change', () => {
             if (jdModeSelect.value === 'dateToJd') {
@@ -1567,49 +1585,85 @@
 
         document.getElementById('btnRunJdConv').addEventListener('click', () => {
             const mode = jdModeSelect.value;
+            const offsetStr = document.getElementById('jdUtcOffset').value.trim();
+            const offsetMinutes = parseUtcOffsetMinutes(offsetStr);
+
+            if (offsetMinutes === null) {
+                setFieldValidation('jdUtcOffset', 'err_jdUtcOffset', 'Format: ±HH:MM (z. B. +01:00 oder +00:00)');
+                return;
+            }
+            setFieldValidation('jdUtcOffset', 'err_jdUtcOffset', null);
+
             if (mode === 'dateToJd') {
-                const raw = document.getElementById('jdInputDate').value;
-                const p = parseManualDateString(raw);
+                const rawDate = document.getElementById('jdInputDate').value;
+                const p = parseManualDateString(rawDate);
                 if (p.error) {
                     setFieldValidation('jdInputDate', 'err_jdInputDate', p.error);
-                    document.getElementById('jdConvertResult').innerHTML = `
-                        <span style="color: var(--rose-alert); font-weight: 700;">Hinweis:</span> ${p.error}
-                    `;
                     return;
                 }
                 setFieldValidation('jdInputDate', 'err_jdInputDate', null);
-                const jd = dateToExactJd(p.date);
+
+                // Exakte Umrechnung der eingegebenen Zeit unter Berücksichtigung des gewählten UTC-Offsets
+                const y = p.date.getFullYear();
+                const m = p.date.getMonth();
+                const d = p.date.getDate();
+                const h = p.date.getHours();
+                const min = p.date.getMinutes();
+                const s = p.date.getSeconds();
+
+                const utcMs = Date.UTC(y, m, d, h, min - offsetMinutes, s);
+                const jd = (utcMs / 86400000) + 2440587.5;
                 const mjd = jd - 2400000.5;
 
+                const utcD = new Date(utcMs);
+                const utcFmt = `${pad(utcD.getUTCDate())}.${pad(utcD.getUTCMonth() + 1)}.${utcD.getUTCFullYear()} ${pad(utcD.getUTCHours())}:${pad(utcD.getUTCMinutes())}:${pad(utcD.getUTCSeconds())} UTC`;
+
                 document.getElementById('jdConvertResult').innerHTML = `
-                    <div style="font-size: 1.15rem; font-weight: 800; color: var(--cyan-glow); margin-bottom: 6px;">
+                    <div style="font-size: 1.25rem; font-weight: 800; color: var(--cyan-glow); margin-bottom: 6px;">
                         JD: ${jd.toFixed(8)}
                     </div>
                     <div class="badge-grid">
-                        <div class="badge-box"><span class="k">Modifiziertes JD (MJD)</span><span class="v">${mjd.toFixed(8)}</span></div>
-                        <div class="badge-box"><span class="k">Ermittelte UTC-Zeit</span><span class="v">${p.date.toUTCString()}</span></div>
-                        <div class="badge-box"><span class="k">Lokale Zeit (sekundengenau)</span><span class="v">${formatDateStringDE(p.date)}</span></div>
-                        <div class="badge-box"><span class="k">Präzisions-Auflösung</span><span class="v">8 Dezimalstellen (±0,86 ms)</span></div>
+                        <div class="badge-box">
+                            <span class="k">Modifiziertes JD (MJD)</span>
+                            <span class="v">${mjd.toFixed(8)}</span>
+                        </div>
+                        <div class="badge-box">
+                            <span class="k">Astronomische UTC-Referenz</span>
+                            <span class="v">${utcFmt}</span>
+                        </div>
                     </div>
                 `;
             } else {
                 const jdVal = parseFloat(document.getElementById('jdInputNumber').value);
                 if (isNaN(jdVal)) {
-                    document.getElementById('jdConvertResult').innerHTML = `
-                        <span style="color: var(--rose-alert); font-weight: 700;">Fehler:</span> Bitte eine gültige Julianische Tageszahl eingeben.
-                    `;
+                    setFieldValidation('jdInputNumber', 'err_jdInputNumber', 'Bitte eine gültige Zahl eingeben.');
                     return;
                 }
-                const d = exactJdToDate(jdVal);
+                setFieldValidation('jdInputNumber', 'err_jdInputNumber', null);
+
+                const utcMs = Math.round((jdVal - 2440587.5) * 86400000);
+                const targetMs = utcMs + (offsetMinutes * 60000);
+
+                const tDate = new Date(targetMs);
+                const resultFormatted = `${pad(tDate.getUTCDate())}.${pad(tDate.getUTCMonth() + 1)}.${tDate.getUTCFullYear()} ${pad(tDate.getUTCHours())}:${pad(tDate.getUTCMinutes())}:${pad(tDate.getUTCSeconds())}`;
+
+                const utcD = new Date(utcMs);
+                const utcFmt = `${pad(utcD.getUTCDate())}.${pad(utcD.getUTCMonth() + 1)}.${utcD.getUTCFullYear()} ${pad(utcD.getUTCHours())}:${pad(utcD.getUTCMinutes())}:${pad(utcD.getUTCSeconds())} UTC`;
                 const mjd = jdVal - 2400000.5;
 
                 document.getElementById('jdConvertResult').innerHTML = `
-                    <div style="font-size: 1.1rem; font-weight: 800; color: var(--emerald-sync); margin-bottom: 6px;">
-                        Lokalzeit: ${formatDateStringDE(d)}
+                    <div style="font-size: 1.15rem; font-weight: 800; color: var(--emerald-sync); margin-bottom: 6px;">
+                        Datum &amp; Zeit: ${resultFormatted} (${offsetStr})
                     </div>
                     <div class="badge-grid">
-                        <div class="badge-box"><span class="k">MJD (8 Nachkommastellen)</span><span class="v">${mjd.toFixed(8)}</span></div>
-                        <div class="badge-box"><span class="k">UTC Zeit</span><span class="v">${d.toUTCString()}</span></div>
+                        <div class="badge-box">
+                            <span class="k">Modifiziertes JD (MJD)</span>
+                            <span class="v">${mjd.toFixed(8)}</span>
+                        </div>
+                        <div class="badge-box">
+                            <span class="k">Astronomische UTC-Referenz</span>
+                            <span class="v">${utcFmt}</span>
+                        </div>
                     </div>
                 `;
             }
@@ -1627,6 +1681,13 @@
         document.getElementById('shiftBaseDate').value = initFormatted;
         document.getElementById('jdInputDate').value = initFormatted;
         document.getElementById('jdInputNumber').value = dateToExactJd(initNow).toFixed(8);
+
+        // Systemeigenen UTC-Offset ermitteln und als Vorbelegung im Format ±HH:MM setzen
+        const sysOffsetMin = -initNow.getTimezoneOffset();
+        const sysSign = sysOffsetMin >= 0 ? '+' : '-';
+        const sysH = pad(Math.floor(Math.abs(sysOffsetMin) / 60));
+        const sysM = pad(Math.abs(sysOffsetMin) % 60);
+        document.getElementById('jdUtcOffset').value = `${sysSign}${sysH}:${sysM}`;
 
         const startOfYear = new Date(initNow.getFullYear(), 0, 1, 0, 0, 0);
         document.getElementById('refStart').value = formatDateStringDE(startOfYear);
