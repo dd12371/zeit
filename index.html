@@ -53,9 +53,15 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         body {
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
             background-color: var(--bg-obsidian);
             background-image:
                 linear-gradient(var(--line-grid) 1px, transparent 1px),
@@ -183,6 +189,8 @@
             border-radius: var(--r-sm);
         }
 
+        body.mode-desktop { min-width: 0; width: 1240px; }
+        body.mode-mobile .observatory-shell { max-width: 640px; }
         .status-led {
             width: 8px;
             height: 8px;
@@ -791,11 +799,22 @@
                 <button class="nav-pill" data-filter="sec-4">IV · Kompendium</button>
             </nav>
 
-            <div class="telemetry-strip">
+            <div class="telemetry-strip" style="flex-wrap:wrap;">
                 <span class="status-led"></span>
                 <span id="topSysZone">Sync...</span>
                 <span style="color: var(--text-muted);">|</span>
                 <span id="topUnixLive" style="color: var(--brass-bright);">UNIX: --</span>
+                <select id="paramViewMode" style="width:auto;padding:3px 6px;font-size:0.72rem;">
+                    <option value="auto">Auto</option>
+                    <option value="mobile">Mobil</option>
+                    <option value="desktop">Desktop</option>
+                </select>
+                <div style="display:inline-flex;align-items:center;gap:4px;">
+                    <button type="button" class="nav-pill" style="padding:3px 7px;" id="btnScaleDown">−</button>
+                    <input type="number" id="paramScaleInput" inputmode="numeric" min="25" max="150" step="5" value="100" style="width:52px;padding:3px 4px;text-align:center;font-size:0.72rem;">
+                    <button type="button" class="nav-pill" style="padding:3px 7px;" id="btnScaleUp">+</button>
+                    <button type="button" class="nav-pill" style="padding:3px 7px;" id="btnScaleReset">100%</button>
+                </div>
             </div>
         </div>
     </header>
@@ -2627,6 +2646,35 @@
             document.getElementById('btnCalcChrono').click();
             document.getElementById('btnCalcRelPercent').click();
             performSafeShift();
+
+            let viewMode = "auto";
+            let uiScale = 100;
+            function applyViewSettings() {
+                const isDesktop = viewMode === "desktop";
+                document.body.classList.toggle("mode-desktop", isDesktop);
+                document.body.classList.toggle("mode-mobile", viewMode === "mobile");
+                uiScale = Math.max(25, Math.min(150, Math.round(uiScale || 100)));
+                let scale = uiScale / 100;
+                if (isDesktop && window.innerWidth < 1240) scale = (window.innerWidth / 1240) * (uiScale / 100);
+                document.body.style.transformOrigin = "top left";
+                if (Math.abs(scale - 1) < 0.001) {
+                    document.body.style.transform = "";
+                    document.body.style.width = isDesktop ? "1240px" : "";
+                } else {
+                    document.body.style.transform = `scale(${scale.toFixed(4)})`;
+                    document.body.style.width = isDesktop ? "1240px" : `${(100 / scale).toFixed(4)}%`;
+                }
+                document.getElementById("paramViewMode").value = viewMode;
+                document.getElementById("paramScaleInput").value = String(uiScale);
+            }
+            const updateScale = (v) => { const n = parseInt(v, 10); if (!Number.isNaN(n)) { uiScale = n; applyViewSettings(); } };
+            document.getElementById("paramViewMode").addEventListener("change", (e) => { viewMode = e.target.value; applyViewSettings(); });
+            document.getElementById("paramScaleInput").addEventListener("change", (e) => updateScale(e.target.value));
+            document.getElementById("btnScaleDown").addEventListener("click", () => updateScale(uiScale - 5));
+            document.getElementById("btnScaleUp").addEventListener("click", () => updateScale(uiScale + 5));
+            document.getElementById("btnScaleReset").addEventListener("click", () => updateScale(100));
+            window.addEventListener("resize", applyViewSettings);
+            applyViewSettings();
         })();
     </script>
 </body>
