@@ -53,13 +53,13 @@
 
         html {
             scroll-behavior: smooth;
-            overflow-x: hidden;
+            overflow-x: clip;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
         }
 
         body {
-            overflow-x: hidden;
+            overflow-x: clip;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
             background-color: var(--bg-obsidian);
@@ -468,6 +468,93 @@
             word-break: break-word;
         }
 
+        /* CHRONOMETER 03 (RÖMISCHE TEMPORAL-UHR) */
+        .clock-panel-wide {
+            grid-column: 1 / -1;
+        }
+
+        .roman-showcase-grid {
+            display: grid;
+            grid-template-columns: 225px 1fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        @media (max-width: 720px) {
+            .roman-showcase-grid {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+        }
+
+        .dial-frame-roman {
+            width: 225px;
+            height: 225px;
+            position: relative;
+            display: grid;
+            place-items: center;
+            background: radial-gradient(circle, #181410 0%, #090b10 74%);
+            border-radius: 50%;
+            border: 1.5px solid var(--line-brass);
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.85), 0 0 28px rgba(218, 179, 86, 0.12);
+        }
+
+        .roman-hours-strip {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 980px) {
+            .roman-hours-strip { grid-template-columns: repeat(6, 1fr); }
+        }
+
+        @media (max-width: 520px) {
+            .roman-hours-strip { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .roman-hour-chip {
+            background: var(--bg-recessed);
+            border: 1px solid var(--line-hair);
+            border-radius: var(--r-sm);
+            padding: 6px 4px;
+            text-align: center;
+            font-family: var(--font-mono);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .roman-hour-chip .rh-num {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--text-secondary);
+        }
+
+        .roman-hour-chip .rh-time {
+            font-size: 0.66rem;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .roman-hour-chip.active-day {
+            border-color: var(--brass);
+            background: var(--brass-dim);
+        }
+
+        .roman-hour-chip.active-day .rh-num { color: var(--brass-bright); }
+        .roman-hour-chip.active-day .rh-time { color: var(--text-primary); }
+
+        .roman-hour-chip.active-night {
+            border-color: var(--sidereal);
+            background: var(--sidereal-dim);
+        }
+
+        .roman-hour-chip.active-night .rh-num { color: #d8b4fe; }
+        .roman-hour-chip.active-night .rh-time { color: var(--text-primary); }
+
         /* STRUCTURED SINGLE-METRIC LEDGER */
         .epoch-ledger {
             background: var(--bg-recessed);
@@ -519,26 +606,25 @@
         /* 6-PLANE RING CLOCK & BARS */
         .radar-wrap {
             display: grid;
-            grid-template-columns: 330px 1fr;
+            grid-template-columns: minmax(300px, 430px) 1fr;
             gap: 20px;
             align-items: center;
         }
 
-        @media (max-width: 780px) {
+        @media (max-width: 860px) {
             .radar-wrap { grid-template-columns: 1fr; justify-items: center; }
         }
 
         .ring-clock-frame {
-            width: 330px;
-            height: 330px;
-            max-width: 100%;
-            background: radial-gradient(circle, #121826 0%, #06090f 75%);
-            border-radius: 50%;
+            width: 100%;
+            max-width: 430px;
+            background: radial-gradient(circle at 36% 50%, #121826 0%, #06090f 78%);
+            border-radius: var(--r-xl);
             border: 1px solid var(--line-hair);
             box-shadow: inset 0 0 36px rgba(0,0,0,0.85), 0 10px 28px rgba(0,0,0,0.5);
             display: grid;
             place-items: center;
-            padding: 4px;
+            padding: 10px;
         }
 
         .cycle-bars {
@@ -619,12 +705,6 @@
             font-variant-numeric: tabular-nums;
         }
 
-        .solar-events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-            gap: 8px;
-        }
-
         /* FORMS & INPUTS */
         .form-grid {
             display: flex;
@@ -637,6 +717,48 @@
             grid-template-columns: 1fr 110px;
             gap: 10px;
             align-items: start;
+        }
+
+        .astro-date-bar {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .chrono-date-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 105px;
+            gap: 8px;
+        }
+
+        .roman-4-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        @media (max-width: 640px) {
+            .astro-date-bar,
+            .chrono-date-grid,
+            .roman-4-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .compact-table th, .compact-table td {
+            padding: 6px 8px;
+            font-size: 0.72rem;
+        }
+
+        .cosmic-custom-box {
+            background: var(--bg-recessed);
+            border: 1px solid var(--line-hair);
+            border-radius: var(--r-md);
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         @media (max-width: 480px) {
@@ -741,6 +863,10 @@
             padding: 14px;
             font-family: var(--font-mono);
             font-size: 0.78rem;
+        }
+
+        .output-console:has(.copy-btn) {
+            padding-top: 38px;
         }
 
         .copy-btn {
@@ -891,10 +1017,12 @@
                     <div class="sector-code">Sektor I // Echtzeit-Chronometrie</div>
                     <h2 class="sector-title">Das Horologische Observatorium</h2>
                 </div>
+                <p class="sector-desc">
+                    SI-Masterchronometer, Französische Revolutions-Dezimaluhr, Römische Tag-/Nachtstunden-Uhr (auf Basis der Berliner Sonnenephemeriden), historische Epochen-Chronometer und Live-Diagramme.
                 </p>
             </div>
 
-            <!-- 4 MONUMENTALE UHREN -->
+            <!-- UHREN -->
             <div class="grid-clocks">
 
                 <!-- UHR 1: 24H MASTER-PRÄZISIONSCHRONOMETER -->
@@ -999,7 +1127,101 @@
                     </div>
                 </article>
 
-                <!-- UHR 3: EWIGER CHRONOMETER I (01.10.1949) OHNE JAHRESZYKLUS-GRAFIK -->
+                <!-- UHR 3: RÖMISCHE TEMPORAL-UHR (12 TAGSTUNDEN / 12 NACHTSTUNDEN) -->
+                <article class="instrument-panel panel-brass clock-panel-wide">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-kicker">Chronometer 03 · Antike Temporalzeit (12 Tag- / 12 Nachtstunden · Berlin)</div>
+                            <h3 class="panel-title">Römische Temporal-Uhr (Horae Diurnae &amp; Nocturnae)</h3>
+                        </div>
+                        <span class="panel-badge" id="clkRomanBadge" style="color: var(--brass-bright);">Synchronisiere Sonne...</span>
+                    </div>
+
+                    <div class="roman-showcase-grid">
+                        <div class="dial-frame-roman">
+                            <svg class="dial-svg" viewBox="0 0 200 200" aria-label="Analoge Römische Temporal-Uhr">
+                                <defs>
+                                    <radialGradient id="romanDayBg" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="rgba(218, 179, 86, 0.16)"/>
+                                        <stop offset="100%" stop-color="rgba(9, 11, 16, 0.92)"/>
+                                    </radialGradient>
+                                    <radialGradient id="romanNightBg" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="rgba(167, 139, 250, 0.18)"/>
+                                        <stop offset="100%" stop-color="rgba(7, 9, 15, 0.96)"/>
+                                    </radialGradient>
+                                </defs>
+                                <circle id="romanInnerBg" cx="100" cy="100" r="92" fill="url(#romanDayBg)" stroke="rgba(218,179,86,0.35)" stroke-width="1.2"/>
+                                <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+                                <circle cx="100" cy="100" r="46" fill="rgba(5,7,11,0.55)" stroke="rgba(218,179,86,0.22)" stroke-width="1"/>
+                                <g id="romanTicks"></g>
+                                <path id="romanPeriodArc" d="" fill="none" stroke="#dab356" stroke-width="3.2" stroke-linecap="round" opacity="0.8"/>
+
+                                <!-- Tag-Emblem (DIES) -->
+                                <g id="romanSunEmblem">
+                                    <circle cx="100" cy="92" r="10" fill="rgba(245,214,130,0.22)" stroke="#f5d682" stroke-width="1.3"/>
+                                    <circle cx="100" cy="92" r="5" fill="#f5d682"/>
+                                    <text x="100" y="118" text-anchor="middle" fill="#f5d682" font-family="JetBrains Mono" font-size="8.5" font-weight="800" letter-spacing="1.5">DIES</text>
+                                </g>
+
+                                <!-- Nacht-Emblem (NOX) -->
+                                <g id="romanMoonEmblem" style="display: none;">
+                                    <path d="M 103 83 A 10 10 0 1 0 110 99 A 7.5 7.5 0 1 1 103 83 Z" fill="#c4b5fd"/>
+                                    <circle cx="91" cy="86" r="1" fill="#e2e8f0"/>
+                                    <circle cx="111" cy="85" r="0.9" fill="#e2e8f0"/>
+                                    <text x="100" y="118" text-anchor="middle" fill="#c4b5fd" font-family="JetBrains Mono" font-size="8.5" font-weight="800" letter-spacing="1.5">NOX</text>
+                                </g>
+
+                                <!-- Klassische Zeiger -->
+                                <polygon id="romanHourHand" points="100,45 103.8,100 100,111 96.2,100" fill="#f5d682" stroke="#05070b" stroke-width="0.6"/>
+                                <polygon id="romanMinHand" points="100,26 102.4,100 100,114 97.6,100" fill="#f1f5f9" stroke="#05070b" stroke-width="0.5"/>
+                                <line id="romanSecHand" x1="100" y1="117" x2="100" y2="21" stroke="#38bdf8" stroke-width="1.3" stroke-linecap="round"/>
+                                <circle cx="100" cy="100" r="5" fill="#dab356" stroke="#05070b" stroke-width="1.2"/>
+                                <circle cx="100" cy="100" r="2" fill="#05070b"/>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <div class="digital-readout-xl" id="clkRomanDigital" style="color: var(--brass-bright);">Hora I · 01:00:00</div>
+                            <div class="sub-date-line" id="clkRomanSub">Lade Berliner Sonnenaufgang &amp; -untergang...</div>
+
+                            <div class="micro-grid">
+                                <div class="micro-cell">
+                                    <span class="micro-k">Perioden-Start (Berlin)</span>
+                                    <span class="micro-v" id="clkRomanRise">--:--:--</span>
+                                </div>
+                                <div class="micro-cell">
+                                    <span class="micro-k">Perioden-Ende (Berlin)</span>
+                                    <span class="micro-v" id="clkRomanSet">--:--:--</span>
+                                </div>
+                                <div class="micro-cell">
+                                    <span class="micro-k">Aktuelle Periodenlänge</span>
+                                    <span class="micro-v" id="clkRomanPeriodLen">--</span>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 12px; overflow-x: auto; background: var(--bg-recessed); border: 1px solid var(--line-hair); border-radius: var(--r-md);">
+                                <table class="ref-table compact-table">
+                                    <thead>
+                                        <tr>
+                                            <th>1 Ausgangs-Einheit (Laufende Phase)</th>
+                                            <th>Exakter Gegenwert (Komma + Unter-Einheit)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="romanUnitLiveBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
+                            Heutige 12 Stunden-Einteilung der laufenden Phase (Berliner Ortszeit)
+                        </div>
+                        <div class="roman-hours-strip" id="romanScheduleGrid"></div>
+                    </div>
+                </article>
+
+                <!-- EWIGER CHRONOMETER I (01.10.1949) OHNE JAHRESZYKLUS-GRAFIK -->
                 <article class="instrument-panel panel-crimson">
                     <div class="panel-head">
                         <div>
@@ -1012,7 +1234,7 @@
                     <div class="epoch-ledger" id="output1949">Initialisiere...</div>
                 </article>
 
-                <!-- UHR 4: EWIGER CHRONOMETER II (04.10.2022) OHNE JAHRESZYKLUS-GRAFIK -->
+                <!-- EWIGER CHRONOMETER II (04.10.2022) OHNE JAHRESZYKLUS-GRAFIK -->
                 <article class="instrument-panel panel-sidereal">
                     <div class="panel-head">
                         <div>
@@ -1029,7 +1251,7 @@
             <!-- LIVE-DIAGRAMME: 6-EBENEN-UHR & BERLIN SONNENSTAND -->
             <div class="grid-diagrams">
 
-                <!-- DIAGRAMM 1: 6-EBENEN RING-UHR MIT SKALEN & ANZEIGEN AUF JEDEM RING -->
+                <!-- DIAGRAMM 1: 6-EBENEN RING-UHR MIT UNVERDECKENDER HUD-SPALTE -->
                 <article class="instrument-panel panel-brass">
                     <div class="panel-head">
                         <div>
@@ -1041,7 +1263,7 @@
 
                     <div class="radar-wrap">
                         <div class="ring-clock-frame">
-                            <svg id="svgRingClock" viewBox="0 0 360 360" width="100%" height="100%" aria-label="6-Ebenen Zeitzyklus-Uhr">
+                            <svg id="svgRingClock" viewBox="0 0 495 360" width="100%" height="auto" aria-label="6-Ebenen Zeitzyklus-Uhr">
                                 <defs>
                                     <filter id="glowRingDot" x="-50%" y="-50%" width="200%" height="200%">
                                         <feGaussianBlur stdDeviation="2.5" result="blur"/>
@@ -1051,9 +1273,13 @@
                                         </feMerge>
                                     </filter>
                                 </defs>
+                                <!-- Äußere Ziffernblatt-Einfassung -->
+                                <circle cx="180" cy="180" r="175" fill="#06090f" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+                                <!-- 00-Uhr-Referenzachse (dezent, verdeckt niemals die Zeiger) -->
+                                <line x1="180" y1="18" x2="180" y2="156" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="2 3"/>
                                 <!-- Statische Skalen & Ziffernringe werden via JS einmalig erzeugt -->
                                 <g id="ringClockTicks"></g>
-                                <!-- Dynamische Fortschrittsbögen (-90° = 12 Uhr Start) -->
+                                <!-- Dynamische Fortschrittsbögen (-90° = 12 Uhr / 00 Start) -->
                                 <g transform="rotate(-90 180 180)">
                                     <circle cx="180" cy="180" r="158" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="9"/>
                                     <circle id="radMin" cx="180" cy="180" r="158" fill="none" stroke="#34d399" stroke-width="9" stroke-linecap="round"/>
@@ -1073,7 +1299,7 @@
                                     <circle cx="180" cy="180" r="38" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="9"/>
                                     <circle id="radYear" cx="180" cy="180" r="38" fill="none" stroke="#f43f5e" stroke-width="9" stroke-linecap="round"/>
                                 </g>
-                                <!-- Zeiger-Punkte & Markierungen auf jedem Ring -->
+                                <!-- Zeiger-Punkte & Markierungen auf jedem Ring (jederzeit voll sichtbar, auch bei 00!) -->
                                 <g id="ringClockPointers" filter="url(#glowRingDot)">
                                     <line id="ptrLineMin" x1="180" y1="180" x2="180" y2="22" stroke="rgba(52,211,153,0.45)" stroke-width="1"/>
                                     <circle id="ptrDotMin" cx="180" cy="22" r="5" fill="#34d399" stroke="#05070b" stroke-width="1.5"/>
@@ -1093,30 +1319,43 @@
                                     <line id="ptrLineYear" x1="180" y1="180" x2="180" y2="142" stroke="rgba(244,63,94,0.45)" stroke-width="1"/>
                                     <circle id="ptrDotYear" cx="180" cy="142" r="4.2" fill="#f43f5e" stroke="#05070b" stroke-width="1.5"/>
                                 </g>
-                                <!-- Direkt-Anzeigen auf JEDEM Ring (12-Uhr-Brücke) -->
-                                <g id="ringClockBadges" font-family="JetBrains Mono" font-size="8.2" font-weight="700" text-anchor="middle">
-                                    <rect x="137" y="14" width="86" height="15" rx="4" fill="rgba(7,10,16,0.92)" stroke="rgba(52,211,153,0.55)" stroke-width="0.9"/>
-                                    <text id="ringTxtMin" x="180" y="24.5" fill="#34d399">MIN --</text>
-
-                                    <rect x="137" y="38" width="86" height="15" rx="4" fill="rgba(7,10,16,0.92)" stroke="rgba(56,189,248,0.55)" stroke-width="0.9"/>
-                                    <text id="ringTxtHour" x="180" y="48.5" fill="#38bdf8">STD --</text>
-
-                                    <rect x="137" y="62" width="86" height="15" rx="4" fill="rgba(7,10,16,0.92)" stroke="rgba(218,179,86,0.55)" stroke-width="0.9"/>
-                                    <text id="ringTxtDay" x="180" y="72.5" fill="#f5d682">TAG --</text>
-
-                                    <rect x="139" y="86" width="82" height="15" rx="4" fill="rgba(7,10,16,0.92)" stroke="rgba(167,139,250,0.55)" stroke-width="0.9"/>
-                                    <text id="ringTxtWeek" x="180" y="96.5" fill="#c4b5fd">WO --</text>
-
-                                    <rect x="141" y="110" width="78" height="15" rx="4" fill="rgba(7,10,16,0.92)" stroke="rgba(251,146,60,0.55)" stroke-width="0.9"/>
-                                    <text id="ringTxtMonth" x="180" y="120.5" fill="#fdba74">MON --</text>
-
-                                    <rect x="142" y="134" width="76" height="15" rx="4" fill="rgba(7,10,16,0.92)" stroke="rgba(244,63,94,0.55)" stroke-width="0.9"/>
-                                    <text id="ringTxtYear" x="180" y="144.5" fill="#fda4af">JAHR --</text>
-                                </g>
                                 <!-- Zentrum-Nabe mit Live-Uhrzeit -->
                                 <circle cx="180" cy="180" r="24" fill="#070a10" stroke="rgba(218,179,86,0.45)" stroke-width="1.2"/>
                                 <text id="ringCenterClock" x="180" y="179" text-anchor="middle" fill="#ffffff" font-family="JetBrains Mono" font-size="9.2" font-weight="800">--:--:--</text>
                                 <text x="180" y="191" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono" font-size="6.8" font-weight="600">6-EBENEN</text>
+
+                                <!-- Unverdeckende Ring-HUD-Anzeigen außerhalb des Kreises (rechts) -->
+                                <g id="ringClockBadges" font-family="JetBrains Mono" font-size="9" font-weight="700">
+                                    <rect x="366" y="24" width="122" height="36" rx="6" fill="rgba(7,10,16,0.92)" stroke="rgba(52,211,153,0.45)" stroke-width="1"/>
+                                    <circle cx="378" cy="36" r="3.5" fill="#34d399"/>
+                                    <text x="387" y="39" fill="#94a3b8" font-size="7.2">EBENE 1 · MINUTE</text>
+                                    <text id="ringTxtMin" x="376" y="53" fill="#34d399">MIN --</text>
+
+                                    <rect x="366" y="74" width="122" height="36" rx="6" fill="rgba(7,10,16,0.92)" stroke="rgba(56,189,248,0.45)" stroke-width="1"/>
+                                    <circle cx="378" cy="86" r="3.5" fill="#38bdf8"/>
+                                    <text x="387" y="89" fill="#94a3b8" font-size="7.2">EBENE 2 · STUNDE</text>
+                                    <text id="ringTxtHour" x="376" y="103" fill="#38bdf8">STD --</text>
+
+                                    <rect x="366" y="124" width="122" height="36" rx="6" fill="rgba(7,10,16,0.92)" stroke="rgba(218,179,86,0.45)" stroke-width="1"/>
+                                    <circle cx="378" cy="136" r="3.5" fill="#dab356"/>
+                                    <text x="387" y="139" fill="#94a3b8" font-size="7.2">EBENE 3 · TAG</text>
+                                    <text id="ringTxtDay" x="376" y="153" fill="#f5d682">TAG --</text>
+
+                                    <rect x="366" y="174" width="122" height="36" rx="6" fill="rgba(7,10,16,0.92)" stroke="rgba(167,139,250,0.45)" stroke-width="1"/>
+                                    <circle cx="378" cy="186" r="3.5" fill="#a78bfa"/>
+                                    <text x="387" y="189" fill="#94a3b8" font-size="7.2">EBENE 4 · WOCHE</text>
+                                    <text id="ringTxtWeek" x="376" y="203" fill="#c4b5fd">WO --</text>
+
+                                    <rect x="366" y="224" width="122" height="36" rx="6" fill="rgba(7,10,16,0.92)" stroke="rgba(251,146,60,0.45)" stroke-width="1"/>
+                                    <circle cx="378" cy="236" r="3.5" fill="#fb923c"/>
+                                    <text x="387" y="239" fill="#94a3b8" font-size="7.2">EBENE 5 · MONAT</text>
+                                    <text id="ringTxtMonth" x="376" y="253" fill="#fdba74">MON --</text>
+
+                                    <rect x="366" y="274" width="122" height="36" rx="6" fill="rgba(7,10,16,0.92)" stroke="rgba(244,63,94,0.45)" stroke-width="1"/>
+                                    <circle cx="378" cy="286" r="3.5" fill="#f43f5e"/>
+                                    <text x="387" y="289" fill="#94a3b8" font-size="7.2">EBENE 6 · JAHR</text>
+                                    <text id="ringTxtYear" x="376" y="303" fill="#fda4af">JAHR --</text>
+                                </g>
                             </svg>
                         </div>
 
@@ -1255,7 +1494,7 @@
                     <h2 class="sector-title">Temporale Analytik &amp; Intervall-Labor</h2>
                 </div>
                 <p class="sector-desc">
-                    Kalenderexakte Differenzen (inkl. v. Chr. / n. Chr.) mit einzeln aufgeschlüsselten Zeiteinheiten, Werktagsanalyse, 4-Punkte-Zeitanteil-Analysator und sicherer Datumsverschiebung.
+                    Kalenderexakte Differenzen (inkl. v. Chr. / n. Chr.), Werktagsanalyse, 4-Punkte-Zeitanteil-Analysator, Datumsverschiebung sowie bidirektionale Dezimal- und Römische Temporalzeit-Konverter mit exakten Einheitentabellen.
                 </p>
             </div>
 
@@ -1346,7 +1585,7 @@
                     </div>
                 </article>
 
-                <!-- 3. 4-DATEN PROZENTUALES ZEITSYSTEM SEKUNDENGENAU (OHNE PUNKT 4) -->
+                <!-- 3. 4-DATEN PROZENTUALES ZEITSYSTEM SEKUNDENGENAU -->
                 <article class="instrument-panel panel-sidereal" style="grid-column: 1 / -1;">
                     <div class="panel-head">
                         <div>
@@ -1393,12 +1632,12 @@
                     </div>
                 </article>
 
-                <!-- 4. DATUM SICHER VERSCHIEBEN -->
+                <!-- 4. DATUM VERSCHIEBEN -->
                 <article class="instrument-panel panel-atomic" style="grid-column: 1 / -1;">
                     <div class="panel-head">
                         <div>
                             <div class="panel-kicker">Analytik 04 · Überlauffreier Kalender-Navigator</div>
-                            <h3 class="panel-title">Datum sicher vor- oder rückwärts verschieben</h3>
+                            <h3 class="panel-title">Datum vor- oder rückwärts verschieben</h3>
                         </div>
                         <span class="panel-badge" style="color: var(--atomic);">Live-Vorschau</span>
                     </div>
@@ -1426,6 +1665,144 @@
                             <button class="copy-btn" type="button" onclick="copyText('shiftResultOutput')">Kopieren</button>
                             <div id="shiftResultOutput">Ergebnisdatum erscheint hier automatisch.</div>
                         </div>
+                    </div>
+                </article>
+
+                <!-- 5. DEZIMALUHR <-> DUODEZIMAL/NORMALZEIT KONVERTER + EINHEITENTABELLE -->
+                <article class="instrument-panel panel-cryo">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-kicker">Analytik 05 · Bidirektionaler Uhrzeit-Konverter</div>
+                            <h3 class="panel-title">Dezimalzeit ↔ Normalzeit (Duodezimal / 24h)</h3>
+                        </div>
+                        <span class="panel-badge" style="color: var(--cryo);">10h/100m/100s ↔ 24h/60m/60s</span>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="decConvMode">Umrechnungsrichtung</label>
+                            <select id="decConvMode">
+                                <option value="normToDec" selected>Normalzeit (24h · HH:MM:SS) → Dezimalzeit (10h · H:MM:SS)</option>
+                                <option value="decToNorm">Dezimalzeit (10h · H:MM:SS) → Normalzeit (24h · HH:MM:SS)</option>
+                            </select>
+                        </div>
+
+                        <div class="field" id="decConvNormalWrap">
+                            <label for="decInputNormal">Normalzeit (HH:MM:SS)</label>
+                            <input type="text" id="decInputNormal" placeholder="z. B. 14:30:00 oder 14:30:00.5" spellcheck="false" autocomplete="off">
+                            <span class="field-hint">Erlaubt: 00:00:00 bis 23:59:59,999 (Sekunden optional)</span>
+                            <span class="err-hint" id="err_decInputNormal"></span>
+                        </div>
+
+                        <div class="field" id="decConvDecWrap" style="display: none;">
+                            <label for="decInputDecimal">Dezimalzeit (H:MM:SS)</label>
+                            <input type="text" id="decInputDecimal" placeholder="z. B. 5:00:00 oder 6:04:16.67" spellcheck="false" autocomplete="off">
+                            <span class="field-hint">Erlaubt: 0:00:00 bis 9:99:99,99 (Dezimalsekunden optional)</span>
+                            <span class="err-hint" id="err_decInputDecimal"></span>
+                        </div>
+
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button type="button" class="btn-exec btn-cryo" id="btnRunDecConv" style="flex: 1;">Umrechnen</button>
+                            <button type="button" class="btn-exec" id="btnDecConvNow">Jetzt laden</button>
+                        </div>
+                    </div>
+
+                    <div class="output-console">
+                        <button class="copy-btn" type="button" onclick="copyText('decConvResult')">Kopieren</button>
+                        <div id="decConvResult">Uhrzeit eingeben, um zwischen Duodezimal-/24h-Normalzeit und Dezimalzeit umzurechnen.</div>
+                    </div>
+
+                    <div style="overflow-x: auto; background: var(--bg-recessed); border: 1px solid var(--line-hair); border-radius: var(--r-md);">
+                        <table class="ref-table compact-table">
+                            <thead>
+                                <tr>
+                                    <th>1 Ausgangs-Einheit</th>
+                                    <th>Entspricht im anderen System (Komma + Unter-Einheit)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="decUnitTableBody"></tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <!-- 6. RÖMISCHER TEMPORAL-KONVERTER + DYNAMISCHE TAGES-EINHEITENTABELLE -->
+                <article class="instrument-panel panel-brass">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-kicker">Analytik 06 · Datumsabhängige Sonnenstunden (Berlin)</div>
+                            <h3 class="panel-title">Römische Temporalzeit ↔ Normalzeit</h3>
+                        </div>
+                        <span class="panel-badge" style="color: var(--brass-bright);">Aufgang ↔ Untergang (12h)</span>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="row-split" style="grid-template-columns: 1fr 160px;">
+                            <div class="field">
+                                <label for="romConvMode">Umrechnungsrichtung</label>
+                                <select id="romConvMode">
+                                    <option value="normToRom" selected>Normalzeit (Berlin) → Römische Temporalzeit</option>
+                                    <option value="romToNorm">Römische Temporalzeit → Normalzeit (Berlin)</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="romConvDate">Datum (Berlin)</label>
+                                <input type="date" id="romConvDate">
+                            </div>
+                        </div>
+
+                        <div class="field" id="romConvNormalWrap">
+                            <label for="romInputNormal">Berliner Normalzeit (HH:MM:SS)</label>
+                            <input type="text" id="romInputNormal" placeholder="z. B. 12:30:00" spellcheck="false" autocomplete="off">
+                            <span class="err-hint" id="err_romInputNormal"></span>
+                        </div>
+
+                        <div id="romConvRomanWrap" style="display: none;">
+                            <div class="roman-4-grid">
+                                <div class="field">
+                                    <label for="romInputPeriod">Tageshälfte</label>
+                                    <select id="romInputPeriod">
+                                        <option value="day" selected>Tag (Dies · Auf–Unter)</option>
+                                        <option value="night">Nacht (Nox · Unter–Auf)</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="romInputHour">Stunde (1–12)</label>
+                                    <input type="number" id="romInputHour" min="1" max="12" value="6">
+                                </div>
+                                <div class="field">
+                                    <label for="romInputMin">Minute (0–59)</label>
+                                    <input type="number" id="romInputMin" min="0" max="59" value="0">
+                                </div>
+                                <div class="field">
+                                    <label for="romInputSec">Sekunde (0–59)</label>
+                                    <input type="number" id="romInputSec" min="0" max="59" value="0">
+                                </div>
+                            </div>
+                            <span class="err-hint" id="err_romInputRoman" style="margin-top: 4px;"></span>
+                        </div>
+
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button type="button" class="btn-exec" id="btnRunRomConv" style="flex: 1;">Temporalzeit Berechnen</button>
+                            <button type="button" class="btn-exec btn-cryo" id="btnRomConvNow">Jetzt (Berlin)</button>
+                        </div>
+                    </div>
+
+                    <div class="output-console">
+                        <button class="copy-btn" type="button" onclick="copyText('romConvResult')">Kopieren</button>
+                        <div id="romConvResult">Datum und Uhrzeit wählen, um zwischen antiken Temporalstunden und Berliner Normalzeit umzurechnen.</div>
+                    </div>
+
+                    <div style="overflow-x: auto; background: var(--bg-recessed); border: 1px solid var(--line-hair); border-radius: var(--r-md);">
+                        <table class="ref-table compact-table">
+                            <thead>
+                                <tr>
+                                    <th>1 Ausgangs-Einheit (gewähltes Datum)</th>
+                                    <th>Tag (Dies)</th>
+                                    <th>Nacht (Nox)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="romUnitTableBody"></tbody>
+                        </table>
                     </div>
                 </article>
             </div>
@@ -1456,7 +1833,7 @@
                 </div>
 
                 <!-- DATUMSSTEUERUNG FÜR ASTRONOMIE -->
-                <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: end;">
+                <div class="astro-date-bar">
                     <div class="field">
                         <label for="astroCustomDate">Beobachtungszeitpunkt (leer = Live-Systemzeit)</label>
                         <input type="text" id="astroCustomDate" placeholder="TT.MM.JJJJ HH:MM:SS (leer für Echtzeit)" spellcheck="false" autocomplete="off">
@@ -1543,6 +1920,27 @@
                                 <span class="ledger-val" id="cosLightToday" style="color: var(--atomic);">-- Mio. km</span>
                             </div>
                         </div>
+
+                        <!-- KOSMISCHE WEGSTRECKE SEIT BELIEBIGEM DATUM (V. CHR. / N. CHR.) -->
+                        <div class="cosmic-custom-box">
+                            <div class="ledger-section-title" style="margin-bottom: 0; color: var(--sidereal);">Kosmische Wegstrecke seit beliebigem Zeitpunkt (Live-Tracking · v. Chr. / n. Chr.)</div>
+                            <div class="row-split">
+                                <div class="field">
+                                    <label for="cosCustomDate">Startdatum &amp; Uhrzeit (auf Sekunde genau)</label>
+                                    <input type="text" id="cosCustomDate" placeholder="TT.MM.JJJJ HH:MM:SS" spellcheck="false" autocomplete="off">
+                                    <span class="err-hint" id="err_cosCustomDate"></span>
+                                </div>
+                                <div class="field">
+                                    <label for="cosCustomEra">Ära</label>
+                                    <select id="cosCustomEra">
+                                        <option value="AD" selected>n. Chr.</option>
+                                        <option value="BC">v. Chr.</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-exec" id="btnStartCosmicCustom" style="border-color: rgba(167,139,250,0.45); color: var(--sidereal);">Kosmische Strecke ab Datum Live Berechnen</button>
+                            <div class="epoch-ledger" id="cosCustomOutput">Startdatum eingeben, um zurückgelegte kosmische Strecken bis Jetzt live zu berechnen.</div>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -1568,7 +1966,7 @@
                             </select>
                         </div>
 
-                        <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 105px; gap: 8px;">
+                        <div class="chrono-date-grid">
                             <div class="field"><label for="chronYear">Jahr</label><input type="number" id="chronYear" min="1" value="1582"></div>
                             <div class="field"><label for="chronMonth">Monat</label><input type="number" id="chronMonth" min="1" max="12" value="10"></div>
                             <div class="field"><label for="chronDay">Tag</label><input type="number" id="chronDay" min="1" max="31" value="15"></div>
@@ -1689,6 +2087,37 @@
             return `${pad(h)}:${pad(m)}:${pad(sec)}`;
         }
 
+        // Einheitliche Formatierung: Kommawert + Klammerwert mit untergeordneten Einheiten bis 0,001 Sek
+        function fmtHourComposite(hoursVal, basePerHour, hMainLbl, hSubLbl, mSubLbl, sSubLbl) {
+            let totalMilli = Math.round(hoursVal * basePerHour * basePerHour * 1000);
+            const secPerHour = basePerHour * basePerHour;
+            const hInt = Math.floor(totalMilli / (secPerHour * 1000));
+            totalMilli -= hInt * secPerHour * 1000;
+            const mInt = Math.floor(totalMilli / (basePerHour * 1000));
+            totalMilli -= mInt * basePerHour * 1000;
+            const sInt = Math.floor(totalMilli / 1000);
+            const msInt = totalMilli % 1000;
+            return `${fmtNum(hoursVal.toFixed(6))} ${hMainLbl} (${hInt} ${hSubLbl} ${pad(mInt)} ${mSubLbl} ${pad(sInt)},${pad(msInt, 3)} ${sSubLbl})`;
+        }
+
+        function fmtMinComposite(minsVal, basePerMin, mMainLbl, mSubLbl, sSubLbl) {
+            let totalMilli = Math.round(minsVal * basePerMin * 1000);
+            const mInt = Math.floor(totalMilli / (basePerMin * 1000));
+            totalMilli -= mInt * basePerMin * 1000;
+            const sInt = Math.floor(totalMilli / 1000);
+            const msInt = totalMilli % 1000;
+            return `${fmtNum(minsVal.toFixed(6))} ${mMainLbl} (${mInt} ${mSubLbl} ${pad(sInt)},${pad(msInt, 3)} ${sSubLbl})`;
+        }
+
+        function fmtSecComposite(secsVal, sMainLbl, sSubLbl, msSubLbl) {
+            const totalMicro = Math.round(secsVal * 1000000);
+            const sInt = Math.floor(totalMicro / 1000000);
+            const remMicro = totalMicro % 1000000;
+            const msInt = Math.floor(remMicro / 1000);
+            const usInt = remMicro % 1000;
+            return `${fmtNum(secsVal.toFixed(6))} ${sMainLbl} (${sInt} ${sSubLbl} ${msInt},${pad(usInt, 3)} ${msSubLbl})`;
+        }
+
         window.copyText = function(id) {
             const el = document.getElementById(id);
             if (!el) return;
@@ -1760,8 +2189,8 @@
                 return { date: null, error: 'Bitte ein Datum eingeben.' };
             }
             const t = raw.trim();
-            const iso = /^(\d{1,4})-(\d{1,2})-(\d{1,2})(?:[T\s](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/;
-            const de  = /^(\d{1,2})\.(\d{1,2})\.(\d{1,4})(?:[T\s](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/;
+            const iso = /^(\d{1,6})-(\d{1,2})-(\d{1,2})(?:[T\s](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/;
+            const de  = /^(\d{1,2})\.(\d{1,2})\.(\d{1,6})(?:[T\s](\d{1,2}):(\d{1,2})(?::(\d{1,2}))?)?$/;
 
             let y, m, d, hh = 0, mm = 0, ss = 0;
             let match = t.match(iso);
@@ -1847,6 +2276,34 @@
                 }
             }
             dg.innerHTML = dHtml;
+
+            // Römische Temporal-Uhr (I = Stunde 1, XII = Stunde 12, Startmarke bei I = 30°)
+            const rg = document.getElementById('romanTicks');
+            if (rg) {
+                const ROM_NUMS = ['XII', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI'];
+                let rHtml = '';
+                for (let i = 0; i < 60; i++) {
+                    const ang = (i * 6 - 90) * DEG2RAD;
+                    const isMajor = i % 5 === 0;
+                    const r1 = isMajor ? 77 : 80.5;
+                    const r2 = 84.5;
+                    const x1 = 100 + r1 * Math.cos(ang), y1 = 100 + r1 * Math.sin(ang);
+                    const x2 = 100 + r2 * Math.cos(ang), y2 = 100 + r2 * Math.sin(ang);
+                    rHtml += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${isMajor ? '#dab356' : 'rgba(255,255,255,0.2)'}" stroke-width="${isMajor ? 1.8 : 0.8}"/>`;
+                    if (isMajor) {
+                        const idx = i / 5;
+                        const tx = 100 + 64 * Math.cos(ang);
+                        const ty = 100 + 64 * Math.sin(ang) + 3.5;
+                        rHtml += `<text id="romNum_${idx}" x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" fill="#f5d682" font-family="Space Grotesk, serif" font-size="9.5" font-weight="700">${ROM_NUMS[idx]}</text>`;
+                    }
+                }
+                // Startpunkt der gesamten Phase bei I (30°, 0% = Sonnenaufgang bzw. Sonnenuntergang)
+                const sAng = (30 - 90) * DEG2RAD;
+                const sx = 100 + 88 * Math.cos(sAng);
+                const sy = 100 + 88 * Math.sin(sAng);
+                rHtml += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="2.6" fill="#34d399" stroke="#05070b" stroke-width="0.9"/>`;
+                rg.innerHTML = rHtml;
+            }
         }
 
         let builtRingMonthDays = -1;
@@ -1876,27 +2333,28 @@
             addRingTicks(62, daysInMonth, 5, '#fb923c', 4, 8);   // Monat: 28..31 Tage
             addRingTicks(38, 12, 3, '#f43f5e', 5, 8);            // Jahr: 12 Monate
 
-            // Ziffern auf dem äußersten Ring (15s, 30s, 45s) & Tagesring (6h, 12h, 18h)
+            // Ziffern auf dem äußersten Ring inkl. 00 oben (ohne die Ringe zu überdecken!)
             const marksOuter = [
+                { ang: -90, lbl: '00' },
                 { ang: 0, lbl: '15' },
                 { ang: 90, lbl: '30' },
                 { ang: 180, lbl: '45' }
             ];
             marksOuter.forEach(m => {
                 const rad = m.ang * DEG2RAD;
-                const x = 180 + 170 * Math.cos(rad);
-                const y = 180 + 170 * Math.sin(rad) + 2.5;
-                html += `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" fill="rgba(148,163,184,0.65)" font-family="JetBrains Mono" font-size="7.5" font-weight="700">${m.lbl}</text>`;
+                const x = 180 + 169.5 * Math.cos(rad);
+                const y = 180 + 169.5 * Math.sin(rad) + 2.5;
+                html += `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" fill="${m.lbl === '00' ? '#f5d682' : 'rgba(148,163,184,0.72)'}" font-family="JetBrains Mono" font-size="7.5" font-weight="800">${m.lbl}</text>`;
             });
 
             g.innerHTML = html;
         }
 
-        function describeArc(cx, cy, r, endAngleDeg) {
-            if (endAngleDeg <= 0.1) return '';
-            const clamped = Math.min(359.9, endAngleDeg);
-            const startRad = -Math.PI / 2;
-            const endRad = (clamped - 90) * DEG2RAD;
+        function describeArc(cx, cy, r, sweepAngleDeg, startAngleDeg = 0) {
+            if (sweepAngleDeg <= 0.1) return '';
+            const clamped = Math.min(359.9, sweepAngleDeg);
+            const startRad = (startAngleDeg - 90) * DEG2RAD;
+            const endRad = (startAngleDeg + clamped - 90) * DEG2RAD;
             const x1 = cx + r * Math.cos(startRad), y1 = cy + r * Math.sin(startRad);
             const x2 = cx + r * Math.cos(endRad), y2 = cy + r * Math.sin(endRad);
             const large = clamped > 180 ? 1 : 0;
@@ -1995,7 +2453,6 @@
             `;
         }
 
-        // Cache-fähige Ledger-Instanz ohne innerHTML-Neuaufbau bei jedem Frame
         function createLiveLedgerView(containerEl) {
             const labels = [
                 { k: 'Exakte Kalenderdauer', color: 'var(--brass-bright)' },
@@ -2169,7 +2626,11 @@
             return 'Astronomische Nacht';
         }
 
+        const berlinEventsCache = new Map();
         function computeBerlinDayEvents(y, m, d) {
+            const cacheKey = `${y}-${pad(m)}-${pad(d)}`;
+            if (berlinEventsCache.has(cacheKey)) return berlinEventsCache.get(cacheKey);
+
             const noonGuessUtc = makeUtcDate(y, m - 1, d, 11, 6, 0).getTime();
             const jdNoonGuess = (noonGuessUtc / 86400000) + 2440587.5;
             const p0 = computeSolarParamsAtJd(jdNoonGuess);
@@ -2188,7 +2649,6 @@
                 if (cosH0 < -1) return { status: 'never_below', riseMs: null, setMs: null };
 
                 const h0Deg = Math.acos(cosH0) * RAD2DEG;
-                // 2. Iterationsschritt für sub-minutengenaue Ephemeriden
                 const refine = (sign) => {
                     const estMs = noonUtcMs + sign * 4 * h0Deg * 60000;
                     const p = computeSolarParamsAtJd((estMs / 86400000) + 2440587.5);
@@ -2210,13 +2670,16 @@
             const setAz = sun.setMs ? computeBerlinSunAtUtcMs(sun.setMs).azimuth : null;
             const dayLengthSec = (sun.riseMs && sun.setMs) ? Math.round((sun.setMs - sun.riseMs) / 1000) : null;
 
-            return {
+            const result = {
                 y, m, d,
                 noonMs: noonUtcMs,
                 maxElev: noonSun.elevation,
                 sun, civil, naut, astro,
                 riseAz, setAz, dayLengthSec
             };
+            if (berlinEventsCache.size > 400) berlinEventsCache.clear();
+            berlinEventsCache.set(cacheKey, result);
+            return result;
         }
 
         function fmtBerlinHM(utcMs) {
@@ -2296,7 +2759,7 @@
             }
             document.getElementById('berlinSunBands').innerHTML = bands;
 
-            // 2. 24h Sonnenhöhen-Kurve über alle 1440 Minuten (96 Schritte à 15 Min)
+            // 2. 24h Sonnenhöhen-Kurve
             let lineD = '';
             let areaD = '';
             for (let i = 0; i <= 96; i++) {
@@ -2369,20 +2832,25 @@
             const minToday = pNow.hour * 60 + pNow.minute + (pNow.second + (nowMs % 1000) / 1000) / 60;
             const sunNow = computeBerlinSunAtUtcMs(nowMs);
 
-            // Live-Sonnen-Marker im Chart (auf Basis aktueller Uhrzeit)
-            const lx = berlinChartToX(minToday);
-            const ly = berlinElevToY(sunNow.elevation);
-            document.getElementById('berlinLiveLine').setAttribute('x1', lx.toFixed(1));
-            document.getElementById('berlinLiveLine').setAttribute('x2', lx.toFixed(1));
-            document.getElementById('berlinLiveGlow').setAttribute('cx', lx.toFixed(1));
-            document.getElementById('berlinLiveGlow').setAttribute('cy', ly.toFixed(1));
-            document.getElementById('berlinLiveDot').setAttribute('cx', lx.toFixed(1));
-            document.getElementById('berlinLiveDot').setAttribute('cy', ly.toFixed(1));
+            // Live-Sonnen-Marker im Chart (nur bei "Heute", damit er bei fremdem Datum nicht abseits schwebt)
+            const liveCursorEl = document.getElementById('berlinLiveCursor');
+            if (berlinState.dateKey === todayKey) {
+                liveCursorEl.style.display = 'inline';
+                const lx = berlinChartToX(minToday);
+                const ly = berlinElevToY(sunNow.elevation);
+                document.getElementById('berlinLiveLine').setAttribute('x1', lx.toFixed(1));
+                document.getElementById('berlinLiveLine').setAttribute('x2', lx.toFixed(1));
+                document.getElementById('berlinLiveGlow').setAttribute('cx', lx.toFixed(1));
+                document.getElementById('berlinLiveGlow').setAttribute('cy', ly.toFixed(1));
+                document.getElementById('berlinLiveDot').setAttribute('cx', lx.toFixed(1));
+                document.getElementById('berlinLiveDot').setAttribute('cy', ly.toFixed(1));
+            } else {
+                liveCursorEl.style.display = 'none';
+            }
 
             const livePhase = getSolarPhaseName(sunNow.elevation);
             document.getElementById('berlinPhaseBadge').textContent = livePhase;
 
-            // Inspect-Leiste (entweder Hover-Zeitpunkt oder Live-Berlin)
             if (berlinState.hoverMin !== null) {
                 const hMin = berlinState.hoverMin;
                 const hUtc = berlinLocalToUtcMs(berlinState.y, berlinState.m, berlinState.d, hMin);
@@ -2401,7 +2869,6 @@
                 document.getElementById('berlinInspectState').textContent = livePhase;
             }
 
-            // Live-Countdowns bezogen auf heutigen Berliner Tag (auch wenn man anderen Tag betrachtet, zeigen wir live Abstände zu heute!)
             const todayEv = (berlinState.dateKey === todayKey) ? ev : computeBerlinDayEvents(pNow.year, pNow.month, pNow.day);
             const tomorrowEv = (berlinState.dateKey === todayKey)
                 ? berlinState.tomorrowEvents
@@ -2410,7 +2877,6 @@
                     return computeBerlinDayEvents(nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
                 })();
 
-            // 1. Aufgang: bis Aufgang / seit Aufgang / bis morgigen Aufgang
             if (todayEv.sun.riseMs && nowMs < todayEv.sun.riseMs) {
                 document.getElementById('lblBerlinCd1').textContent = `Aufgang (${fmtBerlinHM(todayEv.sun.riseMs)}) in`;
                 document.getElementById('valBerlinCd1').textContent = fmtDurationHMS((todayEv.sun.riseMs - nowMs) / 1000);
@@ -2422,7 +2888,6 @@
                 document.getElementById('valBerlinCd1').textContent = fmtDurationHMS((tomorrowEv.sun.riseMs - nowMs) / 1000);
             }
 
-            // 2. Wahrer Mittag
             if (nowMs < todayEv.noonMs) {
                 document.getElementById('lblBerlinCd2').textContent = `Bis Wahrer Mittag (${fmtBerlinHM(todayEv.noonMs)})`;
                 document.getElementById('valBerlinCd2').textContent = fmtDurationHMS((todayEv.noonMs - nowMs) / 1000);
@@ -2431,7 +2896,6 @@
                 document.getElementById('valBerlinCd2').textContent = fmtDurationHMS((nowMs - todayEv.noonMs) / 1000);
             }
 
-            // 3. Sonnenuntergang
             if (todayEv.sun.setMs && nowMs < todayEv.sun.setMs) {
                 document.getElementById('lblBerlinCd3').textContent = `Untergang (${fmtBerlinHM(todayEv.sun.setMs)}) in`;
                 document.getElementById('valBerlinCd3').textContent = fmtDurationHMS((todayEv.sun.setMs - nowMs) / 1000);
@@ -2441,14 +2905,14 @@
             }
         }
 
-        // Interaktive SVG-Events für Berlin-Sonnenkurve
         const svgBerlin = document.getElementById('svgBerlinSun');
         const hoverGroup = document.getElementById('berlinHoverCursor');
         function handleBerlinPointer(clientX) {
             const rect = svgBerlin.getBoundingClientRect();
+            if (!rect.width) return;
             const svgX = ((clientX - rect.left) / rect.width) * 600;
             const clampedX = Math.max(SVG_SOL_X0, Math.min(SVG_SOL_X1, svgX));
-            const minOfDay = ((clampedX - SVG_SOL_X0) / (SVG_SOL_X1 - SVG_SOL_X0)) * 1440;
+            const minOfDay = Math.min(1439.99, ((clampedX - SVG_SOL_X0) / (SVG_SOL_X1 - SVG_SOL_X0)) * 1440);
             berlinState.hoverMin = minOfDay;
 
             const hUtc = berlinLocalToUtcMs(berlinState.y, berlinState.m, berlinState.d, minOfDay);
@@ -2599,7 +3063,6 @@
                 });
             });
 
-            // Mond SVG einmalig vorbereiten
             const moonSvg = document.getElementById('svgMoonPhase');
             moonSvg.innerHTML = `<circle cx="50" cy="50" r="40" fill="#141925" stroke="rgba(167,139,250,0.35)" stroke-width="1.2"/><path id="moonPhasePath" fill="#e2e8f0"/>`;
             astroDom.moonPath = document.getElementById('moonPhasePath');
@@ -2677,7 +3140,6 @@
                 }
             }
 
-            // Mondphase (inkl. behobenem Waning-Terminator-Bug)
             const synodic = 29.530588853;
             const refNewMoonJd = 2451550.259722;
             const phase = (((jd - refNewMoonJd) / synodic) % 1 + 1) % 1;
@@ -2701,7 +3163,6 @@
                 document.getElementById('moonIllum').textContent = `${illum.toFixed(2)} %`;
                 document.getElementById('moonAge').textContent = `${age.toFixed(2)} Tage`;
 
-                // Exakte astronomische Jahreszeit über geozentrische Sonnenlänge
                 const sunGeoLon = (earthState.lambdaDeg + 180) % 360;
                 let season = 'Winter';
                 if (sunGeoLon >= 0 && sunGeoLon < 90) season = 'Frühling';
@@ -2722,7 +3183,6 @@
                 astroDom.moonPath.setAttribute('d', pathD);
             }
 
-            // Hochfrequente Live-Kilometer-Telemetrie (aktualisiert jeden Frame extrem schnell!)
             const secDay = targetDate.getHours() * 3600
                          + targetDate.getMinutes() * 60
                          + targetDate.getSeconds()
@@ -2761,8 +3221,132 @@
         });
 
         /* ===================================================================== */
-        /* 8. MASTER-ECHTZEIT-SCHLEIFE (REQUESTANIMATIONFRAME · KEIN 1HZ-SPRUNG) */
+        /* 8. RÖMISCHE TEMPORALZEIT-ENGINE & MASTER-ECHTZEIT-SCHLEIFE            */
         /* ===================================================================== */
+        const ROMAN_HOURS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+        const ROMAN_VIGILS = [
+            'Prima Vigilia (1. Nachtwache)',
+            'Secunda Vigilia (2. Nachtwache)',
+            'Tertia Vigilia (3. Nachtwache)',
+            'Quarta Vigilia (4. Nachtwache)'
+        ];
+
+        function getBerlinTemporalPeriodForUtc(utcMs) {
+            const p = getBerlinParts(utcMs);
+            const evToday = computeBerlinDayEvents(p.year, p.month, p.day);
+            const rise = evToday.sun.riseMs;
+            const set = evToday.sun.setMs;
+
+            if (rise && set) {
+                if (utcMs >= rise && utcMs < set) {
+                    return { isDay: true, periodStart: rise, periodEnd: set, refDate: p };
+                }
+                if (utcMs >= set) {
+                    const nd = makeUtcDate(p.year, p.month - 1, p.day + 1, 12, 0, 0);
+                    const evTom = computeBerlinDayEvents(nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
+                    if (evTom.sun.riseMs) {
+                        return { isDay: false, periodStart: set, periodEnd: evTom.sun.riseMs, refDate: p };
+                    }
+                } else {
+                    const pd = makeUtcDate(p.year, p.month - 1, p.day - 1, 12, 0, 0);
+                    const evYest = computeBerlinDayEvents(pd.getUTCFullYear(), pd.getUTCMonth() + 1, pd.getUTCDate());
+                    if (evYest.sun.setMs) {
+                        return { isDay: false, periodStart: evYest.sun.setMs, periodEnd: rise, refDate: p };
+                    }
+                }
+            }
+            const dayStart = berlinLocalToUtcMs(p.year, p.month, p.day, 0);
+            return { isDay: true, periodStart: dayStart, periodEnd: dayStart + 86400000, refDate: p };
+        }
+
+        function computeRomanTemporalAtUtc(utcMs) {
+            const per = getBerlinTemporalPeriodForUtc(utcMs);
+            const durationMs = Math.max(1000, per.periodEnd - per.periodStart);
+            const elapsedMs = Math.max(0, Math.min(durationMs, utcMs - per.periodStart));
+            const frac = elapsedMs / durationMs;
+            const totalTempHours = frac * 12;
+            const hourIdx = Math.min(11, Math.floor(totalTempHours));
+            const hourNum = hourIdx + 1;
+            const remAfterHour = totalTempHours - hourIdx;
+            const tMinFloat = remAfterHour * 60;
+            const tMin = Math.min(59, Math.floor(tMinFloat));
+            const tSecFloat = (tMinFloat - tMin) * 60;
+            const tSec = Math.min(59, Math.floor(tSecFloat));
+
+            const tempHourMs = durationMs / 12;
+            const tempMinMs = tempHourMs / 60;
+            const tempSecMs = tempMinMs / 60;
+            const vigilIdx = Math.min(3, Math.floor(hourIdx / 3));
+
+            return {
+                ...per,
+                durationMs,
+                elapsedMs,
+                frac,
+                totalTempHours,
+                hourIdx,
+                hourNum,
+                romanNum: ROMAN_HOURS[hourIdx],
+                tMin,
+                tSec,
+                tSecFloat,
+                tempHourSec: tempHourMs / 1000,
+                tempMinSec: tempMinMs / 1000,
+                tempSecSec: tempSecMs / 1000,
+                vigilName: ROMAN_VIGILS[vigilIdx]
+            };
+        }
+
+        const romanDom = {
+            innerBg: document.getElementById('romanInnerBg'),
+            periodArc: document.getElementById('romanPeriodArc'),
+            sunEmblem: document.getElementById('romanSunEmblem'),
+            moonEmblem: document.getElementById('romanMoonEmblem'),
+            hourHand: document.getElementById('romanHourHand'),
+            minHand: document.getElementById('romanMinHand'),
+            secHand: document.getElementById('romanSecHand'),
+            badge: document.getElementById('clkRomanBadge'),
+            digital: document.getElementById('clkRomanDigital'),
+            sub: document.getElementById('clkRomanSub'),
+            rise: document.getElementById('clkRomanRise'),
+            set: document.getElementById('clkRomanSet'),
+            periodLen: document.getElementById('clkRomanPeriodLen'),
+            unitTableBody: document.getElementById('romanUnitLiveBody'),
+            schedule: document.getElementById('romanScheduleGrid'),
+            lastPeriodKey: '',
+            lastActiveIdx: -1,
+            lastUnitKey: ''
+        };
+
+        function renderRomanSchedule(state) {
+            const pKey = `${state.isDay ? 'D' : 'N'}_${state.periodStart}_${state.periodEnd}`;
+            if (pKey !== romanDom.lastPeriodKey) {
+                romanDom.lastPeriodKey = pKey;
+                romanDom.lastActiveIdx = -1;
+                const stepMs = state.durationMs / 12;
+                let html = '';
+                for (let i = 0; i < 12; i++) {
+                    const startStr = fmtBerlinHM(state.periodStart + i * stepMs);
+                    html += `
+                        <div class="roman-hour-chip" data-ridx="${i}">
+                            <span class="rh-num">${i + 1}. (${ROMAN_HOURS[i]})</span>
+                            <span class="rh-time">${startStr}</span>
+                        </div>
+                    `;
+                }
+                romanDom.schedule.innerHTML = html;
+            }
+            if (romanDom.lastActiveIdx !== state.hourIdx) {
+                romanDom.lastActiveIdx = state.hourIdx;
+                const chips = romanDom.schedule.children;
+                const cls = state.isDay ? 'active-day' : 'active-night';
+                for (let i = 0; i < chips.length; i++) {
+                    chips[i].classList.remove('active-day', 'active-night');
+                    if (i === state.hourIdx) chips[i].classList.add(cls);
+                }
+            }
+        }
+
         const epoch1949 = makeUtcDate(1949, 9, 1, 7, 0, 0);
         const epoch2022 = makeUtcDate(2022, 9, 4, 18, 0, 0);
         const updateLedger1949 = createLiveLedgerView(document.getElementById('output1949'));
@@ -2885,6 +3469,102 @@
             return epYears + 1;
         }
 
+        function updateRomanClock(nowMs) {
+            const st = computeRomanTemporalAtUtc(nowMs);
+            // +1 bewirkt: 01:00:00 (Start Hora I) zeigt direkt auf I (30°), 04:00:00 auf IV (120°), 12:00:00 auf XII (0°)
+            const hourDeg = (st.totalTempHours + 1) * 30;
+            const minDeg = ((st.totalTempHours - st.hourIdx) * 60) * 6;
+            const secDeg = st.tSecFloat * 6;
+
+            romanDom.hourHand.setAttribute('transform', `rotate(${hourDeg.toFixed(2)} 100 100)`);
+            romanDom.minHand.setAttribute('transform', `rotate(${minDeg.toFixed(2)} 100 100)`);
+            romanDom.secHand.setAttribute('transform', `rotate(${secDeg.toFixed(2)} 100 100)`);
+            // Außenbogen startet exakt bei I (30°) und umspannt 0%–100% der gesamten Tag- bzw. Nachtzeit
+            romanDom.periodArc.setAttribute('d', describeArc(100, 100, 88, st.frac * 360, 30));
+
+            if (st.isDay) {
+                romanDom.sunEmblem.style.display = 'inline';
+                romanDom.moonEmblem.style.display = 'none';
+                romanDom.innerBg.setAttribute('fill', 'url(#romanDayBg)');
+                romanDom.innerBg.setAttribute('stroke', 'rgba(218,179,86,0.38)');
+                romanDom.periodArc.setAttribute('stroke', '#dab356');
+                romanDom.hourHand.setAttribute('fill', '#f5d682');
+                romanDom.digital.style.color = 'var(--brass-bright)';
+                romanDom.badge.style.color = 'var(--brass-bright)';
+                setTextCached('romBadge', romanDom.badge, `DIES · ${st.hourNum}. Tagstunde (Hora ${st.romanNum})`);
+            } else {
+                romanDom.sunEmblem.style.display = 'none';
+                romanDom.moonEmblem.style.display = 'inline';
+                romanDom.innerBg.setAttribute('fill', 'url(#romanNightBg)');
+                romanDom.innerBg.setAttribute('stroke', 'rgba(167,139,250,0.42)');
+                romanDom.periodArc.setAttribute('stroke', '#a78bfa');
+                romanDom.hourHand.setAttribute('fill', '#c4b5fd');
+                romanDom.digital.style.color = '#d8b4fe';
+                romanDom.badge.style.color = 'var(--sidereal)';
+                setTextCached('romBadge', romanDom.badge, `NOX · ${st.hourNum}. Nachtstunde (Hora ${st.romanNum})`);
+            }
+
+            // Aktive römische Ziffer auf dem Ziffernblatt hervorheben
+            const activeDialIdx = st.hourNum % 12;
+            for (let idx = 0; idx < 12; idx++) {
+                const numEl = document.getElementById(`romNum_${idx}`);
+                if (!numEl) continue;
+                const isAct = idx === activeDialIdx;
+                numEl.setAttribute('fill', isAct ? '#ffffff' : (st.isDay ? '#f5d682' : '#c4b5fd'));
+                numEl.setAttribute('font-size', isAct ? '11' : '9.2');
+            }
+
+            setTextCached('romDig', romanDom.digital, `Hora ${st.romanNum} · ${pad(st.hourNum)}:${pad(st.tMin)}:${pad(st.tSec)}`);
+            const phaseLabel = st.isDay
+                ? `${st.hourNum}. Tagstunde (Hora ${st.romanNum}) · Gesamter Tag: ${fmtNum((st.frac * 100).toFixed(2))} %`
+                : `${st.hourNum}. Nachtstunde (Hora ${st.romanNum}) · ${st.vigilName} · Gesamte Nacht: ${fmtNum((st.frac * 100).toFixed(2))} %`;
+            setTextCached('romSub', romanDom.sub, phaseLabel);
+
+            setTextCached('romRise', romanDom.rise, `${fmtBerlinHMS(st.periodStart)} (${st.isDay ? 'Aufgang' : 'Untergang'})`);
+            setTextCached('romSet', romanDom.set, `${fmtBerlinHMS(st.periodEnd)} (${st.isDay ? 'Untergang' : 'Aufgang'})`);
+            setTextCached('romPerLen', romanDom.periodLen, `${fmtDurationHMS(st.durationMs / 1000)} (${st.isDay ? 'Gesamter Tag' : 'Gesamte Nacht'})`);
+
+            // 6-Zeilen-Einheitentabelle (Normal <-> Temporal, einheitliches Format)
+            const unitKey = `${st.isDay ? 'D' : 'N'}_${st.durationMs}`;
+            if (unitKey !== romanDom.lastUnitKey) {
+                romanDom.lastUnitKey = unitKey;
+                const tH = st.tempHourSec / 3600;      // 1 Temporalstunde in Normalstunden
+                const tM = st.tempMinSec / 60;         // 1 Temporalminute in Normalminuten
+                const tS = st.tempSecSec;              // 1 Temporalsekunde in Normalsekunden
+                const pTag = st.isDay ? 'Tag' : 'Nacht';
+                const pClr = st.isDay ? 'var(--brass-bright)' : '#d8b4fe';
+
+                romanDom.unitTableBody.innerHTML = `
+                    <tr>
+                        <td><strong>1 Normalstunde</strong> (3.600 s)</td>
+                        <td style="color: ${pClr};">${fmtHourComposite(3600 / st.tempHourSec, 60, `${pTag}std`, 'Std', 'Min', 'Sek')}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1 Normalminute</strong> (60 s)</td>
+                        <td style="color: ${pClr};">${fmtMinComposite(60 / st.tempMinSec, 60, `${pTag}min`, 'Min', 'Sek')}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1 Normalsekunde</strong> (1 s)</td>
+                        <td style="color: ${pClr};">${fmtSecComposite(1 / st.tempSecSec, `${pTag}sek`, 'Sek', 'ms')}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1 ${pTag}stunde</strong> (1/12 ${st.isDay ? 'Tag' : 'Nacht'})</td>
+                        <td style="color: var(--cryo);">${fmtHourComposite(tH, 60, 'Normalstd', 'Std', 'Min', 'Sek')}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1 ${pTag}minute</strong> (1/60 ${pTag}std)</td>
+                        <td style="color: var(--cryo);">${fmtMinComposite(tM, 60, 'Normalmin', 'Min', 'Sek')}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1 ${pTag}sekunde</strong> (1/60 ${pTag}min)</td>
+                        <td style="color: var(--cryo);">${fmtSecComposite(tS, 'Normalsek', 'Sek', 'ms')}</td>
+                    </tr>
+                `;
+            }
+
+            renderRomanSchedule(st);
+        }
+
         function tickObservatory() {
             const nowMs = Date.now();
             const now = new Date(nowMs);
@@ -2905,7 +3585,7 @@
             const dayFrac = secTodaySmooth / 86400;
             domCache.masterDayArc.setAttribute('d', describeArc(100, 100, 56, dayFrac * 360));
 
-            // 2. Master Digitalanzeigen (ohne Millisekunden-Text, aber auf jedem Frame überprüft -> null Sekundensprünge)
+            // 2. Master Digitalanzeigen
             const timeStr = `${pad(hr)}:${pad(min)}:${pad(sec)}`;
             setTextCached('unix', domCache.topUnixLive, `UNIX: ${Math.floor(nowMs / 1000)}`);
             setTextCached('masterDig', domCache.clkMasterDigital, timeStr);
@@ -2928,7 +3608,7 @@
             setTextCached('gmst', domCache.clkMasterGmst, computeGmst(now));
             domCache.clkMasterJd.textContent = ((nowMs / 86400000) + 2440587.5).toFixed(6);
 
-            // 3. Dezimaluhr (H:MM:SS ohne Sub-Sekunden-Anzeige, dafür Nachkommastellen bei Dezimalsekunden & Prozent!)
+            // 3. Dezimaluhr
             const decTotal = dayFrac * 100000;
             const decH = Math.floor(decTotal / 10000);
             const decM = Math.floor((decTotal % 10000) / 100);
@@ -2945,7 +3625,10 @@
             domCache.clkDecSecRem.textContent = fmtNum((100000 - decTotal).toFixed(2));
             setTextCached('decHex', domCache.clkDecHex, `0x${Math.floor(dayFrac * 65536).toString(16).toUpperCase().padStart(4, '0')}`);
 
-            // 4. Ewige Chronometer (kontinuierlich ohne Jahreszyklus-Grafik)
+            // 3b. Chronometer 03: Römische Temporal-Uhr
+            updateRomanClock(nowMs);
+
+            // 4. Ewige Chronometer
             updateLedger1949(computeDateDiff(epoch1949, now));
             setTextCached('ep49', domCache.badgeEpoch1949, `${getEpochYearOrdinal(epoch1949, now)}. Epochenjahr`);
             updateLedger2022(computeDateDiff(epoch2022, now));
@@ -2970,13 +3653,13 @@
             setRingClockLayer('radMonth', CIRC_RING.radMonth, ringElems.ptrLineMonth, ringElems.ptrDotMonth, 62, pctMonth);
             setRingClockLayer('radYear', CIRC_RING.radYear, ringElems.ptrLineYear, ringElems.ptrDotYear, 38, pctYear);
 
-            // Direkte Anzeigen auf JEDEM Ring
-            setTextCached('rtMin', ringElems.ringTxtMin, `MIN ${pad(sec)}s · ${pctMin.toFixed(0)}%`);
-            setTextCached('rtHour', ringElems.ringTxtHour, `STD ${pad(min)}m · ${pctHour.toFixed(0)}%`);
-            setTextCached('rtDay', ringElems.ringTxtDay, `TAG ${pad(hr)}h · ${pctDay.toFixed(0)}%`);
-            setTextCached('rtWeek', ringElems.ringTxtWeek, `WO ${SHORT_DAYS[dow]} · ${pctWeek.toFixed(0)}%`);
-            setTextCached('rtMonth', ringElems.ringTxtMonth, `MON ${pad(now.getDate())}. · ${pctMonth.toFixed(0)}%`);
-            setTextCached('rtYear', ringElems.ringTxtYear, `${SHORT_MONTHS[now.getMonth()]} · ${pctYear.toFixed(1)}%`);
+            // Direkte Anzeigen in der unverdeckenden HUD-Spalte rechts
+            setTextCached('rtMin', ringElems.ringTxtMin, `${pad(sec)}s · ${pctMin.toFixed(0)} %`);
+            setTextCached('rtHour', ringElems.ringTxtHour, `${pad(min)}m · ${pctHour.toFixed(0)} %`);
+            setTextCached('rtDay', ringElems.ringTxtDay, `${pad(hr)}h · ${pctDay.toFixed(0)} %`);
+            setTextCached('rtWeek', ringElems.ringTxtWeek, `${SHORT_DAYS[dow]} · ${pctWeek.toFixed(0)} %`);
+            setTextCached('rtMonth', ringElems.ringTxtMonth, `${pad(now.getDate())}. · ${pctMonth.toFixed(0)} %`);
+            setTextCached('rtYear', ringElems.ringTxtYear, `${SHORT_MONTHS[now.getMonth()]} · ${pctYear.toFixed(1)} %`);
 
             // Balken rechts
             ringElems.pctMin.textContent = `${pctMin.toFixed(2)} %`;
@@ -2997,463 +3680,814 @@
 
             setTextCached('lblMo', ringElems.lblMonthBar, `${now.toLocaleDateString('de-DE', { month: 'long' })} (${pad(now.getDate())}/${daysInCurMonth})`);
             ringElems.pctMonth.textContent = `${pctMonth.toFixed(3)} %`;
-        ringElems.barMonth.style.width = `${pctMonth.toFixed(2)}%`;
+            ringElems.barMonth.style.width = `${pctMonth.toFixed(2)}%`;
 
-        setTextCached('lblYr', ringElems.lblYearBar, `Jahr ${now.getFullYear()} (Tag ${doy}/${diy})`);
-        ringElems.pctYear.textContent = `${pctYear.toFixed(4)} %`;
-        ringElems.barYear.style.width = `${pctYear.toFixed(2)}%`;
+            setTextCached('lblYr', ringElems.lblYearBar, `Jahr ${now.getFullYear()} (Tag ${doy}/${diy})`);
+            ringElems.pctYear.textContent = `${pctYear.toFixed(4)} %`;
+            ringElems.barYear.style.width = `${pctYear.toFixed(2)}%`;
 
-        // 6. Diagramm 02: Berlin Sonnenstand & Dämmerung (Live-Aktualisierung auf jedem Frame)
-        updateBerlinSunLive(nowMs);
+            // 6. Diagramm 02: Berlin Sonnenstand & Dämmerung
+            updateBerlinSunLive(nowMs);
 
-        // 7. Sektor III Astronomie Live-Update (inkl. hochfrequenter Kilometer-Anzeige)
-        if (!astroCustomTarget) {
-            updateAstronomyModule(now);
+            // 7. Sektor III Astronomie Live-Update
+            if (!astroCustomTarget) {
+                updateAstronomyModule(now);
+            }
+
+            // 7b. Sektor III Kosmische Wegstrecke seit Wunschdatum (Live-Ticker)
+            if (cosmicCustomDate) {
+                updateCosmicCustomLive(nowMs);
+            }
+
+            // 8. Sektor II Wunschdatum Live-Tracker
+            if (userTargetDate && userTargetLedgerUpdate && userTargetDirEl) {
+                const isPast = now >= userTargetDate;
+                setTextCached('usrDir', userTargetDirEl, isPast ? 'Status: VERGANGEN SEIT ZIEL' : 'Status: VERBLEIBEND BIS ZIEL');
+                userTargetLedgerUpdate(computeDateDiff(userTargetDate, now), false);
+            }
         }
 
-        // 8. Sektor II Wunschdatum Live-Tracker (ohne Kosmische Bewegungs-Äquivalente, ohne 1Hz-Lag)
-        if (userTargetDate && userTargetLedgerUpdate && userTargetDirEl) {
-            const isPast = now >= userTargetDate;
-            setTextCached('usrDir', userTargetDirEl, isPast ? 'Status: VERGANGEN SEIT ZIEL' : 'Status: VERBLEIBEND BIS ZIEL');
-            userTargetLedgerUpdate(computeDateDiff(userTargetDate, now), false);
-        }
-    }
-
-    function startLiveLoop() {
-        function frame() {
-            tickObservatory();
+        function startLiveLoop() {
+            function frame() {
+                tickObservatory();
+                requestAnimationFrame(frame);
+            }
             requestAnimationFrame(frame);
         }
-        requestAnimationFrame(frame);
-    }
 
-    /* ===================================================================== */
-    /* 9. SEKTOR II: ANALYTIK & INTERVALL-LABOR                              */
-    /* ===================================================================== */
-    document.getElementById('btnStartSelected').addEventListener('click', () => {
-        const p = parseManualDate(document.getElementById('selectedDate').value, document.getElementById('selectedDateEra').value);
-        if (p.error) { setErr('selectedDate', 'err_selectedDate', p.error); return; }
-        setErr('selectedDate', 'err_selectedDate', null);
-        userTargetDate = p.date;
+        /* ===================================================================== */
+        /* 9. SEKTOR II: ANALYTIK, INTERVALL-LABOR & KONVERTER                   */
+        /* ===================================================================== */
+        document.getElementById('btnStartSelected').addEventListener('click', () => {
+            const p = parseManualDate(document.getElementById('selectedDate').value, document.getElementById('selectedDateEra').value);
+            if (p.error) { setErr('selectedDate', 'err_selectedDate', p.error); return; }
+            setErr('selectedDate', 'err_selectedDate', null);
+            userTargetDate = p.date;
 
-        const container = document.getElementById('sinceSelectedDate');
-        container.innerHTML = '';
-        userTargetDirEl = document.createElement('div');
-        userTargetDirEl.className = 'ledger-section-title';
-        const ledgerWrap = document.createElement('div');
-        ledgerWrap.className = 'epoch-ledger';
-        container.append(userTargetDirEl, ledgerWrap);
-        userTargetLedgerUpdate = createLiveLedgerView(ledgerWrap);
-        delete lastStr.usrDir;
-        tickObservatory();
-    });
-
-    function countWorkAndWeekendDays(d1, d2) {
-        const start = new Date(Math.min(d1.getTime(), d2.getTime()));
-        const end = new Date(Math.max(d1.getTime(), d2.getTime()));
-        const sMid = makeUtcDate(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
-        const eMid = makeUtcDate(end.getFullYear(), end.getMonth(), end.getDate()).getTime();
-        const totalDays = Math.round((eMid - sMid) / 86400000);
-        const fullWeeks = Math.floor(totalDays / 7);
-        let work = fullWeeks * 5;
-        let weekend = fullWeeks * 2;
-        const rem = totalDays % 7;
-        let curDow = start.getDay();
-        for (let i = 0; i < rem; i++) {
-            if (curDow === 0 || curDow === 6) weekend++;
-            else work++;
-            curDow = (curDow + 1) % 7;
-        }
-        return { totalDays, work, weekend };
-    }
-
-    document.getElementById('btnCalcBetween').addEventListener('click', () => {
-        const p1 = parseManualDate(document.getElementById('startRangeDate').value, document.getElementById('startRangeEra').value);
-        const p2 = parseManualDate(document.getElementById('endRangeDate').value, document.getElementById('endRangeEra').value);
-        setErr('startRangeDate', 'err_startRangeDate', p1.error);
-        setErr('endRangeDate', 'err_endRangeDate', p2.error);
-        if (p1.error || p2.error) return;
-
-        const diff = computeDateDiff(p1.date, p2.date);
-        const wd = countWorkAndWeekendDays(p1.date, p2.date);
-        const workPct = wd.totalDays > 0 ? (wd.work / wd.totalDays) * 100 : 0;
-
-        document.getElementById('betweenDatesOutput').innerHTML = `
-            <div class="epoch-ledger">
-                ${renderDetailedSingleLedgerHTML(diff, true)}
-            </div>
-            <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line-hair);">
-                <div style="display: flex; justify-content: space-between; font-size: 0.72rem; margin-bottom: 4px;">
-                    <span style="color: var(--atomic);">Werktage (Mo–Fr): <strong>${fmtNum(wd.work)}</strong> (${workPct.toFixed(1)}%)</span>
-                    <span style="color: var(--brass);">Wochenendtage (Sa–So): <strong>${fmtNum(wd.weekend)}</strong></span>
-                </div>
-                <div style="height: 8px; border-radius: 4px; background: var(--brass); overflow: hidden;">
-                    <div style="height: 100%; width: ${workPct.toFixed(2)}%; background: var(--atomic);"></div>
-                </div>
-            </div>
-        `;
-    });
-
-    // 4-PUNKTE-ZEITANTEIL-ANALYSATOR (OHNE PUNKT 4: SEKUNDENGENAUE VERHÄLTNISSE)
-    function formatExactSecBlock(title, dStart, dEnd, accentColor) {
-        const diff = computeDateDiff(dStart, dEnd);
-        return `
-            <div class="epoch-ledger" style="border-top: 2px solid ${accentColor};">
-                <div class="ledger-section-title" style="color: ${accentColor};">${title}</div>
-                ${renderDetailedSingleLedgerHTML(diff, false)}
-            </div>
-        `;
-    }
-
-    document.getElementById('btnCalcRelPercent').addEventListener('click', () => {
-        const rS = parseManualDate(document.getElementById('refStart').value);
-        const rE = parseManualDate(document.getElementById('refEnd').value);
-        const sS = parseManualDate(document.getElementById('subStart').value);
-        const sE = parseManualDate(document.getElementById('subEnd').value);
-
-        setErr('refStart', 'err_refStart', rS.error);
-        setErr('refEnd', 'err_refEnd', rE.error);
-        setErr('subStart', 'err_subStart', sS.error);
-        setErr('subEnd', 'err_subEnd', sE.error);
-        if (rS.error || rE.error || sS.error || sE.error) return;
-
-        const refMinMs = Math.min(rS.date.getTime(), rE.date.getTime());
-        const refMaxMs = Math.max(rS.date.getTime(), rE.date.getTime());
-        const subMinMs = Math.min(sS.date.getTime(), sE.date.getTime());
-        const subMaxMs = Math.max(sS.date.getTime(), sE.date.getTime());
-
-        const refSec = Math.floor((refMaxMs - refMinMs) / 1000);
-        const subSec = Math.floor((subMaxMs - subMinMs) / 1000);
-        if (refSec === 0) {
-            document.getElementById('relPercentOutput').innerHTML = `<span style="color: var(--crimson);">Fehler: Das Referenzsystem hat eine Länge von 0 Sekunden.</span>`;
-            return;
-        }
-
-        const overlapMinMs = Math.max(refMinMs, subMinMs);
-        const overlapMaxMs = Math.min(refMaxMs, subMaxMs);
-        const hasOverlap = overlapMaxMs > overlapMinMs;
-        const overlapSec = hasOverlap ? Math.floor((overlapMaxMs - overlapMinMs) / 1000) : 0;
-
-        const ratioPct = (subSec / refSec) * 100;
-        const overlapPct = (overlapSec / refSec) * 100;
-
-        const leftPct = Math.max(0, Math.min(100, ((overlapMinMs - refMinMs) / (refMaxMs - refMinMs)) * 100));
-        const rightPct = Math.max(0, Math.min(100, ((overlapMaxMs - refMinMs) / (refMaxMs - refMinMs)) * 100));
-        const barW = hasOverlap ? Math.max(0.5, rightPct - leftPct) : 0;
-
-        document.getElementById('relPercentOutput').innerHTML = `
-            <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px; margin-bottom: 10px;">
-                <span style="font-size: 1.25rem; font-weight: 800; color: var(--sidereal);">Relativer Zeitanteil: ${ratioPct.toFixed(6)} %</span>
-                <span style="font-size: 0.85rem; color: var(--atomic); font-weight: 700;">Exakte Überlappung: ${overlapPct.toFixed(6)} % (${fmtNum(overlapSec)} s)</span>
-            </div>
-            <svg viewBox="0 0 600 68" width="100%" height="68" style="background: rgba(255,255,255,0.02); border-radius: 6px; margin-bottom: 12px;">
-                <line x1="20" y1="32" x2="580" y2="32" stroke="rgba(255,255,255,0.2)" stroke-width="4" stroke-linecap="round"/>
-                ${hasOverlap ? `<rect x="${(20 + leftPct * 5.6).toFixed(1)}" y="24" width="${(barW * 5.6).toFixed(1)}" height="16" rx="4" fill="#a78bfa"/>` : ''}
-                <circle cx="20" cy="32" r="4" fill="#38bdf8"/>
-                <circle cx="580" cy="32" r="4" fill="#38bdf8"/>
-                <text x="20" y="56" fill="#94a3b8" font-family="JetBrains Mono" font-size="9">REF START (0%)</text>
-                <text x="580" y="56" text-anchor="end" fill="#94a3b8" font-family="JetBrains Mono" font-size="9">REF ENDE (100%)</text>
-                <text x="${hasOverlap ? Math.min(480, 20 + leftPct * 5.6).toFixed(1) : '300'}" ${hasOverlap ? '' : 'text-anchor="middle"'} y="15" fill="${hasOverlap ? '#d8b4fe' : '#f43f5e'}" font-family="JetBrains Mono" font-size="9">${hasOverlap ? `SUB: ${ratioPct.toFixed(3)}%` : 'KEINE ÜBERLAPPUNG IM REFERENZRAHMEN'}</text>
-            </svg>
-
-            <div class="grid-3">
-                ${formatExactSecBlock('1. Gesamtes Referenzsystem (100 %)', new Date(refMinMs), new Date(refMaxMs), '#38bdf8')}
-                ${formatExactSecBlock('2. Zu messendes Teilintervall', new Date(subMinMs), new Date(subMaxMs), '#a78bfa')}
-                ${hasOverlap
-                    ? formatExactSecBlock('3. Exakte Schnittmenge / Überlappung', new Date(overlapMinMs), new Date(overlapMaxMs), '#34d399')
-                    : `<div class="epoch-ledger" style="border-top: 2px solid var(--crimson);"><div class="ledger-section-title" style="color: var(--crimson);">3. Überlappung</div><div>Keine zeitliche Überschneidung (0 Sekunden)</div></div>`
-                }
-            </div>
-        `;
-    });
-
-    // Datum sicher verschieben
-    function performSafeShift() {
-        const raw = document.getElementById('shiftBaseDate').value.trim();
-        let d = new Date();
-        if (raw !== '') {
-            const p = parseManualDate(raw);
-            if (p.error) { setErr('shiftBaseDate', 'err_shiftBaseDate', p.error); return; }
-            setErr('shiftBaseDate', 'err_shiftBaseDate', null);
-            d = p.date;
-        } else {
-            setErr('shiftBaseDate', 'err_shiftBaseDate', null);
-        }
-
-        const baseMs = d.getTime();
-        const y = parseInt(document.getElementById('sYears').value, 10) || 0;
-        const m = parseInt(document.getElementById('sMonths').value, 10) || 0;
-        const w = parseInt(document.getElementById('sWeeks').value, 10) || 0;
-        const dy = parseInt(document.getElementById('sDays').value, 10) || 0;
-        const h = parseInt(document.getElementById('sHours').value, 10) || 0;
-        const mn = parseInt(document.getElementById('sMin').value, 10) || 0;
-        const sc = parseInt(document.getElementById('sSec').value, 10) || 0;
-
-        if (y !== 0 || m !== 0) {
-            d = addYearsMonthsClamped(d, y, m);
-        }
-        if (dy + w * 7 !== 0) d.setDate(d.getDate() + dy + w * 7);
-        if (h !== 0) d.setHours(d.getHours() + h);
-        if (mn !== 0) d.setMinutes(d.getMinutes() + mn);
-        if (sc !== 0) d.setSeconds(d.getSeconds() + sc);
-
-        const netSec = Math.round((d.getTime() - baseMs) / 1000);
-        const sign = netSec >= 0 ? '+' : '';
-        const fullStr = d.toLocaleString('de-DE', {
-            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-            hour: '2-digit', minute: '2-digit', second: '2-digit'
+            const container = document.getElementById('sinceSelectedDate');
+            container.innerHTML = '';
+            userTargetDirEl = document.createElement('div');
+            userTargetDirEl.className = 'ledger-section-title';
+            const ledgerWrap = document.createElement('div');
+            ledgerWrap.className = 'epoch-ledger';
+            container.append(userTargetDirEl, ledgerWrap);
+            userTargetLedgerUpdate = createLiveLedgerView(ledgerWrap);
+            delete lastStr.usrDir;
+            tickObservatory();
         });
 
-        document.getElementById('shiftResultOutput').innerHTML = `
-            <div style="font-size: 1.05rem; font-weight: 800; color: var(--atomic); margin-bottom: 10px;">${fullStr}</div>
-            <div class="epoch-ledger">
-                <div class="ledger-row"><span class="ledger-label">Kompaktformat</span><span class="ledger-val">${fmtDateDE(d)}</span></div>
-                <div class="ledger-row"><span class="ledger-label">Kalenderwoche (ISO)</span><span class="ledger-val">KW ${pad(getIsoWeek(d))}</span></div>
-                <div class="ledger-row"><span class="ledger-label">Netto-Versatz in Sekunden</span><span class="ledger-val">${sign}${fmtNum(netSec)} s</span></div>
-                <div class="ledger-row"><span class="ledger-label">Netto-Versatz in Tagen</span><span class="ledger-val">${sign}${(netSec / 86400).toFixed(4)} Tage</span></div>
-            </div>
-        `;
-    }
-
-    document.getElementById('shiftBaseDate').addEventListener('input', performSafeShift);
-    document.querySelectorAll('.shift-dyn').forEach(el => el.addEventListener('input', performSafeShift));
-
-    /* ===================================================================== */
-    /* 10. SEKTOR III: EPOCHEN-CHRONOLOGIE & JD/MJD/TJD (OHNE DRIFT-GRAFIK)  */
-    /* ===================================================================== */
-    function gregToJdn(year, month, day) {
-        let y = year, m = month;
-        if (m <= 2) { y -= 1; m += 12; }
-        const a = Math.floor(y / 100);
-        const b = 2 - a + Math.floor(a / 4);
-        return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
-    }
-
-    function julToJdn(year, month, day) {
-        let y = year, m = month;
-        if (m <= 2) { y -= 1; m += 12; }
-        return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day - 1524;
-    }
-
-    function jdnToJul(jdn) {
-        const j = jdn + 1402;
-        const k = Math.floor((j - 1) / 1461);
-        const l = j - 1461 * k;
-        const n = Math.floor((l - 1) / 365) - Math.floor(l / 1461);
-        const i = l - 365 * n + 30;
-        const m = Math.floor((80 * i) / 2447);
-        const day = i - Math.floor((2447 * m) / 80);
-        const i2 = Math.floor(m / 11);
-        const month = m + 2 - 12 * i2;
-        const year = 4 * k + n + i2 - 4716;
-        return { year, month, day };
-    }
-
-    function jdnToGreg(jdn) {
-        const w = Math.floor((jdn - 1867216.25) / 36524.25);
-        const x = Math.floor(w / 4);
-        const a = jdn + 1 + w - x;
-        const b = a + 1524;
-        const c = Math.floor((b - 122.1) / 365.25);
-        const d = Math.floor(365.25 * c);
-        const e = Math.floor((b - d) / 30.6001);
-        const day = b - d - Math.floor(30.6001 * e);
-        const month = e < 14 ? e - 1 : e - 13;
-        const year = month > 2 ? c - 4716 : c - 4715;
-        return { year, month, day };
-    }
-
-    const WEEKDAYS = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
-
-    document.getElementById('btnCalcChrono').addEventListener('click', () => {
-        const sys = document.getElementById('chronInputSystem').value;
-        const y = parseInt(document.getElementById('chronYear').value, 10);
-        const m = parseInt(document.getElementById('chronMonth').value, 10);
-        const d = parseInt(document.getElementById('chronDay').value, 10);
-        const era = document.getElementById('chronEra').value;
-
-        if (Number.isNaN(y) || y < 1 || Number.isNaN(m) || m < 1 || m > 12 || Number.isNaN(d) || d < 1) {
-            document.getElementById('chronoResultOutput').innerHTML = `<span style="color: var(--crimson);">Bitte gültiges Datum eingeben (Jahr >= 1, Monat 1–12).</span>`;
-            return;
-        }
-
-        const astroY = era === 'BC' ? -(y - 1) : y;
-        const isInputLeap = sys === 'GREG' ? isGregorianLeap(astroY) : (Math.abs(astroY) % 4 === 0);
-        const maxDim = [31, isInputLeap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1];
-        if (d > maxDim) {
-            document.getElementById('chronoResultOutput').innerHTML = `<span style="color: var(--crimson);">Ungültiger Tag ${d}: Der Monat ${m} hat im gewählten System maximal ${maxDim} Tage.</span>`;
-            return;
-        }
-
-        const jdn = sys === 'GREG' ? gregToJdn(astroY, m, d) : julToJdn(astroY, m, d);
-        const greg = jdnToGreg(jdn);
-        const jul = jdnToJul(jdn);
-        const wd = WEEKDAYS[((jdn % 7) + 7) % 7];
-        const fmtY = yr => yr <= 0 ? `${Math.abs(yr - 1)} v. Chr.` : `${yr} n. Chr.`;
-        const drift = Math.abs(gregToJdn(astroY, m, d) - julToJdn(astroY, m, d));
-
-        const leapGreg = isGregorianLeap(greg.year);
-        const leapJul = Math.abs(jul.year) % 4 === 0;
-
-        document.getElementById('chronoResultOutput').innerHTML = `
-            <div style="font-size: 1.1rem; font-weight: 800; color: var(--brass-bright); margin-bottom: 8px;">Wochentag: ${wd}</div>
-            <div class="epoch-ledger">
-                <div class="ledger-row"><span class="ledger-label">Gregorianisches Datum</span><span class="ledger-val">${pad(greg.day)}.${pad(greg.month)}.${fmtY(greg.year)}</span></div>
-                <div class="ledger-row"><span class="ledger-label">Julianisches Datum</span><span class="ledger-val">${pad(jul.day)}.${pad(jul.month)}.${fmtY(jul.year)}</span></div>
-                <div class="ledger-row"><span class="ledger-label">Julianische Tageszahl (JDN)</span><span class="ledger-val">${fmtNum(jdn)}</span></div>
-                <div class="ledger-row"><span class="ledger-label">Kalender-Versatz</span><span class="ledger-val">${drift} Tag(e)</span></div>
-                <div class="ledger-row"><span class="ledger-label">Schaltjahr Gregorianisch</span><span class="ledger-val">${leapGreg ? 'Ja' : 'Nein'}</span></div>
-                <div class="ledger-row"><span class="ledger-label">Schaltjahr Julianisch</span><span class="ledger-val">${leapJul ? 'Ja' : 'Nein'}</span></div>
-            </div>
-        `;
-    });
-
-    // JD / MJD / TJD Konverter (ohne Date.UTC 0..99-Bug)
-    const jdMode = document.getElementById('jdConvMode');
-    jdMode.addEventListener('change', () => {
-        const isD2J = jdMode.value === 'dateToJd';
-        document.getElementById('jdDateInputWrap').style.display = isD2J ? 'flex' : 'none';
-        document.getElementById('jdValInputWrap').style.display = isD2J ? 'none' : 'flex';
-    });
-
-    function parseOffsetMin(s) {
-        const m = (s || '').trim().match(/^([+-])(\d{1,2}):(\d{2})$/);
-        if (!m) return null;
-        const hh = +m[2], mm = +m[3];
-        if (hh > 14 || mm > 59) return null;
-        return (m[1] === '-' ? -1 : 1) * (hh * 60 + mm);
-    }
-
-    document.getElementById('btnRunJdConv').addEventListener('click', () => {
-        const offStr = document.getElementById('jdUtcOffset').value.trim();
-        const offMin = parseOffsetMin(offStr);
-        if (offMin === null) { setErr('jdUtcOffset', 'err_jdUtcOffset', 'Format: ±HH:MM'); return; }
-        setErr('jdUtcOffset', 'err_jdUtcOffset', null);
-
-        if (jdMode.value === 'dateToJd') {
-            const p = parseManualDate(document.getElementById('jdInputDate').value);
-            if (p.error) { setErr('jdInputDate', 'err_jdInputDate', p.error); return; }
-            setErr('jdInputDate', 'err_jdInputDate', null);
-
-            const utcMs = makeUtcDate(
-                p.date.getFullYear(), p.date.getMonth(), p.date.getDate(),
-                p.date.getHours(), p.date.getMinutes() - offMin, p.date.getSeconds()
-            ).getTime();
-            const jd = (utcMs / 86400000) + 2440587.5;
-            const mjd = jd - 2400000.5;
-            const tjd = jd - 2440000.5;
-            document.getElementById('jdConvertResult').innerHTML = `
-                <div style="font-size: 1.2rem; font-weight: 800; color: var(--cryo); margin-bottom: 8px;">JD: ${jd.toFixed(8)}</div>
-                <div class="epoch-ledger">
-                    <div class="ledger-row"><span class="ledger-label">Modifiziertes JD (MJD)</span><span class="ledger-val">${mjd.toFixed(8)}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">Truncated JD (TJD)</span><span class="ledger-val">${tjd.toFixed(6)}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">Astronomische UTC-Referenz</span><span class="ledger-val">${fmtDateTimeUTC(new Date(utcMs))}</span></div>
-                </div>
-            `;
-        } else {
-            const jdVal = parseFloat(document.getElementById('jdInputNumber').value);
-            if (Number.isNaN(jdVal)) { setErr('jdInputNumber', 'err_jdInputNumber', 'Ungültige Zahl'); return; }
-            setErr('jdInputNumber', 'err_jdInputNumber', null);
-
-            const utcMs = Math.round((jdVal - 2440587.5) * 86400000);
-            const locDate = new Date(utcMs + offMin * 60000);
-            const mjd = jdVal - 2400000.5;
-            const tjd = jdVal - 2440000.5;
-            const locStr = `${pad(locDate.getUTCDate())}.${pad(locDate.getUTCMonth() + 1)}.${fmtUtcYear(locDate.getUTCFullYear())} ${pad(locDate.getUTCHours())}:${pad(locDate.getUTCMinutes())}:${pad(locDate.getUTCSeconds())}`;
-
-            document.getElementById('jdConvertResult').innerHTML = `
-                <div style="font-size: 1.15rem; font-weight: 800; color: var(--atomic); margin-bottom: 8px;">${locStr} (${offStr})</div>
-                <div class="epoch-ledger">
-                    <div class="ledger-row"><span class="ledger-label">Modifiziertes JD (MJD)</span><span class="ledger-val">${mjd.toFixed(8)}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">Truncated JD (TJD)</span><span class="ledger-val">${tjd.toFixed(6)}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">Astronomische UTC-Referenz</span><span class="ledger-val">${fmtDateTimeUTC(new Date(utcMs))}</span></div>
-                </div>
-            `;
-        }
-    });
-
-    /* ===================================================================== */
-    /* 11. INITIALISIERUNG & VIEWPORT-STEUERUNG                              */
-    /* ===================================================================== */
-    (function initObservatory() {
-        buildClockDials();
-        const now = new Date();
-        const nowStr = fmtDateDE(now);
-
-        document.getElementById('selectedDate').value = nowStr;
-        document.getElementById('startRangeDate').value = nowStr;
-        document.getElementById('endRangeDate').value = nowStr;
-        document.getElementById('shiftBaseDate').value = nowStr;
-        document.getElementById('jdInputDate').value = nowStr;
-        document.getElementById('jdInputNumber').value = ((now.getTime() / 86400000) + 2440587.5).toFixed(8);
-
-        const offMin = -now.getTimezoneOffset();
-        const offSign = offMin >= 0 ? '+' : '-';
-        document.getElementById('jdUtcOffset').value = `${offSign}${pad(Math.floor(Math.abs(offMin) / 60))}:${pad(Math.abs(offMin) % 60)}`;
-
-        try {
-            const tzName = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            document.getElementById('topSysZone').textContent = `${tzName} (UTC${offSign}${Math.floor(Math.abs(offMin) / 60)})`;
-        } catch {
-            document.getElementById('topSysZone').textContent = 'Systemzeit aktiv';
-        }
-
-        const soy = new Date(now.getFullYear(), 0, 1, 0, 0, 0);
-        const sevenAgo = new Date(now.getTime() - 7 * 86400000);
-        document.getElementById('refStart').value = fmtDateDE(soy);
-        document.getElementById('refEnd').value = nowStr;
-        document.getElementById('subStart').value = fmtDateDE(sevenAgo);
-        document.getElementById('subEnd').value = nowStr;
-
-        // Berlin Sonnenstand für heutigen Tag initialisieren
-        const berlinToday = getBerlinParts(now.getTime());
-        document.getElementById('berlinSunDate').value = `${berlinToday.year}-${pad(berlinToday.month)}-${pad(berlinToday.day)}`;
-        drawBerlinDayChart(berlinToday.year, berlinToday.month, berlinToday.day);
-
-        // Sektor II & III Standard-Berechnungen initial ausführen
-        updateAstronomyModule(now);
-        document.getElementById('btnCalcChrono').click();
-        document.getElementById('btnCalcRelPercent').click();
-        performSafeShift();
-
-        // Kontinuierliche Echtzeit-Schleife starten (lückenlos synchronisiert via rAF)
-        tickObservatory();
-        startLiveLoop();
-
-        // Ansichtsmodus & UI-Skalierung
-        let viewMode = 'auto';
-        let uiScale = 100;
-        function applyViewSettings() {
-            const isDesktop = viewMode === 'desktop';
-            document.body.classList.toggle('mode-desktop', isDesktop);
-            document.body.classList.toggle('mode-mobile', viewMode === 'mobile');
-            uiScale = Math.max(25, Math.min(150, Math.round(uiScale || 100)));
-            let scale = uiScale / 100;
-            if (isDesktop && window.innerWidth < 1240) scale = (window.innerWidth / 1240) * (uiScale / 100);
-            document.body.style.transformOrigin = 'top left';
-            if (Math.abs(scale - 1) < 0.001) {
-                document.body.style.transform = '';
-                document.body.style.width = isDesktop ? '1240px' : '';
-            } else {
-                document.body.style.transform = `scale(${scale.toFixed(4)})`;
-                document.body.style.width = isDesktop ? '1240px' : `${(100 / scale).toFixed(4)}%`;
+        function countWorkAndWeekendDays(d1, d2) {
+            const start = new Date(Math.min(d1.getTime(), d2.getTime()));
+            const end = new Date(Math.max(d1.getTime(), d2.getTime()));
+            const sMid = makeUtcDate(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
+            const eMid = makeUtcDate(end.getFullYear(), end.getMonth(), end.getDate()).getTime();
+            const totalDays = Math.round((eMid - sMid) / 86400000);
+            const fullWeeks = Math.floor(totalDays / 7);
+            let work = fullWeeks * 5;
+            let weekend = fullWeeks * 2;
+            const rem = totalDays % 7;
+            let curDow = start.getDay();
+            for (let i = 0; i < rem; i++) {
+                if (curDow === 0 || curDow === 6) weekend++;
+                else work++;
+                curDow = (curDow + 1) % 7;
             }
-            document.getElementById('paramViewMode').value = viewMode;
-            document.getElementById('paramScaleInput').value = String(uiScale);
+            return { totalDays, work, weekend };
         }
-        const updateScale = (v) => {
-            const n = parseInt(v, 10);
-            if (!Number.isNaN(n)) { uiScale = n; applyViewSettings(); }
-        };
-        document.getElementById('paramViewMode').addEventListener('change', (e) => { viewMode = e.target.value; applyViewSettings(); });
-        document.getElementById('paramScaleInput').addEventListener('change', (e) => updateScale(e.target.value));
-        document.getElementById('btnScaleDown').addEventListener('click', () => updateScale(uiScale - 5));
-        document.getElementById('btnScaleUp').addEventListener('click', () => updateScale(uiScale + 5));
-        document.getElementById('btnScaleReset').addEventListener('click', () => updateScale(100));
-        window.addEventListener('resize', applyViewSettings);
-        applyViewSettings();
+
+        document.getElementById('btnCalcBetween').addEventListener('click', () => {
+            const p1 = parseManualDate(document.getElementById('startRangeDate').value, document.getElementById('startRangeEra').value);
+            const p2 = parseManualDate(document.getElementById('endRangeDate').value, document.getElementById('endRangeEra').value);
+            setErr('startRangeDate', 'err_startRangeDate', p1.error);
+            setErr('endRangeDate', 'err_endRangeDate', p2.error);
+            if (p1.error || p2.error) return;
+
+            const diff = computeDateDiff(p1.date, p2.date);
+            const wd = countWorkAndWeekendDays(p1.date, p2.date);
+            const workPct = wd.totalDays > 0 ? (wd.work / wd.totalDays) * 100 : 0;
+
+            document.getElementById('betweenDatesOutput').innerHTML = `
+                <div class="epoch-ledger">
+                    ${renderDetailedSingleLedgerHTML(diff, true)}
+                </div>
+                <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line-hair);">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.72rem; margin-bottom: 4px;">
+                        <span style="color: var(--atomic);">Werktage (Mo–Fr): <strong>${fmtNum(wd.work)}</strong> (${workPct.toFixed(1)}%)</span>
+                        <span style="color: var(--brass);">Wochenendtage (Sa–So): <strong>${fmtNum(wd.weekend)}</strong></span>
+                    </div>
+                    <div style="height: 8px; border-radius: 4px; background: var(--brass); overflow: hidden;">
+                        <div style="height: 100%; width: ${workPct.toFixed(2)}%; background: var(--atomic);"></div>
+                    </div>
+                </div>
+            `;
+        });
+
+        function formatExactSecBlock(title, dStart, dEnd, accentColor) {
+            const diff = computeDateDiff(dStart, dEnd);
+            return `
+                <div class="epoch-ledger" style="border-top: 2px solid ${accentColor};">
+                    <div class="ledger-section-title" style="color: ${accentColor};">${title}</div>
+                    ${renderDetailedSingleLedgerHTML(diff, false)}
+                </div>
+            `;
+        }
+
+        document.getElementById('btnCalcRelPercent').addEventListener('click', () => {
+            const rS = parseManualDate(document.getElementById('refStart').value);
+            const rE = parseManualDate(document.getElementById('refEnd').value);
+            const sS = parseManualDate(document.getElementById('subStart').value);
+            const sE = parseManualDate(document.getElementById('subEnd').value);
+
+            setErr('refStart', 'err_refStart', rS.error);
+            setErr('refEnd', 'err_refEnd', rE.error);
+            setErr('subStart', 'err_subStart', sS.error);
+            setErr('subEnd', 'err_subEnd', sE.error);
+            if (rS.error || rE.error || sS.error || sE.error) return;
+
+            const refMinMs = Math.min(rS.date.getTime(), rE.date.getTime());
+            const refMaxMs = Math.max(rS.date.getTime(), rE.date.getTime());
+            const subMinMs = Math.min(sS.date.getTime(), sE.date.getTime());
+            const subMaxMs = Math.max(sS.date.getTime(), sE.date.getTime());
+
+            const refSec = Math.floor((refMaxMs - refMinMs) / 1000);
+            const subSec = Math.floor((subMaxMs - subMinMs) / 1000);
+            if (refSec === 0) {
+                document.getElementById('relPercentOutput').innerHTML = `<span style="color: var(--crimson);">Fehler: Das Referenzsystem hat eine Länge von 0 Sekunden.</span>`;
+                return;
+            }
+
+            const overlapMinMs = Math.max(refMinMs, subMinMs);
+            const overlapMaxMs = Math.min(refMaxMs, subMaxMs);
+            const hasOverlap = overlapMaxMs > overlapMinMs;
+            const overlapSec = hasOverlap ? Math.floor((overlapMaxMs - overlapMinMs) / 1000) : 0;
+
+            const ratioPct = (subSec / refSec) * 100;
+            const overlapPct = (overlapSec / refSec) * 100;
+
+            const leftPct = Math.max(0, Math.min(100, ((overlapMinMs - refMinMs) / (refMaxMs - refMinMs)) * 100));
+            const rightPct = Math.max(0, Math.min(100, ((overlapMaxMs - refMinMs) / (refMaxMs - refMinMs)) * 100));
+            const barW = hasOverlap ? Math.max(0.5, rightPct - leftPct) : 0;
+
+            document.getElementById('relPercentOutput').innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px; margin-bottom: 10px;">
+                    <span style="font-size: 1.25rem; font-weight: 800; color: var(--sidereal);">Relativer Zeitanteil: ${ratioPct.toFixed(6)} %</span>
+                    <span style="font-size: 0.85rem; color: var(--atomic); font-weight: 700;">Exakte Überlappung: ${overlapPct.toFixed(6)} % (${fmtNum(overlapSec)} s)</span>
+                </div>
+                <svg viewBox="0 0 600 68" width="100%" height="68" style="background: rgba(255,255,255,0.02); border-radius: 6px; margin-bottom: 12px;">
+                    <line x1="20" y1="32" x2="580" y2="32" stroke="rgba(255,255,255,0.2)" stroke-width="4" stroke-linecap="round"/>
+                    ${hasOverlap ? `<rect x="${(20 + leftPct * 5.6).toFixed(1)}" y="24" width="${(barW * 5.6).toFixed(1)}" height="16" rx="4" fill="#a78bfa"/>` : ''}
+                    <circle cx="20" cy="32" r="4" fill="#38bdf8"/>
+                    <circle cx="580" cy="32" r="4" fill="#38bdf8"/>
+                    <text x="20" y="56" fill="#94a3b8" font-family="JetBrains Mono" font-size="9">REF START (0%)</text>
+                    <text x="580" y="56" text-anchor="end" fill="#94a3b8" font-family="JetBrains Mono" font-size="9">REF ENDE (100%)</text>
+                    <text x="${hasOverlap ? Math.min(480, 20 + leftPct * 5.6).toFixed(1) : '300'}" ${hasOverlap ? '' : 'text-anchor="middle"'} y="15" fill="${hasOverlap ? '#d8b4fe' : '#f43f5e'}" font-family="JetBrains Mono" font-size="9">${hasOverlap ? `SUB: ${ratioPct.toFixed(3)}%` : 'KEINE ÜBERLAPPUNG IM REFERENZRAHMEN'}</text>
+                </svg>
+
+                <div class="grid-3">
+                    ${formatExactSecBlock('1. Gesamtes Referenzsystem (100 %)', new Date(refMinMs), new Date(refMaxMs), '#38bdf8')}
+                    ${formatExactSecBlock('2. Zu messendes Teilintervall', new Date(subMinMs), new Date(subMaxMs), '#a78bfa')}
+                    ${hasOverlap
+                        ? formatExactSecBlock('3. Exakte Schnittmenge / Überlappung', new Date(overlapMinMs), new Date(overlapMaxMs), '#34d399')
+                        : `<div class="epoch-ledger" style="border-top: 2px solid var(--crimson);"><div class="ledger-section-title" style="color: var(--crimson);">3. Überlappung</div><div>Keine zeitliche Überschneidung (0 Sekunden)</div></div>`
+                    }
+                </div>
+            `;
+        });
+
+        function performSafeShift() {
+            const raw = document.getElementById('shiftBaseDate').value.trim();
+            let d = new Date();
+            if (raw !== '') {
+                const p = parseManualDate(raw);
+                if (p.error) { setErr('shiftBaseDate', 'err_shiftBaseDate', p.error); return; }
+                setErr('shiftBaseDate', 'err_shiftBaseDate', null);
+                d = p.date;
+            } else {
+                setErr('shiftBaseDate', 'err_shiftBaseDate', null);
+            }
+
+            const baseMs = d.getTime();
+            const y = parseInt(document.getElementById('sYears').value, 10) || 0;
+            const m = parseInt(document.getElementById('sMonths').value, 10) || 0;
+            const w = parseInt(document.getElementById('sWeeks').value, 10) || 0;
+            const dy = parseInt(document.getElementById('sDays').value, 10) || 0;
+            const h = parseInt(document.getElementById('sHours').value, 10) || 0;
+            const mn = parseInt(document.getElementById('sMin').value, 10) || 0;
+            const sc = parseInt(document.getElementById('sSec').value, 10) || 0;
+
+            if (y !== 0 || m !== 0) {
+                d = addYearsMonthsClamped(d, y, m);
+            }
+            if (dy + w * 7 !== 0) d.setDate(d.getDate() + dy + w * 7);
+            if (h !== 0) d.setHours(d.getHours() + h);
+            if (mn !== 0) d.setMinutes(d.getMinutes() + mn);
+            if (sc !== 0) d.setSeconds(d.getSeconds() + sc);
+
+            const netSec = Math.round((d.getTime() - baseMs) / 1000);
+            const sign = netSec >= 0 ? '+' : '';
+            const fullStr = d.toLocaleString('de-DE', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+
+            document.getElementById('shiftResultOutput').innerHTML = `
+                <div style="font-size: 1.05rem; font-weight: 800; color: var(--atomic); margin-bottom: 10px;">${fullStr}</div>
+                <div class="epoch-ledger">
+                    <div class="ledger-row"><span class="ledger-label">Kompaktformat</span><span class="ledger-val">${fmtDateDE(d)}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Kalenderwoche (ISO)</span><span class="ledger-val">KW ${pad(getIsoWeek(d))}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Netto-Versatz in Sekunden</span><span class="ledger-val">${sign}${fmtNum(netSec)} s</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Netto-Versatz in Tagen</span><span class="ledger-val">${sign}${(netSec / 86400).toFixed(4)} Tage</span></div>
+                </div>
+            `;
+        }
+
+        document.getElementById('shiftBaseDate').addEventListener('input', performSafeShift);
+        document.querySelectorAll('.shift-dyn').forEach(el => el.addEventListener('input', performSafeShift));
+
+        /* ===================================================================== */
+        /* 9b. ANALYTIK 05: DEZIMALUHR <-> NORMALZEIT KONVERTER                  */
+        /* ===================================================================== */
+        const decConvModeEl = document.getElementById('decConvMode');
+        decConvModeEl.addEventListener('change', () => {
+            const isN2D = decConvModeEl.value === 'normToDec';
+            document.getElementById('decConvNormalWrap').style.display = isN2D ? 'flex' : 'none';
+            document.getElementById('decConvDecWrap').style.display = isN2D ? 'none' : 'flex';
+        });
+
+        function parseHmsFlexible(raw, maxH, maxMS) {
+            const m = (raw || '').trim().replace(',', '.').match(/^(\d{1,2}):(\d{1,2})(?::(\d{1,2}(?:\.\d+)?))?$/);
+            if (!m) return null;
+            const h = parseInt(m[1], 10);
+            const min = parseInt(m[2], 10);
+            const sec = m[3] !== undefined ? parseFloat(m[3]) : 0;
+            if (h < 0 || h > maxH || min < 0 || min > maxMS || Number.isNaN(sec) || sec < 0 || sec >= maxMS + 1) return null;
+            return { h, min, sec };
+        }
+
+        function runDecConverter() {
+            const mode = decConvModeEl.value;
+            const outEl = document.getElementById('decConvResult');
+
+            if (mode === 'normToDec') {
+                const p = parseHmsFlexible(document.getElementById('decInputNormal').value, 23, 59);
+                if (!p) {
+                    setErr('decInputNormal', 'err_decInputNormal', 'Ungültig. Format: HH:MM:SS (00:00:00 – 23:59:59,99)');
+                    return;
+                }
+                setErr('decInputNormal', 'err_decInputNormal', null);
+                const normSecTotal = p.h * 3600 + p.min * 60 + p.sec;
+                const dayFrac = normSecTotal / 86400;
+                const decTotalSec = dayFrac * 100000;
+                const dH = Math.floor(decTotalSec / 10000);
+                const dM = Math.floor((decTotalSec % 10000) / 100);
+                const dSFloat = decTotalSec % 100;
+                const dSInt = Math.floor(dSFloat);
+                const hexVal = `0x${Math.floor(dayFrac * 65536).toString(16).toUpperCase().padStart(4, '0')}`;
+
+                outEl.innerHTML = `
+                    <div style="font-size: 1.25rem; font-weight: 800; color: var(--cryo); margin-bottom: 8px;">
+                        Dezimalzeit: ${dH}:${pad(dM)}:${pad(dSInt)} <span style="font-size: 0.85rem; color: var(--text-secondary);">(${dH}:${pad(dM)}:${dSFloat.toFixed(2).padStart(5, '0').replace('.', ',')})</span>
+                    </div>
+                    <div class="epoch-ledger">
+                        <div class="ledger-row"><span class="ledger-label">Dezimal-Stunde / -Minute / -Sekunde</span><span class="ledger-val">${dH} d-Std · ${dM} d-Min · ${fmtNum(dSFloat.toFixed(3))} d-Sek</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Dezimalsekunden seit 00:00</span><span class="ledger-val">${fmtNum(decTotalSec.toFixed(2))} / 100.000</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Normalsekunden seit 00:00</span><span class="ledger-val">${fmtNum(normSecTotal.toFixed(2))} / 86.400</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Tagesfortschritt / Hexadezimal</span><span class="ledger-val">${fmtNum((dayFrac * 100).toFixed(4))} % · ${hexVal}</span></div>
+                    </div>
+                `;
+            } else {
+                const p = parseHmsFlexible(document.getElementById('decInputDecimal').value, 9, 99);
+                if (!p) {
+                    setErr('decInputDecimal', 'err_decInputDecimal', 'Ungültig. Format: H:MM:SS (0:00:00 – 9:99:99,99)');
+                    return;
+                }
+                setErr('decInputDecimal', 'err_decInputDecimal', null);
+                const decTotalSec = p.h * 10000 + p.min * 100 + p.sec;
+                const dayFrac = decTotalSec / 100000;
+                const normTotalSec = dayFrac * 86400;
+                const nH = Math.floor(normTotalSec / 3600);
+                const nM = Math.floor((normTotalSec % 3600) / 60);
+                const nSFloat = normTotalSec % 60;
+                const nSInt = Math.floor(nSFloat);
+                const hexVal = `0x${Math.floor(dayFrac * 65536).toString(16).toUpperCase().padStart(4, '0')}`;
+
+                outEl.innerHTML = `
+                    <div style="font-size: 1.25rem; font-weight: 800; color: var(--brass-bright); margin-bottom: 8px;">
+                        Normalzeit: ${pad(nH)}:${pad(nM)}:${pad(nSInt)} <span style="font-size: 0.85rem; color: var(--text-secondary);">(${pad(nH)}:${pad(nM)}:${nSFloat.toFixed(2).padStart(5, '0').replace('.', ',')})</span>
+                    </div>
+                    <div class="epoch-ledger">
+                        <div class="ledger-row"><span class="ledger-label">Normal-Stunde / -Minute / -Sekunde</span><span class="ledger-val">${nH} Std · ${nM} Min · ${fmtNum(nSFloat.toFixed(3))} Sek</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Normalsekunden seit 00:00</span><span class="ledger-val">${fmtNum(normTotalSec.toFixed(2))} / 86.400</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Dezimalsekunden seit 0:00:00</span><span class="ledger-val">${fmtNum(decTotalSec.toFixed(2))} / 100.000</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Tagesfortschritt / Hexadezimal</span><span class="ledger-val">${fmtNum((dayFrac * 100).toFixed(4))} % · ${hexVal}</span></div>
+                    </div>
+                `;
+            }
+        }
+
+        document.getElementById('btnRunDecConv').addEventListener('click', runDecConverter);
+        function renderDecUnitTable() {
+            const tbody = document.getElementById('decUnitTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = `
+                <tr>
+                    <td><strong>1 Dezimalstunde</strong> (1/10 Tag)</td>
+                    <td style="color: var(--brass-bright);">${fmtHourComposite(2.4, 60, 'Normalstd', 'Std', 'Min', 'Sek')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Dezimalminute</strong> (1/1.000 Tag)</td>
+                    <td style="color: var(--brass-bright);">${fmtMinComposite(1.44, 60, 'Normalmin', 'Min', 'Sek')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Dezimalsekunde</strong> (1/100.000 Tag)</td>
+                    <td style="color: var(--brass-bright);">${fmtSecComposite(0.864, 'Normalsek', 'Sek', 'ms')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Normalstunde</strong> (1/24 Tag)</td>
+                    <td style="color: var(--cryo);">${fmtHourComposite(1 / 2.4, 100, 'd-Std', 'd-Std', 'd-Min', 'd-Sek')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Normalminute</strong> (1/1.440 Tag)</td>
+                    <td style="color: var(--cryo);">${fmtMinComposite(1 / 1.44, 100, 'd-Min', 'd-Min', 'd-Sek')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Normalsekunde</strong> (1/86.400 Tag)</td>
+                    <td style="color: var(--cryo);">${fmtSecComposite(1 / 0.864, 'd-Sek', 'd-Sek', 'd-ms')}</td>
+                </tr>
+            `;
+        }
+
+        document.getElementById('btnDecConvNow').addEventListener('click', () => {
+            const now = new Date();
+            const dayFrac = (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()) / 86400;
+            const decTotal = dayFrac * 100000;
+            document.getElementById('decInputNormal').value = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+            document.getElementById('decInputDecimal').value = `${Math.floor(decTotal / 10000)}:${pad(Math.floor((decTotal % 10000) / 100))}:${pad(Math.floor(decTotal % 100))}`;
+            runDecConverter();
+        });
+
+        /* ===================================================================== */
+        /* 9c. ANALYTIK 06: RÖMISCHER TEMPORAL-KONVERTER + TAGES-EINHEITENTABELLE*/
+        /* ===================================================================== */
+        const romConvModeEl = document.getElementById('romConvMode');
+        romConvModeEl.addEventListener('change', () => {
+            const isN2R = romConvModeEl.value === 'normToRom';
+            document.getElementById('romConvNormalWrap').style.display = isN2R ? 'flex' : 'none';
+            document.getElementById('romConvRomanWrap').style.display = isN2R ? 'none' : 'block';
+        });
+
+        function updateRomanUnitTable(y, m, d) {
+            const evToday = computeBerlinDayEvents(y, m, d);
+            const nd = makeUtcDate(y, m - 1, d + 1, 12, 0, 0);
+            const evTom = computeBerlinDayEvents(nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
+            const tbody = document.getElementById('romUnitTableBody');
+
+            if (!evToday.sun.riseMs || !evToday.sun.setMs || !evTom.sun.riseMs) {
+                tbody.innerHTML = `<tr><td colspan="3">Für dieses Datum liegen keine Auf-/Untergangsdaten vor.</td></tr>`;
+                return;
+            }
+
+            const daySec = (evToday.sun.setMs - evToday.sun.riseMs) / 1000;
+            const nightSec = (evTom.sun.riseMs - evToday.sun.setMs) / 1000;
+
+            const dH = daySec / 12, dM = dH / 60, dS = dM / 60;
+            const nH = nightSec / 12, nM = nH / 60, nS = nM / 60;
+
+            tbody.innerHTML = `
+                <tr>
+                    <td><strong>1 Temporalstunde</strong> (Hora)</td>
+                    <td style="color: var(--brass-bright);">${fmtHourComposite(dH / 3600, 60, 'Normalstd', 'Std', 'Min', 'Sek')}</td>
+                    <td style="color: var(--sidereal);">${fmtHourComposite(nH / 3600, 60, 'Normalstd', 'Std', 'Min', 'Sek')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Temporalminute</strong> (1/60 Hora)</td>
+                    <td style="color: var(--brass-bright);">${fmtMinComposite(dM / 60, 60, 'Normalmin', 'Min', 'Sek')}</td>
+                    <td style="color: var(--sidereal);">${fmtMinComposite(nM / 60, 60, 'Normalmin', 'Min', 'Sek')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Temporalsekunde</strong> (1/3.600 Hora)</td>
+                    <td style="color: var(--brass-bright);">${fmtSecComposite(dS, 'Normalsek', 'Sek', 'ms')}</td>
+                    <td style="color: var(--sidereal);">${fmtSecComposite(nS, 'Normalsek', 'Sek', 'ms')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Normalstunde</strong> (3.600 s)</td>
+                    <td>${fmtHourComposite(3600 / dH, 60, 'Tagstd', 'Std', 'Min', 'Sek')}</td>
+                    <td>${fmtHourComposite(3600 / nH, 60, 'Nachtstd', 'Std', 'Min', 'Sek')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Normalminute</strong> (60 s)</td>
+                    <td>${fmtMinComposite(60 / dM, 60, 'Tagmin', 'Min', 'Sek')}</td>
+                    <td>${fmtMinComposite(60 / nM, 60, 'Nachtmin', 'Min', 'Sek')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Normalsekunde</strong> (1 s)</td>
+                    <td>${fmtSecComposite(1 / dS, 'Tagsek', 'Sek', 'ms')}</td>
+                    <td>${fmtSecComposite(1 / nS, 'Nachtsek', 'Sek', 'ms')}</td>
+                </tr>
+            `;
+        }
+
+        function runRomanConverter() {
+            const dateStr = document.getElementById('romConvDate').value;
+            if (!dateStr) return;
+            const [y, m, d] = dateStr.split('-').map(Number);
+            if (!y || !m || !d) return;
+
+            updateRomanUnitTable(y, m, d);
+
+            const outEl = document.getElementById('romConvResult');
+            const evToday = computeBerlinDayEvents(y, m, d);
+            const nd = makeUtcDate(y, m - 1, d + 1, 12, 0, 0);
+            const evTom = computeBerlinDayEvents(nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
+
+            if (romConvModeEl.value === 'normToRom') {
+                const p = parseHmsFlexible(document.getElementById('romInputNormal').value, 23, 59);
+                if (!p) {
+                    setErr('romInputNormal', 'err_romInputNormal', 'Ungültig. Format: HH:MM:SS (00:00:00 – 23:59:59)');
+                    return;
+                }
+                setErr('romInputNormal', 'err_romInputNormal', null);
+                const minOfDay = p.h * 60 + p.min + p.sec / 60;
+                const utcMs = berlinLocalToUtcMs(y, m, d, minOfDay);
+                const st = computeRomanTemporalAtUtc(utcMs);
+
+                const phaseTitle = st.isDay
+                    ? `Tag (Dies) · ${st.hourNum}. Tagstunde (Hora ${st.romanNum})`
+                    : `Nacht (Nox) · ${st.hourNum}. Nachtstunde (Hora ${st.romanNum})`;
+
+                outEl.innerHTML = `
+                    <div style="font-size: 1.2rem; font-weight: 800; color: ${st.isDay ? 'var(--brass-bright)' : '#d8b4fe'}; margin-bottom: 8px;">
+                        Hora ${st.romanNum} · ${pad(st.hourNum)}:${pad(st.tMin)}:${pad(st.tSec)}
+                    </div>
+                    <div class="epoch-ledger">
+                        <div class="ledger-row"><span class="ledger-label">Phase &amp; Nummerierung</span><span class="ledger-val">${phaseTitle}</span></div>
+                        ${!st.isDay ? `<div class="ledger-row"><span class="ledger-label">Römische Nachtwache</span><span class="ledger-val">${st.vigilName}</span></div>` : ''}
+                        <div class="ledger-row"><span class="ledger-label">Sonnenaufgang / -untergang (${pad(d)}.${pad(m)}.${y})</span><span class="ledger-val">${fmtBerlinHMS(evToday.sun.riseMs)} / ${fmtBerlinHMS(evToday.sun.setMs)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Laufende Periode (Start → Ende)</span><span class="ledger-val">${fmtBerlinHMS(st.periodStart)} → ${fmtBerlinHMS(st.periodEnd)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Fortschritt in dieser Phase</span><span class="ledger-val">${fmtNum((st.frac * 100).toFixed(3))} %</span></div>
+                    </div>
+                `;
+            } else {
+                const period = document.getElementById('romInputPeriod').value;
+                const rHour = parseInt(document.getElementById('romInputHour').value, 10);
+                const rMin = parseInt(document.getElementById('romInputMin').value, 10);
+                const rSec = parseInt(document.getElementById('romInputSec').value, 10);
+
+                if (Number.isNaN(rHour) || rHour < 1 || rHour > 12 || Number.isNaN(rMin) || rMin < 0 || rMin > 59 || Number.isNaN(rSec) || rSec < 0 || rSec > 59) {
+                    const errEl = document.getElementById('err_romInputRoman');
+                    errEl.textContent = 'Stunde 1–12, Minute 0–59, Sekunde 0–59 erforderlich.';
+                    errEl.style.display = 'block';
+                    return;
+                }
+                document.getElementById('err_romInputRoman').style.display = 'none';
+
+                if (!evToday.sun.riseMs || !evToday.sun.setMs || !evTom.sun.riseMs) {
+                    outEl.innerHTML = `<span style="color: var(--crimson);">Für dieses Datum liegen keine Berliner Auf-/Untergangsdaten vor.</span>`;
+                    return;
+                }
+
+                const isDay = period === 'day';
+                const startMs = isDay ? evToday.sun.riseMs : evToday.sun.setMs;
+                const endMs = isDay ? evToday.sun.setMs : evTom.sun.riseMs;
+                const frac = ((rHour - 1) + rMin / 60 + rSec / 3600) / 12;
+                const targetUtcMs = startMs + frac * (endMs - startMs);
+                const bp = getBerlinParts(targetUtcMs);
+                const vigilIdx = Math.min(3, Math.floor((rHour - 1) / 3));
+
+                outEl.innerHTML = `
+                    <div style="font-size: 1.2rem; font-weight: 800; color: var(--cryo); margin-bottom: 8px;">
+                        Berliner Normalzeit: ${pad(bp.hour)}:${pad(bp.minute)}:${pad(bp.second)} <span style="font-size: 0.85rem; color: var(--text-secondary);">(${pad(bp.day)}.${pad(bp.month)}.${bp.year})</span>
+                    </div>
+                    <div class="epoch-ledger">
+                        <div class="ledger-row"><span class="ledger-label">Eingabe-Temporalzeit</span><span class="ledger-val">Hora ${ROMAN_HOURS[rHour - 1]} (${rHour}. ${isDay ? 'Tagstunde' : 'Nachtstunde'}) · ${pad(rHour)}:${pad(rMin)}:${pad(rSec)}</span></div>
+                        ${!isDay ? `<div class="ledger-row"><span class="ledger-label">Römische Nachtwache</span><span class="ledger-val">${ROMAN_VIGILS[vigilIdx]}</span></div>` : ''}
+                        <div class="ledger-row"><span class="ledger-label">${isDay ? 'Tag-Zeitraum (Auf → Unter)' : 'Nacht-Zeitraum (Unter → Auf +1d)'}</span><span class="ledger-val">${fmtBerlinHMS(startMs)} → ${fmtBerlinHMS(endMs)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Phasen-Fortschritt</span><span class="ledger-val">${fmtNum((frac * 100).toFixed(3))} %</span></div>
+                    </div>
+                `;
+            }
+        }
+
+        document.getElementById('romConvDate').addEventListener('change', runRomanConverter);
+        document.getElementById('btnRunRomConv').addEventListener('click', runRomanConverter);
+        document.getElementById('btnRomConvNow').addEventListener('click', () => {
+            const nowMs = Date.now();
+            const bp = getBerlinParts(nowMs);
+            const st = computeRomanTemporalAtUtc(nowMs);
+            document.getElementById('romConvDate').value = `${bp.year}-${pad(bp.month)}-${pad(bp.day)}`;
+            document.getElementById('romInputNormal').value = `${pad(bp.hour)}:${pad(bp.minute)}:${pad(bp.second)}`;
+            document.getElementById('romInputPeriod').value = st.isDay ? 'day' : 'night';
+            document.getElementById('romInputHour').value = String(st.hourNum);
+            document.getElementById('romInputMin').value = String(st.tMin);
+            document.getElementById('romInputSec').value = String(st.tSec);
+            runRomanConverter();
+        });
+
+        /* ===================================================================== */
+        /* 9d. SEKTOR III: KOSMISCHE WEGSTRECKE SEIT WUNSCHDATUM (LIVE)          */
+        /* ===================================================================== */
+        let cosmicCustomDate = null;
+
+        function updateCosmicCustomLive(nowMs) {
+            if (!cosmicCustomDate) return;
+            const outEl = document.getElementById('cosCustomOutput');
+            const diffMs = nowMs - cosmicCustomDate.getTime();
+            const isFuture = diffMs < 0;
+            const secAbs = Math.abs(diffMs) / 1000;
+            const diffCal = computeDateDiff(cosmicCustomDate, new Date(nowMs));
+
+            const rotKm = secAbs * 0.4651;
+            const moonKm = secAbs * 1.022;
+            const earthKm = secAbs * 29.7847;
+            const galKm = secAbs * 220;
+            const lightKm = secAbs * 299792.458;
+            const lightYears = lightKm / 9.4607304725808e12;
+            const earthOrbits = earthKm / 939951143;
+
+            const fmtBigKm = (km) => km >= 1e9
+                ? `${fmtNum((km / 1e9).toFixed(4))} Mrd. km`
+                : (km >= 1e6 ? `${fmtNum((km / 1e6).toFixed(4))} Mio. km` : `${fmtNum(km.toFixed(2))} km`);
+
+            outEl.innerHTML = `
+                <div class="ledger-section-title" style="color: ${isFuture ? 'var(--crimson)' : 'var(--atomic)'};">
+                    ${isFuture ? 'Zielzeitpunkt liegt in der Zukunft (verbleibende Strecke)' : 'Bereits zurückgelegte Strecke bis Jetzt (Echtzeit)'}
+                </div>
+                <div class="ledger-row"><span class="ledger-label">Verstrichene Kalenderdauer</span><span class="ledger-val" style="color: var(--brass-bright);">${diffCal.years} J, ${diffCal.months} M, ${diffCal.days} T, ${pad(diffCal.hours)}:${pad(diffCal.minutes)}:${pad(diffCal.seconds)}</span></div>
+                <div class="ledger-row"><span class="ledger-label">Sekunden exakt</span><span class="ledger-val">${fmtNum(secAbs.toFixed(1))} s</span></div>
+                <div class="ledger-row"><span class="ledger-label">Erdrotation Äquator (0,4651 km/s)</span><span class="ledger-val">${fmtBigKm(rotKm)} (${fmtNum((rotKm / 40075.017).toFixed(2))} Erdumfänge)</span></div>
+                <div class="ledger-row"><span class="ledger-label">Mondbahn um Erde (1,022 km/s)</span><span class="ledger-val">${fmtBigKm(moonKm)}</span></div>
+                <div class="ledger-row"><span class="ledger-label">Erdbahn um Sonne (29,7847 km/s)</span><span class="ledger-val" style="color: var(--cryo);">${fmtBigKm(earthKm)} (${fmtNum(earthOrbits.toFixed(4))} Umläufe)</span></div>
+                <div class="ledger-row"><span class="ledger-label">Sonnensystem um Galaxis (220 km/s)</span><span class="ledger-val" style="color: var(--brass-bright);">${fmtBigKm(galKm)}</span></div>
+                <div class="ledger-row"><span class="ledger-label">Lichtstrecke im Vakuum</span><span class="ledger-val" style="color: var(--atomic);">${fmtBigKm(lightKm)} (${fmtNum(lightYears.toFixed(6))} Lichtjahre)</span></div>
+            `;
+        }
+
+        document.getElementById('btnStartCosmicCustom').addEventListener('click', () => {
+            const p = parseManualDate(document.getElementById('cosCustomDate').value, document.getElementById('cosCustomEra').value);
+            if (p.error) { setErr('cosCustomDate', 'err_cosCustomDate', p.error); return; }
+            setErr('cosCustomDate', 'err_cosCustomDate', null);
+            cosmicCustomDate = p.date;
+            updateCosmicCustomLive(Date.now());
+        });
+
+        /* ===================================================================== */
+        /* 10. SEKTOR III: EPOCHEN-CHRONOLOGIE & JD/MJD/TJD (OHNE DRIFT-GRAFIK)  */
+        /* ===================================================================== */
+        function gregToJdn(year, month, day) {
+            let y = year, m = month;
+            if (m <= 2) { y -= 1; m += 12; }
+            const a = Math.floor(y / 100);
+            const b = 2 - a + Math.floor(a / 4);
+            return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
+        }
+
+        function julToJdn(year, month, day) {
+            let y = year, m = month;
+            if (m <= 2) { y -= 1; m += 12; }
+            return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day - 1524;
+        }
+
+        function jdnToJul(jdn) {
+            const j = jdn + 1402;
+            const k = Math.floor((j - 1) / 1461);
+            const l = j - 1461 * k;
+            const n = Math.floor((l - 1) / 365) - Math.floor(l / 1461);
+            const i = l - 365 * n + 30;
+            const m = Math.floor((80 * i) / 2447);
+            const day = i - Math.floor((2447 * m) / 80);
+            const i2 = Math.floor(m / 11);
+            const month = m + 2 - 12 * i2;
+            const year = 4 * k + n + i2 - 4716;
+            return { year, month, day };
+        }
+
+        function jdnToGreg(jdn) {
+            const w = Math.floor((jdn - 1867216.25) / 36524.25);
+            const x = Math.floor(w / 4);
+            const a = jdn + 1 + w - x;
+            const b = a + 1524;
+            const c = Math.floor((b - 122.1) / 365.25);
+            const d = Math.floor(365.25 * c);
+            const e = Math.floor((b - d) / 30.6001);
+            const day = b - d - Math.floor(30.6001 * e);
+            const month = e < 14 ? e - 1 : e - 13;
+            const year = month > 2 ? c - 4716 : c - 4715;
+            return { year, month, day };
+        }
+
+        const WEEKDAYS = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+
+        document.getElementById('btnCalcChrono').addEventListener('click', () => {
+            const sys = document.getElementById('chronInputSystem').value;
+            const y = parseInt(document.getElementById('chronYear').value, 10);
+            const m = parseInt(document.getElementById('chronMonth').value, 10);
+            const d = parseInt(document.getElementById('chronDay').value, 10);
+            const era = document.getElementById('chronEra').value;
+
+            if (Number.isNaN(y) || y < 1 || Number.isNaN(m) || m < 1 || m > 12 || Number.isNaN(d) || d < 1) {
+                document.getElementById('chronoResultOutput').innerHTML = `<span style="color: var(--crimson);">Bitte gültiges Datum eingeben (Jahr >= 1, Monat 1–12).</span>`;
+                return;
+            }
+
+            const astroY = era === 'BC' ? -(y - 1) : y;
+            const isInputLeap = sys === 'GREG' ? isGregorianLeap(astroY) : (Math.abs(astroY) % 4 === 0);
+            const maxDim = [31, isInputLeap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1];
+            if (d > maxDim) {
+                document.getElementById('chronoResultOutput').innerHTML = `<span style="color: var(--crimson);">Ungültiger Tag ${d}: Der Monat ${m} hat im gewählten System maximal ${maxDim} Tage.</span>`;
+                return;
+            }
+
+            const jdn = sys === 'GREG' ? gregToJdn(astroY, m, d) : julToJdn(astroY, m, d);
+            const greg = jdnToGreg(jdn);
+            const jul = jdnToJul(jdn);
+            const wd = WEEKDAYS[((jdn % 7) + 7) % 7];
+            const fmtY = yr => yr <= 0 ? `${Math.abs(yr - 1)} v. Chr.` : `${yr} n. Chr.`;
+            const drift = Math.abs(gregToJdn(astroY, m, d) - julToJdn(astroY, m, d));
+
+            const leapGreg = isGregorianLeap(greg.year);
+            const leapJul = Math.abs(jul.year) % 4 === 0;
+
+            document.getElementById('chronoResultOutput').innerHTML = `
+                <div style="font-size: 1.1rem; font-weight: 800; color: var(--brass-bright); margin-bottom: 8px;">Wochentag: ${wd}</div>
+                <div class="epoch-ledger">
+                    <div class="ledger-row"><span class="ledger-label">Gregorianisches Datum</span><span class="ledger-val">${pad(greg.day)}.${pad(greg.month)}.${fmtY(greg.year)}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Julianisches Datum</span><span class="ledger-val">${pad(jul.day)}.${pad(jul.month)}.${fmtY(jul.year)}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Julianische Tageszahl (JDN)</span><span class="ledger-val">${fmtNum(jdn)}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Kalender-Versatz</span><span class="ledger-val">${drift} Tag(e)</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Schaltjahr Gregorianisch</span><span class="ledger-val">${leapGreg ? 'Ja' : 'Nein'}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Schaltjahr Julianisch</span><span class="ledger-val">${leapJul ? 'Ja' : 'Nein'}</span></div>
+                </div>
+            `;
+        });
+
+        const jdMode = document.getElementById('jdConvMode');
+        jdMode.addEventListener('change', () => {
+            const isD2J = jdMode.value === 'dateToJd';
+            document.getElementById('jdDateInputWrap').style.display = isD2J ? 'flex' : 'none';
+            document.getElementById('jdValInputWrap').style.display = isD2J ? 'none' : 'flex';
+        });
+
+        function parseOffsetMin(s) {
+            const m = (s || '').trim().match(/^([+-])(\d{1,2}):(\d{2})$/);
+            if (!m) return null;
+            const hh = +m[2], mm = +m[3];
+            if (hh > 14 || mm > 59) return null;
+            return (m[1] === '-' ? -1 : 1) * (hh * 60 + mm);
+        }
+
+        const jdEpochNoteHtml = `
+            <div style="margin-top: 8px; padding: 8px 10px; border-radius: var(--r-sm); background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.2); font-size: 0.7rem; color: var(--text-secondary); line-height: 1.45;">
+                <strong>Warum unterscheiden sich JD (…67,2987) und MJD/TJD (…66,7987)?</strong><br>
+                • <strong>JD</strong> zählt ab <em>01.01.4713 v. Chr., <strong>12:00 UTC</strong></em> (Tageswechsel mittags). Um 19:10 UTC sind 7h 10m seit Mittag vergangen (,2987).<br>
+                • <strong>MJD = JD − 2.400.000,5</strong> zählt ab <em>17.11.1858, <strong>00:00 UTC</strong></em>. Durch „− 0,5“ wird der Tageswechsel auf Mitternacht verschoben – zwischen 12:00 und 23:59 UTC ist die Vorkommazahl daher um 1 kleiner (67 → 66) und die Nachkommastelle um 0,5 größer (,2987 → ,7987).<br>
+                • <strong>TJD = JD − 2.440.000,5</strong> (= MJD − 40.000) zählt ab <em>24.05.1968, <strong>00:00 UTC</strong></em> (NASA-Epoche).
+            </div>
+        `;
+
+        document.getElementById('btnRunJdConv').addEventListener('click', () => {
+            const offStr = document.getElementById('jdUtcOffset').value.trim();
+            const offMin = parseOffsetMin(offStr);
+            if (offMin === null) { setErr('jdUtcOffset', 'err_jdUtcOffset', 'Format: ±HH:MM'); return; }
+            setErr('jdUtcOffset', 'err_jdUtcOffset', null);
+
+            if (jdMode.value === 'dateToJd') {
+                const p = parseManualDate(document.getElementById('jdInputDate').value);
+                if (p.error) { setErr('jdInputDate', 'err_jdInputDate', p.error); return; }
+                setErr('jdInputDate', 'err_jdInputDate', null);
+
+                const utcMs = makeUtcDate(
+                    p.date.getFullYear(), p.date.getMonth(), p.date.getDate(),
+                    p.date.getHours(), p.date.getMinutes() - offMin, p.date.getSeconds()
+                ).getTime();
+                const jd = (utcMs / 86400000) + 2440587.5;
+                const mjd = jd - 2400000.5;
+                const tjd = jd - 2440000.5;
+                document.getElementById('jdConvertResult').innerHTML = `
+                    <div style="font-size: 1.2rem; font-weight: 800; color: var(--cryo); margin-bottom: 8px;">JD: ${jd.toFixed(8)}</div>
+                    <div class="epoch-ledger">
+                        <div class="ledger-row"><span class="ledger-label">Modifiziertes JD (MJD)</span><span class="ledger-val">${mjd.toFixed(8)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Truncated JD (TJD)</span><span class="ledger-val">${tjd.toFixed(8)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Astronomische UTC-Referenz</span><span class="ledger-val">${fmtDateTimeUTC(new Date(utcMs))}</span></div>
+                    </div>
+                    ${jdEpochNoteHtml}
+                `;
+            } else {
+                const jdVal = parseFloat(document.getElementById('jdInputNumber').value);
+                if (Number.isNaN(jdVal)) { setErr('jdInputNumber', 'err_jdInputNumber', 'Ungültige Zahl'); return; }
+                setErr('jdInputNumber', 'err_jdInputNumber', null);
+
+                // Auf nächste Sekunde runden, um 1-Sekunden-Drift bei Rückkonvertierung zu vermeiden
+                const utcMs = Math.round((jdVal - 2440587.5) * 86400) * 1000;
+                const locDate = new Date(utcMs + offMin * 60000);
+                const mjd = jdVal - 2400000.5;
+                const tjd = jdVal - 2440000.5;
+                const locStr = `${pad(locDate.getUTCDate())}.${pad(locDate.getUTCMonth() + 1)}.${fmtUtcYear(locDate.getUTCFullYear())} ${pad(locDate.getUTCHours())}:${pad(locDate.getUTCMinutes())}:${pad(locDate.getUTCSeconds())}`;
+
+                document.getElementById('jdConvertResult').innerHTML = `
+                    <div style="font-size: 1.15rem; font-weight: 800; color: var(--atomic); margin-bottom: 8px;">${locStr} (${offStr})</div>
+                    <div class="epoch-ledger">
+                        <div class="ledger-row"><span class="ledger-label">Modifiziertes JD (MJD)</span><span class="ledger-val">${mjd.toFixed(8)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Truncated JD (TJD)</span><span class="ledger-val">${tjd.toFixed(8)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Astronomische UTC-Referenz</span><span class="ledger-val">${fmtDateTimeUTC(new Date(utcMs))}</span></div>
+                    </div>
+                    ${jdEpochNoteHtml}
+                `;
+            }
+        });
+
+        /* ===================================================================== */
+        /* 11. INITIALISIERUNG & VIEWPORT-STEUERUNG                              */
+        /* ===================================================================== */
+        (function initObservatory() {
+            buildClockDials();
+            const now = new Date();
+            const nowStr = fmtDateDE(now);
+
+            document.getElementById('selectedDate').value = nowStr;
+            document.getElementById('startRangeDate').value = nowStr;
+            document.getElementById('endRangeDate').value = nowStr;
+            document.getElementById('shiftBaseDate').value = nowStr;
+            document.getElementById('jdInputDate').value = nowStr;
+            document.getElementById('jdInputNumber').value = ((now.getTime() / 86400000) + 2440587.5).toFixed(8);
+
+            const offMin = -now.getTimezoneOffset();
+            const offSign = offMin >= 0 ? '+' : '-';
+            document.getElementById('jdUtcOffset').value = `${offSign}${pad(Math.floor(Math.abs(offMin) / 60))}:${pad(Math.abs(offMin) % 60)}`;
+
+            try {
+                const tzName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                document.getElementById('topSysZone').textContent = `${tzName} (UTC${offSign}${Math.floor(Math.abs(offMin) / 60)})`;
+            } catch {
+                document.getElementById('topSysZone').textContent = 'Systemzeit aktiv';
+            }
+
+            const soy = new Date(now.getFullYear(), 0, 1, 0, 0, 0);
+            const sevenAgo = new Date(now.getTime() - 7 * 86400000);
+            document.getElementById('refStart').value = fmtDateDE(soy);
+            document.getElementById('refEnd').value = nowStr;
+            document.getElementById('subStart').value = fmtDateDE(sevenAgo);
+            document.getElementById('subEnd').value = nowStr;
+
+            // Berlin Sonnenstand für heutigen Tag initialisieren
+            const berlinToday = getBerlinParts(now.getTime());
+            const berlinTodayStr = `${berlinToday.year}-${pad(berlinToday.month)}-${pad(berlinToday.day)}`;
+            document.getElementById('berlinSunDate').value = berlinTodayStr;
+            drawBerlinDayChart(berlinToday.year, berlinToday.month, berlinToday.day);
+
+            // Dezimal-Konverter, Einheitentabelle & Römischen Temporal-Konverter initialisieren
+            renderDecUnitTable();
+            document.getElementById('btnDecConvNow').click();
+            document.getElementById('btnRomConvNow').click();
+
+            // Kosmisches Wunschdatum auf Jahresbeginn vorbelegen & starten
+            document.getElementById('cosCustomDate').value = `01.01.${now.getFullYear()} 00:00:00`;
+            document.getElementById('btnStartCosmicCustom').click();
+
+            // Sektor II & III Standard-Berechnungen initial ausführen
+            updateAstronomyModule(now);
+            document.getElementById('btnCalcChrono').click();
+            document.getElementById('btnCalcRelPercent').click();
+            document.getElementById('btnRunJdConv').click();
+            performSafeShift();
+
+            // Kontinuierliche Echtzeit-Schleife starten (lückenlos synchronisiert via rAF)
+            tickObservatory();
+            startLiveLoop();
+
+            // Ansichtsmodus & UI-Skalierung
+            let viewMode = 'auto';
+            let uiScale = 100;
+            function applyViewSettings() {
+                const isDesktop = viewMode === 'desktop';
+                document.body.classList.toggle('mode-desktop', isDesktop);
+                document.body.classList.toggle('mode-mobile', viewMode === 'mobile');
+                uiScale = Math.max(25, Math.min(150, Math.round(uiScale || 100)));
+                let scale = uiScale / 100;
+                if (isDesktop && window.innerWidth < 1240) scale = (window.innerWidth / 1240) * (uiScale / 100);
+                document.body.style.transformOrigin = 'top left';
+                if (Math.abs(scale - 1) < 0.001) {
+                    document.body.style.transform = '';
+                    document.body.style.width = isDesktop ? '1240px' : '';
+                } else {
+                    document.body.style.transform = `scale(${scale.toFixed(4)})`;
+                    document.body.style.width = isDesktop ? '1240px' : `${(100 / scale).toFixed(4)}%`;
+                }
+                document.getElementById('paramViewMode').value = viewMode;
+                document.getElementById('paramScaleInput').value = String(uiScale);
+            }
+            const updateScale = (v) => {
+                const n = parseInt(v, 10);
+                if (!Number.isNaN(n)) { uiScale = n; applyViewSettings(); }
+            };
+            document.getElementById('paramViewMode').addEventListener('change', (e) => { viewMode = e.target.value; applyViewSettings(); });
+            document.getElementById('paramScaleInput').addEventListener('change', (e) => updateScale(e.target.value));
+            document.getElementById('btnScaleDown').addEventListener('click', () => updateScale(uiScale - 5));
+            document.getElementById('btnScaleUp').addEventListener('click', () => updateScale(uiScale + 5));
+            document.getElementById('btnScaleReset').addEventListener('click', () => updateScale(100));
+            window.addEventListener('resize', applyViewSettings);
+            applyViewSettings();
+        })();
     })();
-})();
-</script>
+    </script>
 </body>
 </html>
