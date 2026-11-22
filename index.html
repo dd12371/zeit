@@ -82,8 +82,7 @@
 
         /* TOP OBSERVATORY COMMAND RAIL */
         .command-rail {
-            position: sticky;
-            top: 0;
+            position: relative;
             z-index: 100;
             background: rgba(5, 7, 11, 0.9);
             backdrop-filter: blur(16px);
@@ -220,7 +219,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            scroll-margin-top: 84px;
+            scroll-margin-top: 24px;
         }
 
         .sector-block.hidden-sector {
@@ -417,14 +416,20 @@
             overflow: visible;
         }
 
+        .clock-layout > div {
+            min-width: 0;
+            width: 100%;
+        }
+
         .digital-readout-xl {
             font-family: var(--font-mono);
-            font-size: clamp(1.75rem, 2.5vw, 2.35rem);
+            font-size: clamp(1.3rem, 3.2vw, 2.2rem);
             font-weight: 800;
             letter-spacing: -0.03em;
             font-variant-numeric: tabular-nums;
-            line-height: 1.1;
+            line-height: 1.15;
             color: #ffffff;
+            word-break: break-word;
         }
 
         .sub-date-line {
@@ -469,49 +474,25 @@
         }
 
         /* CHRONOMETER 03 (RÖMISCHE TEMPORAL-UHR) */
-        .clock-panel-wide {
-            grid-column: 1 / -1;
-        }
-
-        .roman-showcase-grid {
-            display: grid;
-            grid-template-columns: 225px 1fr;
-            gap: 24px;
-            align-items: center;
-        }
-
-        @media (max-width: 720px) {
-            .roman-showcase-grid {
-                grid-template-columns: 1fr;
-                justify-items: center;
-            }
-        }
-
-        .dial-frame-roman {
-            width: 225px;
-            height: 225px;
-            position: relative;
-            display: grid;
-            place-items: center;
+        .dial-frame-brass {
+            border-color: var(--line-brass);
             background: radial-gradient(circle, #181410 0%, #090b10 74%);
-            border-radius: 50%;
-            border: 1.5px solid var(--line-brass);
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.85), 0 0 28px rgba(218, 179, 86, 0.12);
+            box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.85), 0 0 22px rgba(218, 179, 86, 0.12);
         }
 
         .roman-hours-strip {
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
+            grid-template-columns: repeat(6, 1fr);
             gap: 6px;
             margin-top: 4px;
         }
 
-        @media (max-width: 980px) {
-            .roman-hours-strip { grid-template-columns: repeat(6, 1fr); }
+        @media (max-width: 640px) {
+            .roman-hours-strip { grid-template-columns: repeat(4, 1fr); }
         }
 
-        @media (max-width: 520px) {
-            .roman-hours-strip { grid-template-columns: repeat(4, 1fr); }
+        @media (max-width: 380px) {
+            .roman-hours-strip { grid-template-columns: repeat(3, 1fr); }
         }
 
         .roman-hour-chip {
@@ -554,6 +535,53 @@
 
         .roman-hour-chip.active-night .rh-num { color: #d8b4fe; }
         .roman-hour-chip.active-night .rh-time { color: var(--text-primary); }
+
+        /* CHRONOMETER 04 & ANALYTIK 07 (CHINESISCHE ZEITRECHNUNG) */
+        .dial-frame-cn {
+            border-color: rgba(244, 63, 94, 0.45);
+            background: radial-gradient(circle, #1a1015 0%, #090b10 74%);
+            box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.85), 0 0 22px rgba(244, 63, 94, 0.12);
+        }
+
+        .cn-mode-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .cn-mode-bar select {
+            width: auto;
+            padding: 4px 10px;
+            font-size: 0.72rem;
+        }
+
+        .cn-6-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr 0.8fr 0.8fr 0.8fr 0.8fr;
+            gap: 8px;
+        }
+
+        .cn-4-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 0.9fr 0.9fr;
+            gap: 8px;
+        }
+
+        .cn-panel-wide {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 780px) {
+            .cn-6-grid { grid-template-columns: repeat(3, 1fr); }
+            .cn-4-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 480px) {
+            .cn-6-grid { grid-template-columns: repeat(2, 1fr); }
+            .cn-4-grid { grid-template-columns: 1fr; }
+        }
 
         /* STRUCTURED SINGLE-METRIC LEDGER */
         .epoch-ledger {
@@ -606,7 +634,7 @@
         /* 6-PLANE RING CLOCK & BARS */
         .radar-wrap {
             display: grid;
-            grid-template-columns: minmax(300px, 430px) 1fr;
+            grid-template-columns: minmax(0, 430px) 1fr;
             gap: 20px;
             align-items: center;
         }
@@ -712,11 +740,64 @@
             gap: 12px;
         }
 
+        /* GLOBALER GRID- & FLEX-ÜBERLAUFSCHUTZ */
+        .grid-clocks > *, .grid-diagrams > *, .grid-2 > *, .grid-3 > *,
+        .grid-astro > *, .clock-layout > *, .radar-wrap > *,
+        .row-split > *, .astro-date-bar > *, .chrono-date-grid > *,
+        .roman-4-grid > *, .instrument-panel > *, .output-console {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        .table-scroll {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            background: var(--bg-recessed);
+            border: 1px solid var(--line-hair);
+            border-radius: var(--r-md);
+        }
+
+        .astro-right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .lunar-grid {
+            display: grid;
+            grid-template-columns: 96px 1fr;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .orrery-meta {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 4px 10px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--text-secondary);
+        }
+
         .row-split {
             display: grid;
             grid-template-columns: 1fr 110px;
             gap: 10px;
             align-items: start;
+        }
+
+        .row-split-rom {
+            grid-template-columns: 1fr 160px;
+        }
+
+        .row-split-jd {
+            grid-template-columns: 1fr 140px;
         }
 
         .astro-date-bar {
@@ -761,8 +842,80 @@
             gap: 12px;
         }
 
+        @media (max-width: 640px) {
+            .command-inner {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+            .observatory-shell {
+                padding: 16px 12px 56px;
+                gap: 28px;
+            }
+            .instrument-panel {
+                padding: 14px;
+                gap: 14px;
+                border-radius: var(--r-lg);
+            }
+            .telemetry-strip {
+                width: 100%;
+                justify-content: space-between;
+                padding: 6px 10px;
+            }
+            .panel-badge {
+                white-space: normal;
+                max-width: 100%;
+            }
+            .row-split,
+            .row-split-rom,
+            .row-split-jd {
+                grid-template-columns: 1fr;
+            }
+            .ledger-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+            .ledger-label {
+                white-space: normal;
+            }
+            .ledger-val {
+                text-align: left;
+                width: 100%;
+                word-break: break-word;
+            }
+            .compact-table th,
+            .compact-table td {
+                padding: 6px;
+                font-size: 0.69rem;
+                white-space: normal;
+                word-break: break-word;
+            }
+            .orrery-wrap {
+                padding: 10px;
+            }
+            .solar-controls {
+                width: 100%;
+            }
+            .solar-controls input[type="date"] {
+                flex: 1;
+                min-width: 0;
+            }
+        }
+
         @media (max-width: 480px) {
-            .row-split { grid-template-columns: 1fr; }
+            .lunar-grid {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+            .lunar-grid .epoch-ledger {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .shift-7-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
         .field {
@@ -1128,7 +1281,7 @@
                 </article>
 
                 <!-- UHR 3: RÖMISCHE TEMPORAL-UHR (12 TAGSTUNDEN / 12 NACHTSTUNDEN) -->
-                <article class="instrument-panel panel-brass clock-panel-wide">
+                <article class="instrument-panel panel-brass">
                     <div class="panel-head">
                         <div>
                             <div class="panel-kicker">Chronometer 03 · Antike Temporalzeit (12 Tag- / 12 Nachtstunden · Berlin)</div>
@@ -1137,8 +1290,8 @@
                         <span class="panel-badge" id="clkRomanBadge" style="color: var(--brass-bright);">Synchronisiere Sonne...</span>
                     </div>
 
-                    <div class="roman-showcase-grid">
-                        <div class="dial-frame-roman">
+                    <div class="clock-layout">
+                        <div class="dial-frame dial-frame-brass">
                             <svg class="dial-svg" viewBox="0 0 200 200" aria-label="Analoge Römische Temporal-Uhr">
                                 <defs>
                                     <radialGradient id="romanDayBg" cx="50%" cy="50%" r="50%">
@@ -1199,18 +1352,7 @@
                                 </div>
                             </div>
 
-                            <div style="margin-top: 12px; overflow-x: auto; background: var(--bg-recessed); border: 1px solid var(--line-hair); border-radius: var(--r-md);">
-                                <table class="ref-table compact-table">
-                                    <thead>
-                                        <tr>
-                                            <th>1 Ausgangs-Einheit (Laufende Phase)</th>
-                                            <th>Exakter Gegenwert (Komma + Unter-Einheit)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="romanUnitLiveBody"></tbody>
-                                </table>
                             </div>
-                        </div>
                     </div>
 
                     <div>
@@ -1218,6 +1360,91 @@
                             Heutige 12 Stunden-Einteilung der laufenden Phase (Berliner Ortszeit)
                         </div>
                         <div class="roman-hours-strip" id="romanScheduleGrid"></div>
+                    </div>
+                </article>
+
+                <!-- UHR 4: TRADITIONELLE CHINESISCHE UHR (SHÍ-KÈ & GĒNG-DIǍN) -->
+                <article class="instrument-panel panel-crimson">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-kicker">Chronometer 04 · Traditionelle Chinesische Zeit (時-刻 &amp; 更-點)</div>
+                            <h3 class="panel-title">Chinesische Doppelstunden- &amp; Kè-Uhr</h3>
+                        </div>
+                        <div class="cn-mode-bar">
+                            <select id="cnDialEraSelect" aria-label="Chinesische Epoche">
+                                <option value="trad" selected>Klassisch (Zǐ ab 23:00)</option>
+                                <option value="song">Song-Dynastie (Zǐ ab 00:00)</option>
+                            </select>
+                            <span class="panel-badge" id="clkCnBadge" style="color: var(--brass-bright);">--</span>
+                        </div>
+                    </div>
+
+                    <div class="clock-layout">
+                        <div class="dial-frame dial-frame-cn">
+                            <svg class="dial-svg" viewBox="0 0 200 200" aria-label="Analoge Traditionelle Chinesische Uhr">
+                                <!-- Außenring (100 Kè / 100 Miǎo) & Innenring (60 Fēn / 10 Gēng) -->
+                                <circle cx="100" cy="100" r="93" fill="none" stroke="rgba(244,63,94,0.28)" stroke-width="1"/>
+                                <circle cx="100" cy="100" r="61" fill="none" stroke="rgba(218,179,86,0.2)" stroke-width="0.9"/>
+                                <circle cx="100" cy="100" r="40" fill="rgba(5,7,11,0.65)" stroke="rgba(255,255,255,0.1)" stroke-width="0.9"/>
+
+                                <!-- Nachtwachen-Bogen (19:12 一更 bis 07:12 五更-Ende = untere Hälfte) -->
+                                <path id="cnNightArc" d="" fill="none" stroke="rgba(167,139,250,0.35)" stroke-width="4" stroke-linecap="round"/>
+                                <!-- 100-Kè Tagesfortschrittsbogen (Start unten 00:00 -> im Uhrzeigersinn) -->
+                                <path id="cnKeArc" d="" fill="none" stroke="rgba(244,63,94,0.55)" stroke-width="3" stroke-linecap="round"/>
+
+                                <!-- Statische Skalen (100 Kè/Miǎo, 60 Fēn) & Dynamische 12 Erdzweige -->
+                                <g id="cnStaticTicks"></g>
+                                <g id="cnDynamicRing"></g>
+
+                                <!-- Tag-/Nacht-Emblem im Zentrum (昼 / 夜) -->
+                                <g id="cnSunCenter">
+                                    <text x="100" y="96" text-anchor="middle" fill="#f5d682" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700">昼</text>
+                                    <text x="100" y="109" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono" font-size="6.5">TAG</text>
+                                </g>
+                                <g id="cnMoonCenter" style="display: none;">
+                                    <text x="100" y="96" text-anchor="middle" fill="#c4b5fd" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700">夜</text>
+                                    <text x="100" y="109" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono" font-size="6.5">NACHT</text>
+                                </g>
+
+                                <!-- Zeiger: Shí (24h Gold), Fēn (60/Kè Cyan), Miǎo (100/Fēn Rot) -->
+                                <polygon id="cnShiHand" points="100,46 103.5,100 100,111 96.5,100" fill="#f5d682" stroke="#05070b" stroke-width="0.6"/>
+                                <line id="cnFenHand" x1="100" y1="106" x2="100" y2="33" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round"/>
+                                <line id="cnMiaoHand" x1="100" y1="115" x2="100" y2="21" stroke="#f43f5e" stroke-width="1.2" stroke-linecap="round"/>
+                                <circle cx="100" cy="100" r="4.5" fill="#f43f5e" stroke="#05070b" stroke-width="1"/>
+                                <circle cx="100" cy="100" r="1.8" fill="#f5d682"/>
+                            </svg>
+                        </div>
+
+                        <div>
+                            <div class="digital-readout-xl" id="clkCnDigital" style="color: #fda4af;">子正 · 00分 00秒</div>
+                            <div class="sub-date-line" id="clkCnSub">Lade traditionelle chinesische Zeit...</div>
+
+                            <div class="micro-grid">
+                                <div class="micro-cell">
+                                    <span class="micro-k">Doppelstunde (Shíchén)</span>
+                                    <span class="micro-v" id="clkCnShi" style="color: var(--brass-bright);">--</span>
+                                </div>
+                                <div class="micro-cell">
+                                    <span class="micro-k">Gēng – Diǎn &amp; Stamm</span>
+                                    <span class="micro-v" id="clkCnGeng" style="color: var(--sidereal);">--</span>
+                                </div>
+                                <div class="micro-cell">
+                                    <span class="micro-k">100-Kè-Uhr &amp; Kleines Kè</span>
+                                    <span class="micro-v" id="clkCnKeDetail" style="color: var(--cryo);">--</span>
+                                </div>
+                                <div class="micro-cell">
+                                    <span class="micro-k">Han-Tageszeit / Xūyú</span>
+                                    <span class="micro-v" id="clkCnHan">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
+                            12 Erdzweige (Shíchén 時辰) im Tagesverlauf
+                        </div>
+                        <div class="roman-hours-strip" id="cnBranchesStrip"></div>
                     </div>
                 </article>
 
@@ -1712,7 +1939,7 @@
                         <div id="decConvResult">Uhrzeit eingeben, um zwischen Duodezimal-/24h-Normalzeit und Dezimalzeit umzurechnen.</div>
                     </div>
 
-                    <div style="overflow-x: auto; background: var(--bg-recessed); border: 1px solid var(--line-hair); border-radius: var(--r-md);">
+                    <div class="table-scroll">
                         <table class="ref-table compact-table">
                             <thead>
                                 <tr>
@@ -1736,7 +1963,7 @@
                     </div>
 
                     <div class="form-grid">
-                        <div class="row-split" style="grid-template-columns: 1fr 160px;">
+                        <div class="row-split row-split-rom">
                             <div class="field">
                                 <label for="romConvMode">Umrechnungsrichtung</label>
                                 <select id="romConvMode">
@@ -1792,7 +2019,7 @@
                         <div id="romConvResult">Datum und Uhrzeit wählen, um zwischen antiken Temporalstunden und Berliner Normalzeit umzurechnen.</div>
                     </div>
 
-                    <div style="overflow-x: auto; background: var(--bg-recessed); border: 1px solid var(--line-hair); border-radius: var(--r-md);">
+                    <div class="table-scroll">
                         <table class="ref-table compact-table">
                             <thead>
                                 <tr>
@@ -1802,6 +2029,144 @@
                                 </tr>
                             </thead>
                             <tbody id="romUnitTableBody"></tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <!-- 7. CHINESISCHE TRADITIONELLE ZEIT <-> NORMALZEIT KONVERTER -->
+                <article class="instrument-panel panel-crimson cn-panel-wide">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-kicker">Analytik 07 · Historisches Chinesisches Zeitsystem (100 Kè &amp; 10 Gēng)</div>
+                            <h3 class="panel-title">Traditionelle Chinesische Zeit ↔ Normalzeit (24h)</h3>
+                        </div>
+                        <span class="panel-badge" style="color: #fda4af;">Shí-Kè (時-刻) &amp; Gēng-Diǎn (更-點)</span>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="row-split row-split-rom">
+                            <div class="field">
+                                <label for="cnConvMode">Umrechnungsrichtung</label>
+                                <select id="cnConvMode">
+                                    <option value="normToCn" selected>Normalzeit (24h · HH:MM:SS) → Traditionelle Chinesische Zeit</option>
+                                    <option value="shiKeToNorm">Chinesisch Shí-Kè (時辰 + 初/正 + 刻 + 分 + 秒) → Normalzeit</option>
+                                    <option value="gengToNorm">Chinesisch Gēng-Diǎn (更 + 點 + 分 + 秒) → Normalzeit</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="cnConvEra">Epoche (Shí-Bezug)</label>
+                                <select id="cnConvEra">
+                                    <option value="trad" selected>Klassisch (Zǐ 23:00)</option>
+                                    <option value="song">Song-Dynastie (Zǐ 00:00)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- MODUS 1: NORMALZEIT -> CHINESISCH -->
+                        <div class="field" id="cnConvNormalWrap">
+                            <label for="cnInputNormal">Normalzeit (HH:MM:SS)</label>
+                            <input type="text" id="cnInputNormal" placeholder="z. B. 11:31:12 oder 19:12:00" spellcheck="false" autocomplete="off">
+                            <span class="field-hint">Erlaubt: 00:00:00 bis 23:59:59,999 (Sekunden &amp; Komma optional)</span>
+                            <span class="err-hint" id="err_cnInputNormal"></span>
+                        </div>
+
+                        <!-- MODUS 2: SHÍ-KÈ -> NORMALZEIT -->
+                        <div id="cnConvShiKeWrap" style="display: none;">
+                            <div class="cn-6-grid">
+                                <div class="field">
+                                    <label for="cnInBranch">Erdzweig (Shíchén)</label>
+                                    <select id="cnInBranch">
+                                        <option value="0">1. 子 (zǐ)</option>
+                                        <option value="1">2. 丑 (chǒu)</option>
+                                        <option value="2">3. 寅 (yín)</option>
+                                        <option value="3">4. 卯 (mǎo)</option>
+                                        <option value="4">5. 辰 (chén)</option>
+                                        <option value="5">6. 巳 (sì)</option>
+                                        <option value="6">7. 午 (wǔ)</option>
+                                        <option value="7">8. 未 (wèi)</option>
+                                        <option value="8">9. 申 (shēn)</option>
+                                        <option value="9">10. 酉 (yǒu)</option>
+                                        <option value="10">11. 戌 (xū)</option>
+                                        <option value="11">12. 亥 (hài)</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="cnInHalf">Hälfte</label>
+                                    <select id="cnInHalf">
+                                        <option value="0">初 (chū · Initial)</option>
+                                        <option value="1">正 (zhèng · Central)</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="cnInKe">Kè (0–4)</label>
+                                    <input type="number" id="cnInKe" min="0" max="4" value="0">
+                                </div>
+                                <div class="field">
+                                    <label for="cnInFen">Fēn (0–59)</label>
+                                    <input type="number" id="cnInFen" min="0" max="59" value="0">
+                                </div>
+                                <div class="field">
+                                    <label for="cnInMiao">Miǎo (0–99)</label>
+                                    <input type="number" id="cnInMiao" min="0" max="99" value="0">
+                                </div>
+                            </div>
+                            <span class="err-hint" id="err_cnInShiKe" style="margin-top: 4px;"></span>
+                        </div>
+
+                        <!-- MODUS 3: GĒNG-DIǍN -> NORMALZEIT -->
+                        <div id="cnConvGengWrap" style="display: none;">
+                            <div class="cn-4-grid">
+                                <div class="field">
+                                    <label for="cnInGeng">Gēng (更) &amp; Stamm</label>
+                                    <select id="cnInGeng">
+                                        <option value="0">一更 (Yìgēng · 甲 · ab 19:12)</option>
+                                        <option value="1">二更 (Èrgēng · 乙 · ab 21:36)</option>
+                                        <option value="2">三更 (Sāngēng · 丙 · ab 00:00)</option>
+                                        <option value="3">四更 (Sìgēng · 丁 · ab 02:24)</option>
+                                        <option value="4">五更 (Wǔgēng · 戊 · ab 04:48)</option>
+                                        <option value="5">朝 (Zhāo / Morgen · 己 · ab 07:12)</option>
+                                        <option value="6">禺 (Yú / Vormittag · 庚 · ab 09:36)</option>
+                                        <option value="7">中 (Zhōng / Mittag · 辛 · ab 12:00)</option>
+                                        <option value="8">晡 (Bū / Nachmittag · 壬 · ab 14:24)</option>
+                                        <option value="9">夕 (Xī / Abend · 癸 · ab 16:48)</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="cnInDian">Diǎn (點 · 0–5)</label>
+                                    <input type="number" id="cnInDian" min="0" max="5" value="0">
+                                </div>
+                                <div class="field">
+                                    <label for="cnInGengFen">Fēn (0–99)</label>
+                                    <input type="number" id="cnInGengFen" min="0" max="99" value="0">
+                                </div>
+                                <div class="field">
+                                    <label for="cnInGengMiao">Miǎo (0–99)</label>
+                                    <input type="number" id="cnInGengMiao" min="0" max="99" value="0">
+                                </div>
+                            </div>
+                            <span class="err-hint" id="err_cnInGeng" style="margin-top: 4px;"></span>
+                        </div>
+
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button type="button" class="btn-exec" id="btnRunCnConv" style="flex: 1; border-color: rgba(244,63,94,0.5); color: #fda4af;">Chinesische Zeit Berechnen</button>
+                            <button type="button" class="btn-exec btn-cryo" id="btnCnConvNow">Jetzt laden</button>
+                        </div>
+                    </div>
+
+                    <div class="output-console">
+                        <button class="copy-btn" type="button" onclick="copyText('cnConvResult')">Kopieren</button>
+                        <div id="cnConvResult">Uhrzeit wählen, um zwischen traditioneller chinesischer Zeitrechnung und Normalzeit umzurechnen.</div>
+                    </div>
+
+                    <div class="table-scroll">
+                        <table class="ref-table compact-table">
+                            <thead>
+                                <tr>
+                                    <th>1 Chinesische / Moderne Einheit</th>
+                                    <th>Exakter Gegenwert (Komma + Unter-Einheit)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cnUnitTableBody"></tbody>
                         </table>
                     </div>
                 </article>
@@ -1845,13 +2210,13 @@
 
                 <div class="grid-astro">
                     <!-- LINKE SPALTE: SVG SONNENSYSTEM-UMLAUFGRAFIK + MOND -->
-                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div class="astro-right-col">
                         <div class="orrery-wrap">
-                            <div style="width: 100%; display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-secondary);">
+                            <div class="orrery-meta">
                                 <span>HELIOZENTRISCHE EKLIPTIK (0° = FRÜHLINGSPUNKT ♈)</span>
                                 <span style="color: var(--brass);">DRAUFSICHT NORDPOL</span>
                             </div>
-                            <svg id="svgSolarSystem" viewBox="0 0 460 460" width="100%" style="max-width: 440px; height: auto;" aria-label="Umlauf der Planeten um die Sonne"></svg>
+                            <svg id="svgSolarSystem" viewBox="0 0 460 460" width="100%" style="max-width: 440px; height: auto; display: block;" aria-label="Umlauf der Planeten um die Sonne"></svg>
                             <div style="font-family: var(--font-mono); font-size: 0.66rem; color: var(--text-muted); text-align: center;">
                                 Bahnradien schematisch gestaffelt für volle Sichtbarkeit · Winkel &amp; Fortschritte astronomisch exakt (J2000.0 Kepler-Elemente)
                             </div>
@@ -1859,11 +2224,11 @@
 
                         <!-- MOND- & ERDBAHN-KASTEN -->
                         <div style="background: var(--bg-recessed); border: 1px solid var(--line-hair); border-radius: var(--r-lg); padding: 14px; display: flex; flex-direction: column; gap: 12px;">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
                                 <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--sidereal); text-transform: uppercase;">Lunares &amp; Terrestrisches Modul</span>
                                 <span id="moonPhaseBadge" class="panel-badge" style="color: var(--text-primary);">--</span>
                             </div>
-                            <div style="display: grid; grid-template-columns: 96px 1fr; gap: 14px; align-items: center;">
+                            <div class="lunar-grid">
                                 <div style="display: grid; place-items: center; background: #05070b; border: 1px solid var(--line-hair); border-radius: 50%; width: 94px; height: 94px;">
                                     <svg id="svgMoonPhase" viewBox="0 0 100 100" width="82" height="82"></svg>
                                 </div>
@@ -1878,8 +2243,8 @@
                     </div>
 
                     <!-- RECHTE SPALTE: TABELLE ALLER 8 PLANETEN + KOSMISCHE BEWEGUNG -->
-                    <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <div style="overflow-x: auto; background: var(--bg-recessed); border: 1px solid var(--line-hair); border-radius: var(--r-md);">
+                    <div class="astro-right-col">
+                        <div class="table-scroll">
                             <table class="ref-table">
                                 <thead>
                                     <tr>
@@ -2006,7 +2371,7 @@
                             </select>
                         </div>
 
-                        <div class="row-split" style="grid-template-columns: 1fr 140px;">
+                        <div class="row-split row-split-jd">
                             <div class="field" id="jdDateInputWrap">
                                 <label for="jdInputDate">Datum &amp; Uhrzeit</label>
                                 <input type="text" id="jdInputDate" placeholder="TT.MM.JJJJ HH:MM:SS" spellcheck="false" autocomplete="off">
@@ -2303,6 +2668,41 @@
                 const sy = 100 + 88 * Math.sin(sAng);
                 rHtml += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="2.6" fill="#34d399" stroke="#05070b" stroke-width="0.9"/>`;
                 rg.innerHTML = rHtml;
+            }
+
+            // Chinesische Uhr: statische Skalen (100 Kè/Miǎo, 60 Fēn) + 10 Himmelsstämme
+            const cnStat = document.getElementById('cnStaticTicks');
+            if (cnStat) {
+                let sHtml = '';
+                for (let i = 0; i < 100; i++) {
+                    const ang = (i * 3.6 + 90) * DEG2RAD; // Start unten (00:00) im Uhrzeigersinn
+                    const isMaj = i % 10 === 0;
+                    const r1 = isMaj ? 81 : 84.5;
+                    const r2 = 88.5;
+                    const x1 = 100 + r1 * Math.cos(ang), y1 = 100 + r1 * Math.sin(ang);
+                    const x2 = 100 + r2 * Math.cos(ang), y2 = 100 + r2 * Math.sin(ang);
+                    sHtml += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${isMaj ? '#f43f5e' : 'rgba(255,255,255,0.16)'}" stroke-width="${isMaj ? 1.5 : 0.7}"/>`;
+                }
+                for (let i = 0; i < 60; i++) {
+                    if (i % 5 !== 0) continue;
+                    const ang = (i * 6 - 90) * DEG2RAD;
+                    const x1 = 100 + 57.5 * Math.cos(ang), y1 = 100 + 57.5 * Math.sin(ang);
+                    const x2 = 100 + 61 * Math.cos(ang), y2 = 100 + 61 * Math.sin(ang);
+                    sHtml += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="rgba(56,189,248,0.45)" stroke-width="1.1"/>`;
+                }
+                const STEMS_ZH = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+                for (let i = 0; i < 10; i++) {
+                    // 甲 (1. Nachtwache) startet bei 19:12 -> Mitte bei 20:24 (19:12 = 108° ab oben + 18° = 126°)
+                    const midDegFromTop = 108 + i * 36 + 18;
+                    const ang = (midDegFromTop - 90) * DEG2RAD;
+                    const tx = 100 + 48 * Math.cos(ang), ty = 100 + 48 * Math.sin(ang) + 2.8;
+                    sHtml += `<text id="cnStem_${i}" x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" fill="${i < 5 ? '#c4b5fd' : '#94a3b8'}" font-family="Space Grotesk, sans-serif" font-size="7.2" font-weight="700">${STEMS_ZH[i]}</text>`;
+                }
+                cnStat.innerHTML = sHtml;
+            }
+            const cnNightArcEl = document.getElementById('cnNightArc');
+            if (cnNightArcEl) {
+                cnNightArcEl.setAttribute('d', describeArc(100, 100, 56, 180, 108));
             }
         }
 
@@ -3311,11 +3711,9 @@
             rise: document.getElementById('clkRomanRise'),
             set: document.getElementById('clkRomanSet'),
             periodLen: document.getElementById('clkRomanPeriodLen'),
-            unitTableBody: document.getElementById('romanUnitLiveBody'),
             schedule: document.getElementById('romanScheduleGrid'),
             lastPeriodKey: '',
-            lastActiveIdx: -1,
-            lastUnitKey: ''
+            lastActiveIdx: -1
         };
 
         function renderRomanSchedule(state) {
@@ -3524,45 +3922,234 @@
             setTextCached('romSet', romanDom.set, `${fmtBerlinHMS(st.periodEnd)} (${st.isDay ? 'Untergang' : 'Aufgang'})`);
             setTextCached('romPerLen', romanDom.periodLen, `${fmtDurationHMS(st.durationMs / 1000)} (${st.isDay ? 'Gesamter Tag' : 'Gesamte Nacht'})`);
 
-            // 6-Zeilen-Einheitentabelle (Normal <-> Temporal, einheitliches Format)
-            const unitKey = `${st.isDay ? 'D' : 'N'}_${st.durationMs}`;
-            if (unitKey !== romanDom.lastUnitKey) {
-                romanDom.lastUnitKey = unitKey;
-                const tH = st.tempHourSec / 3600;      // 1 Temporalstunde in Normalstunden
-                const tM = st.tempMinSec / 60;         // 1 Temporalminute in Normalminuten
-                const tS = st.tempSecSec;              // 1 Temporalsekunde in Normalsekunden
-                const pTag = st.isDay ? 'Tag' : 'Nacht';
-                const pClr = st.isDay ? 'var(--brass-bright)' : '#d8b4fe';
+            renderRomanSchedule(st);
+        }
 
-                romanDom.unitTableBody.innerHTML = `
-                    <tr>
-                        <td><strong>1 Normalstunde</strong> (3.600 s)</td>
-                        <td style="color: ${pClr};">${fmtHourComposite(3600 / st.tempHourSec, 60, `${pTag}std`, 'Std', 'Min', 'Sek')}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1 Normalminute</strong> (60 s)</td>
-                        <td style="color: ${pClr};">${fmtMinComposite(60 / st.tempMinSec, 60, `${pTag}min`, 'Min', 'Sek')}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1 Normalsekunde</strong> (1 s)</td>
-                        <td style="color: ${pClr};">${fmtSecComposite(1 / st.tempSecSec, `${pTag}sek`, 'Sek', 'ms')}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1 ${pTag}stunde</strong> (1/12 ${st.isDay ? 'Tag' : 'Nacht'})</td>
-                        <td style="color: var(--cryo);">${fmtHourComposite(tH, 60, 'Normalstd', 'Std', 'Min', 'Sek')}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1 ${pTag}minute</strong> (1/60 ${pTag}std)</td>
-                        <td style="color: var(--cryo);">${fmtMinComposite(tM, 60, 'Normalmin', 'Min', 'Sek')}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>1 ${pTag}sekunde</strong> (1/60 ${pTag}min)</td>
-                        <td style="color: var(--cryo);">${fmtSecComposite(tS, 'Normalsek', 'Sek', 'ms')}</td>
-                    </tr>
+        /* ===================================================================== */
+        /* 8b. TRADITIONELLE CHINESISCHE ZEITRECHNUNG (SHÍ-KÈ & GĒNG-DIǍN)       */
+        /* ===================================================================== */
+        const CN_BRANCHES = [
+            { zh: '子', py: 'zǐ',   tradRange: '23:00–01:00', songRange: '00:00–02:00' },
+            { zh: '丑', py: 'chǒu', tradRange: '01:00–03:00', songRange: '02:00–04:00' },
+            { zh: '寅', py: 'yín',  tradRange: '03:00–05:00', songRange: '04:00–06:00' },
+            { zh: '卯', py: 'mǎo',  tradRange: '05:00–07:00', songRange: '06:00–08:00' },
+            { zh: '辰', py: 'chén', tradRange: '07:00–09:00', songRange: '08:00–10:00' },
+            { zh: '巳', py: 'sì',   tradRange: '09:00–11:00', songRange: '10:00–12:00' },
+            { zh: '午', py: 'wǔ',   tradRange: '11:00–13:00', songRange: '12:00–14:00' },
+            { zh: '未', py: 'wèi',  tradRange: '13:00–15:00', songRange: '14:00–16:00' },
+            { zh: '申', py: 'shēn', tradRange: '15:00–17:00', songRange: '16:00–18:00' },
+            { zh: '酉', py: 'yǒu',  tradRange: '17:00–19:00', songRange: '18:00–20:00' },
+            { zh: '戌', py: 'xū',   tradRange: '19:00–21:00', songRange: '20:00–22:00' },
+            { zh: '亥', py: 'hài',  tradRange: '21:00–23:00', songRange: '22:00–00:00' }
+        ];
+        const CN_NUMS = ['', '一', '二', '三', '四', '五', '六', '七', '八'];
+        const CN_GENGS = [
+            { zh: '一更', py: 'yìgēng',  stemZh: '甲', stemPy: 'jiǎ',  isNight: true,  desc: '1. Nachtwache (ab 19:12)' },
+            { zh: '二更', py: 'èrgēng',  stemZh: '乙', stemPy: 'yǐ',   isNight: true,  desc: '2. Nachtwache (ab 21:36)' },
+            { zh: '三更', py: 'sāngēng', stemZh: '丙', stemPy: 'bǐng', isNight: true,  desc: '3. Nachtwache (ab 00:00)' },
+            { zh: '四更', py: 'sìgēng',  stemZh: '丁', stemPy: 'dīng', isNight: true,  desc: '4. Nachtwache (ab 02:24)' },
+            { zh: '五更', py: 'wǔgēng',  stemZh: '戊', stemPy: 'wù',   isNight: true,  desc: '5. Nachtwache (ab 04:48)' },
+            { zh: '朝',   py: 'zhāo',    stemZh: '己', stemPy: 'jǐ',   isNight: false, desc: 'Morgen (ab 07:12)' },
+            { zh: '禺',   py: 'yú',      stemZh: '庚', stemPy: 'gēng', isNight: false, desc: 'Vormittag (ab 09:36)' },
+            { zh: '中',   py: 'zhōng',   stemZh: '辛', stemPy: 'xīn',  isNight: false, desc: 'Mittag (ab 12:00)' },
+            { zh: '晡',   py: 'bū',      stemZh: '壬', stemPy: 'rén',  isNight: false, desc: 'Nachmittag (ab 14:24)' },
+            { zh: '夕',   py: 'xī',      stemZh: '癸', stemPy: 'guǐ',  isNight: false, desc: 'Abend (ab 16:48)' }
+        ];
+        const CN_HAN_15 = {
+            6: '晨明 (Chénmíng · Morgengrauen)',
+            7: '朏明 (Fěimíng · Erstes Licht)',
+            8: '旦明 (Dànmíng · Tagesanbruch)',
+            9: '早食 (Zǎoshí · Frühe Mahlzeit)',
+            10: '宴食 (Yànshí · Festmahlzeit)',
+            11: '隅中 (Yúzhōng · Vormittag)',
+            12: '正中 (Zhèngzhōng · Hoher Mittag)',
+            13: '少還 (Shǎohuán · Kurzer Schatten)',
+            14: '餔時 (Būshí · Abendbrotzeit)',
+            15: '大還 (Dàhuán · Langer Schatten)',
+            16: '高舂 (Gāochōng · Hohes Stampfen)',
+            17: '下舂 (Xiàchōng · Tiefes Stampfen)',
+            18: '縣東 (Xuándōng · Sonnenuntergang)',
+            19: '黃昏 (Huánghūn · Abenddämmerung)',
+            20: '定昏 (Dìnghūn · Ruhezeit)'
+        };
+
+        function computeChineseTimeAtSec(secOfDay, era = 'trad') {
+            const sNorm = ((secOfDay % 86400) + 86400) % 86400;
+            const dayFrac = sNorm / 86400;
+
+            // 100-Kè-System
+            const keFloat = sNorm / 864;
+            const keGlobal = Math.min(99, Math.floor(keFloat));
+            const remInKe = sNorm - keGlobal * 864;
+            const minorKe = Math.min(5, Math.floor(remInKe / 144));
+            const fenFloat = remInKe / 14.4;
+            const fen = Math.min(59, Math.floor(fenFloat));
+            const miaoFloat = (fenFloat - fen) * 100;
+            const miao = Math.min(99, Math.floor(miaoFloat));
+
+            // 12 Shíchén (時辰)
+            const shifted = era === 'trad' ? (sNorm + 3600) % 86400 : sNorm;
+            const shiIdx = Math.min(11, Math.floor(shifted / 7200));
+            const secInShi = shifted - shiIdx * 7200;
+            const isCentral = secInShi >= 3600;
+            const halfIdx = Math.min(23, Math.floor(shifted / 3600));
+            const halfStartHour = era === 'trad' ? (halfIdx + 23) % 24 : halfIdx;
+            const halfStartSec = halfStartHour * 3600;
+            const firstMarkKe = Math.floor(halfStartSec / 864) + 1;
+            const keInHalf = keGlobal >= firstMarkKe ? Math.min(4, keGlobal - firstMarkKe + 1) : 0;
+            const keInShi8 = Math.min(8, Math.floor(secInShi / 864));
+
+            const br = CN_BRANCHES[shiIdx];
+            const halfZh = isCentral ? '正' : '初';
+            const halfPy = isCentral ? 'zhèng' : 'chū';
+            const ke4Zh = keInHalf > 0 ? `${CN_NUMS[keInHalf]}刻` : '';
+            const ke4Py = keInHalf > 0 ? ` ${keInHalf} kè` : '';
+            const ke8Zh = keInShi8 > 0 ? `${CN_NUMS[keInShi8]}刻` : '';
+            const ke8Py = keInShi8 > 0 ? ` ${keInShi8} kè` : '';
+
+            // 10 Gēng & 6 Diǎn pro Gēng (Start 19:12 = 69120 s)
+            const gengShifted = (sNorm - 69120 + 86400) % 86400;
+            const gengIdx = Math.min(9, Math.floor(gengShifted / 8640));
+            const secInGeng = gengShifted - gengIdx * 8640;
+            const dian = Math.min(5, Math.floor(secInGeng / 1440));
+            const gengInfo = CN_GENGS[gengIdx];
+            const dianZh = dian > 0 ? `${CN_NUMS[dian]}點` : '';
+            const dianPy = dian > 0 ? ` ${dian} diǎn` : '';
+
+            // Han-Tagesabschnitt & Buddhistische Xūyú (30/Tag à 48 min)
+            const h24 = Math.floor(sNorm / 3600);
+            const hanText = CN_HAN_15[h24] || '夜間 (Yèjiān · Nachtruhe)';
+            const xuyuIdx = Math.min(30, Math.floor(sNorm / 2880) + 1);
+
+            return {
+                sNorm, dayFrac, era,
+                keFloat, keGlobal, minorKe, fenFloat, fen, miaoFloat, miao,
+                shiIdx, br, isCentral, halfZh, halfPy,
+                keInHalf, ke4Zh, ke4Py, keInShi8, ke8Zh, ke8Py,
+                gengIdx, gengInfo, dian, dianZh, dianPy,
+                hanText, xuyuIdx
+            };
+        }
+
+        const cnDom = {
+            eraSelect: document.getElementById('cnDialEraSelect'),
+            dynRing: document.getElementById('cnDynamicRing'),
+            nightArc: document.getElementById('cnNightArc'),
+            keArc: document.getElementById('cnKeArc'),
+            sunCenter: document.getElementById('cnSunCenter'),
+            moonCenter: document.getElementById('cnMoonCenter'),
+            shiHand: document.getElementById('cnShiHand'),
+            fenHand: document.getElementById('cnFenHand'),
+            miaoHand: document.getElementById('cnMiaoHand'),
+            badge: document.getElementById('clkCnBadge'),
+            digital: document.getElementById('clkCnDigital'),
+            sub: document.getElementById('clkCnSub'),
+            shi: document.getElementById('clkCnShi'),
+            geng: document.getElementById('clkCnGeng'),
+            keDetail: document.getElementById('clkCnKeDetail'),
+            han: document.getElementById('clkCnHan'),
+            strip: document.getElementById('cnBranchesStrip'),
+            builtEra: '',
+            lastShiIdx: -1,
+            lastGengIdx: -1
+        };
+
+        function buildChineseDynamicRing(era) {
+            if (cnDom.builtEra === era && cnDom.dynRing && cnDom.strip) return;
+            cnDom.builtEra = era;
+            cnDom.lastShiIdx = -1;
+
+            const offsetDeg = era === 'trad' ? 0 : 15; // 180° = 00:00 unten
+            let ringHtml = '';
+            let stripHtml = '';
+
+            for (let i = 0; i < 12; i++) {
+                const startDeg = 180 - 15 + offsetDeg + i * 30;
+                const sRad = (startDeg - 90) * DEG2RAD;
+                const x1 = 100 + 62 * Math.cos(sRad), y1 = 100 + 62 * Math.sin(sRad);
+                const x2 = 100 + 81 * Math.cos(sRad), y2 = 100 + 81 * Math.sin(sRad);
+                ringHtml += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="rgba(218,179,86,0.38)" stroke-width="1"/>`;
+
+                const midDeg = startDeg + 15;
+                const mRad = (midDeg - 90) * DEG2RAD;
+                const tx = 100 + 71 * Math.cos(mRad), ty = 100 + 71 * Math.sin(mRad) + 3.5;
+                ringHtml += `<text id="cnBrDial_${i}" x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" fill="#cbd5e1" font-family="Space Grotesk, sans-serif" font-size="9.5" font-weight="700">${CN_BRANCHES[i].zh}</text>`;
+
+                const rangeTxt = era === 'trad' ? CN_BRANCHES[i].tradRange : CN_BRANCHES[i].songRange;
+                stripHtml += `
+                    <div class="roman-hour-chip" data-cnidx="${i}">
+                        <span class="rh-num">${CN_BRANCHES[i].zh} · ${CN_BRANCHES[i].py}</span>
+                        <span class="rh-time">${rangeTxt}</span>
+                    </div>
                 `;
             }
+            cnDom.dynRing.innerHTML = ringHtml;
+            cnDom.strip.innerHTML = stripHtml;
+        }
 
-            renderRomanSchedule(st);
+        cnDom.eraSelect.addEventListener('change', () => {
+            buildChineseDynamicRing(cnDom.eraSelect.value);
+        });
+
+        function updateChineseClock(now) {
+            const era = cnDom.eraSelect.value;
+            buildChineseDynamicRing(era);
+
+            const secDay = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds() + now.getMilliseconds() / 1000;
+            const st = computeChineseTimeAtSec(secDay, era);
+
+            // Analoge Zeiger: Shí (24h, 00:00 unten=180°, 12:00 oben=0°), Fēn (60/Kè), Miǎo (100/Fēn)
+            const shiDeg = 180 + st.dayFrac * 360;
+            const fenDeg = (st.fenFloat / 60) * 360;
+            const miaoDeg = (st.miaoFloat / 100) * 360;
+
+            cnDom.shiHand.setAttribute('transform', `rotate(${shiDeg.toFixed(2)} 100 100)`);
+            cnDom.fenHand.setAttribute('transform', `rotate(${fenDeg.toFixed(2)} 100 100)`);
+            cnDom.miaoHand.setAttribute('transform', `rotate(${miaoDeg.toFixed(2)} 100 100)`);
+            cnDom.keArc.setAttribute('d', describeArc(100, 100, 91, st.dayFrac * 360, 180));
+
+            if (st.gengInfo.isNight) {
+                cnDom.sunCenter.style.display = 'none';
+                cnDom.moonCenter.style.display = 'inline';
+            } else {
+                cnDom.sunCenter.style.display = 'inline';
+                cnDom.moonCenter.style.display = 'none';
+            }
+
+            if (cnDom.lastShiIdx !== st.shiIdx) {
+                cnDom.lastShiIdx = st.shiIdx;
+                for (let i = 0; i < 12; i++) {
+                    const el = document.getElementById(`cnBrDial_${i}`);
+                    if (el) {
+                        el.setAttribute('fill', i === st.shiIdx ? '#f5d682' : '#cbd5e1');
+                        el.setAttribute('font-size', i === st.shiIdx ? '11.5' : '9.5');
+                    }
+                    const chip = cnDom.strip.children[i];
+                    if (chip) {
+                        chip.classList.remove('active-day', 'active-night');
+                        if (i === st.shiIdx) chip.classList.add(st.gengInfo.isNight ? 'active-night' : 'active-day');
+                    }
+                }
+            }
+
+            if (cnDom.lastGengIdx !== st.gengIdx) {
+                cnDom.lastGengIdx = st.gengIdx;
+                for (let i = 0; i < 10; i++) {
+                    const stemEl = document.getElementById(`cnStem_${i}`);
+                    if (stemEl) {
+                        stemEl.setAttribute('fill', i === st.gengIdx ? '#ffffff' : (i < 5 ? '#c4b5fd' : '#64748b'));
+                        stemEl.setAttribute('font-size', i === st.gengIdx ? '9' : '7.2');
+                    }
+                }
+            }
+
+            setTextCached('cnBadge', cnDom.badge, `${st.br.zh}時 · ${st.gengInfo.zh}${st.dianZh}`);
+            setTextCached('cnDig', cnDom.digital, `${st.br.zh}${st.halfZh}${st.ke4Zh} · ${pad(st.fen)}分 ${pad(st.miao)}秒`);
+            setTextCached('cnSub', cnDom.sub, `${st.br.py} ${st.halfPy}${st.ke4Py} · 100-Kè: ${pad(st.keGlobal)}刻 ${pad(st.fen)}分 ${pad(st.miao)}秒 · 8-Kè: ${st.br.zh}${st.ke8Zh}`);
+            setTextCached('cnShi', cnDom.shi, `${st.br.zh} (${st.br.py}) · ${st.halfZh} (${st.halfPy})`);
+            setTextCached('cnGeng', cnDom.geng, `${st.gengInfo.zh}${st.dianZh} (${st.gengInfo.stemZh} ${st.gengInfo.stemPy})`);
+            setTextCached('cnKeDet', cnDom.keDetail, `${st.keFloat.toFixed(2).replace('.', ',')} / 100 · 小刻 ${st.minorKe + 1}/6`);
+            setTextCached('cnHan', cnDom.han, `${st.hanText.split(' (')[0]} · Xūyú ${st.xuyuIdx}/30`);
         }
 
         function tickObservatory() {
@@ -3627,6 +4214,9 @@
 
             // 3b. Chronometer 03: Römische Temporal-Uhr
             updateRomanClock(nowMs);
+
+            // 3c. Chronometer 04: Traditionelle Chinesische Uhr
+            updateChineseClock(now);
 
             // 4. Ewige Chronometer
             updateLedger1949(computeDateDiff(epoch1949, now));
@@ -4184,6 +4774,172 @@
         });
 
         /* ===================================================================== */
+        /* 9c-2. ANALYTIK 07: CHINESISCHER ZEIT-KONVERTER & EINHEITENTABELLE     */
+        /* ===================================================================== */
+        const cnConvModeEl = document.getElementById('cnConvMode');
+        cnConvModeEl.addEventListener('change', () => {
+            const m = cnConvModeEl.value;
+            document.getElementById('cnConvNormalWrap').style.display = m === 'normToCn' ? 'flex' : 'none';
+            document.getElementById('cnConvShiKeWrap').style.display = m === 'shiKeToNorm' ? 'block' : 'none';
+            document.getElementById('cnConvGengWrap').style.display = m === 'gengToNorm' ? 'block' : 'none';
+        });
+
+        function fmtTimeSecWithMs(secOfDay) {
+            const sNorm = ((secOfDay % 86400) + 86400) % 86400;
+            const totalMs = Math.round(sNorm * 1000) % 86400000;
+            const h = Math.floor(totalMs / 3600000);
+            const m = Math.floor((totalMs % 3600000) / 60000);
+            const s = Math.floor((totalMs % 60000) / 1000);
+            const ms = totalMs % 1000;
+            return `${pad(h)}:${pad(m)}:${pad(s)},${pad(ms, 3)}`;
+        }
+
+        function renderCnUnitTable() {
+            const tbody = document.getElementById('cnUnitTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = `
+                <tr>
+                    <td><strong>1 Shíchén (時辰)</strong> (1/12 Tag)</td>
+                    <td style="color: var(--brass-bright);">2,000000 Normalstd (2 Std 00 Min 00,000 Sek) · 8⅓ Groß-Kè (50 Klein-Kè)</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Gēng (更)</strong> (1/10 Tag)</td>
+                    <td style="color: var(--sidereal);">${fmtHourComposite(2.4, 60, 'Normalstd', 'Std', 'Min', 'Sek')} · 10 Groß-Kè · 6 Diǎn</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Diǎn (點)</strong> (1/60 Tag)</td>
+                    <td style="color: var(--sidereal);">24,000000 Normalmin (24 Min 00,000 Sek) · 1⅔ Groß-Kè (100 Fēn)</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Großes Kè (大刻)</strong> (1/100 Tag)</td>
+                    <td style="color: var(--cryo);">${fmtMinComposite(14.4, 60, 'Normalmin', 'Min', 'Sek')} · 6 Klein-Kè · 60 Fēn</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Kleines Kè (小刻)</strong> (1/600 Tag)</td>
+                    <td style="color: var(--cryo);">${fmtMinComposite(2.4, 60, 'Normalmin', 'Min', 'Sek')} · 10 Fēn</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Fēn (分)</strong> (1/6.000 Tag)</td>
+                    <td style="color: var(--atomic);">${fmtSecComposite(14.4, 'Normalsek', 'Sek', 'ms')} · 100 Miǎo</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Miǎo (秒)</strong> (1/600.000 Tag)</td>
+                    <td style="color: var(--atomic);">${fmtSecComposite(0.144, 'Normalsek', 'Sek', 'ms')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Normalstunde</strong> (1/24 Tag)</td>
+                    <td>0,500000 Shíchén · 4,166667 Groß-Kè (4 Groß-Kè 1 Klein-Kè 00 Fēn)</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Normalminute</strong> (1/1.440 Tag)</td>
+                    <td>4,166667 Fēn (4 Fēn 16,667 Miǎo)</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Normalsekunde</strong> (1/86.400 Tag)</td>
+                    <td>6,944444 Miǎo (6 Miǎo 944,444 Tausendstel)</td>
+                </tr>
+            `;
+        }
+
+        function renderCnConversionDetails(secOfDay, era, headline, headlineColor) {
+            const st = computeChineseTimeAtSec(secOfDay, era);
+            const tStr = fmtTimeSecWithMs(st.sNorm);
+            const rangeStr = era === 'trad' ? st.br.tradRange : st.br.songRange;
+            const shuen = Math.floor((st.sNorm % 14.4) / 0.36);
+            const nian = Math.floor((st.sNorm % 0.36) / 0.018);
+
+            document.getElementById('cnConvResult').innerHTML = `
+                <div style="font-size: 1.15rem; font-weight: 800; color: ${headlineColor}; margin-bottom: 8px;">${headline}</div>
+                <div class="epoch-ledger">
+                    <div class="ledger-row"><span class="ledger-label">Normalzeit (24h · exakt)</span><span class="ledger-val" style="color: var(--cryo);">${tStr}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Shí-Kè (4-Kè-Modus · Tang/Song)</span><span class="ledger-val" style="color: var(--brass-bright);">${st.br.zh}${st.halfZh}${st.ke4Zh} (${st.br.py} ${st.halfPy}${st.ke4Py}) · ${pad(st.fen)}分 ${pad(st.miao)}秒</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Shí-Kè (8-Kè-Modus · Vor-Tang)</span><span class="ledger-val">${st.br.zh}${st.ke8Zh} (${st.br.py}${st.ke8Py}) · ${rangeStr}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">100-Kè-Digitalzeit &amp; Kleines Kè</span><span class="ledger-val">${pad(st.keGlobal)}刻 : ${pad(st.fen)}分 : ${pad(st.miao)}秒 (${st.keFloat.toFixed(4).replace('.', ',')} Kè · 小刻 ${st.minorKe + 1}/6)</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Gēng – Diǎn &amp; Himmelsstamm</span><span class="ledger-val" style="color: var(--sidereal);">${st.gengInfo.zh}${st.dianZh} (${st.gengInfo.py}${st.dianPy}) · Stamm ${st.gengInfo.stemZh} (${st.gengInfo.stemPy}) · ${st.gengInfo.desc}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Han-Tageszeit &amp; Buddhistisch</span><span class="ledger-val">${st.hanText} · Xūyú ${st.xuyuIdx}/30 · ${shuen} Shùn · ${nian} Niàn</span></div>
+                </div>
+            `;
+        }
+
+        function runCnConverter() {
+            const mode = cnConvModeEl.value;
+            const era = document.getElementById('cnConvEra').value;
+
+            if (mode === 'normToCn') {
+                const p = parseHmsFlexible(document.getElementById('cnInputNormal').value, 23, 59);
+                if (!p) {
+                    setErr('cnInputNormal', 'err_cnInputNormal', 'Ungültig. Format: HH:MM:SS (00:00:00 – 23:59:59,999)');
+                    return;
+                }
+                setErr('cnInputNormal', 'err_cnInputNormal', null);
+                const sec = p.h * 3600 + p.min * 60 + p.sec;
+                const st = computeChineseTimeAtSec(sec, era);
+                renderCnConversionDetails(sec, era, `${st.br.zh}${st.halfZh}${st.ke4Zh} · ${pad(st.fen)}分 ${pad(st.miao)}秒 (${st.gengInfo.zh}${st.dianZh})`, '#fda4af');
+            } else if (mode === 'shiKeToNorm') {
+                const brIdx = parseInt(document.getElementById('cnInBranch').value, 10);
+                const half = parseInt(document.getElementById('cnInHalf').value, 10);
+                const ke = parseInt(document.getElementById('cnInKe').value, 10);
+                const fen = parseInt(document.getElementById('cnInFen').value, 10);
+                const miao = parseInt(document.getElementById('cnInMiao').value, 10);
+                const errEl = document.getElementById('err_cnInShiKe');
+
+                if (Number.isNaN(ke) || ke < 0 || ke > 4 || Number.isNaN(fen) || fen < 0 || fen > 59 || Number.isNaN(miao) || miao < 0 || miao > 99) {
+                    errEl.textContent = 'Kè 0–4, Fēn 0–59, Miǎo 0–99 erforderlich.';
+                    errEl.style.display = 'block';
+                    return;
+                }
+                errEl.style.display = 'none';
+
+                const halfIdx = brIdx * 2 + half;
+                const halfStartHour = era === 'trad' ? (halfIdx + 23) % 24 : halfIdx;
+                const halfStartSec = halfStartHour * 3600;
+                const baseSec = ke === 0 ? halfStartSec : (Math.floor(halfStartSec / 864) + ke) * 864;
+                const totalSec = (baseSec + fen * 14.4 + miao * 0.144) % 86400;
+                renderCnConversionDetails(totalSec, era, `Normalzeit: ${fmtTimeSecWithMs(totalSec)}`, 'var(--cryo)');
+            } else {
+                const gIdx = parseInt(document.getElementById('cnInGeng').value, 10);
+                const dian = parseInt(document.getElementById('cnInDian').value, 10);
+                const fen = parseInt(document.getElementById('cnInGengFen').value, 10);
+                const miao = parseInt(document.getElementById('cnInGengMiao').value, 10);
+                const errEl = document.getElementById('err_cnInGeng');
+
+                if (Number.isNaN(dian) || dian < 0 || dian > 5 || Number.isNaN(fen) || fen < 0 || fen > 99 || Number.isNaN(miao) || miao < 0 || miao > 99) {
+                    errEl.textContent = 'Diǎn 0–5, Fēn 0–99, Miǎo 0–99 erforderlich (1 Diǎn = 100 Fēn).';
+                    errEl.style.display = 'block';
+                    return;
+                }
+                errEl.style.display = 'none';
+
+                const totalSec = (69120 + gIdx * 8640 + dian * 1440 + fen * 14.4 + miao * 0.144) % 86400;
+                renderCnConversionDetails(totalSec, era, `Normalzeit: ${fmtTimeSecWithMs(totalSec)}`, 'var(--cryo)');
+            }
+        }
+
+        document.getElementById('btnRunCnConv').addEventListener('click', runCnConverter);
+        document.getElementById('cnConvEra').addEventListener('change', runCnConverter);
+        document.getElementById('btnCnConvNow').addEventListener('click', () => {
+            const now = new Date();
+            const sec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+            const era = document.getElementById('cnConvEra').value;
+            const st = computeChineseTimeAtSec(sec, era);
+
+            document.getElementById('cnInputNormal').value = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+            document.getElementById('cnInBranch').value = String(st.shiIdx);
+            document.getElementById('cnInHalf').value = st.isCentral ? '1' : '0';
+            document.getElementById('cnInKe').value = String(st.keInHalf);
+            document.getElementById('cnInFen').value = String(st.fen);
+            document.getElementById('cnInMiao').value = String(st.miao);
+
+            document.getElementById('cnInGeng').value = String(st.gengIdx);
+            document.getElementById('cnInDian').value = String(st.dian);
+            const gFen = Math.floor((sec - ((69120 + st.gengIdx * 8640 + st.dian * 1440) % 86400) + 86400) % 86400 / 14.4);
+            document.getElementById('cnInGengFen').value = String(Math.min(99, Math.max(0, gFen)));
+            document.getElementById('cnInGengMiao').value = String(st.miao);
+
+            runCnConverter();
+        });
+
+        /* ===================================================================== */
         /* 9d. SEKTOR III: KOSMISCHE WEGSTRECKE SEIT WUNSCHDATUM (LIVE)          */
         /* ===================================================================== */
         let cosmicCustomDate = null;
@@ -4434,10 +5190,12 @@
             document.getElementById('berlinSunDate').value = berlinTodayStr;
             drawBerlinDayChart(berlinToday.year, berlinToday.month, berlinToday.day);
 
-            // Dezimal-Konverter, Einheitentabelle & Römischen Temporal-Konverter initialisieren
+            // Dezimal-, Römischen & Chinesischen Konverter samt Einheitentabellen initialisieren
             renderDecUnitTable();
+            renderCnUnitTable();
             document.getElementById('btnDecConvNow').click();
             document.getElementById('btnRomConvNow').click();
+            document.getElementById('btnCnConvNow').click();
 
             // Kosmisches Wunschdatum auf Jahresbeginn vorbelegen & starten
             document.getElementById('cosCustomDate').value = `01.01.${now.getFullYear()} 00:00:00`;
