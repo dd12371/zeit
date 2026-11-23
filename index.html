@@ -568,6 +568,64 @@
             font-size: 0.72rem;
         }
 
+        .cn-digital-line {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 6px 10px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cn-num-fixed {
+            font-family: var(--font-mono);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .cn-readout-stack {
+            margin-top: 8px;
+            background: var(--bg-recessed);
+            border: 1px solid var(--line-hair);
+            border-radius: var(--r-md);
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cn-sub-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding-bottom: 4px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+        }
+
+        .cn-sub-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .cn-sys-tag {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .cn-sys-val {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
         .cn-6-grid {
             display: grid;
             grid-template-columns: 1.3fr 0.9fr 0.8fr 0.8fr 0.8fr 0.8fr;
@@ -645,18 +703,22 @@
         /* 6-PLANE RING CLOCK & BARS */
         .radar-wrap {
             display: grid;
-            grid-template-columns: minmax(0, 430px) 1fr;
-            gap: 20px;
+            grid-template-columns: minmax(0, 390px) minmax(245px, 1fr);
+            gap: 18px;
             align-items: center;
         }
 
-        @media (max-width: 860px) {
+        @media (max-width: 1460px) and (min-width: 1201px) {
+            .radar-wrap { grid-template-columns: 1fr; justify-items: center; }
+        }
+
+        @media (max-width: 720px) {
             .radar-wrap { grid-template-columns: 1fr; justify-items: center; }
         }
 
         .ring-clock-frame {
             width: 100%;
-            max-width: 430px;
+            max-width: 420px;
             background: radial-gradient(circle at 36% 50%, #121826 0%, #06090f 78%);
             border-radius: var(--r-xl);
             border: 1px solid var(--line-hair);
@@ -668,24 +730,39 @@
 
         .cycle-bars {
             width: 100%;
+            min-width: 0;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 11px;
         }
 
         .cbar-item {
             display: flex;
             flex-direction: column;
             gap: 4px;
+            min-width: 0;
         }
 
         .cbar-top {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            gap: 8px;
+            flex-wrap: wrap;
+            gap: 2px 8px;
             font-family: var(--font-mono);
-            font-size: 0.72rem;
+            font-size: 0.71rem;
+            font-variant-numeric: tabular-nums;
+            line-height: 1.3;
+        }
+
+        .cbar-top > span {
+            min-width: 0;
+        }
+
+        .cbar-top > strong {
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-left: auto;
             font-variant-numeric: tabular-nums;
         }
 
@@ -701,6 +778,130 @@
             height: 100%;
             border-radius: 99px;
             will-change: width;
+        }
+
+        /* GROSSES LUNARES OBSERVATORIUM & JD-SEKTIONEN */
+        .lunar-obs-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 22px;
+            align-items: start;
+        }
+
+        @media (max-width: 1120px) {
+            .lunar-obs-grid { grid-template-columns: 1fr; }
+        }
+
+        .lunar-visual-box {
+            background: radial-gradient(circle at 50% 42%, #111728 0%, #06080f 80%);
+            border: 1px solid var(--line-hair);
+            border-radius: var(--r-xl);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lunar-chart-wrap {
+            position: relative;
+            width: 100%;
+            background: var(--bg-recessed);
+            border: 1px solid var(--line-hair);
+            border-radius: var(--r-md);
+            padding: 10px;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .jd-section-block {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .jd-epoch-tag {
+            display: inline-block;
+            font-size: 0.64rem;
+            padding: 1px 6px;
+            border-radius: 3px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: var(--cryo);
+            margin-right: 6px;
+        }
+
+        /* EPOCHEN-KIPPSCHALTER (EWIGER CHRONOMETER IV) */
+        .epoch-switch-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 4px 9px;
+            border-radius: var(--r-sm);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            background: var(--bg-recessed);
+            color: var(--text-secondary);
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .epoch-switch-btn:hover {
+            border-color: var(--atomic);
+            background: var(--atomic-dim);
+        }
+
+        .epoch-switch-btn .esw-lbl {
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+
+        .epoch-switch-btn:not(.is-alt) .esw-left {
+            color: var(--atomic);
+        }
+
+        .epoch-switch-btn.is-alt {
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .epoch-switch-btn.is-alt:hover {
+            border-color: var(--cryo);
+            background: var(--cryo-dim);
+        }
+
+        .epoch-switch-btn.is-alt .esw-right {
+            color: var(--cryo);
+        }
+
+        .epoch-switch-btn .esw-track {
+            position: relative;
+            width: 30px;
+            height: 16px;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid var(--line-hair);
+            flex-shrink: 0;
+        }
+
+        .epoch-switch-btn .esw-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--atomic);
+            box-shadow: 0 0 6px var(--atomic);
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .epoch-switch-btn.is-alt .esw-thumb {
+            transform: translateX(14px);
+            background: var(--cryo);
+            box-shadow: 0 0 6px var(--cryo);
         }
 
         /* BERLIN SOLAR OBSERVATORY (DIAGRAMM 2) */
@@ -1427,24 +1628,45 @@
                         </div>
 
                         <div>
-                            <div class="digital-readout-xl" id="clkCnDigital" style="color: #fda4af;">子正 · 00分 00秒</div>
-                            <div class="sub-date-line" id="clkCnSub">Lade traditionelle chinesische Zeit...</div>
+                            <div class="digital-readout-xl cn-digital-line" id="clkCnDigital" style="color: #fda4af;">
+                                <span id="clkCnDigTitle" class="cn-num-fixed">子正</span>
+                                <span id="clkCnDigTime" class="cn-num-fixed">00分 00秒</span>
+                            </div>
+
+                            <div class="cn-readout-stack">
+                                <div class="cn-sub-row">
+                                    <span class="cn-sys-tag">1. Shí-Kè (96-Kè · 15m-Takt)</span>
+                                    <span class="cn-sys-val" id="clkCnSub96Ke" style="color: var(--brass-bright);">--</span>
+                                </div>
+                                <div class="cn-sub-row">
+                                    <span class="cn-sys-tag">2. Shí-Kè (100-Kè · Tang/Song)</span>
+                                    <span class="cn-sys-val" id="clkCnSub100Shi" style="color: #fda4af;">--</span>
+                                </div>
+                                <div class="cn-sub-row">
+                                    <span class="cn-sys-tag">3. 100-Kè-Zählung (Tag = 100 Kè)</span>
+                                    <span class="cn-sys-val" id="clkCnSub100Ke" style="color: var(--cryo);">--</span>
+                                </div>
+                                <div class="cn-sub-row">
+                                    <span class="cn-sys-tag">4. Shí-Kè (Vor-Tang · 8-Kè)</span>
+                                    <span class="cn-sys-val" id="clkCnSub8Ke">--</span>
+                                </div>
+                            </div>
 
                             <div class="micro-grid">
                                 <div class="micro-cell">
-                                    <span class="micro-k">Doppelstunde (Shíchén)</span>
+                                    <span class="micro-k">12 Doppelstunden (Shíchén)</span>
                                     <span class="micro-v" id="clkCnShi" style="color: var(--brass-bright);">--</span>
                                 </div>
                                 <div class="micro-cell">
-                                    <span class="micro-k">Gēng – Diǎn &amp; Stamm</span>
-                                    <span class="micro-v" id="clkCnGeng" style="color: var(--sidereal);">--</span>
-                                </div>
-                                <div class="micro-cell">
-                                    <span class="micro-k">100-Kè-Uhr &amp; Kleines Kè</span>
+                                    <span class="micro-k">96-Kè / 100-Kè &amp; Klein-Kè</span>
                                     <span class="micro-v" id="clkCnKeDetail" style="color: var(--cryo);">--</span>
                                 </div>
                                 <div class="micro-cell">
-                                    <span class="micro-k">Han-Tageszeit / Xūyú</span>
+                                    <span class="micro-k">5. Gēng–Diǎn &amp; Himmelsstamm</span>
+                                    <span class="micro-v" id="clkCnGeng" style="color: var(--sidereal);">--</span>
+                                </div>
+                                <div class="micro-cell">
+                                    <span class="micro-k">6. Tagesname / Han / Xūyú</span>
                                     <span class="micro-v" id="clkCnHan">--</span>
                                 </div>
                             </div>
@@ -1459,7 +1681,7 @@
                     </div>
                 </article>
 
-                <!-- EWIGER CHRONOMETER I (01.10.1949) OHNE JAHRESZYKLUS-GRAFIK -->
+                <!-- EWIGER CHRONOMETER I (01.10.1949) -->
                 <article class="instrument-panel panel-crimson">
                     <div class="panel-head">
                         <div>
@@ -1472,17 +1694,50 @@
                     <div class="epoch-ledger" id="output1949">Initialisiere...</div>
                 </article>
 
-                <!-- EWIGER CHRONOMETER II (04.10.2022) OHNE JAHRESZYKLUS-GRAFIK -->
+                <!-- EWIGER CHRONOMETER II (25.05.2009) -->
+                <article class="instrument-panel panel-brass">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-kicker">Ewiger Chronometer II · Epoche 25.05.2009 13:12 UTC+8</div>
+                            <h3 class="panel-title">Epoche 25.05.2009 (05:12:00 UTC)</h3>
+                        </div>
+                        <span class="panel-badge" id="badgeEpoch2009" style="color: var(--brass-bright);">--. Jahr</span>
+                    </div>
+
+                    <div class="epoch-ledger" id="output2009">Initialisiere...</div>
+                </article>
+
+                <!-- EWIGER CHRONOMETER III (04.10.2022) -->
                 <article class="instrument-panel panel-sidereal">
                     <div class="panel-head">
                         <div>
-                            <div class="panel-kicker">Ewiger Chronometer II · Epoche 04.10.2022 20:00 UTC+2</div>
+                            <div class="panel-kicker">Ewiger Chronometer III · Epoche 04.10.2022 20:00 UTC+2</div>
                             <h3 class="panel-title">Große Nationale Oktoberrevolution (18:00:00 UTC)</h3>
                         </div>
                         <span class="panel-badge" id="badgeEpoch2022" style="color: var(--sidereal);">-. Jahr</span>
                     </div>
 
                     <div class="epoch-ledger" id="output2022">Initialisiere...</div>
+                </article>
+
+                <!-- EWIGER CHRONOMETER IV (UMSCHALTBAR: 23.07.2023 UTC+8 / 23.07.2025 UTC+2) -->
+                <article class="instrument-panel panel-atomic" id="panelEpoch4">
+                    <div class="panel-head">
+                        <div>
+                            <div class="panel-kicker" id="kickerEpoch4">Ewiger Chronometer IV · Epoche 23.07.2023 11:00 UTC+8</div>
+                            <h3 class="panel-title" id="titleEpoch4">Epoche 23.07.2023 (03:00:00 UTC)</h3>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <button type="button" class="epoch-switch-btn" id="btnSwitchEpoch4" aria-pressed="false" title="Zwischen 23.07.2023 11:00 UTC+8 und 23.07.2025 11:00 UTC+2 umschalten">
+                                <span class="esw-lbl esw-left">23.07.2023</span>
+                                <span class="esw-track"><span class="esw-thumb"></span></span>
+                                <span class="esw-lbl esw-right">23.07.2025</span>
+                            </button>
+                            <span class="panel-badge" id="badgeEpoch2023" style="color: var(--atomic);">-. Jahr</span>
+                        </div>
+                    </div>
+
+                    <div class="epoch-ledger" id="output2023">Initialisiere...</div>
                 </article>
             </div>
 
@@ -2060,7 +2315,8 @@
                                 <label for="cnConvMode">Umrechnungsrichtung</label>
                                 <select id="cnConvMode">
                                     <option value="normToCn" selected>Normalzeit (24h · HH:MM:SS) → Traditionelle Chinesische Zeit</option>
-                                    <option value="shiKeToNorm">Chinesisch Shí-Kè (時辰 + 初/正 + 刻 + 分 + 秒) → Normalzeit</option>
+                                    <option value="qing96ToNorm">Chinesisch 96-Kè (時辰 + 初/正 + 0–3刻 + Min + Sek) → Normalzeit</option>
+                                    <option value="shiKeToNorm">Chinesisch 100-Kè Shí-Kè (時辰 + 初/正 + 0–4刻 + 分 + 秒) → Normalzeit</option>
                                     <option value="gengToNorm">Chinesisch Gēng-Diǎn (更 + 點 + 分 + 秒) → Normalzeit</option>
                                 </select>
                             </div>
@@ -2079,6 +2335,49 @@
                             <input type="text" id="cnInputNormal" placeholder="z. B. 11:31:12 oder 19:12:00" spellcheck="false" autocomplete="off">
                             <span class="field-hint">Erlaubt: 00:00:00 bis 23:59:59,999 (Sekunden &amp; Komma optional)</span>
                             <span class="err-hint" id="err_cnInputNormal"></span>
+                        </div>
+
+                        <!-- MODUS 1B: 96-KÈ (QING / 15-MINUTEN-KÈ) -> NORMALZEIT -->
+                        <div id="cnConvQingWrap" style="display: none;">
+                            <div class="cn-6-grid">
+                                <div class="field">
+                                    <label for="cnInQBranch">Erdzweig (Shíchén)</label>
+                                    <select id="cnInQBranch">
+                                        <option value="0">1. 子 (zǐ)</option>
+                                        <option value="1">2. 丑 (chǒu)</option>
+                                        <option value="2">3. 寅 (yín)</option>
+                                        <option value="3">4. 卯 (mǎo)</option>
+                                        <option value="4">5. 辰 (chén)</option>
+                                        <option value="5">6. 巳 (sì)</option>
+                                        <option value="6">7. 午 (wǔ)</option>
+                                        <option value="7">8. 未 (wèi)</option>
+                                        <option value="8">9. 申 (shēn)</option>
+                                        <option value="9">10. 酉 (yǒu)</option>
+                                        <option value="10">11. 戌 (xū)</option>
+                                        <option value="11">12. 亥 (hài)</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="cnInQHalf">Hälfte</label>
+                                    <select id="cnInQHalf">
+                                        <option value="0">初 (chū · Initial)</option>
+                                        <option value="1">正 (zhèng · Central)</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="cnInQKe">96-Kè (0–3)</label>
+                                    <input type="number" id="cnInQKe" min="0" max="3" value="0">
+                                </div>
+                                <div class="field">
+                                    <label for="cnInQMin">Min (0–14)</label>
+                                    <input type="number" id="cnInQMin" min="0" max="14" value="0">
+                                </div>
+                                <div class="field">
+                                    <label for="cnInQSec">Sek (0–59)</label>
+                                    <input type="number" id="cnInQSec" min="0" max="59" value="0">
+                                </div>
+                            </div>
+                            <span class="err-hint" id="err_cnInQing" style="margin-top: 4px;"></span>
                         </div>
 
                         <!-- MODUS 2: SHÍ-KÈ -> NORMALZEIT -->
@@ -2321,6 +2620,96 @@
                 </div>
             </article>
 
+            <!-- GROSSES LUNARES OBSERVATORIUM & MONDPHASEN-DIAGRAMM -->
+            <article class="instrument-panel panel-sidereal" id="lunarObservatoryPanel">
+                <div class="panel-head">
+                    <div>
+                        <div class="panel-kicker">Astronomie 02 · Lunares Observatorium &amp; Synodischer Zyklus</div>
+                        <h3 class="panel-title">Mondscheibe, Erde-Mond-Sonne-Geometrie &amp; 29,53-Tage-Lichtkurve</h3>
+                    </div>
+                    <span class="panel-badge" id="lunarBigBadge" style="color: var(--sidereal);">--</span>
+                </div>
+
+                <div class="lunar-obs-grid">
+                    <!-- LINKE SPALTE: GROSSE MONDSCHEIBE & ERDE-MOND-ORBIT -->
+                    <div class="lunar-visual-box">
+                        <div class="orrery-meta">
+                            <span>MONDSCHEIBE (NORDHALBKUGEL)</span>
+                            <span id="lunarBigElong" style="color: var(--brass-bright);">Elongation: --°</span>
+                        </div>
+                        <svg id="svgMoonDiscLarge" viewBox="0 0 220 220" width="210" height="210" aria-label="Große grafische Darstellung der Mondphase"></svg>
+
+                        <div style="width: 100%; border-top: 1px solid var(--line-hair); padding-top: 10px;">
+                            <div class="orrery-meta" style="margin-bottom: 6px;">
+                                <span>ERDE–MOND–SONNE BAHNGEOMETRIE</span>
+                                <span style="color: var(--brass-bright);">SONNE ☉ →</span>
+                            </div>
+                            <svg id="svgLunarOrbit" viewBox="0 0 320 200" width="100%" style="max-width: 320px; height: auto; display: block; margin: 0 auto;" aria-label="Mondumlaufbahn um die Erde"></svg>
+                        </div>
+                    </div>
+
+                    <!-- RECHTE SPALTE: 29,53-TAGE LICHTKURVEN-DIAGRAMM & LUNARE TELEMETRIE -->
+                    <div class="astro-right-col">
+                        <div class="lunar-chart-wrap" id="lunarChartWrap">
+                            <div class="solar-inspect-bar">
+                                <span id="lunarInspectAge" style="color: var(--sidereal); font-weight: 700;">Mondalter: -- d</span>
+                                <span id="lunarInspectIllum">Beleuchtung: -- %</span>
+                                <span id="lunarInspectPhase" style="color: var(--brass-bright);">--</span>
+                            </div>
+                            <svg id="svgLunarCurve" viewBox="0 0 600 215" width="100%" height="210" preserveAspectRatio="none" aria-label="Interaktive Mondphasen-Lichtkurve">
+                                <defs>
+                                    <linearGradient id="lunarFillGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="rgba(167, 139, 250, 0.42)"/>
+                                        <stop offset="100%" stop-color="rgba(167, 139, 250, 0.03)"/>
+                                    </linearGradient>
+                                </defs>
+                                <g id="lunarCurveGrid"></g>
+                                <path id="lunarCurveArea" fill="url(#lunarFillGrad)"/>
+                                <path id="lunarCurveLine" fill="none" stroke="#c4b5fd" stroke-width="2.3" stroke-linejoin="round"/>
+                                <g id="lunarCurveMarkers"></g>
+                                <g id="lunarLiveCursor">
+                                    <line id="lunarLiveLine" x1="0" y1="14" x2="0" y2="188" stroke="#38bdf8" stroke-width="1.4" stroke-dasharray="3 3"/>
+                                    <circle id="lunarLiveGlow" cx="0" cy="100" r="9" fill="rgba(167,139,250,0.28)"/>
+                                    <circle id="lunarLiveDot" cx="0" cy="100" r="4.8" fill="#f5d682" stroke="#05070b" stroke-width="1.5"/>
+                                </g>
+                                <g id="lunarHoverCursor" style="display: none;">
+                                    <line id="lunarHoverLine" x1="0" y1="14" x2="0" y2="188" stroke="#34d399" stroke-width="1.4"/>
+                                    <circle id="lunarHoverDot" cx="0" cy="100" r="5" fill="#34d399" stroke="#05070b" stroke-width="1.5"/>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="micro-grid" style="margin-top: 0;">
+                            <div class="micro-cell">
+                                <span class="micro-k">Erd-Mond-Distanz (Meeus)</span>
+                                <span class="micro-v" id="lunarDistKm" style="color: var(--cryo);">-- km</span>
+                            </div>
+                            <div class="micro-cell">
+                                <span class="micro-k">Scheinbarer Durchmesser</span>
+                                <span class="micro-v" id="lunarAngDiam">-- ′</span>
+                            </div>
+                            <div class="micro-cell">
+                                <span class="micro-k">Bahngeschwindigkeit / Lichtlaufzeit</span>
+                                <span class="micro-v" id="lunarSpeedLight">--</span>
+                            </div>
+                            <div class="micro-cell">
+                                <span class="micro-k">Zyklus-Fortschritt (29,53 d)</span>
+                                <span class="micro-v" id="lunarCyclePct" style="color: var(--sidereal);">-- %</span>
+                            </div>
+                        </div>
+
+                        <div class="epoch-ledger" style="font-size: 0.74rem;">
+                            <div class="ledger-section-title" style="color: var(--sidereal);">Exakte Hauptphasen des laufenden Mondzyklus (Lokalzeit)</div>
+                            <div class="ledger-row"><span class="ledger-label">Letzter Neumond (0 %)</span><span class="ledger-val" id="lunarLastNew">--</span></div>
+                            <div class="ledger-row"><span class="ledger-label">Nächstes Erstes Viertel (50 %)</span><span class="ledger-val" id="lunarNextFirstQ">--</span></div>
+                            <div class="ledger-row"><span class="ledger-label">Nächster Vollmond (100 %)</span><span class="ledger-val" id="lunarNextFull" style="color: var(--brass-bright);">--</span></div>
+                            <div class="ledger-row"><span class="ledger-label">Nächstes Letztes Viertel (50 %)</span><span class="ledger-val" id="lunarNextLastQ">--</span></div>
+                            <div class="ledger-row"><span class="ledger-label">Nächster Neumond (0 %)</span><span class="ledger-val" id="lunarNextNew" style="color: var(--cryo);">--</span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
             <!-- HISTORISCHE EPOCHEN & JD/MJD -->
             <div class="grid-2">
                 <!-- 1. KALENDERWECHSEL (OHNE DRIFT-DIAGRAMM) -->
@@ -2363,22 +2752,25 @@
                     </div>
                 </article>
 
-                <!-- 2. ASTRONOMISCHER JD / MJD KONVERTER -->
+                <!-- 2. ASTRONOMISCHER EPOCHEN-, JD- & UNIX-KONVERTER -->
                 <article class="instrument-panel panel-cryo">
                     <div class="panel-head">
                         <div>
-                            <div class="panel-kicker">Chronologie 02 · Kontinuierliche Tageszählung</div>
-                            <h3 class="panel-title">Julianisches Datum (JD / MJD / TJD)</h3>
+                            <div class="panel-kicker">Chronologie 02 · Kontinuierliche Zeitskalen &amp; Epochen (4713 v. Chr. – 2001 n. Chr.)</div>
+                            <h3 class="panel-title">JD / JDN, Unix, MJD, GPS, TAI &amp; J2000.0-Konverter</h3>
                         </div>
-                        <span class="panel-badge" style="color: var(--cryo);">8 Dezimalstellen</span>
+                        <span class="panel-badge" style="color: var(--cryo);">Geordnet nach Relevanz &amp; Fixdatum</span>
                     </div>
 
                     <div class="form-grid">
                         <div class="field">
-                            <label for="jdConvMode">Konvertierungsrichtung</label>
+                            <label for="jdConvMode">Eingabesystem (geordnet nach Nutzungshäufigkeit)</label>
                             <select id="jdConvMode">
-                                <option value="dateToJd">Datum &amp; Zeit → Julianisches Datum (JD / MJD)</option>
-                                <option value="jdToDate">Julianisches Datum (JD) → Datum &amp; Zeit</option>
+                                <option value="dateToJd" selected>1. Datum &amp; Zeit → Alle Zeitskalen (JD, JDN, Unix, MJD, GPS, TAI, …)</option>
+                                <option value="jdToDate">2. Julianisches Datum (JD) → Datum &amp; Alle Zeitskalen</option>
+                                <option value="unixToDate">3. Unix-Zeitstempel (Sekunden seit 1970) → Datum &amp; Alle Zeitskalen</option>
+                                <option value="mjdToDate">4. Modifiziertes JD (MJD) → Datum &amp; Alle Zeitskalen</option>
+                                <option value="j2000ToDate">5. J2000.0-Epoche (Tage seit 01.01.2000 12:00) → Datum &amp; Alle Zeitskalen</option>
                             </select>
                         </div>
 
@@ -2389,8 +2781,8 @@
                                 <span class="err-hint" id="err_jdInputDate"></span>
                             </div>
                             <div class="field" id="jdValInputWrap" style="display: none;">
-                                <label for="jdInputNumber">Julianisches Datum (JD)</label>
-                                <input type="number" step="0.00000001" id="jdInputNumber">
+                                <label for="jdInputNumber" id="jdValInputLabel">Julianisches Datum (JD)</label>
+                                <input type="number" step="any" id="jdInputNumber">
                                 <span class="err-hint" id="err_jdInputNumber"></span>
                             </div>
                             <div class="field">
@@ -2400,11 +2792,11 @@
                             </div>
                         </div>
 
-                        <button type="button" class="btn-exec btn-cryo" id="btnRunJdConv">JD / MJD Konvertieren</button>
+                        <button type="button" class="btn-exec btn-cryo" id="btnRunJdConv">Alle Zeitskalen &amp; Epochen Berechnen</button>
                     </div>
 
                     <div class="output-console" id="jdConvertResult">
-                        <span style="color: var(--text-secondary);">Berechnet JD, Modifiziertes JD (MJD) und Truncated JD (TJD) mit sekundengenauer Auflösung.</span>
+                        <span style="color: var(--text-secondary);">Berechnet JD, JDN, Unix, MJD, RJD, TJD, GPS, TAI/TT, NTP, Excel, FILETIME, CJD, Lilian, J2000.0 und Apple/Cocoa.</span>
                     </div>
                 </article>
             </div>
@@ -2842,7 +3234,38 @@
             return { isNeg, totalSec, years, months, days, hours, minutes, seconds };
         }
 
-        function renderDetailedSingleLedgerHTML(diff, showNeg = true) {
+        function getCalendarDayNumberUtc(calY, calM1to12, calD) {
+            return Math.floor(makeUtcDate(calY, calM1to12 - 1, calD, 0, 0, 0).getTime() / 86400000);
+        }
+
+        function dateToCalObj(d) {
+            return { y: d.getFullYear(), m: d.getMonth() + 1, d: d.getDate() };
+        }
+
+        function computeCalendarDaysSpan(startCal, endCal) {
+            const sNum = getCalendarDayNumberUtc(startCal.y, startCal.m, startCal.d);
+            const eNum = getCalendarDayNumberUtc(endCal.y, endCal.m, endCal.d);
+            const diffDays = eNum - sNum;
+            return {
+                diffDays,
+                inclusiveDays: Math.abs(diffDays) + 1,
+                isFuture: diffDays < 0
+            };
+        }
+
+        function fmtTagPlural(n) {
+            return `${fmtNum(n)} ${Math.abs(Number(n)) === 1 ? 'Tag' : 'Tage'}`;
+        }
+
+        function fmtCalDayBadge(calSpan) {
+            if (calSpan.diffDays >= 0) {
+                return `${fmtNum(calSpan.inclusiveDays)}. Tag`;
+            }
+            const absD = Math.abs(calSpan.diffDays);
+            return `in ${fmtNum(absD)} ${absD === 1 ? 'Kalendertag' : 'Kalendertagen'}`;
+        }
+
+        function renderDetailedSingleLedgerHTML(diff, showNeg = true, dStart = null, dEnd = null) {
             const p = (diff.isNeg && showNeg) ? '- ' : '';
             const totalMin = Math.floor(diff.totalSec / 60);
             const totalHours = Math.floor(diff.totalSec / 3600);
@@ -2852,8 +3275,15 @@
             const totalYears = (diff.totalSec / (365.2425 * 86400)).toFixed(4);
             const calendarFull = `${p}${diff.years} Jahre, ${diff.months} Monate, ${diff.days} Tage, ${diff.hours} Stunden, ${diff.minutes} Minuten, ${diff.seconds} Sekunden`;
 
+            let calDaysRow = '';
+            if (dStart && dEnd) {
+                const calSpan = computeCalendarDaysSpan(dateToCalObj(dStart), dateToCalObj(dEnd));
+                calDaysRow = `<div class="ledger-row"><span class="ledger-label">Datumstage (inkl. Start- &amp; Enddatum)</span><span class="ledger-val" style="color: var(--atomic);">${p}${fmtTagPlural(calSpan.inclusiveDays)}</span></div>`;
+            }
+
             return `
                 <div class="ledger-row"><span class="ledger-label">Exakte Kalenderdauer</span><span class="ledger-val" style="color: var(--brass-bright);">${calendarFull}</span></div>
+                ${calDaysRow}
                 <div class="ledger-row"><span class="ledger-label">Sekunden (gesamt)</span><span class="ledger-val">${p}${fmtNum(diff.totalSec)} s</span></div>
                 <div class="ledger-row"><span class="ledger-label">Minuten (gesamt)</span><span class="ledger-val">${p}${fmtNum(totalMin)} min</span></div>
                 <div class="ledger-row"><span class="ledger-label">Stunden (gesamt)</span><span class="ledger-val">${p}${fmtNum(totalHours)} h</span></div>
@@ -2867,6 +3297,7 @@
         function createLiveLedgerView(containerEl) {
             const labels = [
                 { k: 'Exakte Kalenderdauer', color: 'var(--brass-bright)' },
+                { k: 'Datumstag (inkl. Startdatum)', color: 'var(--atomic)' },
                 { k: 'Sekunden (gesamt)' },
                 { k: 'Minuten (gesamt)' },
                 { k: 'Stunden (gesamt)' },
@@ -2892,10 +3323,11 @@
                 valEls.push(val);
             });
 
-            return function update(diff, showNeg = true) {
+            return function update(diff, showNeg = true, calDayText = '--') {
                 const p = (diff.isNeg && showNeg) ? '- ' : '';
                 const next = [
                     `${p}${diff.years} Jahre, ${diff.months} Monate, ${diff.days} Tage, ${diff.hours} Stunden, ${diff.minutes} Minuten, ${diff.seconds} Sekunden`,
+                    calDayText,
                     `${p}${fmtNum(diff.totalSec)} s`,
                     `${p}${fmtNum(Math.floor(diff.totalSec / 60))} min`,
                     `${p}${fmtNum(Math.floor(diff.totalSec / 3600))} h`,
@@ -3553,26 +3985,197 @@
 
             const synodic = 29.530588853;
             const refNewMoonJd = 2451550.259722;
-            const phase = (((jd - refNewMoonJd) / synodic) % 1 + 1) % 1;
-            const age = phase * synodic;
+
+            // Exakte Meeus Ch. 49 Mondphasen-Berechnung (q = 0 Neumond, 0.25 Erstes Viertel, 0.5 Vollmond, 0.75 Letztes Viertel)
+            function computeMeeusPhaseJd(kFloat) {
+                const T = kFloat / 1236.85;
+                const T2 = T * T;
+                const T3 = T2 * T;
+                let jde = 2451550.09766 + 29.530588861 * kFloat + 0.00015437 * T2 - 0.000000150 * T3;
+                const M = (2.5534 + 29.10535670 * kFloat - 0.0000014 * T2) * DEG2RAD;
+                const Mp = (201.5643 + 385.81693528 * kFloat + 0.0107582 * T2 + 0.00001238 * T3) * DEG2RAD;
+                const F = (160.7108 + 390.67050284 * kFloat - 0.0016118 * T2) * DEG2RAD;
+                const Om = (124.7746 - 1.56375588 * kFloat + 0.0020672 * T2) * DEG2RAD;
+                const E = 1 - 0.002516 * T - 0.0000074 * T2;
+                const q = ((kFloat % 1) + 1) % 1;
+
+                if (Math.abs(q) < 0.01 || Math.abs(q - 1) < 0.01) {
+                    jde += -0.40720 * Math.sin(Mp) + 0.17241 * E * Math.sin(M)
+                         + 0.01608 * Math.sin(2 * Mp) + 0.01039 * Math.sin(2 * F)
+                         + 0.00739 * E * Math.sin(Mp - M) - 0.00514 * E * Math.sin(Mp + M)
+                         + 0.00208 * E * E * Math.sin(2 * M) - 0.00111 * Math.sin(Mp - 2 * F)
+                         - 0.00057 * Math.sin(Mp + 2 * F) + 0.00056 * E * Math.sin(2 * Mp + M)
+                         - 0.00042 * Math.sin(3 * Mp) + 0.00042 * E * Math.sin(M + 2 * F)
+                         + 0.00038 * E * Math.sin(M - 2 * F) - 0.00024 * E * Math.sin(2 * Mp - M)
+                         - 0.00017 * Math.sin(Om);
+                } else if (Math.abs(q - 0.5) < 0.01) {
+                    jde += -0.40614 * Math.sin(Mp) + 0.17302 * E * Math.sin(M)
+                         + 0.01614 * Math.sin(2 * Mp) + 0.01043 * Math.sin(2 * F)
+                         + 0.00734 * E * Math.sin(Mp - M) - 0.00515 * E * Math.sin(Mp + M)
+                         + 0.00209 * E * E * Math.sin(2 * M) - 0.00111 * Math.sin(Mp - 2 * F)
+                         - 0.00057 * Math.sin(Mp + 2 * F) + 0.00056 * E * Math.sin(2 * Mp + M)
+                         - 0.00042 * Math.sin(3 * Mp) + 0.00042 * E * Math.sin(M + 2 * F)
+                         + 0.00038 * E * Math.sin(M - 2 * F) - 0.00024 * E * Math.sin(2 * Mp - M)
+                         - 0.00017 * Math.sin(Om);
+                } else {
+                    let corr = -0.62801 * Math.sin(Mp) + 0.17172 * E * Math.sin(M)
+                             - 0.01183 * E * Math.sin(Mp + M) + 0.00862 * Math.sin(2 * Mp)
+                             + 0.00804 * Math.sin(2 * F) + 0.00454 * E * Math.sin(Mp - M)
+                             + 0.00204 * E * E * Math.sin(2 * M) - 0.00180 * Math.sin(Mp - 2 * F)
+                             - 0.00070 * Math.sin(Mp + 2 * F) - 0.00040 * Math.sin(3 * Mp)
+                             - 0.00034 * E * Math.sin(2 * Mp - M) + 0.00032 * E * Math.sin(M + 2 * F)
+                             + 0.00032 * E * Math.sin(M - 2 * F) - 0.00028 * E * E * Math.sin(Mp + 2 * M);
+                    const W = 0.00306 - 0.00038 * E * Math.cos(M) + 0.00026 * Math.cos(Mp)
+                            - 0.00002 * Math.cos(Mp - M) + 0.00002 * Math.cos(Mp + M) + 0.00002 * Math.cos(2 * F);
+                    corr += (Math.abs(q - 0.25) < 0.01) ? W : -W;
+                    jde += corr;
+                }
+                return jde - (69.2 / 86400); // TT -> UTC Näherung
+            }
+
+            function getLunarPhaseName(ph) {
+                if (ph < 0.03 || ph > 0.97) return 'Neumond';
+                if (ph < 0.22) return 'Zunehmende Sichel';
+                if (ph < 0.28) return 'Erstes Viertel';
+                if (ph < 0.47) return 'Zunehmender Mond';
+                if (ph < 0.53) return 'Vollmond';
+                if (ph < 0.72) return 'Abnehmender Mond';
+                if (ph < 0.78) return 'Letztes Viertel';
+                return 'Abnehmende Sichel';
+            }
+
+            const kBase = Math.floor((jd - 2451550.09766) / 29.530588861);
+            const findLastBefore = (q) => {
+                let best = computeMeeusPhaseJd(kBase - 1 + q);
+                for (let dk = 0; dk <= 2; dk++) {
+                    const c = computeMeeusPhaseJd(kBase + dk + q);
+                    if (c <= jd) best = c;
+                }
+                return best;
+            };
+            const findNextAfter = (q) => {
+                for (let dk = -1; dk <= 2; dk++) {
+                    const c = computeMeeusPhaseJd(kBase + dk + q);
+                    if (c > jd) return c;
+                }
+                return computeMeeusPhaseJd(kBase + 2 + q);
+            };
+
+            const lastNewJd = findLastBefore(0);
+            const nextNewJd = findNextAfter(0);
+            const nextFirstQJd = findNextAfter(0.25);
+            const nextFullJd = findNextAfter(0.5);
+            const nextLastQJd = findNextAfter(0.75);
+
+            const cycleLen = Math.max(29.0, nextNewJd - lastNewJd);
+            const age = Math.max(0, jd - lastNewJd);
+            const phase = Math.max(0, Math.min(0.999999, age / cycleLen));
             const illum = ((1 - Math.cos(phase * 2 * Math.PI)) / 2) * 100;
-            const moonKey = phase.toFixed(4);
+            const moonKey = phase.toFixed(4) + '|' + Math.floor(jd * 24);
+
+            // Statische Mond-Kurvenstruktur einmalig bauen
+            const curveGridEl = document.getElementById('lunarCurveGrid');
+            if (curveGridEl && !curveGridEl.dataset.built) {
+                curveGridEl.dataset.built = '1';
+                const x0 = 36, x1 = 588, y0 = 14, y1 = 188;
+                const toX = (f) => x0 + f * (x1 - x0);
+                const toY = (pct) => y1 - (pct / 100) * (y1 - y0);
+
+                let gHtml = '';
+                [0, 25, 50, 75, 100].forEach(pct => {
+                    const yy = toY(pct).toFixed(1);
+                    gHtml += `<line x1="${x0}" y1="${yy}" x2="${x1}" y2="${yy}" stroke="rgba(255,255,255,${pct === 50 ? 0.16 : 0.07})" stroke-dasharray="${pct === 0 || pct === 100 ? '' : '3 3'}"/>`;
+                    gHtml += `<text x="31" y="${(parseFloat(yy) + 3).toFixed(1)}" text-anchor="end" fill="#64748b" font-family="JetBrains Mono" font-size="8">${pct}%</text>`;
+                });
+                const qMarks = [
+                    { f: 0, lbl: '🌑 0d' },
+                    { f: 0.25, lbl: '🌓 7,4d' },
+                    { f: 0.5, lbl: '🌕 14,8d' },
+                    { f: 0.75, lbl: '🌗 22,1d' },
+                    { f: 1, lbl: '🌑 29,5d' }
+                ];
+                qMarks.forEach(qm => {
+                    const xx = toX(qm.f).toFixed(1);
+                    gHtml += `<line x1="${xx}" y1="${y0}" x2="${xx}" y2="${y1}" stroke="rgba(167,139,250,0.18)" stroke-dasharray="2 3"/>`;
+                    gHtml += `<text x="${xx}" y="205" text-anchor="${qm.f === 0 ? 'start' : (qm.f === 1 ? 'end' : 'middle')}" fill="#94a3b8" font-family="JetBrains Mono" font-size="8.2">${qm.lbl}</text>`;
+                });
+                curveGridEl.innerHTML = gHtml;
+
+                let lD = '', aD = `M ${x0} ${y1}`;
+                for (let i = 0; i <= 120; i++) {
+                    const f = i / 120;
+                    const pVal = ((1 - Math.cos(f * 2 * Math.PI)) / 2) * 100;
+                    const px = toX(f).toFixed(1);
+                    const py = toY(pVal).toFixed(1);
+                    lD += (i === 0 ? `M ${px} ${py}` : ` L ${px} ${py}`);
+                    aD += ` L ${px} ${py}`;
+                }
+                aD += ` L ${x1} ${y1} Z`;
+                document.getElementById('lunarCurveLine').setAttribute('d', lD);
+                document.getElementById('lunarCurveArea').setAttribute('d', aD);
+
+                document.getElementById('lunarCurveMarkers').innerHTML = `
+                    <circle cx="${toX(0.5).toFixed(1)}" cy="${toY(100).toFixed(1)}" r="3.5" fill="#f5d682" stroke="#05070b" stroke-width="1"/>
+                    <circle cx="${toX(0.25).toFixed(1)}" cy="${toY(50).toFixed(1)}" r="3.2" fill="#38bdf8" stroke="#05070b" stroke-width="1"/>
+                    <circle cx="${toX(0.75).toFixed(1)}" cy="${toY(50).toFixed(1)}" r="3.2" fill="#38bdf8" stroke="#05070b" stroke-width="1"/>
+                `;
+
+                const svgCurve = document.getElementById('svgLunarCurve');
+                const hoverGrp = document.getElementById('lunarHoverCursor');
+                const handleLunarHover = (clientX) => {
+                    const rect = svgCurve.getBoundingClientRect();
+                    if (!rect.width) return;
+                    const svgX = ((clientX - rect.left) / rect.width) * 600;
+                    const clampedX = Math.max(x0, Math.min(x1, svgX));
+                    const f = (clampedX - x0) / (x1 - x0);
+                    const hAge = f * synodic;
+                    const hIllum = ((1 - Math.cos(f * 2 * Math.PI)) / 2) * 100;
+                    const hy = toY(hIllum);
+
+                    hoverGrp.style.display = 'inline';
+                    document.getElementById('lunarHoverLine').setAttribute('x1', clampedX.toFixed(1));
+                    document.getElementById('lunarHoverLine').setAttribute('x2', clampedX.toFixed(1));
+                    document.getElementById('lunarHoverDot').setAttribute('cx', clampedX.toFixed(1));
+                    document.getElementById('lunarHoverDot').setAttribute('cy', hy.toFixed(1));
+
+                    svgCurve.dataset.hoverAge = hAge.toFixed(2);
+                    svgCurve.dataset.hoverIllum = hIllum.toFixed(2);
+                    svgCurve.dataset.hoverPhase = getLunarPhaseName(f);
+                    document.getElementById('lunarInspectAge').textContent = `Fokus Alter: ${hAge.toFixed(2).replace('.', ',')} d`;
+                    document.getElementById('lunarInspectIllum').textContent = `Beleuchtung: ${hIllum.toFixed(2).replace('.', ',')} %`;
+                    document.getElementById('lunarInspectPhase').textContent = getLunarPhaseName(f);
+                };
+                svgCurve.addEventListener('pointermove', (e) => handleLunarHover(e.clientX));
+                svgCurve.addEventListener('pointerdown', (e) => handleLunarHover(e.clientX));
+                svgCurve.addEventListener('pointerleave', () => {
+                    delete svgCurve.dataset.hoverAge;
+                    hoverGrp.style.display = 'none';
+                });
+            }
+
+            // Live-Distanz, Durchmesser & Bahngeschwindigkeit (Meeus 1. Ordnung)
+            const D_ang = (phase * 360) * DEG2RAD;
+            const Mp_ang = (134.9634 + 13.06499295 * dJ2000) * DEG2RAD;
+            const rMoonKm = 385000.56 - 20905.355 * Math.cos(Mp_ang) - 3699.111 * Math.cos(2 * D_ang - Mp_ang) - 2955.968 * Math.cos(2 * D_ang) - 569.925 * Math.cos(2 * Mp_ang);
+            const angDiamArcMin = (358473400 / rMoonKm) / 60;
+            const moonSpeedKmS = Math.sqrt(398600.4418 * (2 / rMoonKm - 1 / 384400));
+            const moonLightSec = rMoonKm / 299792.458;
+
+            const svgCurveEl = document.getElementById('svgLunarCurve');
+            if (svgCurveEl && !svgCurveEl.dataset.hoverAge) {
+                document.getElementById('lunarInspectAge').textContent = `Mondalter: ${age.toFixed(2).replace('.', ',')} / ${cycleLen.toFixed(2).replace('.', ',')} d`;
+                document.getElementById('lunarInspectIllum').textContent = `Beleuchtung: ${illum.toFixed(2).replace('.', ',')} %`;
+                document.getElementById('lunarInspectPhase').textContent = getLunarPhaseName(phase);
+            }
 
             if (moonKey !== lastMoonKey) {
                 lastMoonKey = moonKey;
-                let phaseName = 'Neumond';
-                if (phase < 0.03 || phase > 0.97) phaseName = 'Neumond';
-                else if (phase < 0.22) phaseName = 'Zunehmende Sichel';
-                else if (phase < 0.28) phaseName = 'Erstes Viertel';
-                else if (phase < 0.47) phaseName = 'Zunehmender Mond';
-                else if (phase < 0.53) phaseName = 'Vollmond';
-                else if (phase < 0.72) phaseName = 'Abnehmender Mond';
-                else if (phase < 0.78) phaseName = 'Letztes Viertel';
-                else phaseName = 'Abnehmende Sichel';
+                const phaseName = getLunarPhaseName(phase);
 
+                // Kleines Modul in Astronomie 01
                 document.getElementById('moonPhaseBadge').textContent = phaseName;
-                document.getElementById('moonIllum').textContent = `${illum.toFixed(2)} %`;
-                document.getElementById('moonAge').textContent = `${age.toFixed(2)} Tage`;
+                document.getElementById('moonIllum').textContent = `${illum.toFixed(2).replace('.', ',')} %`;
+                document.getElementById('moonAge').textContent = `${age.toFixed(2).replace('.', ',')} Tage`;
 
                 const sunGeoLon = (earthState.lambdaDeg + 180) % 360;
                 let season = 'Winter';
@@ -3581,17 +4184,118 @@
                 else if (sunGeoLon < 270) season = 'Herbst';
                 document.getElementById('astroSeason').textContent = season;
 
-                const r = 40, mcx = 50, mcy = 50;
-                const rx = Math.abs(Math.cos(phase * 2 * Math.PI)) * r;
-                const litSide = phase <= 0.5 ? 1 : 0;
-                const sweepTerm = (phase < 0.25 || (phase > 0.5 && phase < 0.75)) ? 0 : 1;
-                let pathD = '';
-                if (illum > 99.5) {
-                    pathD = `M ${mcx} ${mcy - r} A ${r} ${r} 0 1 1 ${mcx} ${mcy + r} A ${r} ${r} 0 1 1 ${mcx} ${mcy - r}`;
-                } else if (illum >= 0.5) {
-                    pathD = `M ${mcx} ${mcy - r} A ${r} ${r} 0 0 ${litSide} ${mcx} ${mcy + r} A ${rx.toFixed(2)} ${r} 0 0 ${sweepTerm} ${mcx} ${mcy - r}`;
+                const makeLitMoonPath = (mcx, mcy, r) => {
+                    const rx = Math.abs(Math.cos(phase * 2 * Math.PI)) * r;
+                    const litSide = phase <= 0.5 ? 1 : 0;
+                    const sweepTerm = (phase < 0.25 || (phase > 0.5 && phase < 0.75)) ? 0 : 1;
+                    if (illum > 99.5) {
+                        return `M ${mcx} ${mcy - r} A ${r} ${r} 0 1 1 ${mcx} ${mcy + r} A ${r} ${r} 0 1 1 ${mcx} ${mcy - r}`;
+                    }
+                    if (illum >= 0.5) {
+                        return `M ${mcx} ${mcy - r} A ${r} ${r} 0 0 ${litSide} ${mcx} ${mcy + r} A ${rx.toFixed(2)} ${r} 0 0 ${sweepTerm} ${mcx} ${mcy - r}`;
+                    }
+                    return '';
+                };
+                astroDom.moonPath.setAttribute('d', makeLitMoonPath(50, 50, 40));
+
+                // Großes Lunares Observatorium (Astronomie 02)
+                document.getElementById('lunarBigBadge').textContent = `${phaseName} · ${illum.toFixed(1).replace('.', ',')} %`;
+                document.getElementById('lunarBigElong').textContent = `Elongation: ${(phase * 360).toFixed(1).replace('.', ',')}°`;
+                document.getElementById('lunarDistKm').textContent = `${fmtNum(Math.round(rMoonKm))} km`;
+                document.getElementById('lunarAngDiam').textContent = `${angDiamArcMin.toFixed(2).replace('.', ',')} ′`;
+                document.getElementById('lunarSpeedLight').textContent = `${moonSpeedKmS.toFixed(3).replace('.', ',')} km/s · ${moonLightSec.toFixed(2).replace('.', ',')} s`;
+                document.getElementById('lunarCyclePct').textContent = `${(phase * 100).toFixed(2).replace('.', ',')} %`;
+
+                const fmtPhaseRow = (pJd) => {
+                    const ms = (pJd - 2440587.5) * 86400000;
+                    const dObj = new Date(ms);
+                    const deltaD = pJd - jd;
+                    const signTxt = deltaD >= 0
+                        ? `in ${Math.floor(deltaD)} T ${Math.floor((deltaD % 1) * 24)} Std`
+                        : `vor ${Math.floor(-deltaD)} T ${Math.floor((-deltaD % 1) * 24)} Std`;
+                    return `${fmtDateDE(dObj)} (${signTxt})`;
+                };
+                document.getElementById('lunarLastNew').textContent = fmtPhaseRow(lastNewJd);
+                document.getElementById('lunarNextFirstQ').textContent = fmtPhaseRow(nextFirstQJd);
+                document.getElementById('lunarNextFull').textContent = fmtPhaseRow(nextFullJd);
+                document.getElementById('lunarNextLastQ').textContent = fmtPhaseRow(nextLastQJd);
+                document.getElementById('lunarNextNew').textContent = fmtPhaseRow(nextNewJd);
+
+                // Große Mondscheibe mit Mond-Maria zeichnen
+                const bigDisc = document.getElementById('svgMoonDiscLarge');
+                if (bigDisc) {
+                    const litPath = makeLitMoonPath(110, 110, 86);
+                    const mariaShapes = `
+                        <ellipse cx="88" cy="82" rx="22" ry="18" transform="rotate(-15 88 82)" />
+                        <ellipse cx="126" cy="84" rx="16" ry="14" />
+                        <ellipse cx="144" cy="108" rx="18" ry="13" transform="rotate(20 144 108)" />
+                        <ellipse cx="76" cy="112" rx="20" ry="28" transform="rotate(10 76 112)" />
+                        <circle cx="130" cy="134" r="11" />
+                        <circle cx="104" cy="154" r="4" fill="rgba(255,255,255,0.22)" />
+                    `;
+                    bigDisc.innerHTML = `
+                        <defs>
+                            <radialGradient id="bigMoonLitGrad" cx="42%" cy="38%" r="65%">
+                                <stop offset="0%" stop-color="#f8fafc"/>
+                                <stop offset="70%" stop-color="#cbd5e1"/>
+                                <stop offset="100%" stop-color="#94a3b8"/>
+                            </radialGradient>
+                            <clipPath id="bigMoonLitClip">
+                                <path d="${litPath || 'M 0 0'}" />
+                            </clipPath>
+                        </defs>
+                        <circle cx="110" cy="110" r="95" fill="none" stroke="rgba(167,139,250,0.2)" stroke-width="1" stroke-dasharray="3 3"/>
+                        <circle cx="110" cy="110" r="86" fill="#0d1320" stroke="rgba(167,139,250,0.45)" stroke-width="1.4"/>
+                        <g fill="rgba(148,163,184,0.08)">${mariaShapes}</g>
+                        ${litPath ? `
+                            <g clip-path="url(#bigMoonLitClip)">
+                                <circle cx="110" cy="110" r="86" fill="url(#bigMoonLitGrad)"/>
+                                <g fill="rgba(51,65,85,0.28)">${mariaShapes}</g>
+                            </g>
+                        ` : ''}
+                        <text x="110" y="216" text-anchor="middle" fill="#cbd5e1" font-family="JetBrains Mono" font-size="9.5" font-weight="700">${phaseName.toUpperCase()} · ${illum.toFixed(1).replace('.', ',')} %</text>
+                    `;
                 }
-                astroDom.moonPath.setAttribute('d', pathD);
+
+                // Erde-Mond-Sonne-Orbitskizze zeichnen
+                const orbitSvg = document.getElementById('svgLunarOrbit');
+                if (orbitSvg) {
+                    const ocx = 152, ocy = 100, orx = 84, ory = 74;
+                    const ang = phase * 2 * Math.PI;
+                    const mx = ocx + orx * Math.cos(ang);
+                    const my = ocy - ory * Math.sin(ang);
+                    orbitSvg.innerHTML = `
+                        <line x1="${ocx}" y1="${ocy}" x2="305" y2="${ocy}" stroke="rgba(245,214,130,0.25)" stroke-dasharray="3 3"/>
+                        <line x1="${ocx}" y1="12" x2="${ocx}" y2="188" stroke="rgba(255,255,255,0.07)" stroke-dasharray="2 3"/>
+                        <ellipse cx="${ocx}" cy="${ocy}" rx="${orx}" ry="${ory}" fill="none" stroke="rgba(167,139,250,0.35)" stroke-width="1.3"/>
+                        <line x1="${ocx}" y1="${ocy}" x2="${mx.toFixed(1)}" y2="${my.toFixed(1)}" stroke="rgba(56,189,248,0.45)" stroke-width="1.2"/>
+                        <circle cx="298" cy="${ocy}" r="7" fill="#f5d682"/>
+                        <text x="298" y="${ocy + 18}" text-anchor="middle" fill="#f5d682" font-family="JetBrains Mono" font-size="7.5" font-weight="700">SONNE</text>
+                        <circle cx="${ocx + orx}" cy="${ocy}" r="3" fill="#475569"/>
+                        <text x="${ocx + orx + 6}" y="${ocy - 6}" fill="#64748b" font-family="JetBrains Mono" font-size="7.5">NM</text>
+                        <circle cx="${ocx}" cy="${ocy - ory}" r="3" fill="#64748b"/>
+                        <text x="${ocx}" cy="${ocy - ory - 8}" y="${ocy - ory - 8}" text-anchor="middle" fill="#64748b" font-family="JetBrains Mono" font-size="7.5">1.V</text>
+                        <circle cx="${ocx - orx}" cy="${ocy}" r="3" fill="#94a3b8"/>
+                        <text x="${ocx - orx - 6}" y="${ocy - 6}" text-anchor="end" fill="#94a3b8" font-family="JetBrains Mono" font-size="7.5">VM</text>
+                        <circle cx="${ocx}" cy="${ocy + ory}" r="3" fill="#64748b"/>
+                        <text x="${ocx}" y="${ocy + ory + 13}" text-anchor="middle" fill="#64748b" font-family="JetBrains Mono" font-size="7.5">3.V</text>
+                        <circle cx="${ocx}" cy="${ocy}" r="11" fill="#38bdf8" stroke="#05070b" stroke-width="1.5"/>
+                        <text x="${ocx}" y="${ocy + 3}" text-anchor="middle" fill="#05070b" font-family="JetBrains Mono" font-size="7" font-weight="800">ERDE</text>
+                        <circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="8" fill="rgba(167,139,250,0.28)"/>
+                        <circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="4.8" fill="#f8fafc" stroke="#05070b" stroke-width="1.2"/>
+                    `;
+                }
+
+                // Live-Cursor im 29,53-Tage-Diagramm aktualisieren
+                const x0 = 36, x1 = 588, y0 = 14, y1 = 188;
+                const lx = x0 + phase * (x1 - x0);
+                const ly = y1 - (illum / 100) * (y1 - y0);
+                document.getElementById('lunarLiveLine').setAttribute('x1', lx.toFixed(1));
+                document.getElementById('lunarLiveLine').setAttribute('x2', lx.toFixed(1));
+                document.getElementById('lunarLiveGlow').setAttribute('cx', lx.toFixed(1));
+                document.getElementById('lunarLiveGlow').setAttribute('cy', ly.toFixed(1));
+                document.getElementById('lunarLiveDot').setAttribute('cx', lx.toFixed(1));
+                document.getElementById('lunarLiveDot').setAttribute('cy', ly.toFixed(1));
             }
 
             const secDay = targetDate.getHours() * 3600
@@ -3757,9 +4461,44 @@
         }
 
         const epoch1949 = makeUtcDate(1949, 9, 1, 7, 0, 0);
+        const epoch2009 = makeUtcDate(2009, 4, 25, 5, 12, 0);
         const epoch2022 = makeUtcDate(2022, 9, 4, 18, 0, 0);
+        const epoch2023 = makeUtcDate(2023, 6, 23, 3, 0, 0);
+        const epoch2025 = makeUtcDate(2025, 6, 23, 9, 0, 0);
+
+        const epoch1949Cal = { y: 1949, m: 10, d: 1 };
+        const epoch2009Cal = { y: 2009, m: 5, d: 25 };
+        const epoch2022Cal = { y: 2022, m: 10, d: 4 };
+        const epoch2023Cal = { y: 2023, m: 7, d: 23 };
+        const epoch2025Cal = { y: 2025, m: 7, d: 23 };
+
+        let epoch4Use2025 = false;
+        const btnSwitchEpoch4 = document.getElementById('btnSwitchEpoch4');
+        btnSwitchEpoch4.addEventListener('click', () => {
+            epoch4Use2025 = !epoch4Use2025;
+            btnSwitchEpoch4.classList.toggle('is-alt', epoch4Use2025);
+            btnSwitchEpoch4.setAttribute('aria-pressed', String(epoch4Use2025));
+
+            const panelEl = document.getElementById('panelEpoch4');
+            panelEl.classList.toggle('panel-atomic', !epoch4Use2025);
+            panelEl.classList.toggle('panel-cryo', epoch4Use2025);
+
+            document.getElementById('kickerEpoch4').textContent = epoch4Use2025
+                ? 'Ewiger Chronometer IV · Epoche 23.07.2025 11:00 UTC+2'
+                : 'Ewiger Chronometer IV · Epoche 23.07.2023 11:00 UTC+8';
+            document.getElementById('titleEpoch4').textContent = epoch4Use2025
+                ? 'Epoche 23.07.2025 (09:00:00 UTC)'
+                : 'Epoche 23.07.2023 (03:00:00 UTC)';
+            document.getElementById('badgeEpoch2023').style.color = epoch4Use2025 ? 'var(--cryo)' : 'var(--atomic)';
+
+            delete lastStr.ep23;
+            tickObservatory();
+        });
+
         const updateLedger1949 = createLiveLedgerView(document.getElementById('output1949'));
+        const updateLedger2009 = createLiveLedgerView(document.getElementById('output2009'));
         const updateLedger2022 = createLiveLedgerView(document.getElementById('output2022'));
+        const updateLedger2023 = createLiveLedgerView(document.getElementById('output2023'));
 
         let userTargetDate = null;
         let userTargetLedgerUpdate = null;
@@ -3788,7 +4527,9 @@
             clkDecSecRem: document.getElementById('clkDecSecRem'),
             clkDecHex: document.getElementById('clkDecHex'),
             badgeEpoch1949: document.getElementById('badgeEpoch1949'),
+            badgeEpoch2009: document.getElementById('badgeEpoch2009'),
             badgeEpoch2022: document.getElementById('badgeEpoch2022'),
+            badgeEpoch2023: document.getElementById('badgeEpoch2023'),
             ringCenterClock: document.getElementById('ringCenterClock')
         };
 
@@ -3937,21 +4678,21 @@
         }
 
         /* ===================================================================== */
-        /* 8b. TRADITIONELLE CHINESISCHE ZEITRECHNUNG (SHÍ-KÈ & GĒNG-DIǍN)       */
+        /* 8b. TRADITIONELLE CHINESISCHE ZEITRECHNUNG (96-KÈ, 100-KÈ & GĒNG-DIǍN)*/
         /* ===================================================================== */
         const CN_BRANCHES = [
-            { zh: '子', py: 'zǐ',   tradRange: '23:00–01:00', songRange: '00:00–02:00' },
-            { zh: '丑', py: 'chǒu', tradRange: '01:00–03:00', songRange: '02:00–04:00' },
-            { zh: '寅', py: 'yín',  tradRange: '03:00–05:00', songRange: '04:00–06:00' },
-            { zh: '卯', py: 'mǎo',  tradRange: '05:00–07:00', songRange: '06:00–08:00' },
-            { zh: '辰', py: 'chén', tradRange: '07:00–09:00', songRange: '08:00–10:00' },
-            { zh: '巳', py: 'sì',   tradRange: '09:00–11:00', songRange: '10:00–12:00' },
-            { zh: '午', py: 'wǔ',   tradRange: '11:00–13:00', songRange: '12:00–14:00' },
-            { zh: '未', py: 'wèi',  tradRange: '13:00–15:00', songRange: '14:00–16:00' },
-            { zh: '申', py: 'shēn', tradRange: '15:00–17:00', songRange: '16:00–18:00' },
-            { zh: '酉', py: 'yǒu',  tradRange: '17:00–19:00', songRange: '18:00–20:00' },
-            { zh: '戌', py: 'xū',   tradRange: '19:00–21:00', songRange: '20:00–22:00' },
-            { zh: '亥', py: 'hài',  tradRange: '21:00–23:00', songRange: '22:00–00:00' }
+            { zh: '子', py: 'zǐ',   tradRange: '23:00–01:00', songRange: '00:00–02:00', aliasZh: '夜半', aliasPy: 'Yèbàn · Mitternacht' },
+            { zh: '丑', py: 'chǒu', tradRange: '01:00–03:00', songRange: '02:00–04:00', aliasZh: '雞鳴', aliasPy: 'Jīmíng · Hahnenschrei' },
+            { zh: '寅', py: 'yín',  tradRange: '03:00–05:00', songRange: '04:00–06:00', aliasZh: '平旦', aliasPy: 'Píngdàn · Morgengrauen' },
+            { zh: '卯', py: 'mǎo',  tradRange: '05:00–07:00', songRange: '06:00–08:00', aliasZh: '日出', aliasPy: 'Rìchū · Sonnenaufgang' },
+            { zh: '辰', py: 'chén', tradRange: '07:00–09:00', songRange: '08:00–10:00', aliasZh: '食時', aliasPy: 'Shíshí · Frühstück' },
+            { zh: '巳', py: 'sì',   tradRange: '09:00–11:00', songRange: '10:00–12:00', aliasZh: '隅中', aliasPy: 'Yúzhōng · Vormittag' },
+            { zh: '午', py: 'wǔ',   tradRange: '11:00–13:00', songRange: '12:00–14:00', aliasZh: '日中', aliasPy: 'Rìzhōng · Mittag' },
+            { zh: '未', py: 'wèi',  tradRange: '13:00–15:00', songRange: '14:00–16:00', aliasZh: '日昳', aliasPy: 'Rìdié · Nachmittag' },
+            { zh: '申', py: 'shēn', tradRange: '15:00–17:00', songRange: '16:00–18:00', aliasZh: '晡時', aliasPy: 'Būshí · Spätnachmittag' },
+            { zh: '酉', py: 'yǒu',  tradRange: '17:00–19:00', songRange: '18:00–20:00', aliasZh: '日入', aliasPy: 'Rìrù · Sonnenuntergang' },
+            { zh: '戌', py: 'xū',   tradRange: '19:00–21:00', songRange: '20:00–22:00', aliasZh: '黃昏', aliasPy: 'Huánghūn · Abenddämmerung' },
+            { zh: '亥', py: 'hài',  tradRange: '21:00–23:00', songRange: '22:00–00:00', aliasZh: '人定', aliasPy: 'Réndìng · Nachtruhe' }
         ];
         const CN_NUMS = ['', '一', '二', '三', '四', '五', '六', '七', '八'];
         const CN_GENGS = [
@@ -3967,10 +4708,11 @@
             { zh: '夕',   py: 'xī',      stemZh: '癸', stemPy: 'guǐ',  isNight: false, desc: 'Abend (ab 16:48)' }
         ];
         const CN_HAN_15 = {
-            6: '晨明 (Chénmíng · Morgengrauen)',
-            7: '朏明 (Fěimíng · Erstes Licht)',
-            8: '旦明 (Dànmíng · Tagesanbruch)',
-            9: '早食 (Zǎoshí · Frühe Mahlzeit)',
+            5:  '早朝 (Zǎocháo · Früher Morgen)',
+            6:  '晨明 (Chénmíng · Morgengrauen)',
+            7:  '朏明 (Fěimíng · Erstes Licht)',
+            8:  '旦明 (Dànmíng · Tagesanbruch)',
+            9:  '早食 (Zǎoshí · Frühe Mahlzeit)',
             10: '宴食 (Yànshí · Festmahlzeit)',
             11: '隅中 (Yúzhōng · Vormittag)',
             12: '正中 (Zhèngzhōng · Hoher Mittag)',
@@ -3988,7 +4730,7 @@
             const sNorm = ((secOfDay % 86400) + 86400) % 86400;
             const dayFrac = sNorm / 86400;
 
-            // 100-Kè-System
+            // 100-Kè-System (1 Groß-Kè = 864 s = 6 Klein-Kè = 60 Fēn; 1 Fēn = 14,4 s = 100 Miǎo)
             const keFloat = sNorm / 864;
             const keGlobal = Math.min(99, Math.floor(keFloat));
             const remInKe = sNorm - keGlobal * 864;
@@ -4003,12 +4745,22 @@
             const shiIdx = Math.min(11, Math.floor(shifted / 7200));
             const secInShi = shifted - shiIdx * 7200;
             const isCentral = secInShi >= 3600;
+            const secInHalf = secInShi % 3600;
             const halfIdx = Math.min(23, Math.floor(shifted / 3600));
             const halfStartHour = era === 'trad' ? (halfIdx + 23) % 24 : halfIdx;
             const halfStartSec = halfStartHour * 3600;
             const firstMarkKe = Math.floor(halfStartSec / 864) + 1;
             const keInHalf = keGlobal >= firstMarkKe ? Math.min(4, keGlobal - firstMarkKe + 1) : 0;
             const keInShi8 = Math.min(8, Math.floor(secInShi / 864));
+
+            // System 1 (Am häufigsten / Qing-Standard): 96-Kè-System (1 Kè = 15 Min = 900 s)
+            const qingGlobalKe = Math.min(95, Math.floor(sNorm / 900));
+            const qingKe = Math.min(3, Math.floor(secInHalf / 900));
+            const qingKeInShi = Math.min(7, Math.floor(secInShi / 900));
+            const qingMin = Math.min(14, Math.floor((secInHalf % 900) / 60));
+            const qingSec = Math.min(59, Math.floor(secInHalf % 60));
+            const qingKeZh = qingKe === 0 ? '初刻' : `${CN_NUMS[qingKe]}刻`;
+            const qingKePy = qingKe === 0 ? 'chūkè' : `${qingKe} kè`;
 
             const br = CN_BRANCHES[shiIdx];
             const halfZh = isCentral ? '正' : '初';
@@ -4018,27 +4770,37 @@
             const ke8Zh = keInShi8 > 0 ? `${CN_NUMS[keInShi8]}刻` : '';
             const ke8Py = keInShi8 > 0 ? ` ${keInShi8} kè` : '';
 
-            // 10 Gēng & 6 Diǎn pro Gēng (Start 19:12 = 69120 s)
+            // 10 Gēng & 6 Diǎn pro Gēng (Start 19:12 = 69120 s; 1 Diǎn = 1440 s = 100 Fēn)
             const gengShifted = (sNorm - 69120 + 86400) % 86400;
             const gengIdx = Math.min(9, Math.floor(gengShifted / 8640));
             const secInGeng = gengShifted - gengIdx * 8640;
             const dian = Math.min(5, Math.floor(secInGeng / 1440));
+            const secInDian = secInGeng - dian * 1440;
+            const gengFenFloat = secInDian / 14.4;
+            const gengFen = Math.min(99, Math.floor(gengFenFloat));
+            const gengMiao = Math.min(99, Math.floor((gengFenFloat - gengFen) * 100));
             const gengInfo = CN_GENGS[gengIdx];
             const dianZh = dian > 0 ? `${CN_NUMS[dian]}點` : '';
             const dianPy = dian > 0 ? ` ${dian} diǎn` : '';
 
-            // Han-Tagesabschnitt & Buddhistische Xūyú (30/Tag à 48 min)
+            // Klassische 12 Tagesnamen + Han Huáinánzǐ + vollständige Buddhistische Skala
             const h24 = Math.floor(sNorm / 3600);
-            const hanText = CN_HAN_15[h24] || '夜間 (Yèjiān · Nachtruhe)';
+            const aliasText = `${br.aliasZh} (${br.aliasPy})`;
+            const hanText = CN_HAN_15[h24] || aliasText;
             const xuyuIdx = Math.min(30, Math.floor(sNorm / 2880) + 1);
+            const luoyuIdx = Math.min(20, Math.floor((sNorm % 2880) / 144) + 1);
+            const tanzhiIdx = Math.min(20, Math.floor((sNorm % 144) / 7.2) + 1);
+            const shuenIdx = Math.min(20, Math.floor((sNorm % 7.2) / 0.36) + 1);
+            const nianIdx = Math.min(20, Math.floor((sNorm % 0.36) / 0.018) + 1);
 
             return {
                 sNorm, dayFrac, era,
                 keFloat, keGlobal, minorKe, fenFloat, fen, miaoFloat, miao,
                 shiIdx, br, isCentral, halfZh, halfPy,
                 keInHalf, ke4Zh, ke4Py, keInShi8, ke8Zh, ke8Py,
-                gengIdx, gengInfo, dian, dianZh, dianPy,
-                hanText, xuyuIdx
+                qingGlobalKe, qingKe, qingKeInShi, qingMin, qingSec, qingKeZh, qingKePy,
+                gengIdx, gengInfo, dian, dianZh, dianPy, gengFen, gengMiao,
+                aliasText, hanText, xuyuIdx, luoyuIdx, tanzhiIdx, shuenIdx, nianIdx
             };
         }
 
@@ -4053,8 +4815,12 @@
             fenHand: document.getElementById('cnFenHand'),
             miaoHand: document.getElementById('cnMiaoHand'),
             badge: document.getElementById('clkCnBadge'),
-            digital: document.getElementById('clkCnDigital'),
-            sub: document.getElementById('clkCnSub'),
+            digTitle: document.getElementById('clkCnDigTitle'),
+            digTime: document.getElementById('clkCnDigTime'),
+            sub96Ke: document.getElementById('clkCnSub96Ke'),
+            sub100Shi: document.getElementById('clkCnSub100Shi'),
+            sub100Ke: document.getElementById('clkCnSub100Ke'),
+            sub8Ke: document.getElementById('clkCnSub8Ke'),
             shi: document.getElementById('clkCnShi'),
             geng: document.getElementById('clkCnGeng'),
             keDetail: document.getElementById('clkCnKeDetail'),
@@ -4154,13 +4920,19 @@
                 }
             }
 
-            setTextCached('cnBadge', cnDom.badge, `${st.br.zh}時 · ${st.gengInfo.zh}${st.dianZh}`);
-            setTextCached('cnDig', cnDom.digital, `${st.br.zh}${st.halfZh}${st.ke4Zh} · ${pad(st.fen)}分 ${pad(st.miao)}秒`);
-            setTextCached('cnSub', cnDom.sub, `${st.br.py} ${st.halfPy}${st.ke4Py} · 100-Kè: ${pad(st.keGlobal)}刻 ${pad(st.fen)}分 ${pad(st.miao)}秒 · 8-Kè: ${st.br.zh}${st.ke8Zh}`);
-            setTextCached('cnShi', cnDom.shi, `${st.br.zh} (${st.br.py}) · ${st.halfZh} (${st.halfPy})`);
-            setTextCached('cnGeng', cnDom.geng, `${st.gengInfo.zh}${st.dianZh} (${st.gengInfo.stemZh} ${st.gengInfo.stemPy})`);
-            setTextCached('cnKeDet', cnDom.keDetail, `${st.keFloat.toFixed(2).replace('.', ',')} / 100 · 小刻 ${st.minorKe + 1}/6`);
-            setTextCached('cnHan', cnDom.han, `${st.hanText.split(' (')[0]} · Xūyú ${st.xuyuIdx}/30`);
+            setTextCached('cnBadge', cnDom.badge, `${st.br.zh}時 · ${st.br.zh}${st.halfZh}${st.qingKeZh} · ${st.gengInfo.zh}${st.dianZh}`);
+            setTextCached('cnDigTitle', cnDom.digTitle, `${st.br.zh}${st.halfZh}${st.ke4Zh}`);
+            setTextCached('cnDigTime', cnDom.digTime, `${pad(st.fen)}分 ${pad(st.miao)}秒`);
+
+            setTextCached('cnSub96Ke', cnDom.sub96Ke, `${st.br.zh}${st.halfZh}${st.qingKeZh} · ${pad(st.qingMin)}m ${pad(st.qingSec)}s (${st.br.py} ${st.halfPy} ${st.qingKePy})`);
+            setTextCached('cnSub100Shi', cnDom.sub100Shi, `${st.br.zh}${st.halfZh}${st.ke4Zh} · ${pad(st.fen)}分 ${pad(st.miao)}秒 (${st.br.py} ${st.halfPy}${st.ke4Py})`);
+            setTextCached('cnSub100Ke', cnDom.sub100Ke, `${pad(st.keGlobal)}刻 ${pad(st.fen)}分 ${pad(st.miao)}秒`);
+            setTextCached('cnSub8Ke', cnDom.sub8Ke, `${st.br.zh}${st.ke8Zh} (${st.br.py}${st.ke8Py})`);
+
+            setTextCached('cnShi', cnDom.shi, `${st.br.zh} (${st.br.py}) · ${st.halfZh} (${st.halfPy}) · ${st.br.aliasZh}`);
+            setTextCached('cnKeDet', cnDom.keDetail, `96-Kè: ${pad(st.qingGlobalKe)}/96 · 100-Kè: ${st.keFloat.toFixed(2).replace('.', ',')} (小刻 ${st.minorKe + 1}/6)`);
+            setTextCached('cnGeng', cnDom.geng, `${st.gengInfo.zh}${st.dianZh} ${pad(st.gengFen)}分 · ${st.gengInfo.stemZh} (${st.gengInfo.stemPy})`);
+            setTextCached('cnHan', cnDom.han, `${st.hanText.split(' (')[0]} · Xūyú ${st.xuyuIdx}/30 · L ${st.luoyuIdx}/20`);
         }
 
         function tickObservatory() {
@@ -4229,11 +5001,21 @@
             // 3c. Chronometer 04: Traditionelle Chinesische Uhr
             updateChineseClock(now);
 
-            // 4. Ewige Chronometer
-            updateLedger1949(computeDateDiff(epoch1949, now));
+            // 4. Ewige Chronometer (I: 1949, II: 2009, III: 2022, IV: 2023)
+            const todayCal = dateToCalObj(now);
+            updateLedger1949(computeDateDiff(epoch1949, now), true, fmtCalDayBadge(computeCalendarDaysSpan(epoch1949Cal, todayCal)));
             setTextCached('ep49', domCache.badgeEpoch1949, `${getEpochYearOrdinal(epoch1949, now)}. Epochenjahr`);
-            updateLedger2022(computeDateDiff(epoch2022, now));
+
+            updateLedger2009(computeDateDiff(epoch2009, now), true, fmtCalDayBadge(computeCalendarDaysSpan(epoch2009Cal, todayCal)));
+            setTextCached('ep09', domCache.badgeEpoch2009, `${getEpochYearOrdinal(epoch2009, now)}. Epochenjahr`);
+
+            updateLedger2022(computeDateDiff(epoch2022, now), true, fmtCalDayBadge(computeCalendarDaysSpan(epoch2022Cal, todayCal)));
             setTextCached('ep22', domCache.badgeEpoch2022, `${getEpochYearOrdinal(epoch2022, now)}. Epochenjahr`);
+
+            const activeEpoch4 = epoch4Use2025 ? epoch2025 : epoch2023;
+            const activeEpoch4Cal = epoch4Use2025 ? epoch2025Cal : epoch2023Cal;
+            updateLedger2023(computeDateDiff(activeEpoch4, now), true, fmtCalDayBadge(computeCalendarDaysSpan(activeEpoch4Cal, todayCal)));
+            setTextCached('ep23', domCache.badgeEpoch2023, `${getEpochYearOrdinal(activeEpoch4, now)}. Epochenjahr`);
 
             // 5. Diagramm 01: 6-Ebenen Ring-Uhr
             const daysInCurMonth = Math.round((eMonth - sMonth) / 86400000);
@@ -4263,28 +5045,28 @@
             setTextCached('rtYear', ringElems.ringTxtYear, `${SHORT_MONTHS[now.getMonth()]} · ${pctYear.toFixed(1)} %`);
 
             // Balken rechts
-            ringElems.pctMin.textContent = `${pctMin.toFixed(2)} %`;
+            ringElems.pctMin.textContent = `${pctMin.toFixed(2).replace('.', ',')} %`;
             ringElems.barMin.style.width = `${pctMin.toFixed(2)}%`;
             setTextCached('vdMin', ringElems.valMinDetail, `(${pad(sec)} / 60 s)`);
 
-            ringElems.pctHour.textContent = `${pctHour.toFixed(3)} %`;
+            ringElems.pctHour.textContent = `${pctHour.toFixed(3).replace('.', ',')} %`;
             ringElems.barHour.style.width = `${pctHour.toFixed(2)}%`;
             setTextCached('vdHour', ringElems.valHourDetail, `(${pad(min)} / 60 min)`);
 
-            ringElems.pctDay.textContent = `${pctDay.toFixed(3)} %`;
+            ringElems.pctDay.textContent = `${pctDay.toFixed(3).replace('.', ',')} %`;
             ringElems.barDay.style.width = `${pctDay.toFixed(2)}%`;
             setTextCached('vdDay', ringElems.valDayDetail, `(${pad(hr)} / 24 h)`);
 
-            ringElems.pctWeek.textContent = `${pctWeek.toFixed(3)} %`;
+            ringElems.pctWeek.textContent = `${pctWeek.toFixed(3).replace('.', ',')} %`;
             ringElems.barWeek.style.width = `${pctWeek.toFixed(2)}%`;
             setTextCached('vdWeek', ringElems.valWeekDetail, `(${SHORT_DAYS[dow]} · ${dow + 1}/7)`);
 
             setTextCached('lblMo', ringElems.lblMonthBar, `${now.toLocaleDateString('de-DE', { month: 'long' })} (${pad(now.getDate())}/${daysInCurMonth})`);
-            ringElems.pctMonth.textContent = `${pctMonth.toFixed(3)} %`;
+            ringElems.pctMonth.textContent = `${pctMonth.toFixed(3).replace('.', ',')} %`;
             ringElems.barMonth.style.width = `${pctMonth.toFixed(2)}%`;
 
             setTextCached('lblYr', ringElems.lblYearBar, `Jahr ${now.getFullYear()} (Tag ${doy}/${diy})`);
-            ringElems.pctYear.textContent = `${pctYear.toFixed(4)} %`;
+            ringElems.pctYear.textContent = `${pctYear.toFixed(4).replace('.', ',')} %`;
             ringElems.barYear.style.width = `${pctYear.toFixed(2)}%`;
 
             // 6. Diagramm 02: Berlin Sonnenstand & Dämmerung
@@ -4304,7 +5086,8 @@
             if (userTargetDate && userTargetLedgerUpdate && userTargetDirEl) {
                 const isPast = now >= userTargetDate;
                 setTextCached('usrDir', userTargetDirEl, isPast ? 'Status: VERGANGEN SEIT ZIEL' : 'Status: VERBLEIBEND BIS ZIEL');
-                userTargetLedgerUpdate(computeDateDiff(userTargetDate, now), false);
+                const targetCalSpan = computeCalendarDaysSpan(dateToCalObj(userTargetDate), dateToCalObj(now));
+                userTargetLedgerUpdate(computeDateDiff(userTargetDate, now), false, fmtCalDayBadge(targetCalSpan));
             }
         }
 
@@ -4369,7 +5152,7 @@
 
             document.getElementById('betweenDatesOutput').innerHTML = `
                 <div class="epoch-ledger">
-                    ${renderDetailedSingleLedgerHTML(diff, true)}
+                    ${renderDetailedSingleLedgerHTML(diff, true, p1.date, p2.date)}
                 </div>
                 <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line-hair);">
                     <div style="display: flex; justify-content: space-between; font-size: 0.72rem; margin-bottom: 4px;">
@@ -4388,7 +5171,7 @@
             return `
                 <div class="epoch-ledger" style="border-top: 2px solid ${accentColor};">
                     <div class="ledger-section-title" style="color: ${accentColor};">${title}</div>
-                    ${renderDetailedSingleLedgerHTML(diff, false)}
+                    ${renderDetailedSingleLedgerHTML(diff, false, dStart, dEnd)}
                 </div>
             `;
         }
@@ -4791,6 +5574,7 @@
         cnConvModeEl.addEventListener('change', () => {
             const m = cnConvModeEl.value;
             document.getElementById('cnConvNormalWrap').style.display = m === 'normToCn' ? 'flex' : 'none';
+            document.getElementById('cnConvQingWrap').style.display = m === 'qing96ToNorm' ? 'block' : 'none';
             document.getElementById('cnConvShiKeWrap').style.display = m === 'shiKeToNorm' ? 'block' : 'none';
             document.getElementById('cnConvGengWrap').style.display = m === 'gengToNorm' ? 'block' : 'none';
         });
@@ -4811,7 +5595,19 @@
             tbody.innerHTML = `
                 <tr>
                     <td><strong>1 Shíchén (時辰)</strong> (1/12 Tag)</td>
-                    <td style="color: var(--brass-bright);">2,000000 Normalstd (2 Std 00 Min 00,000 Sek) · 8⅓ Groß-Kè (50 Klein-Kè)</td>
+                    <td style="color: var(--brass-bright);">2,000000 Normalstd (2 Std 00 Min 00,000 Sek) · 8 Kè (96er) · 8⅓ Groß-Kè (100er)</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Kè (96-Kè · Qing/Standard)</strong> (1/96 Tag)</td>
+                    <td style="color: var(--brass-bright);">15,000000 Normalmin (15 Min 00,000 Sek) · 4 Kè pro Halbstunde</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Großes Kè (大刻 · 100-Kè)</strong> (1/100 Tag)</td>
+                    <td style="color: var(--cryo);">${fmtMinComposite(14.4, 60, 'Normalmin', 'Min', 'Sek')} · 6 Klein-Kè · 60 Fēn</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Kleines Kè (小刻 · 100-Kè)</strong> (1/600 Tag)</td>
+                    <td style="color: var(--cryo);">${fmtMinComposite(2.4, 60, 'Normalmin', 'Min', 'Sek')} · 10 Fēn</td>
                 </tr>
                 <tr>
                     <td><strong>1 Gēng (更)</strong> (1/10 Tag)</td>
@@ -4822,15 +5618,7 @@
                     <td style="color: var(--sidereal);">24,000000 Normalmin (24 Min 00,000 Sek) · 1⅔ Groß-Kè (100 Fēn)</td>
                 </tr>
                 <tr>
-                    <td><strong>1 Großes Kè (大刻)</strong> (1/100 Tag)</td>
-                    <td style="color: var(--cryo);">${fmtMinComposite(14.4, 60, 'Normalmin', 'Min', 'Sek')} · 6 Klein-Kè · 60 Fēn</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Kleines Kè (小刻)</strong> (1/600 Tag)</td>
-                    <td style="color: var(--cryo);">${fmtMinComposite(2.4, 60, 'Normalmin', 'Min', 'Sek')} · 10 Fēn</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Fēn (分)</strong> (1/6.000 Tag)</td>
+                    <td><strong>1 Fēn (分 · 100-Kè/Diǎn)</strong> (1/6.000 Tag)</td>
                     <td style="color: var(--atomic);">${fmtSecComposite(14.4, 'Normalsek', 'Sek', 'ms')} · 100 Miǎo</td>
                 </tr>
                 <tr>
@@ -4839,7 +5627,7 @@
                 </tr>
                 <tr>
                     <td><strong>1 Normalstunde</strong> (1/24 Tag)</td>
-                    <td>0,500000 Shíchén · 4,166667 Groß-Kè (4 Groß-Kè 1 Klein-Kè 00 Fēn)</td>
+                    <td>0,500000 Shíchén · 4 Kè (96er) · 4,166667 Groß-Kè (100er)</td>
                 </tr>
                 <tr>
                     <td><strong>1 Normalminute</strong> (1/1.440 Tag)</td>
@@ -4856,18 +5644,17 @@
             const st = computeChineseTimeAtSec(secOfDay, era);
             const tStr = fmtTimeSecWithMs(st.sNorm);
             const rangeStr = era === 'trad' ? st.br.tradRange : st.br.songRange;
-            const shuen = Math.floor((st.sNorm % 14.4) / 0.36);
-            const nian = Math.floor((st.sNorm % 0.36) / 0.018);
 
             document.getElementById('cnConvResult').innerHTML = `
                 <div style="font-size: 1.15rem; font-weight: 800; color: ${headlineColor}; margin-bottom: 8px;">${headline}</div>
                 <div class="epoch-ledger">
                     <div class="ledger-row"><span class="ledger-label">Normalzeit (24h · exakt)</span><span class="ledger-val" style="color: var(--cryo);">${tStr}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">Shí-Kè (4-Kè-Modus · Tang/Song)</span><span class="ledger-val" style="color: var(--brass-bright);">${st.br.zh}${st.halfZh}${st.ke4Zh} (${st.br.py} ${st.halfPy}${st.ke4Py}) · ${pad(st.fen)}分 ${pad(st.miao)}秒</span></div>
-                    <div class="ledger-row"><span class="ledger-label">Shí-Kè (8-Kè-Modus · Vor-Tang)</span><span class="ledger-val">${st.br.zh}${st.ke8Zh} (${st.br.py}${st.ke8Py}) · ${rangeStr}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">100-Kè-Digitalzeit &amp; Kleines Kè</span><span class="ledger-val">${pad(st.keGlobal)}刻 : ${pad(st.fen)}分 : ${pad(st.miao)}秒 (${st.keFloat.toFixed(4).replace('.', ',')} Kè · 小刻 ${st.minorKe + 1}/6)</span></div>
-                    <div class="ledger-row"><span class="ledger-label">Gēng – Diǎn &amp; Himmelsstamm</span><span class="ledger-val" style="color: var(--sidereal);">${st.gengInfo.zh}${st.dianZh} (${st.gengInfo.py}${st.dianPy}) · Stamm ${st.gengInfo.stemZh} (${st.gengInfo.stemPy}) · ${st.gengInfo.desc}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">Han-Tageszeit &amp; Buddhistisch</span><span class="ledger-val">${st.hanText} · Xūyú ${st.xuyuIdx}/30 · ${shuen} Shùn · ${nian} Niàn</span></div>
+                    <div class="ledger-row"><span class="ledger-label">1. Shí-Kè (96-Kè · Qing/Standard 15m)</span><span class="ledger-val" style="color: var(--brass-bright);">${st.br.zh}${st.halfZh}${st.qingKeZh} (${st.br.py} ${st.halfPy} ${st.qingKePy}) · ${pad(st.qingMin)}m ${pad(st.qingSec)}s · Kè ${pad(st.qingGlobalKe)}/96</span></div>
+                    <div class="ledger-row"><span class="ledger-label">2. Shí-Kè (100-Kè · Tang/Song 4-Kè)</span><span class="ledger-val" style="color: #fda4af;">${st.br.zh}${st.halfZh}${st.ke4Zh} (${st.br.py} ${st.halfPy}${st.ke4Py}) · ${pad(st.fen)}分 ${pad(st.miao)}秒</span></div>
+                    <div class="ledger-row"><span class="ledger-label">3. 100-Kè-Digitalzeit &amp; Kleines Kè</span><span class="ledger-val">${pad(st.keGlobal)}刻 : ${pad(st.fen)}分 : ${pad(st.miao)}秒 (${st.keFloat.toFixed(4).replace('.', ',')} Kè · 小刻 ${st.minorKe + 1}/6)</span></div>
+                    <div class="ledger-row"><span class="ledger-label">4. Shí-Kè (Vor-Tang · 8-Kè im 100er)</span><span class="ledger-val">${st.br.zh}${st.ke8Zh} (${st.br.py}${st.ke8Py}) · ${rangeStr}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">5. Gēng – Diǎn &amp; Himmelsstamm</span><span class="ledger-val" style="color: var(--sidereal);">${st.gengInfo.zh}${st.dianZh} ${pad(st.gengFen)}分 ${pad(st.gengMiao)}秒 · Stamm ${st.gengInfo.stemZh} (${st.gengInfo.stemPy}) · ${st.gengInfo.desc}</span></div>
+                    <div class="ledger-row"><span class="ledger-label">6. 12 Tagesnamen &amp; Han / Buddhistisch</span><span class="ledger-val">${st.aliasText} · ${st.hanText} · Xūyú ${st.xuyuIdx}/30 · Luóyù ${st.luoyuIdx}/20 · Tánzhǐ ${st.tanzhiIdx}/20 · Shùn ${st.shuenIdx}/20 · Niàn ${st.nianIdx}/20</span></div>
                 </div>
             `;
         }
@@ -4885,7 +5672,26 @@
                 setErr('cnInputNormal', 'err_cnInputNormal', null);
                 const sec = p.h * 3600 + p.min * 60 + p.sec;
                 const st = computeChineseTimeAtSec(sec, era);
-                renderCnConversionDetails(sec, era, `${st.br.zh}${st.halfZh}${st.ke4Zh} · ${pad(st.fen)}分 ${pad(st.miao)}秒 (${st.gengInfo.zh}${st.dianZh})`, '#fda4af');
+                renderCnConversionDetails(sec, era, `${st.br.zh}${st.halfZh}${st.qingKeZh} (${st.br.zh}${st.halfZh}${st.ke4Zh} · ${pad(st.fen)}分 ${pad(st.miao)}秒)`, '#fda4af');
+            } else if (mode === 'qing96ToNorm') {
+                const brIdx = parseInt(document.getElementById('cnInQBranch').value, 10);
+                const half = parseInt(document.getElementById('cnInQHalf').value, 10);
+                const qKe = parseInt(document.getElementById('cnInQKe').value, 10);
+                const qMin = parseInt(document.getElementById('cnInQMin').value, 10);
+                const qSec = parseInt(document.getElementById('cnInQSec').value, 10);
+                const errEl = document.getElementById('err_cnInQing');
+
+                if (Number.isNaN(qKe) || qKe < 0 || qKe > 3 || Number.isNaN(qMin) || qMin < 0 || qMin > 14 || Number.isNaN(qSec) || qSec < 0 || qSec > 59) {
+                    errEl.textContent = '96-Kè 0–3, Min 0–14, Sek 0–59 erforderlich.';
+                    errEl.style.display = 'block';
+                    return;
+                }
+                errEl.style.display = 'none';
+
+                const halfIdx = brIdx * 2 + half;
+                const halfStartHour = era === 'trad' ? (halfIdx + 23) % 24 : halfIdx;
+                const totalSec = (halfStartHour * 3600 + qKe * 900 + qMin * 60 + qSec) % 86400;
+                renderCnConversionDetails(totalSec, era, `Normalzeit: ${fmtTimeSecWithMs(totalSec)}`, 'var(--cryo)');
             } else if (mode === 'shiKeToNorm') {
                 const brIdx = parseInt(document.getElementById('cnInBranch').value, 10);
                 const half = parseInt(document.getElementById('cnInHalf').value, 10);
@@ -4904,8 +5710,12 @@
                 const halfIdx = brIdx * 2 + half;
                 const halfStartHour = era === 'trad' ? (halfIdx + 23) % 24 : halfIdx;
                 const halfStartSec = halfStartHour * 3600;
-                const baseSec = ke === 0 ? halfStartSec : (Math.floor(halfStartSec / 864) + ke) * 864;
-                const totalSec = (baseSec + fen * 14.4 + miao * 0.144) % 86400;
+                const baseKeGlobal = Math.floor(halfStartSec / 864) + ke;
+                let totalSec = (baseKeGlobal * 864 + fen * 14.4 + miao * 0.144) % 86400;
+                if (ke === 0) {
+                    const offsetInHalf = (totalSec - halfStartSec + 86400) % 86400;
+                    if (offsetInHalf > 3600) totalSec = halfStartSec;
+                }
                 renderCnConversionDetails(totalSec, era, `Normalzeit: ${fmtTimeSecWithMs(totalSec)}`, 'var(--cryo)');
             } else {
                 const gIdx = parseInt(document.getElementById('cnInGeng').value, 10);
@@ -4935,6 +5745,13 @@
             const st = computeChineseTimeAtSec(sec, era);
 
             document.getElementById('cnInputNormal').value = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+
+            document.getElementById('cnInQBranch').value = String(st.shiIdx);
+            document.getElementById('cnInQHalf').value = st.isCentral ? '1' : '0';
+            document.getElementById('cnInQKe').value = String(st.qingKe);
+            document.getElementById('cnInQMin').value = String(st.qingMin);
+            document.getElementById('cnInQSec').value = String(st.qingSec);
+
             document.getElementById('cnInBranch').value = String(st.shiIdx);
             document.getElementById('cnInHalf').value = st.isCentral ? '1' : '0';
             document.getElementById('cnInKe').value = String(st.keInHalf);
@@ -4943,8 +5760,7 @@
 
             document.getElementById('cnInGeng').value = String(st.gengIdx);
             document.getElementById('cnInDian').value = String(st.dian);
-            const gFen = Math.floor((sec - ((69120 + st.gengIdx * 8640 + st.dian * 1440) % 86400) + 86400) % 86400 / 14.4);
-            document.getElementById('cnInGengFen').value = String(Math.min(99, Math.max(0, gFen)));
+            document.getElementById('cnInGengFen').value = String(st.gengFen);
             document.getElementById('cnInGengMiao').value = String(st.miao);
 
             runCnConverter();
@@ -4962,6 +5778,7 @@
             const isFuture = diffMs < 0;
             const secAbs = Math.abs(diffMs) / 1000;
             const diffCal = computeDateDiff(cosmicCustomDate, new Date(nowMs));
+            const calSpan = computeCalendarDaysSpan(dateToCalObj(cosmicCustomDate), dateToCalObj(new Date(nowMs)));
 
             const rotKm = secAbs * 0.4651;
             const moonKm = secAbs * 1.022;
@@ -4980,6 +5797,7 @@
                     ${isFuture ? 'Zielzeitpunkt liegt in der Zukunft (verbleibende Strecke)' : 'Bereits zurückgelegte Strecke bis Jetzt (Echtzeit)'}
                 </div>
                 <div class="ledger-row"><span class="ledger-label">Verstrichene Kalenderdauer</span><span class="ledger-val" style="color: var(--brass-bright);">${diffCal.years} J, ${diffCal.months} M, ${diffCal.days} T, ${pad(diffCal.hours)}:${pad(diffCal.minutes)}:${pad(diffCal.seconds)}</span></div>
+                <div class="ledger-row"><span class="ledger-label">Datumstag (inkl. Startdatum)</span><span class="ledger-val" style="color: var(--atomic);">${fmtCalDayBadge(calSpan)}</span></div>
                 <div class="ledger-row"><span class="ledger-label">Sekunden exakt</span><span class="ledger-val">${fmtNum(secAbs.toFixed(1))} s</span></div>
                 <div class="ledger-row"><span class="ledger-label">Erdrotation Äquator (0,4651 km/s)</span><span class="ledger-val">${fmtBigKm(rotKm)} (${fmtNum((rotKm / 40075.017).toFixed(2))} Erdumfänge)</span></div>
                 <div class="ledger-row"><span class="ledger-label">Mondbahn um Erde (1,022 km/s)</span><span class="ledger-val">${fmtBigKm(moonKm)}</span></div>
@@ -5079,8 +5897,7 @@
                 <div class="epoch-ledger">
                     <div class="ledger-row"><span class="ledger-label">Gregorianisches Datum</span><span class="ledger-val">${pad(greg.day)}.${pad(greg.month)}.${fmtY(greg.year)}</span></div>
                     <div class="ledger-row"><span class="ledger-label">Julianisches Datum</span><span class="ledger-val">${pad(jul.day)}.${pad(jul.month)}.${fmtY(jul.year)}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">Julianische Tageszahl (JDN)</span><span class="ledger-val">${fmtNum(jdn)}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">Kalender-Versatz</span><span class="ledger-val">${drift} Tag(e)</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Kalender-Versatz</span><span class="ledger-val">${fmtTagPlural(drift)}</span></div>
                     <div class="ledger-row"><span class="ledger-label">Schaltjahr Gregorianisch</span><span class="ledger-val">${leapGreg ? 'Ja' : 'Nein'}</span></div>
                     <div class="ledger-row"><span class="ledger-label">Schaltjahr Julianisch</span><span class="ledger-val">${leapJul ? 'Ja' : 'Nein'}</span></div>
                 </div>
@@ -5088,10 +5905,30 @@
         });
 
         const jdMode = document.getElementById('jdConvMode');
+        const jdValLabel = document.getElementById('jdValInputLabel');
+        const jdValInput = document.getElementById('jdInputNumber');
+
         jdMode.addEventListener('change', () => {
-            const isD2J = jdMode.value === 'dateToJd';
+            const m = jdMode.value;
+            const isD2J = m === 'dateToJd';
             document.getElementById('jdDateInputWrap').style.display = isD2J ? 'flex' : 'none';
             document.getElementById('jdValInputWrap').style.display = isD2J ? 'none' : 'flex';
+
+            const nowMs = Date.now();
+            const curJd = (nowMs / 86400000) + 2440587.5;
+            if (m === 'jdToDate') {
+                jdValLabel.textContent = 'Julianisches Datum (JD)';
+                jdValInput.value = curJd.toFixed(8);
+            } else if (m === 'unixToDate') {
+                jdValLabel.textContent = 'Unix-Zeitstempel (Sekunden seit 1970)';
+                jdValInput.value = String(Math.floor(nowMs / 1000));
+            } else if (m === 'mjdToDate') {
+                jdValLabel.textContent = 'Modifiziertes JD (MJD)';
+                jdValInput.value = (curJd - 2400000.5).toFixed(8);
+            } else if (m === 'j2000ToDate') {
+                jdValLabel.textContent = 'J2000.0-Epoche (Tage seit 01.01.2000 12:00)';
+                jdValInput.value = (curJd - 2451545.0).toFixed(8);
+            }
         });
 
         function parseOffsetMin(s) {
@@ -5102,14 +5939,125 @@
             return (m[1] === '-' ? -1 : 1) * (hh * 60 + mm);
         }
 
+        // Offizielle IERS TAI − UTC Schaltsekunden-Stufen (ab 1972)
+        const TAI_LEAP_STEPS = [
+            [Date.UTC(2017, 0, 1), 37], [Date.UTC(2015, 6, 1), 36], [Date.UTC(2012, 6, 1), 35],
+            [Date.UTC(2009, 0, 1), 34], [Date.UTC(2006, 0, 1), 33], [Date.UTC(1999, 0, 1), 32],
+            [Date.UTC(1997, 6, 1), 31], [Date.UTC(1996, 0, 1), 30], [Date.UTC(1994, 6, 1), 29],
+            [Date.UTC(1993, 6, 1), 28], [Date.UTC(1992, 6, 1), 27], [Date.UTC(1991, 0, 1), 26],
+            [Date.UTC(1990, 0, 1), 25], [Date.UTC(1988, 0, 1), 24], [Date.UTC(1985, 6, 1), 23],
+            [Date.UTC(1983, 6, 1), 22], [Date.UTC(1982, 6, 1), 21], [Date.UTC(1981, 6, 1), 20],
+            [Date.UTC(1980, 0, 1), 19], [Date.UTC(1979, 0, 1), 18], [Date.UTC(1978, 0, 1), 17],
+            [Date.UTC(1977, 0, 1), 16], [Date.UTC(1976, 0, 1), 15], [Date.UTC(1975, 0, 1), 14],
+            [Date.UTC(1974, 0, 1), 13], [Date.UTC(1973, 0, 1), 12], [Date.UTC(1972, 6, 1), 11],
+            [Date.UTC(1972, 0, 1), 10]
+        ];
+
+        function getTaiMinusUtc(utcMs) {
+            for (let i = 0; i < TAI_LEAP_STEPS.length; i++) {
+                if (utcMs >= TAI_LEAP_STEPS[i][0]) return TAI_LEAP_STEPS[i][1];
+            }
+            return null; // vor 1972 gab es keine ganzzahligen Schaltsekunden
+        }
+
         const jdEpochNoteHtml = `
             <div style="margin-top: 8px; padding: 8px 10px; border-radius: var(--r-sm); background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.2); font-size: 0.7rem; color: var(--text-secondary); line-height: 1.45;">
-                <strong>Warum unterscheiden sich JD (…67,2987) und MJD/TJD (…66,7987)?</strong><br>
-                • <strong>JD</strong> zählt ab <em>01.01.4713 v. Chr., <strong>12:00 UTC</strong></em> (Tageswechsel mittags). Um 19:10 UTC sind 7h 10m seit Mittag vergangen (,2987).<br>
-                • <strong>MJD = JD − 2.400.000,5</strong> zählt ab <em>17.11.1858, <strong>00:00 UTC</strong></em>. Durch „− 0,5“ wird der Tageswechsel auf Mitternacht verschoben – zwischen 12:00 und 23:59 UTC ist die Vorkommazahl daher um 1 kleiner (67 → 66) und die Nachkommastelle um 0,5 größer (,2987 → ,7987).<br>
-                • <strong>TJD = JD − 2.440.000,5</strong> (= MJD − 40.000) zählt ab <em>24.05.1968, <strong>00:00 UTC</strong></em> (NASA-Epoche).
+                <strong>Systematik (Mittagswechsel vs. Mitternachtswechsel &amp; Atomzeit):</strong><br>
+                • <strong>JD / JDN (astron.) / DJD / J2000.0</strong> wechseln den Tag um <strong>12:00 UTC</strong> (Mittag), da Astronomen nächtliche Beobachtungen nicht um Mitternacht trennen wollten.<br>
+                • <strong>MJD, TJD, Unix, GPS, NTP, Excel, FILETIME, CJD, Lilian</strong> wechseln den Tag um <strong>00:00 UTC</strong> (Mitternacht) – durch die Verschiebung um „− 0,5 d“ weicht das Vorkomma-Datum ab 12:00 UTC um 1 Tag ab.<br>
+                • <strong>TAI, TT &amp; GPS</strong> laufen ohne Schaltsekunden weiter (seit 01.01.2017: TAI − UTC = +37 s · GPS − UTC = +18 s · TT − TAI = +32,184 s).
             </div>
         `;
+
+        function renderJdComprehensiveResult(utcMs, offMin, offStr, headlineStr, headlineColor) {
+            const locDate = new Date(utcMs + offMin * 60000);
+            const utcDate = new Date(utcMs);
+            const locStr = `${pad(locDate.getUTCDate())}.${pad(locDate.getUTCMonth() + 1)}.${fmtUtcYear(locDate.getUTCFullYear())} ${pad(locDate.getUTCHours())}:${pad(locDate.getUTCMinutes())}:${pad(locDate.getUTCSeconds())}`;
+            const isoStr = utcDate.toISOString();
+
+            const jd = (utcMs / 86400000) + 2440587.5;
+            const jdnAstron = Math.floor(jd);
+            const jdnCivil = Math.floor(jd + 0.5);
+            const wd = WEEKDAYS[((jdnCivil % 7) + 7) % 7];
+
+            const unixSec = utcMs / 1000;
+            const unixMs = Math.round(utcMs);
+
+            // Alle Epochen vom ältesten (4713 v. Chr.) bis zum jüngsten (2001 n. Chr.) Fixdatum
+            const lilian = jdnCivil - 2299160;                         // 15.10.1582 (Tag 1 = 2299161)
+            const filetimeDays = jd - 2305813.5;                       // 01.01.1601 00:00 UTC
+            const filetimeTicks = BigInt(Math.round(unixSec) + 11644473600) * 10000000n;
+            const rjd = jd - 2400000.0;                                // 16.11.1858 12:00 UTC
+            const mjd = jd - 2400000.5;                                // 17.11.1858 00:00 UTC
+            const excelSerial = jd - 2415018.5;                        // 30.12.1899 00:00 UTC
+            const djd = jd - 2415020.0;                                // 31.12.1899 12:00 UTC (Dublin JD)
+            const ntpSec = unixSec + 2208988800;                       // 01.01.1900 00:00 UTC
+            const cjd = jd - 2433282.5;                                // 01.01.1950 00:00 UTC (CNES JD)
+            const tjd = jd - 2440000.5;                                // 24.05.1968 00:00 UTC (NASA TJD)
+
+            const taiOff = getTaiMinusUtc(utcMs);
+            const taiStr = taiOff !== null
+                ? `+${taiOff} s (TAI: ${fmtDateTimeUTC(new Date(utcMs + taiOff * 1000)).replace(' UTC', ' TAI')} · TT: +${(taiOff + 32.184).toFixed(3).replace('.', ',')} s)`
+                : 'vor 1972 (keine Schaltsekunden-Norm)';
+
+            // GPS (06.01.1980 00:00 UTC; TAI − 19 s)
+            const gpsDelta = taiOff !== null ? (taiOff - 19) : 0;
+            const gpsTotalSec = (unixSec - 315964800) + gpsDelta;
+            const gpsWeek = Math.floor(gpsTotalSec / 604800);
+            const gpsRolloverCycle = Math.floor(gpsWeek / 1024);
+            const gpsWeekMod = ((gpsWeek % 1024) + 1024) % 1024;
+            const gpsTow = ((gpsTotalSec % 604800) + 604800) % 604800;
+
+            // TAI93 (01.01.1993 00:00:00 TAI = Unix 725846400 TAI)
+            const tai93Sec = (unixSec + (taiOff ?? 0)) - 725846400;
+
+            // J2000.0 (01.01.2000 12:00:00)
+            const j2000Days = jd - 2451545.0;
+            const j2000Centuries = j2000Days / 36525.0;
+            const j2000Sec = j2000Days * 86400;
+
+            // Apple / Cocoa / CoreData (01.01.2001 00:00:00 UTC)
+            const appleSec = unixSec - 978307200;
+
+            document.getElementById('jdConvertResult').innerHTML = `
+                <div style="font-size: 1.12rem; font-weight: 800; color: ${headlineColor}; margin-bottom: 10px;">${headlineStr}</div>
+
+                <div class="jd-section-block">
+                    <div class="ledger-section-title">A · Primäre Standard-Zeitskalen (geordnet nach Relevanz &amp; Häufigkeit)</div>
+                    <div class="epoch-ledger">
+                        <div class="ledger-row"><span class="ledger-label">1. Lokalzeit (${offStr}) &amp; Wochentag</span><span class="ledger-val" style="color: var(--atomic);">${wd}, ${locStr}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">2. UTC-Weltzeit &amp; ISO-8601</span><span class="ledger-val">${fmtDateTimeUTC(utcDate)} · ${isoStr}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">3. Julianisches Datum (JD)</span><span class="ledger-val" style="color: var(--cryo);">${fmtNum(jd.toFixed(8))}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">4. Julianische Tageszahl (JDN)</span><span class="ledger-val">${fmtNum(jdnCivil)} (ab 00h UTC) · ${fmtNum(jdnAstron)} (ab 12h UTC)</span></div>
+                        <div class="ledger-row"><span class="ledger-label">5. Unix-Zeitstempel (POSIX)</span><span class="ledger-val" style="color: var(--brass-bright);">${fmtNum(Math.round(unixSec))} s · ${fmtNum(unixMs)} ms</span></div>
+                        <div class="ledger-row"><span class="ledger-label">6. Modifiziertes JD (MJD)</span><span class="ledger-val">${fmtNum(mjd.toFixed(8))}</span></div>
+                    </div>
+                </div>
+
+                <div class="jd-section-block">
+                    <div class="ledger-section-title" style="color: var(--brass-bright);">B · Chronologische &amp; Raumfahrt-Epochen (ältestes → jüngstes Fixdatum)</div>
+                    <div class="epoch-ledger">
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">4713 v.Chr.</span>JD / JDN (01.01.-4712 12:00 UTC)</span><span class="ledger-val">${fmtNum(jd.toFixed(8))} (JDN ${fmtNum(jdnCivil)})</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1582</span>Lilianisches Datum (15.10.1582)</span><span class="ledger-val">${fmtTagPlural(lilian)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1601</span>Windows FILETIME (01.01.1601)</span><span class="ledger-val">${fmtNum(filetimeDays.toFixed(6))} d · ${filetimeTicks.toString()} Ticks</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1858</span>Reduziertes JD / RJD (16.11.1858 12h)</span><span class="ledger-val">${fmtNum(rjd.toFixed(8))}</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1858</span>Modifiziertes JD / MJD (17.11.1858 00h)</span><span class="ledger-val">${fmtNum(mjd.toFixed(8))}</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1899</span>Excel-Seriendatum (30.12.1899)</span><span class="ledger-val">${fmtNum(excelSerial.toFixed(6))}</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1899</span>Dublin JD / DJD (31.12.1899 12h)</span><span class="ledger-val">${fmtNum(djd.toFixed(8))}</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1900</span>NTP-Zeitstempel (01.01.1900)</span><span class="ledger-val">${fmtNum(Math.round(ntpSec))} s</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1950</span>CNES JD / B1950 (01.01.1950)</span><span class="ledger-val">${fmtNum(cjd.toFixed(8))}</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1958</span>TAI-Atomzeit &amp; TT (01.01.1958)</span><span class="ledger-val">${taiStr}</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1968</span>Truncated JD / TJD (24.05.1968)</span><span class="ledger-val">${fmtNum(tjd.toFixed(8))}</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1970</span>Unix-Zeitstempel (01.01.1970)</span><span class="ledger-val">${fmtNum(Math.round(unixSec))} s</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1980</span>GPS-Zeit (06.01.1980)</span><span class="ledger-val">Woche ${fmtNum(gpsWeek)} (10b: ${gpsWeekMod}, Zyk. ${gpsRolloverCycle}) · TOW ${fmtNum(Math.round(gpsTow))} s · Ges. ${fmtNum(Math.round(gpsTotalSec))} s</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1993</span>TAI93 Raumfahrt (01.01.1993 TAI)</span><span class="ledger-val">${fmtNum(Math.round(tai93Sec))} s</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">2000</span>J2000.0 (01.01.2000 12:00)</span><span class="ledger-val">${fmtNum(j2000Days.toFixed(8))} d · ${j2000Centuries.toFixed(8).replace('.', ',')} Jh. · ${fmtNum(Math.round(j2000Sec))} s</span></div>
+                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">2001</span>Apple / Cocoa (01.01.2001)</span><span class="ledger-val">${fmtNum(Math.round(appleSec))} s</span></div>
+                    </div>
+                </div>
+                ${jdEpochNoteHtml}
+            `;
+        }
 
         document.getElementById('btnRunJdConv').addEventListener('click', () => {
             const offStr = document.getElementById('jdUtcOffset').value.trim();
@@ -5117,7 +6065,8 @@
             if (offMin === null) { setErr('jdUtcOffset', 'err_jdUtcOffset', 'Format: ±HH:MM'); return; }
             setErr('jdUtcOffset', 'err_jdUtcOffset', null);
 
-            if (jdMode.value === 'dateToJd') {
+            const mode = jdMode.value;
+            if (mode === 'dateToJd') {
                 const p = parseManualDate(document.getElementById('jdInputDate').value);
                 if (p.error) { setErr('jdInputDate', 'err_jdInputDate', p.error); return; }
                 setErr('jdInputDate', 'err_jdInputDate', null);
@@ -5127,38 +6076,25 @@
                     p.date.getHours(), p.date.getMinutes() - offMin, p.date.getSeconds()
                 ).getTime();
                 const jd = (utcMs / 86400000) + 2440587.5;
-                const mjd = jd - 2400000.5;
-                const tjd = jd - 2440000.5;
-                document.getElementById('jdConvertResult').innerHTML = `
-                    <div style="font-size: 1.2rem; font-weight: 800; color: var(--cryo); margin-bottom: 8px;">JD: ${jd.toFixed(8)}</div>
-                    <div class="epoch-ledger">
-                        <div class="ledger-row"><span class="ledger-label">Modifiziertes JD (MJD)</span><span class="ledger-val">${mjd.toFixed(8)}</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Truncated JD (TJD)</span><span class="ledger-val">${tjd.toFixed(8)}</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Astronomische UTC-Referenz</span><span class="ledger-val">${fmtDateTimeUTC(new Date(utcMs))}</span></div>
-                    </div>
-                    ${jdEpochNoteHtml}
-                `;
+                renderJdComprehensiveResult(utcMs, offMin, offStr, `JD: ${jd.toFixed(8)} · Unix: ${fmtNum(Math.round(utcMs / 1000))}`, 'var(--cryo)');
             } else {
-                const jdVal = parseFloat(document.getElementById('jdInputNumber').value);
-                if (Number.isNaN(jdVal)) { setErr('jdInputNumber', 'err_jdInputNumber', 'Ungültige Zahl'); return; }
+                const numVal = parseFloat(jdValInput.value);
+                if (Number.isNaN(numVal)) { setErr('jdInputNumber', 'err_jdInputNumber', 'Ungültige Zahl'); return; }
                 setErr('jdInputNumber', 'err_jdInputNumber', null);
 
-                // Auf nächste Sekunde runden, um 1-Sekunden-Drift bei Rückkonvertierung zu vermeiden
-                const utcMs = Math.round((jdVal - 2440587.5) * 86400) * 1000;
+                let utcMs = 0;
+                if (mode === 'jdToDate') {
+                    utcMs = Math.round((numVal - 2440587.5) * 86400) * 1000;
+                } else if (mode === 'unixToDate') {
+                    utcMs = Math.round(numVal * 1000);
+                } else if (mode === 'mjdToDate') {
+                    utcMs = Math.round(((numVal + 2400000.5) - 2440587.5) * 86400) * 1000;
+                } else if (mode === 'j2000ToDate') {
+                    utcMs = Math.round(((numVal + 2451545.0) - 2440587.5) * 86400) * 1000;
+                }
                 const locDate = new Date(utcMs + offMin * 60000);
-                const mjd = jdVal - 2400000.5;
-                const tjd = jdVal - 2440000.5;
                 const locStr = `${pad(locDate.getUTCDate())}.${pad(locDate.getUTCMonth() + 1)}.${fmtUtcYear(locDate.getUTCFullYear())} ${pad(locDate.getUTCHours())}:${pad(locDate.getUTCMinutes())}:${pad(locDate.getUTCSeconds())}`;
-
-                document.getElementById('jdConvertResult').innerHTML = `
-                    <div style="font-size: 1.15rem; font-weight: 800; color: var(--atomic); margin-bottom: 8px;">${locStr} (${offStr})</div>
-                    <div class="epoch-ledger">
-                        <div class="ledger-row"><span class="ledger-label">Modifiziertes JD (MJD)</span><span class="ledger-val">${mjd.toFixed(8)}</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Truncated JD (TJD)</span><span class="ledger-val">${tjd.toFixed(8)}</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Astronomische UTC-Referenz</span><span class="ledger-val">${fmtDateTimeUTC(new Date(utcMs))}</span></div>
-                    </div>
-                    ${jdEpochNoteHtml}
-                `;
+                renderJdComprehensiveResult(utcMs, offMin, offStr, `${locStr} (${offStr})`, 'var(--atomic)');
             }
         });
 
