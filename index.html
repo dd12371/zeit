@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHRONOS MONOLITH v4.1 // Institut für Temporale Metrologie &amp; Astronomie</title>
+    <title>CHRONOS MONOLITH · VERSION 4 // Institut für Temporale Metrologie &amp; Astronomie</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -129,14 +129,32 @@
         }
 
         .version-tag {
+            display: inline-flex;
+            align-items: stretch;
             font-family: var(--font-mono);
-            font-size: 0.68rem;
-            padding: 2px 7px;
-            border-radius: 3px;
-            background: var(--brass-dim);
+            font-size: 0.66rem;
+            border-radius: 4px;
+            overflow: hidden;
             border: 1px solid var(--line-brass);
-            color: var(--brass-bright);
+            background: var(--bg-recessed);
             letter-spacing: 0.08em;
+            box-shadow: 0 0 14px rgba(218, 179, 86, 0.16);
+            vertical-align: middle;
+        }
+
+        .version-tag .vt-prefix {
+            padding: 2px 7px;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03);
+            font-weight: 600;
+        }
+
+        .version-tag .vt-val {
+            padding: 2px 8px;
+            color: #05070b;
+            background: linear-gradient(135deg, var(--brass-bright), var(--brass));
+            font-weight: 800;
+            letter-spacing: 0.04em;
         }
 
         .brand-sub {
@@ -547,111 +565,6 @@
         .roman-hour-chip.active-night .rh-num { color: #d8b4fe; }
         .roman-hour-chip.active-night .rh-time { color: var(--text-primary); }
 
-        /* CHRONOMETER 04 & ANALYTIK 07 (CHINESISCHE ZEITRECHNUNG) */
-        .dial-frame-cn {
-            border-color: rgba(244, 63, 94, 0.45);
-            background: radial-gradient(circle, #1a1015 0%, #090b10 74%);
-            box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.85), 0 0 22px rgba(244, 63, 94, 0.12);
-        }
-
-        .cn-mode-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .cn-mode-bar select {
-            width: auto;
-            padding: 4px 10px;
-            font-size: 0.72rem;
-        }
-
-        .cn-digital-line {
-            display: flex;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 6px 10px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .cn-num-fixed {
-            font-family: var(--font-mono);
-            font-variant-numeric: tabular-nums;
-            white-space: nowrap;
-        }
-
-        .cn-readout-stack {
-            margin-top: 8px;
-            background: var(--bg-recessed);
-            border: 1px solid var(--line-hair);
-            border-radius: var(--r-md);
-            padding: 8px 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            font-family: var(--font-mono);
-            font-size: 0.74rem;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .cn-sub-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 8px;
-            flex-wrap: wrap;
-            padding-bottom: 4px;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
-        }
-
-        .cn-sub-row:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .cn-sys-tag {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            white-space: nowrap;
-        }
-
-        .cn-sys-val {
-            font-weight: 700;
-            color: var(--text-primary);
-            font-variant-numeric: tabular-nums;
-            white-space: nowrap;
-        }
-
-        .cn-6-grid {
-            display: grid;
-            grid-template-columns: 1.3fr 0.9fr 0.8fr 0.8fr 0.8fr 0.8fr;
-            gap: 8px;
-        }
-
-        .cn-4-grid {
-            display: grid;
-            grid-template-columns: 1.4fr 1fr 0.9fr 0.9fr;
-            gap: 8px;
-        }
-
-        .cn-panel-wide {
-            grid-column: 1 / -1;
-        }
-
-        @media (max-width: 780px) {
-            .cn-6-grid { grid-template-columns: repeat(3, 1fr); }
-            .cn-4-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 480px) {
-            .cn-6-grid { grid-template-columns: repeat(2, 1fr); }
-            .cn-4-grid { grid-template-columns: 1fr; }
-        }
-
         /* STRUCTURED SINGLE-METRIC LEDGER */
         .epoch-ledger {
             background: var(--bg-recessed);
@@ -912,8 +825,9 @@
             flex-wrap: wrap;
         }
 
-        .solar-controls input[type="date"] {
-            width: auto;
+        .solar-controls input[type="text"] {
+            width: 225px;
+            max-width: 100%;
             padding: 5px 10px;
             font-size: 0.75rem;
         }
@@ -933,11 +847,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
             gap: 8px;
             font-family: var(--font-mono);
-            font-size: 0.72rem;
-            padding: 6px 10px;
+            font-size: clamp(0.58rem, 0.76vw, 0.7rem);
+            padding: 6px 8px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--line-hair);
             border-radius: var(--r-sm);
@@ -1108,8 +1025,9 @@
             .solar-controls {
                 width: 100%;
             }
-            .solar-controls input[type="date"] {
-                flex: 1;
+            .solar-controls input[type="text"] {
+                flex: 1 1 100%;
+                width: 100%;
                 min-width: 0;
             }
         }
@@ -1121,12 +1039,6 @@
             }
             .lunar-grid .epoch-ledger {
                 width: 100%;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .shift-7-grid {
-                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -1254,15 +1166,18 @@
             color: #000;
         }
 
-        /* SHIFT INPUTS */
+        /* SHIFT INPUTS (GROSSZÜGIG FÜR LANGE ZAHLENKOLONNEN) */
         .shift-7-grid {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
         }
 
-        @media (max-width: 640px) {
-            .shift-7-grid { grid-template-columns: repeat(4, 1fr); }
+        .shift-fmt-preview {
+            color: var(--atomic);
+            font-weight: 700;
+            min-height: 1.1em;
+            font-variant-numeric: tabular-nums;
         }
 
         /* TABLES & CHARTS */
@@ -1314,12 +1229,215 @@
 
         footer {
             border-top: 1px solid var(--line-hair);
-            padding: 28px 24px;
+            background: linear-gradient(180deg, rgba(11, 14, 21, 0.65), rgba(5, 7, 11, 0.98));
+            padding: 36px 24px 32px;
             text-align: center;
             font-family: var(--font-mono);
             font-size: 0.72rem;
             color: var(--text-muted);
             letter-spacing: 0.08em;
+        }
+
+        .version-chronicle {
+            max-width: 1640px;
+            margin: 0 auto 26px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chronicle-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--line-hair);
+        }
+
+        .chronicle-kicker {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--brass);
+            margin-bottom: 2px;
+        }
+
+        .chronicle-title {
+            font-family: var(--font-display);
+            font-size: 1.08rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+        }
+
+        .chronicle-span {
+            font-size: 0.68rem;
+            padding: 4px 10px;
+            border-radius: var(--r-sm);
+            background: var(--bg-instrument);
+            border: 1px solid var(--line-hair);
+            color: var(--text-secondary);
+        }
+
+        .timeline-5-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+        }
+
+        .timeline-5-grid::before {
+            content: '';
+            position: absolute;
+            top: 21px;
+            left: 28px;
+            right: 28px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cryo), var(--atomic), var(--sidereal), var(--crimson), var(--brass-bright));
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        @media (max-width: 1180px) {
+            .timeline-5-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+            .timeline-5-grid::before {
+                display: none;
+            }
+        }
+
+        .tl-card {
+            position: relative;
+            background: var(--bg-monolith);
+            border: 1px solid var(--line-hair);
+            border-radius: var(--r-lg);
+            padding: 14px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tl-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--tl-accent), transparent 85%);
+        }
+
+        .tl-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--tl-accent);
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+        }
+
+        .tl-card.tl-active {
+            background: linear-gradient(160deg, rgba(218, 179, 86, 0.11), var(--bg-monolith) 65%);
+            border-color: var(--line-brass);
+            box-shadow: 0 0 24px rgba(218, 179, 86, 0.14);
+        }
+
+        .tl-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .tl-node-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tl-node {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--tl-accent);
+            box-shadow: 0 0 10px var(--tl-accent);
+            border: 2px solid var(--bg-obsidian);
+            flex-shrink: 0;
+        }
+
+        .tl-card.tl-active .tl-node {
+            animation: blink 2s infinite;
+        }
+
+        .tl-step {
+            font-size: 0.64rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--tl-accent);
+        }
+
+        .tl-dur {
+            font-size: 0.64rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: var(--tl-dim);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--tl-accent);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .tl-name {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.01em;
+        }
+
+        .tl-dates {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .tl-engine {
+            margin-top: auto;
+            padding: 6px 8px;
+            border-radius: var(--r-sm);
+            background: var(--bg-recessed);
+            border: 1px solid var(--line-hair);
+            border-left: 2px solid var(--tl-accent);
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .tl-eng-lbl {
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+        }
+
+        .tl-eng-val {
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: var(--tl-accent);
+        }
+
+        .footer-meta {
+            padding-top: 16px;
+            border-top: 1px solid var(--line-hair);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.09em;
         }
     </style>
 </head>
@@ -1339,7 +1457,13 @@
                     </svg>
                 </div>
                 <div class="brand-title-wrap">
-                    <h1>Chronos Monolith <span class="version-tag">v4.1</span></h1>
+                    <h1>
+                        Chronos Monolith
+                        <span class="version-tag" aria-label="Version 4">
+                            <span class="vt-prefix">VERSION</span>
+                            <span class="vt-val">4</span>
+                        </span>
+                    </h1>
                     <div class="brand-sub">Institut für Temporale Metrologie &amp; Himmelsmechanik</div>
                 </div>
             </div>
@@ -1496,10 +1620,17 @@
                 <article class="instrument-panel panel-brass">
                     <div class="panel-head">
                         <div>
-                            <div class="panel-kicker">Chronometer 03 · Antike Temporalzeit (12 Tag- / 12 Nachtstunden · Berlin)</div>
+                            <div class="panel-kicker" id="clkRomanKicker">Chronometer 03 · Antike Temporalzeit (12 Tag- / 12 Nachtstunden · Berlin)</div>
                             <h3 class="panel-title">Römische Temporal-Uhr (Horae Diurnae &amp; Nocturnae)</h3>
                         </div>
-                        <span class="panel-badge" id="clkRomanBadge" style="color: var(--brass-bright);">Synchronisiere Sonne...</span>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <button type="button" class="epoch-switch-btn" id="btnSwitchRomanLoc" aria-pressed="false" title="Zwischen Berliner und Römischer Temporalzeit umschalten">
+                                <span class="esw-lbl esw-left">Berlin</span>
+                                <span class="esw-track"><span class="esw-thumb"></span></span>
+                                <span class="esw-lbl esw-right">Rom</span>
+                            </button>
+                            <span class="panel-badge" id="clkRomanBadge" style="color: var(--brass-bright);">Synchronisiere Sonne...</span>
+                        </div>
                     </div>
 
                     <div class="clock-layout">
@@ -1551,11 +1682,11 @@
 
                             <div class="micro-grid">
                                 <div class="micro-cell">
-                                    <span class="micro-k">Perioden-Start (Berlin)</span>
+                                    <span class="micro-k" id="lblRomanRise">Perioden-Start (Berlin)</span>
                                     <span class="micro-v" id="clkRomanRise">--:--:--</span>
                                 </div>
                                 <div class="micro-cell">
-                                    <span class="micro-k">Perioden-Ende (Berlin)</span>
+                                    <span class="micro-k" id="lblRomanSet">Perioden-Ende (Berlin)</span>
                                     <span class="micro-v" id="clkRomanSet">--:--:--</span>
                                 </div>
                                 <div class="micro-cell">
@@ -1568,118 +1699,16 @@
                     </div>
 
                     <div>
-                        <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
+                        <div id="lblRomanScheduleTitle" style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
                             Heutige 12 Stunden-Einteilung der laufenden Phase (Berliner Ortszeit)
                         </div>
                         <div class="roman-hours-strip" id="romanScheduleGrid"></div>
                     </div>
                 </article>
+            </div>
 
-                <!-- UHR 4: TRADITIONELLE CHINESISCHE UHR (SHÍ-KÈ & GĒNG-DIǍN) -->
-                <article class="instrument-panel panel-crimson">
-                    <div class="panel-head">
-                        <div>
-                            <div class="panel-kicker">Chronometer 04 · Traditionelle Chinesische Zeit (時-刻 &amp; 更-點)</div>
-                            <h3 class="panel-title">Chinesische Doppelstunden- &amp; Kè-Uhr</h3>
-                        </div>
-                        <div class="cn-mode-bar">
-                            <select id="cnDialEraSelect" aria-label="Chinesische Epoche">
-                                <option value="trad" selected>Klassisch (Zǐ ab 23:00)</option>
-                                <option value="song">Song-Dynastie (Zǐ ab 00:00)</option>
-                            </select>
-                            <span class="panel-badge" id="clkCnBadge" style="color: var(--brass-bright);">--</span>
-                        </div>
-                    </div>
-
-                    <div class="clock-layout">
-                        <div class="dial-frame dial-frame-cn">
-                            <svg class="dial-svg" viewBox="0 0 200 200" aria-label="Analoge Traditionelle Chinesische Uhr">
-                                <!-- Außenring (100 Kè / 100 Miǎo) & Innenring (60 Fēn / 10 Gēng) -->
-                                <circle cx="100" cy="100" r="93" fill="none" stroke="rgba(244,63,94,0.28)" stroke-width="1"/>
-                                <circle cx="100" cy="100" r="61" fill="none" stroke="rgba(218,179,86,0.2)" stroke-width="0.9"/>
-                                <circle cx="100" cy="100" r="40" fill="rgba(5,7,11,0.65)" stroke="rgba(255,255,255,0.1)" stroke-width="0.9"/>
-
-                                <!-- Nachtwachen-Bogen (19:12 一更 bis 07:12 五更-Ende = untere Hälfte) -->
-                                <path id="cnNightArc" d="" fill="none" stroke="rgba(167,139,250,0.35)" stroke-width="4" stroke-linecap="round"/>
-                                <!-- 100-Kè Tagesfortschrittsbogen (Start unten 00:00 -> im Uhrzeigersinn) -->
-                                <path id="cnKeArc" d="" fill="none" stroke="rgba(244,63,94,0.55)" stroke-width="3" stroke-linecap="round"/>
-
-                                <!-- Statische Skalen (100 Kè/Miǎo, 60 Fēn) & Dynamische 12 Erdzweige -->
-                                <g id="cnStaticTicks"></g>
-                                <g id="cnDynamicRing"></g>
-
-                                <!-- Tag-/Nacht-Emblem im Zentrum (昼 / 夜) -->
-                                <g id="cnSunCenter">
-                                    <text x="100" y="96" text-anchor="middle" fill="#f5d682" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700">昼</text>
-                                    <text x="100" y="109" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono" font-size="6.5">TAG</text>
-                                </g>
-                                <g id="cnMoonCenter" style="display: none;">
-                                    <text x="100" y="96" text-anchor="middle" fill="#c4b5fd" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700">夜</text>
-                                    <text x="100" y="109" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono" font-size="6.5">NACHT</text>
-                                </g>
-
-                                <!-- Zeiger: Shí (24h Gold), Fēn (60/Kè Cyan), Miǎo (100/Fēn Rot) -->
-                                <polygon id="cnShiHand" points="100,46 103.5,100 100,111 96.5,100" fill="#f5d682" stroke="#05070b" stroke-width="0.6"/>
-                                <line id="cnFenHand" x1="100" y1="106" x2="100" y2="33" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round"/>
-                                <line id="cnMiaoHand" x1="100" y1="115" x2="100" y2="21" stroke="#f43f5e" stroke-width="1.2" stroke-linecap="round"/>
-                                <circle cx="100" cy="100" r="4.5" fill="#f43f5e" stroke="#05070b" stroke-width="1"/>
-                                <circle cx="100" cy="100" r="1.8" fill="#f5d682"/>
-                            </svg>
-                        </div>
-
-                        <div>
-                            <div class="digital-readout-xl cn-digital-line" id="clkCnDigital" style="color: #fda4af;">
-                                <span id="clkCnDigTitle" class="cn-num-fixed">子正</span>
-                                <span id="clkCnDigTime" class="cn-num-fixed">00分 00秒</span>
-                            </div>
-
-                            <div class="cn-readout-stack">
-                                <div class="cn-sub-row">
-                                    <span class="cn-sys-tag">1. Shí-Kè (96-Kè · 15m-Takt)</span>
-                                    <span class="cn-sys-val" id="clkCnSub96Ke" style="color: var(--brass-bright);">--</span>
-                                </div>
-                                <div class="cn-sub-row">
-                                    <span class="cn-sys-tag">2. Shí-Kè (100-Kè · Tang/Song)</span>
-                                    <span class="cn-sys-val" id="clkCnSub100Shi" style="color: #fda4af;">--</span>
-                                </div>
-                                <div class="cn-sub-row">
-                                    <span class="cn-sys-tag">3. 100-Kè-Zählung (Tag = 100 Kè)</span>
-                                    <span class="cn-sys-val" id="clkCnSub100Ke" style="color: var(--cryo);">--</span>
-                                </div>
-                                <div class="cn-sub-row">
-                                    <span class="cn-sys-tag">4. Shí-Kè (Vor-Tang · 8-Kè)</span>
-                                    <span class="cn-sys-val" id="clkCnSub8Ke">--</span>
-                                </div>
-                            </div>
-
-                            <div class="micro-grid">
-                                <div class="micro-cell">
-                                    <span class="micro-k">12 Doppelstunden (Shíchén)</span>
-                                    <span class="micro-v" id="clkCnShi" style="color: var(--brass-bright);">--</span>
-                                </div>
-                                <div class="micro-cell">
-                                    <span class="micro-k">96-Kè / 100-Kè &amp; Klein-Kè</span>
-                                    <span class="micro-v" id="clkCnKeDetail" style="color: var(--cryo);">--</span>
-                                </div>
-                                <div class="micro-cell">
-                                    <span class="micro-k">5. Gēng–Diǎn &amp; Himmelsstamm</span>
-                                    <span class="micro-v" id="clkCnGeng" style="color: var(--sidereal);">--</span>
-                                </div>
-                                <div class="micro-cell">
-                                    <span class="micro-k">6. Tagesname / Han / Xūyú</span>
-                                    <span class="micro-v" id="clkCnHan">--</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">
-                            12 Erdzweige (Shíchén 時辰) im Tagesverlauf
-                        </div>
-                        <div class="roman-hours-strip" id="cnBranchesStrip"></div>
-                    </div>
-                </article>
+            <!-- EWIGE EPOCHEN-CHRONOMETER (EIGENSTÄNDIGE ZEILE / 2×2-GRID) -->
+            <div class="grid-clocks">
 
                 <!-- EWIGER CHRONOMETER I (01.10.1949) -->
                 <article class="instrument-panel panel-crimson">
@@ -1854,11 +1883,11 @@
 
                         <div class="cycle-bars">
                             <div class="cbar-item">
-                                <div class="cbar-top"><span>Minute <span id="valMinDetail" style="color: var(--text-muted);">(--/60s)</span></span><strong id="pctMin" style="color: var(--atomic);">0,00 %</strong></div>
+                                <div class="cbar-top"><span>Minute <span id="valMinDetail" style="color: var(--text-muted);">(--/60s)</span></span><strong id="pctMin" style="color: var(--atomic);">0,0 %</strong></div>
                                 <div class="cbar-track"><div class="cbar-fill" id="barMin" style="background: var(--atomic);"></div></div>
                             </div>
                             <div class="cbar-item">
-                                <div class="cbar-top"><span>Stunde <span id="valHourDetail" style="color: var(--text-muted);">(--/60m)</span></span><strong id="pctHour" style="color: var(--cryo);">0,000 %</strong></div>
+                                <div class="cbar-top"><span>Stunde <span id="valHourDetail" style="color: var(--text-muted);">(--/60m)</span></span><strong id="pctHour" style="color: var(--cryo);">0,00 %</strong></div>
                                 <div class="cbar-track"><div class="cbar-fill" id="barHour" style="background: var(--cryo);"></div></div>
                             </div>
                             <div class="cbar-item">
@@ -1866,15 +1895,15 @@
                                 <div class="cbar-track"><div class="cbar-fill" id="barDay" style="background: var(--brass);"></div></div>
                             </div>
                             <div class="cbar-item">
-                                <div class="cbar-top"><span>Woche <span id="valWeekDetail" style="color: var(--text-muted);">(--)</span></span><strong id="pctWeek" style="color: var(--sidereal);">0,000 %</strong></div>
+                                <div class="cbar-top"><span>Woche <span id="valWeekDetail" style="color: var(--text-muted);">(--)</span></span><strong id="pctWeek" style="color: var(--sidereal);">0,0000 %</strong></div>
                                 <div class="cbar-track"><div class="cbar-fill" id="barWeek" style="background: var(--sidereal);"></div></div>
                             </div>
                             <div class="cbar-item">
-                                <div class="cbar-top"><span id="lblMonthBar">Monat</span><strong id="pctMonth" style="color: #fb923c;">0,000 %</strong></div>
+                                <div class="cbar-top"><span id="lblMonthBar">Monat</span><strong id="pctMonth" style="color: #fb923c;">0,00000 %</strong></div>
                                 <div class="cbar-track"><div class="cbar-fill" id="barMonth" style="background: #fb923c;"></div></div>
                             </div>
                             <div class="cbar-item">
-                                <div class="cbar-top"><span id="lblYearBar">Jahr</span><strong id="pctYear" style="color: var(--crimson);">0,0000 %</strong></div>
+                                <div class="cbar-top"><span id="lblYearBar">Jahr</span><strong id="pctYear" style="color: var(--crimson);">0,000000 %</strong></div>
                                 <div class="cbar-track"><div class="cbar-fill" id="barYear" style="background: var(--crimson);"></div></div>
                             </div>
                         </div>
@@ -1889,11 +1918,13 @@
                             <h3 class="panel-title">Sonnenstand, Dämmerungsarten &amp; Tagesverlauf</h3>
                         </div>
                         <div class="solar-controls">
-                            <input type="date" id="berlinSunDate" aria-label="Datum für Berlin-Sonnenstand">
-                            <button type="button" class="nav-pill active" id="btnBerlinToday" style="padding:5px 10px;">Heute (Live)</button>
+                            <input type="text" id="berlinSunDateTime" placeholder="TT.MM.JJJJ HH:MM:SS (leer = Live)" aria-label="Datum und Uhrzeit für Berlin-Sonnenstand" spellcheck="false" autocomplete="off">
+                            <button type="button" class="nav-pill" id="btnBerlinApply" style="padding:5px 10px;">Anzeigen</button>
+                            <button type="button" class="nav-pill active" id="btnBerlinToday" style="padding:5px 10px;">Live</button>
                             <span class="panel-badge" id="berlinPhaseBadge" style="color: var(--brass-bright);">--</span>
                         </div>
                     </div>
+                    <span class="err-hint" id="err_berlinSunDateTime" style="margin-top: -10px;"></span>
 
                     <div class="solar-chart-wrap" id="berlinSolarChartWrap">
                         <div class="solar-inspect-bar">
@@ -2125,58 +2156,85 @@
                     </div>
                 </article>
 
-                <!-- 4. DATUM VERSCHIEBEN -->
+                <!-- 4. TEMPORALE DELTA-ARITHMETIK & ZEITOFFSET-RECHNER -->
                 <article class="instrument-panel panel-atomic" style="grid-column: 1 / -1;">
                     <div class="panel-head">
                         <div>
-                            <div class="panel-kicker">Analytik 04 · Überlauffreier Kalender-Navigator</div>
-                            <h3 class="panel-title">Datum vor- oder rückwärts verschieben</h3>
+                            <div class="panel-kicker">Analytik 04 · Überlauffreie Kalender-Arithmetik</div>
+                            <h3 class="panel-title">Temporale Delta-Arithmetik (Datum- &amp; Zeitversatz-Rechner)</h3>
                         </div>
-                        <span class="panel-badge" style="color: var(--atomic);">Live-Vorschau</span>
+                        <span class="panel-badge" style="color: var(--atomic);">Live-Vorschau · ± Offset</span>
                     </div>
 
-                    <div class="grid-2" style="align-items: start;">
-                        <div class="form-grid">
-                            <div class="field">
-                                <label for="shiftBaseDate">Ausgangsdatum (leer = Jetzt)</label>
-                                <input type="text" id="shiftBaseDate" placeholder="TT.MM.JJJJ HH:MM:SS (oder leer)" spellcheck="false" autocomplete="off">
-                                <span class="err-hint" id="err_shiftBaseDate"></span>
-                            </div>
+                    <div class="form-grid" style="gap: 14px;">
+                        <div class="field">
+                            <label for="shiftBaseDate">Referenzzeitpunkt (leer = Systemzeit Jetzt)</label>
+                            <input type="text" id="shiftBaseDate" placeholder="TT.MM.JJJJ HH:MM:SS (oder leer)" spellcheck="false" autocomplete="off">
+                            <span class="err-hint" id="err_shiftBaseDate"></span>
+                        </div>
 
-                            <div class="shift-7-grid">
-                                <div class="field"><label for="sYears">Jahre</label><input type="number" id="sYears" placeholder="0" class="shift-dyn"></div>
-                                <div class="field"><label for="sMonths">Monate</label><input type="number" id="sMonths" placeholder="0" class="shift-dyn"></div>
-                                <div class="field"><label for="sWeeks">Wochen</label><input type="number" id="sWeeks" placeholder="0" class="shift-dyn"></div>
-                                <div class="field"><label for="sDays">Tage</label><input type="number" id="sDays" placeholder="0" class="shift-dyn"></div>
-                                <div class="field"><label for="sHours">Std</label><input type="number" id="sHours" placeholder="0" class="shift-dyn"></div>
-                                <div class="field"><label for="sMin">Min</label><input type="number" id="sMin" placeholder="0" class="shift-dyn"></div>
-                                <div class="field"><label for="sSec">Sek</label><input type="number" id="sSec" placeholder="0" class="shift-dyn"></div>
+                        <div class="shift-7-grid">
+                            <div class="field">
+                                <label for="sYears">Delta Jahre (±)</label>
+                                <input type="number" id="sYears" placeholder="0" class="shift-dyn">
+                                <span class="field-hint shift-fmt-preview" id="prev_sYears"></span>
+                            </div>
+                            <div class="field">
+                                <label for="sMonths">Delta Monate (±)</label>
+                                <input type="number" id="sMonths" placeholder="0" class="shift-dyn">
+                                <span class="field-hint shift-fmt-preview" id="prev_sMonths"></span>
+                            </div>
+                            <div class="field">
+                                <label for="sWeeks">Delta Wochen (±)</label>
+                                <input type="number" id="sWeeks" placeholder="0" class="shift-dyn">
+                                <span class="field-hint shift-fmt-preview" id="prev_sWeeks"></span>
+                            </div>
+                            <div class="field">
+                                <label for="sDays">Delta Tage (±)</label>
+                                <input type="number" id="sDays" placeholder="0" class="shift-dyn">
+                                <span class="field-hint shift-fmt-preview" id="prev_sDays"></span>
+                            </div>
+                            <div class="field">
+                                <label for="sHours">Delta Stunden (±)</label>
+                                <input type="number" id="sHours" placeholder="0" class="shift-dyn">
+                                <span class="field-hint shift-fmt-preview" id="prev_sHours"></span>
+                            </div>
+                            <div class="field">
+                                <label for="sMin">Delta Minuten (±)</label>
+                                <input type="number" id="sMin" placeholder="0" class="shift-dyn">
+                                <span class="field-hint shift-fmt-preview" id="prev_sMin"></span>
+                            </div>
+                            <div class="field">
+                                <label for="sSec">Delta Sekunden (±)</label>
+                                <input type="number" id="sSec" placeholder="0" class="shift-dyn">
+                                <span class="field-hint shift-fmt-preview" id="prev_sSec"></span>
                             </div>
                         </div>
 
-                        <div class="output-console" style="height: 100%;">
+                        <div class="output-console">
                             <button class="copy-btn" type="button" onclick="copyText('shiftResultOutput')">Kopieren</button>
                             <div id="shiftResultOutput">Ergebnisdatum erscheint hier automatisch.</div>
                         </div>
                     </div>
                 </article>
 
-                <!-- 5. DEZIMALUHR <-> DUODEZIMAL/NORMALZEIT KONVERTER + EINHEITENTABELLE -->
+                <!-- 5. DEZIMALUHR <-> HEXADEZIMALZEIT <-> NORMALZEIT KONVERTER + EINHEITENTABELLE -->
                 <article class="instrument-panel panel-cryo">
                     <div class="panel-head">
                         <div>
                             <div class="panel-kicker">Analytik 05 · Bidirektionaler Uhrzeit-Konverter</div>
-                            <h3 class="panel-title">Dezimalzeit ↔ Normalzeit (Duodezimal / 24h)</h3>
+                            <h3 class="panel-title">Dezimalzeit ↔ Hexadezimalzeit ↔ Normalzeit (24h)</h3>
                         </div>
-                        <span class="panel-badge" style="color: var(--cryo);">10h/100m/100s ↔ 24h/60m/60s</span>
+                        <span class="panel-badge" style="color: var(--cryo);">10h ↔ 0x0000–0xFFFF ↔ 24h</span>
                     </div>
 
                     <div class="form-grid">
                         <div class="field">
-                            <label for="decConvMode">Umrechnungsrichtung</label>
+                            <label for="decConvMode">Ausgangssystem &amp; Umrechnungsrichtung</label>
                             <select id="decConvMode">
-                                <option value="normToDec" selected>Normalzeit (24h · HH:MM:SS) → Dezimalzeit (10h · H:MM:SS)</option>
-                                <option value="decToNorm">Dezimalzeit (10h · H:MM:SS) → Normalzeit (24h · HH:MM:SS)</option>
+                                <option value="normToDec" selected>Normalzeit (24h · HH:MM:SS) → Dezimalzeit &amp; Hexadezimalzeit</option>
+                                <option value="decToNorm">Dezimalzeit (10h · H:MM:SS) → Normalzeit &amp; Hexadezimalzeit</option>
+                                <option value="hexToNorm">Hexadezimalzeit (0x0000–0xFFFF) → Normalzeit &amp; Dezimalzeit</option>
                             </select>
                         </div>
 
@@ -2194,6 +2252,13 @@
                             <span class="err-hint" id="err_decInputDecimal"></span>
                         </div>
 
+                        <div class="field" id="decConvHexWrap" style="display: none;">
+                            <label for="decInputHex">Hexadezimalzeit (0x0000 – 0xFFFF)</label>
+                            <input type="text" id="decInputHex" placeholder="z. B. 0x8000 oder 0x4000,8" spellcheck="false" autocomplete="off">
+                            <span class="field-hint">Erlaubt: 0x0000 bis 0xFFFF (mit/ohne „0x“, optional ,XX Nachkomma-Hex)</span>
+                            <span class="err-hint" id="err_decInputHex"></span>
+                        </div>
+
                         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                             <button type="button" class="btn-exec btn-cryo" id="btnRunDecConv" style="flex: 1;">Umrechnen</button>
                             <button type="button" class="btn-exec" id="btnDecConvNow">Jetzt laden</button>
@@ -2202,7 +2267,7 @@
 
                     <div class="output-console">
                         <button class="copy-btn" type="button" onclick="copyText('decConvResult')">Kopieren</button>
-                        <div id="decConvResult">Uhrzeit eingeben, um zwischen Duodezimal-/24h-Normalzeit und Dezimalzeit umzurechnen.</div>
+                        <div id="decConvResult">Uhrzeit eingeben, um zwischen Normalzeit, Dezimalzeit und Hexadezimalzeit umzurechnen.</div>
                     </div>
 
                     <div class="table-scroll">
@@ -2222,10 +2287,17 @@
                 <article class="instrument-panel panel-brass">
                     <div class="panel-head">
                         <div>
-                            <div class="panel-kicker">Analytik 06 · Datumsabhängige Sonnenstunden (Berlin)</div>
+                            <div class="panel-kicker" id="romConvKicker">Analytik 06 · Datumsabhängige Sonnenstunden (Berlin)</div>
                             <h3 class="panel-title">Römische Temporalzeit ↔ Normalzeit</h3>
                         </div>
-                        <span class="panel-badge" style="color: var(--brass-bright);">Aufgang ↔ Untergang (12h)</span>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <button type="button" class="epoch-switch-btn" id="btnSwitchRomConvLoc" aria-pressed="false" title="Bezugsort zwischen Berlin und Rom umschalten">
+                                <span class="esw-lbl esw-left">Berlin</span>
+                                <span class="esw-track"><span class="esw-thumb"></span></span>
+                                <span class="esw-lbl esw-right">Rom</span>
+                            </button>
+                            <span class="panel-badge" style="color: var(--brass-bright);">Aufgang ↔ Untergang (12h)</span>
+                        </div>
                     </div>
 
                     <div class="form-grid">
@@ -2233,18 +2305,18 @@
                             <div class="field">
                                 <label for="romConvMode">Umrechnungsrichtung</label>
                                 <select id="romConvMode">
-                                    <option value="normToRom" selected>Normalzeit (Berlin) → Römische Temporalzeit</option>
-                                    <option value="romToNorm">Römische Temporalzeit → Normalzeit (Berlin)</option>
+                                    <option value="normToRom" selected>Normalzeit (Ortszeit) → Römische Temporalzeit</option>
+                                    <option value="romToNorm">Römische Temporalzeit → Normalzeit (Ortszeit)</option>
                                 </select>
                             </div>
                             <div class="field">
-                                <label for="romConvDate">Datum (Berlin)</label>
+                                <label for="romConvDate" id="lblRomConvDate">Datum (Berlin)</label>
                                 <input type="date" id="romConvDate">
                             </div>
                         </div>
 
                         <div class="field" id="romConvNormalWrap">
-                            <label for="romInputNormal">Berliner Normalzeit (HH:MM:SS)</label>
+                            <label for="romInputNormal" id="lblRomConvNormal">Berliner Normalzeit (HH:MM:SS)</label>
                             <input type="text" id="romInputNormal" placeholder="z. B. 12:30:00" spellcheck="false" autocomplete="off">
                             <span class="err-hint" id="err_romInputNormal"></span>
                         </div>
@@ -2295,188 +2367,6 @@
                                 </tr>
                             </thead>
                             <tbody id="romUnitTableBody"></tbody>
-                        </table>
-                    </div>
-                </article>
-
-                <!-- 7. CHINESISCHE TRADITIONELLE ZEIT <-> NORMALZEIT KONVERTER -->
-                <article class="instrument-panel panel-crimson cn-panel-wide">
-                    <div class="panel-head">
-                        <div>
-                            <div class="panel-kicker">Analytik 07 · Historisches Chinesisches Zeitsystem (100 Kè &amp; 10 Gēng)</div>
-                            <h3 class="panel-title">Traditionelle Chinesische Zeit ↔ Normalzeit (24h)</h3>
-                        </div>
-                        <span class="panel-badge" style="color: #fda4af;">Shí-Kè (時-刻) &amp; Gēng-Diǎn (更-點)</span>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="row-split row-split-rom">
-                            <div class="field">
-                                <label for="cnConvMode">Umrechnungsrichtung</label>
-                                <select id="cnConvMode">
-                                    <option value="normToCn" selected>Normalzeit (24h · HH:MM:SS) → Traditionelle Chinesische Zeit</option>
-                                    <option value="qing96ToNorm">Chinesisch 96-Kè (時辰 + 初/正 + 0–3刻 + Min + Sek) → Normalzeit</option>
-                                    <option value="shiKeToNorm">Chinesisch 100-Kè Shí-Kè (時辰 + 初/正 + 0–4刻 + 分 + 秒) → Normalzeit</option>
-                                    <option value="gengToNorm">Chinesisch Gēng-Diǎn (更 + 點 + 分 + 秒) → Normalzeit</option>
-                                </select>
-                            </div>
-                            <div class="field">
-                                <label for="cnConvEra">Epoche (Shí-Bezug)</label>
-                                <select id="cnConvEra">
-                                    <option value="trad" selected>Klassisch (Zǐ 23:00)</option>
-                                    <option value="song">Song-Dynastie (Zǐ 00:00)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- MODUS 1: NORMALZEIT -> CHINESISCH -->
-                        <div class="field" id="cnConvNormalWrap">
-                            <label for="cnInputNormal">Normalzeit (HH:MM:SS)</label>
-                            <input type="text" id="cnInputNormal" placeholder="z. B. 11:31:12 oder 19:12:00" spellcheck="false" autocomplete="off">
-                            <span class="field-hint">Erlaubt: 00:00:00 bis 23:59:59,999 (Sekunden &amp; Komma optional)</span>
-                            <span class="err-hint" id="err_cnInputNormal"></span>
-                        </div>
-
-                        <!-- MODUS 1B: 96-KÈ (QING / 15-MINUTEN-KÈ) -> NORMALZEIT -->
-                        <div id="cnConvQingWrap" style="display: none;">
-                            <div class="cn-6-grid">
-                                <div class="field">
-                                    <label for="cnInQBranch">Erdzweig (Shíchén)</label>
-                                    <select id="cnInQBranch">
-                                        <option value="0">1. 子 (zǐ)</option>
-                                        <option value="1">2. 丑 (chǒu)</option>
-                                        <option value="2">3. 寅 (yín)</option>
-                                        <option value="3">4. 卯 (mǎo)</option>
-                                        <option value="4">5. 辰 (chén)</option>
-                                        <option value="5">6. 巳 (sì)</option>
-                                        <option value="6">7. 午 (wǔ)</option>
-                                        <option value="7">8. 未 (wèi)</option>
-                                        <option value="8">9. 申 (shēn)</option>
-                                        <option value="9">10. 酉 (yǒu)</option>
-                                        <option value="10">11. 戌 (xū)</option>
-                                        <option value="11">12. 亥 (hài)</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="cnInQHalf">Hälfte</label>
-                                    <select id="cnInQHalf">
-                                        <option value="0">初 (chū · Initial)</option>
-                                        <option value="1">正 (zhèng · Central)</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="cnInQKe">96-Kè (0–3)</label>
-                                    <input type="number" id="cnInQKe" min="0" max="3" value="0">
-                                </div>
-                                <div class="field">
-                                    <label for="cnInQMin">Min (0–14)</label>
-                                    <input type="number" id="cnInQMin" min="0" max="14" value="0">
-                                </div>
-                                <div class="field">
-                                    <label for="cnInQSec">Sek (0–59)</label>
-                                    <input type="number" id="cnInQSec" min="0" max="59" value="0">
-                                </div>
-                            </div>
-                            <span class="err-hint" id="err_cnInQing" style="margin-top: 4px;"></span>
-                        </div>
-
-                        <!-- MODUS 2: SHÍ-KÈ -> NORMALZEIT -->
-                        <div id="cnConvShiKeWrap" style="display: none;">
-                            <div class="cn-6-grid">
-                                <div class="field">
-                                    <label for="cnInBranch">Erdzweig (Shíchén)</label>
-                                    <select id="cnInBranch">
-                                        <option value="0">1. 子 (zǐ)</option>
-                                        <option value="1">2. 丑 (chǒu)</option>
-                                        <option value="2">3. 寅 (yín)</option>
-                                        <option value="3">4. 卯 (mǎo)</option>
-                                        <option value="4">5. 辰 (chén)</option>
-                                        <option value="5">6. 巳 (sì)</option>
-                                        <option value="6">7. 午 (wǔ)</option>
-                                        <option value="7">8. 未 (wèi)</option>
-                                        <option value="8">9. 申 (shēn)</option>
-                                        <option value="9">10. 酉 (yǒu)</option>
-                                        <option value="10">11. 戌 (xū)</option>
-                                        <option value="11">12. 亥 (hài)</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="cnInHalf">Hälfte</label>
-                                    <select id="cnInHalf">
-                                        <option value="0">初 (chū · Initial)</option>
-                                        <option value="1">正 (zhèng · Central)</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="cnInKe">Kè (0–4)</label>
-                                    <input type="number" id="cnInKe" min="0" max="4" value="0">
-                                </div>
-                                <div class="field">
-                                    <label for="cnInFen">Fēn (0–59)</label>
-                                    <input type="number" id="cnInFen" min="0" max="59" value="0">
-                                </div>
-                                <div class="field">
-                                    <label for="cnInMiao">Miǎo (0–99)</label>
-                                    <input type="number" id="cnInMiao" min="0" max="99" value="0">
-                                </div>
-                            </div>
-                            <span class="err-hint" id="err_cnInShiKe" style="margin-top: 4px;"></span>
-                        </div>
-
-                        <!-- MODUS 3: GĒNG-DIǍN -> NORMALZEIT -->
-                        <div id="cnConvGengWrap" style="display: none;">
-                            <div class="cn-4-grid">
-                                <div class="field">
-                                    <label for="cnInGeng">Gēng (更) &amp; Stamm</label>
-                                    <select id="cnInGeng">
-                                        <option value="0">一更 (Yìgēng · 甲 · ab 19:12)</option>
-                                        <option value="1">二更 (Èrgēng · 乙 · ab 21:36)</option>
-                                        <option value="2">三更 (Sāngēng · 丙 · ab 00:00)</option>
-                                        <option value="3">四更 (Sìgēng · 丁 · ab 02:24)</option>
-                                        <option value="4">五更 (Wǔgēng · 戊 · ab 04:48)</option>
-                                        <option value="5">朝 (Zhāo / Morgen · 己 · ab 07:12)</option>
-                                        <option value="6">禺 (Yú / Vormittag · 庚 · ab 09:36)</option>
-                                        <option value="7">中 (Zhōng / Mittag · 辛 · ab 12:00)</option>
-                                        <option value="8">晡 (Bū / Nachmittag · 壬 · ab 14:24)</option>
-                                        <option value="9">夕 (Xī / Abend · 癸 · ab 16:48)</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="cnInDian">Diǎn (點 · 0–5)</label>
-                                    <input type="number" id="cnInDian" min="0" max="5" value="0">
-                                </div>
-                                <div class="field">
-                                    <label for="cnInGengFen">Fēn (0–99)</label>
-                                    <input type="number" id="cnInGengFen" min="0" max="99" value="0">
-                                </div>
-                                <div class="field">
-                                    <label for="cnInGengMiao">Miǎo (0–99)</label>
-                                    <input type="number" id="cnInGengMiao" min="0" max="99" value="0">
-                                </div>
-                            </div>
-                            <span class="err-hint" id="err_cnInGeng" style="margin-top: 4px;"></span>
-                        </div>
-
-                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                            <button type="button" class="btn-exec" id="btnRunCnConv" style="flex: 1; border-color: rgba(244,63,94,0.5); color: #fda4af;">Chinesische Zeit Berechnen</button>
-                            <button type="button" class="btn-exec btn-cryo" id="btnCnConvNow">Jetzt laden</button>
-                        </div>
-                    </div>
-
-                    <div class="output-console">
-                        <button class="copy-btn" type="button" onclick="copyText('cnConvResult')">Kopieren</button>
-                        <div id="cnConvResult">Uhrzeit wählen, um zwischen traditioneller chinesischer Zeitrechnung und Normalzeit umzurechnen.</div>
-                    </div>
-
-                    <div class="table-scroll">
-                        <table class="ref-table compact-table">
-                            <thead>
-                                <tr>
-                                    <th>1 Chinesische / Moderne Einheit</th>
-                                    <th>Exakter Gegenwert (Komma + Unter-Einheit)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cnUnitTableBody"></tbody>
                         </table>
                     </div>
                 </article>
@@ -2531,25 +2421,6 @@
                                 Bahnradien schematisch gestaffelt für volle Sichtbarkeit · Winkel &amp; Fortschritte astronomisch exakt (J2000.0 Kepler-Elemente)
                             </div>
                         </div>
-
-                        <!-- MOND- & ERDBAHN-KASTEN -->
-                        <div style="background: var(--bg-recessed); border: 1px solid var(--line-hair); border-radius: var(--r-lg); padding: 14px; display: flex; flex-direction: column; gap: 12px;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
-                                <span style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; color: var(--sidereal); text-transform: uppercase;">Lunares &amp; Terrestrisches Modul</span>
-                                <span id="moonPhaseBadge" class="panel-badge" style="color: var(--text-primary);">--</span>
-                            </div>
-                            <div class="lunar-grid">
-                                <div style="display: grid; place-items: center; background: #05070b; border: 1px solid var(--line-hair); border-radius: 50%; width: 94px; height: 94px;">
-                                    <svg id="svgMoonPhase" viewBox="0 0 100 100" width="82" height="82"></svg>
-                                </div>
-                                <div class="epoch-ledger" style="padding: 8px 10px; font-size: 0.72rem;">
-                                    <div class="ledger-row"><span class="ledger-label">Mondbeleuchtung</span><span class="ledger-val" id="moonIllum">-- %</span></div>
-                                    <div class="ledger-row"><span class="ledger-label">Mondalter (29,53d)</span><span class="ledger-val" id="moonAge">-- Tage</span></div>
-                                    <div class="ledger-row"><span class="ledger-label">Jahreszeit (Nord)</span><span class="ledger-val" id="astroSeason">--</span></div>
-                                    <div class="ledger-row"><span class="ledger-label">Erdbahn heute (~29,78 km/s)</span><span class="ledger-val" id="earthOrbitToday" style="color: var(--brass-bright);">-- km</span></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- RECHTE SPALTE: TABELLE ALLER 8 PLANETEN + KOSMISCHE BEWEGUNG -->
@@ -2565,35 +2436,14 @@
                                         <th>Geschw.</th>
                                         <th>Umlaufzeit</th>
                                         <th>Zyklus (ab 0°)</th>
+                                        <th>Seit 0° (a d h s)</th>
+                                        <th>Letztes 0°</th>
+                                        <th>Mitte (180°)</th>
+                                        <th>Nächstes 0°</th>
                                     </tr>
                                 </thead>
                                 <tbody id="planetTableBody"></tbody>
                             </table>
-                        </div>
-
-                        <!-- KOSMISCHE BEWEGUNGSEBENEN DER ERDE -->
-                        <div class="epoch-ledger">
-                            <div class="ledger-section-title">Kosmische Geschwindigkeits- &amp; Bewegungsebenen (Aktueller Tag · Live-Distanz)</div>
-                            <div class="ledger-row">
-                                <span class="ledger-label">Erdrotation am Äquator (0,4651 km/s)</span>
-                                <span class="ledger-val" id="cosRotEq">-- km</span>
-                            </div>
-                            <div class="ledger-row">
-                                <span class="ledger-label">Mondbahn um die Erde (1,022 km/s)</span>
-                                <span class="ledger-val" id="cosMoonVel">-- km</span>
-                            </div>
-                            <div class="ledger-row">
-                                <span class="ledger-label">Erdbahn um die Sonne (29,7847 km/s)</span>
-                                <span class="ledger-val" id="cosEarthSun" style="color: var(--cryo);">-- km</span>
-                            </div>
-                            <div class="ledger-row">
-                                <span class="ledger-label">Sonnensystem um Galaktisches Zentrum (220 km/s)</span>
-                                <span class="ledger-val" id="cosGalactic" style="color: var(--brass-bright);">-- km</span>
-                            </div>
-                            <div class="ledger-row">
-                                <span class="ledger-label">Lichtstrecke im Vakuum heute (299.792,458 km/s)</span>
-                                <span class="ledger-val" id="cosLightToday" style="color: var(--atomic);">-- Mio. km</span>
-                            </div>
                         </div>
 
                         <!-- KOSMISCHE WEGSTRECKE SEIT BELIEBIGEM DATUM (V. CHR. / N. CHR.) -->
@@ -2627,7 +2477,21 @@
                         <div class="panel-kicker">Astronomie 02 · Lunares Observatorium &amp; Synodischer Zyklus</div>
                         <h3 class="panel-title">Mondscheibe, Erde-Mond-Sonne-Geometrie &amp; 29,53-Tage-Lichtkurve</h3>
                     </div>
-                    <span class="panel-badge" id="lunarBigBadge" style="color: var(--sidereal);">--</span>
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        <span class="panel-badge" id="lunarDateTimeBadge" style="color: var(--atomic);">Live: --.--.---- --:--:--</span>
+                        <span class="panel-badge" id="lunarBigBadge" style="color: var(--sidereal);">--</span>
+                    </div>
+                </div>
+
+                <!-- EIGENE ZEITSTEUERUNG FÜR ASTRONOMIE 02 (LEER = LIVE) -->
+                <div class="astro-date-bar">
+                    <div class="field">
+                        <label for="lunarCustomDate">Mond-Beobachtungszeitpunkt (leer = Live-Systemzeit)</label>
+                        <input type="text" id="lunarCustomDate" placeholder="TT.MM.JJJJ HH:MM:SS (leer für Echtzeit)" spellcheck="false" autocomplete="off">
+                        <span class="err-hint" id="err_lunarCustomDate"></span>
+                    </div>
+                    <button type="button" class="btn-exec" id="btnCheckLunar" style="border-color: rgba(167,139,250,0.45); color: var(--sidereal);">Zeitpunkt Berechnen</button>
+                    <button type="button" class="btn-exec btn-cryo" id="btnResetLunarLive">Live-Modus</button>
                 </div>
 
                 <div class="lunar-obs-grid">
@@ -2756,10 +2620,10 @@
                 <article class="instrument-panel panel-cryo">
                     <div class="panel-head">
                         <div>
-                            <div class="panel-kicker">Chronologie 02 · Kontinuierliche Zeitskalen &amp; Epochen (4713 v. Chr. – 2001 n. Chr.)</div>
-                            <h3 class="panel-title">JD / JDN, Unix, MJD, GPS, TAI &amp; J2000.0-Konverter</h3>
+                            <div class="panel-kicker">Chronologie 02 · Wesentliche Zeitskalen (Bidirektional)</div>
+                            <h3 class="panel-title">JD, Unix, MJD &amp; J2000.0-Konverter</h3>
                         </div>
-                        <span class="panel-badge" style="color: var(--cryo);">Geordnet nach Relevanz &amp; Fixdatum</span>
+                        <span class="panel-badge" style="color: var(--cryo);">Hin- &amp; Rückkonvertierung</span>
                     </div>
 
                     <div class="form-grid">
@@ -2792,11 +2656,11 @@
                             </div>
                         </div>
 
-                        <button type="button" class="btn-exec btn-cryo" id="btnRunJdConv">Alle Zeitskalen &amp; Epochen Berechnen</button>
+                        <button type="button" class="btn-exec btn-cryo" id="btnRunJdConv">Zeitskalen Berechnen</button>
                     </div>
 
                     <div class="output-console" id="jdConvertResult">
-                        <span style="color: var(--text-secondary);">Berechnet JD, JDN, Unix, MJD, RJD, TJD, GPS, TAI/TT, NTP, Excel, FILETIME, CJD, Lilian, J2000.0 und Apple/Cocoa.</span>
+                        <span style="color: var(--text-secondary);">Berechnet bidirektional: Lokalzeit, UTC / ISO-8601, Julianisches Datum (JD), Unix-Zeitstempel, Modifiziertes JD (MJD) und J2000.0.</span>
                     </div>
                 </article>
             </div>
@@ -2805,7 +2669,86 @@
     </main>
 
     <footer>
-        CHRONOS MONOLITH v4.1 // TEMPORALES &amp; ASTRONOMISCHES OBSERVATORIUM // LÜCKENLOSE ECHTZEIT-METROLOGIE
+        <div class="version-chronicle" aria-label="Entwicklungsschritte von Chronos Monolith">
+            <div class="chronicle-head">
+                <div>
+                    <div class="chronicle-kicker">Chronologie der Entwicklung</div>
+                    <h2 class="chronicle-title">Meilensteine &amp; Generationsverlauf (Version 0 – Version 4)</h2>
+                </div>
+                <span class="chronicle-span">Projektstart: 24.11.2023 · Aktuell: Version 4</span>
+            </div>
+
+            <div class="timeline-5-grid">
+                <div class="tl-card" style="--tl-accent: var(--cryo); --tl-dim: var(--cryo-dim);">
+                    <div class="tl-top">
+                        <span class="tl-node-wrap"><span class="tl-node"></span><span class="tl-step">v0 · Prototyp</span></span>
+                        <span class="tl-dur">55 Tage</span>
+                    </div>
+                    <div class="tl-name">Version 0</div>
+                    <div class="tl-dates">24.11.2023 – 18.01.2024</div>
+                    <div class="tl-engine">
+                        <span class="tl-eng-lbl">Entwicklungsstatus</span>
+                        <span class="tl-eng-val">Entwicklungsversion</span>
+                    </div>
+                </div>
+
+                <div class="tl-card" style="--tl-accent: var(--atomic); --tl-dim: var(--atomic-dim);">
+                    <div class="tl-top">
+                        <span class="tl-node-wrap"><span class="tl-node"></span><span class="tl-step">v1 · Aufbau</span></span>
+                        <span class="tl-dur">332 Tage</span>
+                    </div>
+                    <div class="tl-name">Version 1</div>
+                    <div class="tl-dates">18.01.2024 – 15.12.2024</div>
+                    <div class="tl-engine">
+                        <span class="tl-eng-lbl">KI-Assistent</span>
+                        <span class="tl-eng-val">Microsoft Copilot</span>
+                    </div>
+                </div>
+
+                <div class="tl-card" style="--tl-accent: var(--sidereal); --tl-dim: var(--sidereal-dim);">
+                    <div class="tl-top">
+                        <span class="tl-node-wrap"><span class="tl-node"></span><span class="tl-step">v2 · Evolution</span></span>
+                        <span class="tl-dur">523 Tage</span>
+                    </div>
+                    <div class="tl-name">Version 2</div>
+                    <div class="tl-dates">15.12.2024 – 22.05.2026</div>
+                    <div class="tl-engine">
+                        <span class="tl-eng-lbl">KI-Modell</span>
+                        <span class="tl-eng-val">DeepSeek</span>
+                    </div>
+                </div>
+
+                <div class="tl-card" style="--tl-accent: var(--crimson); --tl-dim: var(--crimson-dim);">
+                    <div class="tl-top">
+                        <span class="tl-node-wrap"><span class="tl-node"></span><span class="tl-step">v3 · Monolith</span></span>
+                        <span class="tl-dur">156 Tage</span>
+                    </div>
+                    <div class="tl-name">Version 3</div>
+                    <div class="tl-dates">22.05.2026 – 25.10.2026</div>
+                    <div class="tl-engine">
+                        <span class="tl-eng-lbl">KI-Modell</span>
+                        <span class="tl-eng-val">Gemini 3 Flash</span>
+                    </div>
+                </div>
+
+                <div class="tl-card tl-active" style="--tl-accent: var(--brass-bright); --tl-dim: var(--brass-dim);">
+                    <div class="tl-top">
+                        <span class="tl-node-wrap"><span class="tl-node"></span><span class="tl-step">v4 · Aktiv</span></span>
+                        <span class="tl-dur">Laufend</span>
+                    </div>
+                    <div class="tl-name" style="color: var(--brass-bright);">Version 4</div>
+                    <div class="tl-dates" style="color: var(--text-primary);">seit dem 25.10.2026</div>
+                    <div class="tl-engine">
+                        <span class="tl-eng-lbl">KI-Modell</span>
+                        <span class="tl-eng-val">Gemini 4 Hydrogen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-meta">
+            CHRONOS MONOLITH · VERSION 4 // TEMPORALES &amp; ASTRONOMISCHES OBSERVATORIUM // LÜCKENLOSE ECHTZEIT-METROLOGIE
+        </div>
     </footer>
 
     <script>
@@ -3072,41 +3015,6 @@
                 rHtml += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="2.6" fill="#34d399" stroke="#05070b" stroke-width="0.9"/>`;
                 rg.innerHTML = rHtml;
             }
-
-            // Chinesische Uhr: statische Skalen (100 Kè/Miǎo, 60 Fēn) + 10 Himmelsstämme
-            const cnStat = document.getElementById('cnStaticTicks');
-            if (cnStat) {
-                let sHtml = '';
-                for (let i = 0; i < 100; i++) {
-                    const ang = (i * 3.6 + 90) * DEG2RAD; // Start unten (00:00) im Uhrzeigersinn
-                    const isMaj = i % 10 === 0;
-                    const r1 = isMaj ? 81 : 84.5;
-                    const r2 = 88.5;
-                    const x1 = 100 + r1 * Math.cos(ang), y1 = 100 + r1 * Math.sin(ang);
-                    const x2 = 100 + r2 * Math.cos(ang), y2 = 100 + r2 * Math.sin(ang);
-                    sHtml += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${isMaj ? '#f43f5e' : 'rgba(255,255,255,0.16)'}" stroke-width="${isMaj ? 1.5 : 0.7}"/>`;
-                }
-                for (let i = 0; i < 60; i++) {
-                    if (i % 5 !== 0) continue;
-                    const ang = (i * 6 - 90) * DEG2RAD;
-                    const x1 = 100 + 57.5 * Math.cos(ang), y1 = 100 + 57.5 * Math.sin(ang);
-                    const x2 = 100 + 61 * Math.cos(ang), y2 = 100 + 61 * Math.sin(ang);
-                    sHtml += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="rgba(56,189,248,0.45)" stroke-width="1.1"/>`;
-                }
-                const STEMS_ZH = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
-                for (let i = 0; i < 10; i++) {
-                    // 甲 (1. Nachtwache) startet bei 19:12 -> Mitte bei 20:24 (19:12 = 108° ab oben + 18° = 126°)
-                    const midDegFromTop = 108 + i * 36 + 18;
-                    const ang = (midDegFromTop - 90) * DEG2RAD;
-                    const tx = 100 + 48 * Math.cos(ang), ty = 100 + 48 * Math.sin(ang) + 2.8;
-                    sHtml += `<text id="cnStem_${i}" x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" fill="${i < 5 ? '#c4b5fd' : '#94a3b8'}" font-family="Space Grotesk, sans-serif" font-size="7.2" font-weight="700">${STEMS_ZH[i]}</text>`;
-                }
-                cnStat.innerHTML = sHtml;
-            }
-            const cnNightArcEl = document.getElementById('cnNightArc');
-            if (cnNightArcEl) {
-                cnNightArcEl.setAttribute('d', describeArc(100, 100, 56, 180, 108));
-            }
         }
 
         let builtRingMonthDays = -1;
@@ -3346,24 +3254,31 @@
         }
 
         /* ===================================================================== */
-        /* 6. BERLIN SONNENSTANDS- & DÄMMERUNGS-ENGINE (MEEUS / NOAA)            */
+        /* 6. SONNENSTANDS- & DÄMMERUNGS-ENGINE FÜR BERLIN & ROM (MEEUS / NOAA)  */
         /* ===================================================================== */
-        const BERLIN_LAT = 52.5200;
-        const BERLIN_LON = 13.4050;
+        const LOCATIONS = {
+            berlin: { key: 'berlin', name: 'Berlin', adj: 'Berliner', lat: 52.5200, lon: 13.4050, tz: 'Europe/Berlin' },
+            rom:    { key: 'rom',    name: 'Rom',    adj: 'Römische', lat: 41.9028, lon: 12.4964, tz: 'Europe/Rome' }
+        };
+        const BERLIN_LAT = LOCATIONS.berlin.lat;
+        const BERLIN_LON = LOCATIONS.berlin.lon;
 
-        const berlinWallFmt = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'Europe/Berlin',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hourCycle: 'h23'
-        });
+        const locWallFmts = {
+            berlin: new Intl.DateTimeFormat('en-US', {
+                timeZone: LOCATIONS.berlin.tz,
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+            }),
+            rom: new Intl.DateTimeFormat('en-US', {
+                timeZone: LOCATIONS.rom.tz,
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+            })
+        };
 
-        function getBerlinParts(utcMs) {
-            const parts = berlinWallFmt.formatToParts(new Date(utcMs));
+        function getLocParts(locKey, utcMs) {
+            const fmt = locWallFmts[locKey] || locWallFmts.berlin;
+            const parts = fmt.formatToParts(new Date(utcMs));
             const m = {};
             for (const p of parts) {
                 if (p.type !== 'literal') m[p.type] = +p.value;
@@ -3371,21 +3286,24 @@
             return m;
         }
 
-        function getBerlinOffsetMinutes(utcMs) {
-            const p = getBerlinParts(utcMs);
+        function getLocOffsetMinutes(locKey, utcMs) {
+            const p = getLocParts(locKey, utcMs);
             const wallAsUtc = makeUtcDate(p.year, p.month - 1, p.day, p.hour, p.minute, p.second).getTime();
             return Math.round((wallAsUtc - utcMs) / 60000);
         }
 
-        function berlinLocalToUtcMs(y, m, d, minOfDay = 0) {
-            const approxOffset = getBerlinOffsetMinutes(makeUtcDate(y, m - 1, d, 12, 0, 0).getTime());
+        function locLocalToUtcMs(locKey, y, m, d, minOfDay = 0) {
+            const approxOffset = getLocOffsetMinutes(locKey, makeUtcDate(y, m - 1, d, 12, 0, 0).getTime());
             let utcGuess = makeUtcDate(y, m - 1, d, 0, 0, 0).getTime() + (minOfDay - approxOffset) * 60000;
-            const exactOffset = getBerlinOffsetMinutes(utcGuess);
+            const exactOffset = getLocOffsetMinutes(locKey, utcGuess);
             if (exactOffset !== approxOffset) {
                 utcGuess = makeUtcDate(y, m - 1, d, 0, 0, 0).getTime() + (minOfDay - exactOffset) * 60000;
             }
             return utcGuess;
         }
+
+        function getBerlinParts(utcMs) { return getLocParts('berlin', utcMs); }
+        function berlinLocalToUtcMs(y, m, d, minOfDay = 0) { return locLocalToUtcMs('berlin', y, m, d, minOfDay); }
 
         function computeSolarParamsAtJd(jd) {
             const T = (jd - 2451545.0) / 36525.0;
@@ -3417,15 +3335,16 @@
             return { decRad, eqOfTime };
         }
 
-        function computeBerlinSunAtUtcMs(utcMs) {
+        function computeLocSunAtUtcMs(locKey, utcMs) {
+            const loc = LOCATIONS[locKey] || LOCATIONS.berlin;
             const jd = (utcMs / 86400000) + 2440587.5;
             const { decRad, eqOfTime } = computeSolarParamsAtJd(jd);
             const d = new Date(utcMs);
             const utcMin = d.getUTCHours() * 60 + d.getUTCMinutes() + (d.getUTCSeconds() + d.getUTCMilliseconds() / 1000) / 60;
-            const trueSolarMin = (((utcMin + eqOfTime + 4 * BERLIN_LON) % 1440) + 1440) % 1440;
+            const trueSolarMin = (((utcMin + eqOfTime + 4 * loc.lon) % 1440) + 1440) % 1440;
             const hourAngleDeg = (trueSolarMin / 4) - 180;
             const haRad = hourAngleDeg * DEG2RAD;
-            const latRad = BERLIN_LAT * DEG2RAD;
+            const latRad = loc.lat * DEG2RAD;
 
             const cosZenith = Math.max(-1, Math.min(1,
                 Math.sin(latRad) * Math.sin(decRad) + Math.cos(latRad) * Math.cos(decRad) * Math.cos(haRad)
@@ -3460,6 +3379,10 @@
             return { elevation, elevGeom, azimuth, decDeg: decRad * RAD2DEG, eqOfTime };
         }
 
+        function computeBerlinSunAtUtcMs(utcMs) {
+            return computeLocSunAtUtcMs('berlin', utcMs);
+        }
+
         function getSolarPhaseName(elevDeg) {
             if (elevDeg >= 6) return 'Tag (Vollsonne)';
             if (elevDeg >= -0.833) return 'Tag · Goldene Stunde';
@@ -3469,22 +3392,23 @@
             return 'Astronomische Nacht';
         }
 
-        const berlinEventsCache = new Map();
-        function computeBerlinDayEvents(y, m, d) {
-            const cacheKey = `${y}-${pad(m)}-${pad(d)}`;
-            if (berlinEventsCache.has(cacheKey)) return berlinEventsCache.get(cacheKey);
+        const locEventsCache = new Map();
+        function computeLocDayEvents(locKey, y, m, d) {
+            const loc = LOCATIONS[locKey] || LOCATIONS.berlin;
+            const cacheKey = `${loc.key}:${y}-${pad(m)}-${pad(d)}`;
+            if (locEventsCache.has(cacheKey)) return locEventsCache.get(cacheKey);
 
-            const noonGuessUtc = makeUtcDate(y, m - 1, d, 11, 6, 0).getTime();
+            const noonGuessUtc = makeUtcDate(y, m - 1, d, 11, 10, 0).getTime();
             const jdNoonGuess = (noonGuessUtc / 86400000) + 2440587.5;
             const p0 = computeSolarParamsAtJd(jdNoonGuess);
-            const noonUtcMin0 = 720 - 4 * BERLIN_LON - p0.eqOfTime;
+            const noonUtcMin0 = 720 - 4 * loc.lon - p0.eqOfTime;
             const noonUtcMs0 = makeUtcDate(y, m - 1, d, 0, 0, 0).getTime() + noonUtcMin0 * 60000;
             const pNoon = computeSolarParamsAtJd((noonUtcMs0 / 86400000) + 2440587.5);
-            const noonUtcMin = 720 - 4 * BERLIN_LON - pNoon.eqOfTime;
+            const noonUtcMin = 720 - 4 * loc.lon - pNoon.eqOfTime;
             const noonUtcMs = makeUtcDate(y, m - 1, d, 0, 0, 0).getTime() + noonUtcMin * 60000;
-            const noonSun = computeBerlinSunAtUtcMs(noonUtcMs);
+            const noonSun = computeLocSunAtUtcMs(loc.key, noonUtcMs);
 
-            const latRad = BERLIN_LAT * DEG2RAD;
+            const latRad = loc.lat * DEG2RAD;
             function solveThreshold(zenithDeg) {
                 const cosZ = Math.cos(zenithDeg * DEG2RAD);
                 const cosH0 = (cosZ - Math.sin(latRad) * Math.sin(pNoon.decRad)) / (Math.cos(latRad) * Math.cos(pNoon.decRad));
@@ -3498,7 +3422,7 @@
                     const cH = (cosZ - Math.sin(latRad) * Math.sin(p.decRad)) / (Math.cos(latRad) * Math.cos(p.decRad));
                     if (cH > 1 || cH < -1) return estMs;
                     const hDeg = Math.acos(cH) * RAD2DEG;
-                    const eventNoonMin = 720 - 4 * BERLIN_LON - p.eqOfTime;
+                    const eventNoonMin = 720 - 4 * loc.lon - p.eqOfTime;
                     return makeUtcDate(y, m - 1, d, 0, 0, 0).getTime() + (eventNoonMin + sign * 4 * hDeg) * 60000;
                 };
                 return { status: 'ok', riseMs: refine(-1), setMs: refine(1) };
@@ -3509,8 +3433,8 @@
             const naut = solveThreshold(102.0);
             const astro = solveThreshold(108.0);
 
-            const riseAz = sun.riseMs ? computeBerlinSunAtUtcMs(sun.riseMs).azimuth : null;
-            const setAz = sun.setMs ? computeBerlinSunAtUtcMs(sun.setMs).azimuth : null;
+            const riseAz = sun.riseMs ? computeLocSunAtUtcMs(loc.key, sun.riseMs).azimuth : null;
+            const setAz = sun.setMs ? computeLocSunAtUtcMs(loc.key, sun.setMs).azimuth : null;
             const dayLengthSec = (sun.riseMs && sun.setMs) ? Math.round((sun.setMs - sun.riseMs) / 1000) : null;
 
             const result = {
@@ -3520,22 +3444,29 @@
                 sun, civil, naut, astro,
                 riseAz, setAz, dayLengthSec
             };
-            if (berlinEventsCache.size > 400) berlinEventsCache.clear();
-            berlinEventsCache.set(cacheKey, result);
+            if (locEventsCache.size > 600) locEventsCache.clear();
+            locEventsCache.set(cacheKey, result);
             return result;
         }
 
-        function fmtBerlinHM(utcMs) {
+        function computeBerlinDayEvents(y, m, d) {
+            return computeLocDayEvents('berlin', y, m, d);
+        }
+
+        function fmtLocHM(locKey, utcMs) {
             if (utcMs === null || utcMs === undefined) return '—';
-            const p = getBerlinParts(utcMs);
+            const p = getLocParts(locKey, utcMs);
             return `${pad(p.hour)}:${pad(p.minute)}`;
         }
 
-        function fmtBerlinHMS(utcMs) {
+        function fmtLocHMS(locKey, utcMs) {
             if (utcMs === null || utcMs === undefined) return '—';
-            const p = getBerlinParts(utcMs);
+            const p = getLocParts(locKey, utcMs);
             return `${pad(p.hour)}:${pad(p.minute)}:${pad(p.second)}`;
         }
+
+        function fmtBerlinHM(utcMs) { return fmtLocHM('berlin', utcMs); }
+        function fmtBerlinHMS(utcMs) { return fmtLocHMS('berlin', utcMs); }
 
         // Interaktives Berlin Solar Diagramm Rendering
         const BERLIN_MIN_ELEV = -65;
@@ -3551,6 +3482,7 @@
 
         let berlinState = {
             isLiveToday: true,
+            customUtcMs: null,
             dateKey: '',
             y: 0, m: 0, d: 0,
             events: null,
@@ -3662,37 +3594,33 @@
         }
 
         function updateBerlinSunLive(nowMs) {
-            const pNow = getBerlinParts(nowMs);
-            const todayKey = `${pNow.year}-${pad(pNow.month)}-${pad(pNow.day)}`;
-            if (berlinState.isLiveToday && berlinState.dateKey !== todayKey) {
-                document.getElementById('berlinSunDate').value = todayKey;
-                drawBerlinDayChart(pNow.year, pNow.month, pNow.day);
+            const evalMs = (berlinState.isLiveToday || berlinState.customUtcMs === null) ? nowMs : berlinState.customUtcMs;
+            const pEval = getBerlinParts(evalMs);
+            const evalKey = `${pEval.year}-${pad(pEval.month)}-${pad(pEval.day)}`;
+
+            if (berlinState.dateKey !== evalKey) {
+                drawBerlinDayChart(pEval.year, pEval.month, pEval.day);
             }
 
             const ev = berlinState.events;
             if (!ev) return;
 
-            const minToday = pNow.hour * 60 + pNow.minute + (pNow.second + (nowMs % 1000) / 1000) / 60;
-            const sunNow = computeBerlinSunAtUtcMs(nowMs);
+            const minEval = pEval.hour * 60 + pEval.minute + (pEval.second + (evalMs % 1000) / 1000) / 60;
+            const sunEval = computeBerlinSunAtUtcMs(evalMs);
 
-            // Live-Sonnen-Marker im Chart (nur bei "Heute", damit er bei fremdem Datum nicht abseits schwebt)
             const liveCursorEl = document.getElementById('berlinLiveCursor');
-            if (berlinState.dateKey === todayKey) {
-                liveCursorEl.style.display = 'inline';
-                const lx = berlinChartToX(minToday);
-                const ly = berlinElevToY(sunNow.elevation);
-                document.getElementById('berlinLiveLine').setAttribute('x1', lx.toFixed(1));
-                document.getElementById('berlinLiveLine').setAttribute('x2', lx.toFixed(1));
-                document.getElementById('berlinLiveGlow').setAttribute('cx', lx.toFixed(1));
-                document.getElementById('berlinLiveGlow').setAttribute('cy', ly.toFixed(1));
-                document.getElementById('berlinLiveDot').setAttribute('cx', lx.toFixed(1));
-                document.getElementById('berlinLiveDot').setAttribute('cy', ly.toFixed(1));
-            } else {
-                liveCursorEl.style.display = 'none';
-            }
+            liveCursorEl.style.display = 'inline';
+            const lx = berlinChartToX(minEval);
+            const ly = berlinElevToY(sunEval.elevation);
+            document.getElementById('berlinLiveLine').setAttribute('x1', lx.toFixed(1));
+            document.getElementById('berlinLiveLine').setAttribute('x2', lx.toFixed(1));
+            document.getElementById('berlinLiveGlow').setAttribute('cx', lx.toFixed(1));
+            document.getElementById('berlinLiveGlow').setAttribute('cy', ly.toFixed(1));
+            document.getElementById('berlinLiveDot').setAttribute('cx', lx.toFixed(1));
+            document.getElementById('berlinLiveDot').setAttribute('cy', ly.toFixed(1));
 
-            const livePhase = getSolarPhaseName(sunNow.elevation);
-            document.getElementById('berlinPhaseBadge').textContent = livePhase;
+            const evalPhase = getSolarPhaseName(sunEval.elevation);
+            document.getElementById('berlinPhaseBadge').textContent = evalPhase;
 
             if (berlinState.hoverMin !== null) {
                 const hMin = berlinState.hoverMin;
@@ -3706,45 +3634,41 @@
                 document.getElementById('berlinInspectAz').textContent = `Azimut: ${hSun.azimuth.toFixed(1)}°`;
                 document.getElementById('berlinInspectState').textContent = getSolarPhaseName(hSun.elevation);
             } else {
-                document.getElementById('berlinInspectTime').textContent = `Live Berlin: ${pad(pNow.hour)}:${pad(pNow.minute)}:${pad(pNow.second)}`;
-                document.getElementById('berlinInspectElev').textContent = `Höhe: ${sunNow.elevation.toFixed(3)}°`;
-                document.getElementById('berlinInspectAz').textContent = `Azimut: ${sunNow.azimuth.toFixed(2)}°`;
-                document.getElementById('berlinInspectState').textContent = livePhase;
+                const prefix = berlinState.isLiveToday ? 'Live' : 'Zeit';
+                document.getElementById('berlinInspectTime').textContent = `${prefix}: ${pad(pEval.day)}.${pad(pEval.month)}.${pEval.year} ${pad(pEval.hour)}:${pad(pEval.minute)}:${pad(pEval.second)}`;
+                document.getElementById('berlinInspectElev').textContent = `Höhe: ${sunEval.elevation.toFixed(2).replace('.', ',')}°`;
+                document.getElementById('berlinInspectAz').textContent = `Azimut: ${sunEval.azimuth.toFixed(1).replace('.', ',')}°`;
+                document.getElementById('berlinInspectState').textContent = evalPhase;
             }
 
-            const todayEv = (berlinState.dateKey === todayKey) ? ev : computeBerlinDayEvents(pNow.year, pNow.month, pNow.day);
-            const tomorrowEv = (berlinState.dateKey === todayKey)
-                ? berlinState.tomorrowEvents
-                : (() => {
-                    const nd = makeUtcDate(pNow.year, pNow.month - 1, pNow.day + 1, 12, 0, 0);
-                    return computeBerlinDayEvents(nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
-                })();
+            const todayEv = ev;
+            const tomorrowEv = berlinState.tomorrowEvents;
 
-            if (todayEv.sun.riseMs && nowMs < todayEv.sun.riseMs) {
+            if (todayEv.sun.riseMs && evalMs < todayEv.sun.riseMs) {
                 document.getElementById('lblBerlinCd1').textContent = `Aufgang (${fmtBerlinHM(todayEv.sun.riseMs)}) in`;
-                document.getElementById('valBerlinCd1').textContent = fmtDurationHMS((todayEv.sun.riseMs - nowMs) / 1000);
-            } else if (todayEv.sun.setMs && nowMs < todayEv.sun.setMs && todayEv.sun.riseMs) {
+                document.getElementById('valBerlinCd1').textContent = fmtDurationHMS((todayEv.sun.riseMs - evalMs) / 1000);
+            } else if (todayEv.sun.setMs && evalMs < todayEv.sun.setMs && todayEv.sun.riseMs) {
                 document.getElementById('lblBerlinCd1').textContent = `Seit Aufgang (${fmtBerlinHM(todayEv.sun.riseMs)})`;
-                document.getElementById('valBerlinCd1').textContent = fmtDurationHMS((nowMs - todayEv.sun.riseMs) / 1000);
+                document.getElementById('valBerlinCd1').textContent = fmtDurationHMS((evalMs - todayEv.sun.riseMs) / 1000);
             } else if (tomorrowEv?.sun?.riseMs) {
                 document.getElementById('lblBerlinCd1').textContent = `Nächster Aufgang (${fmtBerlinHM(tomorrowEv.sun.riseMs)}) in`;
-                document.getElementById('valBerlinCd1').textContent = fmtDurationHMS((tomorrowEv.sun.riseMs - nowMs) / 1000);
+                document.getElementById('valBerlinCd1').textContent = fmtDurationHMS((tomorrowEv.sun.riseMs - evalMs) / 1000);
             }
 
-            if (nowMs < todayEv.noonMs) {
+            if (evalMs < todayEv.noonMs) {
                 document.getElementById('lblBerlinCd2').textContent = `Bis Wahrer Mittag (${fmtBerlinHM(todayEv.noonMs)})`;
-                document.getElementById('valBerlinCd2').textContent = fmtDurationHMS((todayEv.noonMs - nowMs) / 1000);
+                document.getElementById('valBerlinCd2').textContent = fmtDurationHMS((todayEv.noonMs - evalMs) / 1000);
             } else {
                 document.getElementById('lblBerlinCd2').textContent = `Seit Wahrem Mittag (${fmtBerlinHM(todayEv.noonMs)})`;
-                document.getElementById('valBerlinCd2').textContent = fmtDurationHMS((nowMs - todayEv.noonMs) / 1000);
+                document.getElementById('valBerlinCd2').textContent = fmtDurationHMS((evalMs - todayEv.noonMs) / 1000);
             }
 
-            if (todayEv.sun.setMs && nowMs < todayEv.sun.setMs) {
+            if (todayEv.sun.setMs && evalMs < todayEv.sun.setMs) {
                 document.getElementById('lblBerlinCd3').textContent = `Untergang (${fmtBerlinHM(todayEv.sun.setMs)}) in`;
-                document.getElementById('valBerlinCd3').textContent = fmtDurationHMS((todayEv.sun.setMs - nowMs) / 1000);
+                document.getElementById('valBerlinCd3').textContent = fmtDurationHMS((todayEv.sun.setMs - evalMs) / 1000);
             } else if (todayEv.sun.setMs) {
                 document.getElementById('lblBerlinCd3').textContent = `Seit Untergang (${fmtBerlinHM(todayEv.sun.setMs)})`;
-                document.getElementById('valBerlinCd3').textContent = fmtDurationHMS((nowMs - todayEv.sun.setMs) / 1000);
+                document.getElementById('valBerlinCd3').textContent = fmtDurationHMS((evalMs - todayEv.sun.setMs) / 1000);
             }
         }
 
@@ -3776,22 +3700,54 @@
             hoverGroup.style.display = 'none';
         });
 
-        document.getElementById('berlinSunDate').addEventListener('change', (e) => {
-            const v = e.target.value;
-            if (!v) return;
-            const [yy, mm, dd] = v.split('-').map(Number);
-            if (!yy || !mm || !dd) return;
+        function applyBerlinCustomDateTime() {
+            const raw = document.getElementById('berlinSunDateTime').value.trim();
+            if (!raw) {
+                setErr('berlinSunDateTime', 'err_berlinSunDateTime', null);
+                berlinState.isLiveToday = true;
+                berlinState.customUtcMs = null;
+                document.getElementById('btnBerlinToday').classList.add('active');
+                document.getElementById('btnBerlinApply').classList.remove('active');
+                const p = getBerlinParts(Date.now());
+                drawBerlinDayChart(p.year, p.month, p.day);
+                updateBerlinSunLive(Date.now());
+                return;
+            }
+            const parsed = parseManualDate(raw);
+            if (parsed.error) {
+                setErr('berlinSunDateTime', 'err_berlinSunDateTime', parsed.error);
+                return;
+            }
+            setErr('berlinSunDateTime', 'err_berlinSunDateTime', null);
+            const dt = parsed.date;
+            const yy = dt.getFullYear(), mm = dt.getMonth() + 1, dd = dt.getDate();
+            const minOfDay = dt.getHours() * 60 + dt.getMinutes() + dt.getSeconds() / 60;
             berlinState.isLiveToday = false;
+            berlinState.customUtcMs = berlinLocalToUtcMs(yy, mm, dd, minOfDay);
             document.getElementById('btnBerlinToday').classList.remove('active');
+            document.getElementById('btnBerlinApply').classList.add('active');
             drawBerlinDayChart(yy, mm, dd);
+            updateBerlinSunLive(Date.now());
+        }
+
+        document.getElementById('btnBerlinApply').addEventListener('click', applyBerlinCustomDateTime);
+        document.getElementById('berlinSunDateTime').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                applyBerlinCustomDateTime();
+            }
         });
 
         document.getElementById('btnBerlinToday').addEventListener('click', () => {
-            const p = getBerlinParts(Date.now());
+            // Eingabefeld bleibt erhalten, damit man jederzeit mit "Anzeigen" direkt vergleichen kann
+            setErr('berlinSunDateTime', 'err_berlinSunDateTime', null);
             berlinState.isLiveToday = true;
+            berlinState.customUtcMs = null;
             document.getElementById('btnBerlinToday').classList.add('active');
-            document.getElementById('berlinSunDate').value = `${p.year}-${pad(p.month)}-${pad(p.day)}`;
+            document.getElementById('btnBerlinApply').classList.remove('active');
+            const p = getBerlinParts(Date.now());
             drawBerlinDayChart(p.year, p.month, p.day);
+            updateBerlinSunLive(Date.now());
         });
 
         /* ===================================================================== */
@@ -3812,8 +3768,7 @@
         const astroDom = {
             built: false,
             planetRefs: [],
-            earthLine: null,
-            moonPath: null
+            earthLine: null
         };
 
         function buildAstronomyDomOnce() {
@@ -3891,6 +3846,10 @@
                     <td></td>
                     <td>${periodTxt}</td>
                     <td style="color: ${p.color}; font-weight: 700;"></td>
+                    <td style="color: var(--atomic); white-space: nowrap;"></td>
+                    <td style="white-space: nowrap;"></td>
+                    <td style="color: var(--brass-bright); white-space: nowrap;"></td>
+                    <td style="color: var(--cryo); white-space: nowrap;"></td>
                 `;
                 tbody.appendChild(tr);
                 const tds = tr.children;
@@ -3902,13 +3861,15 @@
                     tdEarth: tds[3],
                     tdSpeed: tds[4],
                     tdCycle: tds[6],
+                    tdSince0: tds[7],
+                    tdLast0: tds[8],
+                    tdMid180: tds[9],
+                    tdNext0: tds[10],
+                    cachedPass: null,
+                    lastSinceSec: -1,
                     lastKey: ''
                 });
             });
-
-            const moonSvg = document.getElementById('svgMoonPhase');
-            moonSvg.innerHTML = `<circle cx="50" cy="50" r="40" fill="#141925" stroke="rgba(167,139,250,0.35)" stroke-width="1.2"/><path id="moonPhasePath" fill="#e2e8f0"/>`;
-            astroDom.moonPath = document.getElementById('moonPhasePath');
         }
 
         function computePlanetState(p, daysSinceJ2000) {
@@ -3928,7 +3889,68 @@
             return { lambdaDeg, rAU, x, y, speedKmS };
         }
 
-        let lastMoonKey = '';
+        function fmtAstroDateDE(d) {
+            const y = d.getFullYear();
+            const yStr = y <= 0 ? `${Math.abs(y - 1)} v.Chr.` : String(y).padStart(4, '0');
+            return `${pad(d.getDate())}.${pad(d.getMonth() + 1)}.${yStr} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+        }
+
+        function fmtElapsedADHS(totalSec) {
+            const secPerYear = 365.25 * 86400;
+            const a = Math.floor(totalSec / secPerYear);
+            let rem = totalSec - a * secPerYear;
+            const d = Math.floor(rem / 86400);
+            rem -= d * 86400;
+            const h = Math.floor(rem / 3600);
+            const s = Math.floor(rem - h * 3600);
+            return `${a}a ${d}d ${h}h ${s}s`;
+        }
+
+        function solvePlanetCrossingJ2000(p, targetDeg, estDJ2000) {
+            const signedDiff = (d) => {
+                const lam = computePlanetState(p, d).lambdaDeg;
+                return ((((lam - targetDeg) % 360) + 540) % 360) - 180;
+            };
+            const halfSpan = p.periodDays * 0.35;
+            let lo = estDJ2000 - halfSpan;
+            let hi = estDJ2000 + halfSpan;
+            if (signedDiff(lo) > 0) lo -= halfSpan * 0.5;
+            if (signedDiff(hi) < 0) hi += halfSpan * 0.5;
+            for (let k = 0; k < 42; k++) {
+                const mid = (lo + hi) * 0.5;
+                if (signedDiff(mid) < 0) lo = mid;
+                else hi = mid;
+            }
+            return (lo + hi) * 0.5;
+        }
+
+        function getPlanetCyclePasses(ref, s, dJ2000) {
+            const p = ref.p;
+            if (!ref.cachedPass || dJ2000 < ref.cachedPass.lastZero || dJ2000 >= ref.cachedPass.nextZero) {
+                const est0 = dJ2000 - (s.lambdaDeg / 360) * p.periodDays;
+                let lastZero = solvePlanetCrossingJ2000(p, 0, est0);
+                if (lastZero > dJ2000) {
+                    lastZero = solvePlanetCrossingJ2000(p, 0, lastZero - p.periodDays);
+                }
+                let nextZero = solvePlanetCrossingJ2000(p, 0, lastZero + p.periodDays);
+                if (nextZero <= dJ2000) {
+                    lastZero = nextZero;
+                    nextZero = solvePlanetCrossingJ2000(p, 0, lastZero + p.periodDays);
+                }
+                const mid180 = solvePlanetCrossingJ2000(p, 180, (lastZero + nextZero) * 0.5);
+                const toStr = (dj2k) => fmtAstroDateDE(new Date((dj2k + 2451545.0 - 2440587.5) * 86400000));
+                ref.cachedPass = {
+                    lastZero,
+                    mid180,
+                    nextZero,
+                    lastZeroStr: toStr(lastZero),
+                    mid180Str: toStr(mid180),
+                    nextZeroStr: toStr(nextZero)
+                };
+            }
+            return ref.cachedPass;
+        }
+
         function updateAstronomyModule(targetDate = new Date()) {
             buildAstronomyDomOnce();
 
@@ -3954,7 +3976,14 @@
                 const earthMioKm = distEarthAU * 149.59787;
                 const cyclePct = (s.lambdaDeg / 360) * 100;
 
-                const key = `${s.lambdaDeg.toFixed(3)}|${s.rAU.toFixed(4)}|${distEarthAU.toFixed(4)}`;
+                const pass = getPlanetCyclePasses(ref, s, dJ2000);
+                const elapsedSec = Math.max(0, Math.floor((dJ2000 - pass.lastZero) * 86400));
+                if (ref.lastSinceSec !== elapsedSec) {
+                    ref.lastSinceSec = elapsedSec;
+                    ref.tdSince0.textContent = fmtElapsedADHS(elapsedSec);
+                }
+
+                const key = `${s.lambdaDeg.toFixed(3)}|${s.rAU.toFixed(4)}|${distEarthAU.toFixed(4)}|${pass.lastZeroStr}`;
                 if (key !== ref.lastKey) {
                     ref.lastKey = key;
                     const pxStr = px.toFixed(2);
@@ -3980,9 +4009,20 @@
                         : `${distEarthAU.toFixed(4)} AE <span style="color:var(--text-muted);">(${fmtNum(earthMioKm.toFixed(2))} Mio. km)</span>`;
                     ref.tdSpeed.textContent = `${s.speedKmS.toFixed(2)} km/s`;
                     ref.tdCycle.textContent = `${cyclePct.toFixed(2)} %`;
+                    ref.tdLast0.textContent = pass.lastZeroStr;
+                    ref.tdMid180.textContent = pass.mid180Str;
+                    ref.tdNext0.textContent = pass.nextZeroStr;
                 }
             }
+        }
 
+            let lunarCustomTarget = null;
+        let lastMoonKey = '';
+        function updateLunarObservatory(targetDate = new Date(), isLive = true) {
+            setTextCached('lunarDt', document.getElementById('lunarDateTimeBadge'), `${isLive ? 'Live' : 'Zeitpunkt'}: ${fmtAstroDateDE(targetDate)}`);
+
+            const jd = (targetDate.getTime() / 86400000) + 2440587.5;
+            const dJ2000 = jd - 2451545.0;
             const synodic = 29.530588853;
             const refNewMoonJd = 2451550.259722;
 
@@ -4071,7 +4111,7 @@
             const age = Math.max(0, jd - lastNewJd);
             const phase = Math.max(0, Math.min(0.999999, age / cycleLen));
             const illum = ((1 - Math.cos(phase * 2 * Math.PI)) / 2) * 100;
-            const moonKey = phase.toFixed(4) + '|' + Math.floor(jd * 24);
+            const moonKey = isLive ? (phase.toFixed(4) + '|' + Math.floor(jd * 24)) : jd.toFixed(6);
 
             // Statische Mond-Kurvenstruktur einmalig bauen
             const curveGridEl = document.getElementById('lunarCurveGrid');
@@ -4172,18 +4212,6 @@
                 lastMoonKey = moonKey;
                 const phaseName = getLunarPhaseName(phase);
 
-                // Kleines Modul in Astronomie 01
-                document.getElementById('moonPhaseBadge').textContent = phaseName;
-                document.getElementById('moonIllum').textContent = `${illum.toFixed(2).replace('.', ',')} %`;
-                document.getElementById('moonAge').textContent = `${age.toFixed(2).replace('.', ',')} Tage`;
-
-                const sunGeoLon = (earthState.lambdaDeg + 180) % 360;
-                let season = 'Winter';
-                if (sunGeoLon >= 0 && sunGeoLon < 90) season = 'Frühling';
-                else if (sunGeoLon < 180) season = 'Sommer';
-                else if (sunGeoLon < 270) season = 'Herbst';
-                document.getElementById('astroSeason').textContent = season;
-
                 const makeLitMoonPath = (mcx, mcy, r) => {
                     const rx = Math.abs(Math.cos(phase * 2 * Math.PI)) * r;
                     const litSide = phase <= 0.5 ? 1 : 0;
@@ -4196,7 +4224,6 @@
                     }
                     return '';
                 };
-                astroDom.moonPath.setAttribute('d', makeLitMoonPath(50, 50, 40));
 
                 // Großes Lunares Observatorium (Astronomie 02)
                 document.getElementById('lunarBigBadge').textContent = `${phaseName} · ${illum.toFixed(1).replace('.', ',')} %`;
@@ -4298,17 +4325,36 @@
                 document.getElementById('lunarLiveDot').setAttribute('cy', ly.toFixed(1));
             }
 
-            const secDay = targetDate.getHours() * 3600
-                         + targetDate.getMinutes() * 60
-                         + targetDate.getSeconds()
-                         + targetDate.getMilliseconds() / 1000;
-            document.getElementById('earthOrbitToday').textContent = `${fmtNum((secDay * 29.7847).toFixed(2))} km`;
-            document.getElementById('cosRotEq').textContent = `${fmtNum((secDay * 0.4651).toFixed(2))} km`;
-            document.getElementById('cosMoonVel').textContent = `${fmtNum((secDay * 1.022).toFixed(2))} km`;
-            document.getElementById('cosEarthSun').textContent = `${fmtNum((secDay * 29.7847).toFixed(2))} km`;
-            document.getElementById('cosGalactic').textContent = `${fmtNum((secDay * 220).toFixed(1))} km`;
-            document.getElementById('cosLightToday').textContent = `${fmtNum(((secDay * 299792.458) / 1e6).toFixed(4))} Mio. km`;
+            }
+
+        function applyLunarCustomDate() {
+            const raw = document.getElementById('lunarCustomDate').value.trim();
+            if (!raw) {
+                setErr('lunarCustomDate', 'err_lunarCustomDate', null);
+                lunarCustomTarget = null;
+                updateLunarObservatory(new Date(), true);
+                return;
+            }
+            const p = parseManualDate(raw);
+            if (p.error) { setErr('lunarCustomDate', 'err_lunarCustomDate', p.error); return; }
+            setErr('lunarCustomDate', 'err_lunarCustomDate', null);
+            lunarCustomTarget = p.date;
+            updateLunarObservatory(p.date, false);
         }
+
+        document.getElementById('btnCheckLunar').addEventListener('click', applyLunarCustomDate);
+        document.getElementById('lunarCustomDate').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                applyLunarCustomDate();
+            }
+        });
+        document.getElementById('btnResetLunarLive').addEventListener('click', () => {
+            document.getElementById('lunarCustomDate').value = '';
+            setErr('lunarCustomDate', 'err_lunarCustomDate', null);
+            lunarCustomTarget = null;
+            updateLunarObservatory(new Date(), true);
+        });
 
         document.getElementById('btnCheckAstro').addEventListener('click', () => {
             const raw = document.getElementById('astroCustomDate').value.trim();
@@ -4346,36 +4392,38 @@
             'Quarta Vigilia (4. Nachtwache)'
         ];
 
-        function getBerlinTemporalPeriodForUtc(utcMs) {
-            const p = getBerlinParts(utcMs);
-            const evToday = computeBerlinDayEvents(p.year, p.month, p.day);
+        let romanClockLoc = 'berlin';
+
+        function getLocTemporalPeriodForUtc(utcMs, locKey = 'berlin') {
+            const p = getLocParts(locKey, utcMs);
+            const evToday = computeLocDayEvents(locKey, p.year, p.month, p.day);
             const rise = evToday.sun.riseMs;
             const set = evToday.sun.setMs;
 
             if (rise && set) {
                 if (utcMs >= rise && utcMs < set) {
-                    return { isDay: true, periodStart: rise, periodEnd: set, refDate: p };
+                    return { locKey, isDay: true, periodStart: rise, periodEnd: set, refDate: p };
                 }
                 if (utcMs >= set) {
                     const nd = makeUtcDate(p.year, p.month - 1, p.day + 1, 12, 0, 0);
-                    const evTom = computeBerlinDayEvents(nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
+                    const evTom = computeLocDayEvents(locKey, nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
                     if (evTom.sun.riseMs) {
-                        return { isDay: false, periodStart: set, periodEnd: evTom.sun.riseMs, refDate: p };
+                        return { locKey, isDay: false, periodStart: set, periodEnd: evTom.sun.riseMs, refDate: p };
                     }
                 } else {
                     const pd = makeUtcDate(p.year, p.month - 1, p.day - 1, 12, 0, 0);
-                    const evYest = computeBerlinDayEvents(pd.getUTCFullYear(), pd.getUTCMonth() + 1, pd.getUTCDate());
+                    const evYest = computeLocDayEvents(locKey, pd.getUTCFullYear(), pd.getUTCMonth() + 1, pd.getUTCDate());
                     if (evYest.sun.setMs) {
-                        return { isDay: false, periodStart: evYest.sun.setMs, periodEnd: rise, refDate: p };
+                        return { locKey, isDay: false, periodStart: evYest.sun.setMs, periodEnd: rise, refDate: p };
                     }
                 }
             }
-            const dayStart = berlinLocalToUtcMs(p.year, p.month, p.day, 0);
-            return { isDay: true, periodStart: dayStart, periodEnd: dayStart + 86400000, refDate: p };
+            const dayStart = locLocalToUtcMs(locKey, p.year, p.month, p.day, 0);
+            return { locKey, isDay: true, periodStart: dayStart, periodEnd: dayStart + 86400000, refDate: p };
         }
 
-        function computeRomanTemporalAtUtc(utcMs) {
-            const per = getBerlinTemporalPeriodForUtc(utcMs);
+        function computeRomanTemporalAtUtc(utcMs, locKey = 'berlin') {
+            const per = getLocTemporalPeriodForUtc(utcMs, locKey);
             const durationMs = Math.max(1000, per.periodEnd - per.periodStart);
             const elapsedMs = Math.max(0, Math.min(durationMs, utcMs - per.periodStart));
             const frac = elapsedMs / durationMs;
@@ -4431,15 +4479,38 @@
             lastActiveIdx: -1
         };
 
+        const btnSwitchRomanLoc = document.getElementById('btnSwitchRomanLoc');
+        btnSwitchRomanLoc.addEventListener('click', () => {
+            romanClockLoc = romanClockLoc === 'berlin' ? 'rom' : 'berlin';
+            const isRom = romanClockLoc === 'rom';
+            const loc = LOCATIONS[romanClockLoc];
+            btnSwitchRomanLoc.classList.toggle('is-alt', isRom);
+            btnSwitchRomanLoc.setAttribute('aria-pressed', String(isRom));
+
+            document.getElementById('clkRomanKicker').textContent = `Chronometer 03 · Antike Temporalzeit (12 Tag- / 12 Nachtstunden · ${loc.name})`;
+            document.getElementById('lblRomanRise').textContent = `Perioden-Start (${loc.name})`;
+            document.getElementById('lblRomanSet').textContent = `Perioden-Ende (${loc.name})`;
+            document.getElementById('lblRomanScheduleTitle').textContent = `Heutige 12 Stunden-Einteilung der laufenden Phase (${loc.adj} Ortszeit)`;
+
+            romanDom.lastPeriodKey = '';
+            delete lastStr.romBadge;
+            delete lastStr.romDig;
+            delete lastStr.romSub;
+            delete lastStr.romRise;
+            delete lastStr.romSet;
+            delete lastStr.romPerLen;
+            updateRomanClock(Date.now());
+        });
+
         function renderRomanSchedule(state) {
-            const pKey = `${state.isDay ? 'D' : 'N'}_${state.periodStart}_${state.periodEnd}`;
+            const pKey = `${state.locKey}_${state.isDay ? 'D' : 'N'}_${state.periodStart}_${state.periodEnd}`;
             if (pKey !== romanDom.lastPeriodKey) {
                 romanDom.lastPeriodKey = pKey;
                 romanDom.lastActiveIdx = -1;
                 const stepMs = state.durationMs / 12;
                 let html = '';
                 for (let i = 0; i < 12; i++) {
-                    const startStr = fmtBerlinHM(state.periodStart + i * stepMs);
+                    const startStr = fmtLocHM(state.locKey, state.periodStart + i * stepMs);
                     html += `
                         <div class="roman-hour-chip" data-ridx="${i}">
                             <span class="rh-num">${i + 1}. (${ROMAN_HOURS[i]})</span>
@@ -4620,7 +4691,7 @@
         }
 
         function updateRomanClock(nowMs) {
-            const st = computeRomanTemporalAtUtc(nowMs);
+            const st = computeRomanTemporalAtUtc(nowMs, romanClockLoc);
             // +1 bewirkt: 01:00:00 (Start Hora I) zeigt direkt auf I (30°), 04:00:00 auf IV (120°), 12:00:00 auf XII (0°)
             const hourDeg = (st.totalTempHours + 1) * 30;
             const minDeg = ((st.totalTempHours - st.hourIdx) * 60) * 6;
@@ -4670,269 +4741,11 @@
                 : `${st.hourNum}. Nachtstunde (Hora ${st.romanNum}) · ${st.vigilName} · Gesamte Nacht: ${fmtNum((st.frac * 100).toFixed(2))} %`;
             setTextCached('romSub', romanDom.sub, phaseLabel);
 
-            setTextCached('romRise', romanDom.rise, `${fmtBerlinHMS(st.periodStart)} (${st.isDay ? 'Aufgang' : 'Untergang'})`);
-            setTextCached('romSet', romanDom.set, `${fmtBerlinHMS(st.periodEnd)} (${st.isDay ? 'Untergang' : 'Aufgang'})`);
+            setTextCached('romRise', romanDom.rise, `${fmtLocHMS(st.locKey, st.periodStart)} (${st.isDay ? 'Aufgang' : 'Untergang'})`);
+            setTextCached('romSet', romanDom.set, `${fmtLocHMS(st.locKey, st.periodEnd)} (${st.isDay ? 'Untergang' : 'Aufgang'})`);
             setTextCached('romPerLen', romanDom.periodLen, `${fmtDurationHMS(st.durationMs / 1000)} (${st.isDay ? 'Gesamter Tag' : 'Gesamte Nacht'})`);
 
             renderRomanSchedule(st);
-        }
-
-        /* ===================================================================== */
-        /* 8b. TRADITIONELLE CHINESISCHE ZEITRECHNUNG (96-KÈ, 100-KÈ & GĒNG-DIǍN)*/
-        /* ===================================================================== */
-        const CN_BRANCHES = [
-            { zh: '子', py: 'zǐ',   tradRange: '23:00–01:00', songRange: '00:00–02:00', aliasZh: '夜半', aliasPy: 'Yèbàn · Mitternacht' },
-            { zh: '丑', py: 'chǒu', tradRange: '01:00–03:00', songRange: '02:00–04:00', aliasZh: '雞鳴', aliasPy: 'Jīmíng · Hahnenschrei' },
-            { zh: '寅', py: 'yín',  tradRange: '03:00–05:00', songRange: '04:00–06:00', aliasZh: '平旦', aliasPy: 'Píngdàn · Morgengrauen' },
-            { zh: '卯', py: 'mǎo',  tradRange: '05:00–07:00', songRange: '06:00–08:00', aliasZh: '日出', aliasPy: 'Rìchū · Sonnenaufgang' },
-            { zh: '辰', py: 'chén', tradRange: '07:00–09:00', songRange: '08:00–10:00', aliasZh: '食時', aliasPy: 'Shíshí · Frühstück' },
-            { zh: '巳', py: 'sì',   tradRange: '09:00–11:00', songRange: '10:00–12:00', aliasZh: '隅中', aliasPy: 'Yúzhōng · Vormittag' },
-            { zh: '午', py: 'wǔ',   tradRange: '11:00–13:00', songRange: '12:00–14:00', aliasZh: '日中', aliasPy: 'Rìzhōng · Mittag' },
-            { zh: '未', py: 'wèi',  tradRange: '13:00–15:00', songRange: '14:00–16:00', aliasZh: '日昳', aliasPy: 'Rìdié · Nachmittag' },
-            { zh: '申', py: 'shēn', tradRange: '15:00–17:00', songRange: '16:00–18:00', aliasZh: '晡時', aliasPy: 'Būshí · Spätnachmittag' },
-            { zh: '酉', py: 'yǒu',  tradRange: '17:00–19:00', songRange: '18:00–20:00', aliasZh: '日入', aliasPy: 'Rìrù · Sonnenuntergang' },
-            { zh: '戌', py: 'xū',   tradRange: '19:00–21:00', songRange: '20:00–22:00', aliasZh: '黃昏', aliasPy: 'Huánghūn · Abenddämmerung' },
-            { zh: '亥', py: 'hài',  tradRange: '21:00–23:00', songRange: '22:00–00:00', aliasZh: '人定', aliasPy: 'Réndìng · Nachtruhe' }
-        ];
-        const CN_NUMS = ['', '一', '二', '三', '四', '五', '六', '七', '八'];
-        const CN_GENGS = [
-            { zh: '一更', py: 'yìgēng',  stemZh: '甲', stemPy: 'jiǎ',  isNight: true,  desc: '1. Nachtwache (ab 19:12)' },
-            { zh: '二更', py: 'èrgēng',  stemZh: '乙', stemPy: 'yǐ',   isNight: true,  desc: '2. Nachtwache (ab 21:36)' },
-            { zh: '三更', py: 'sāngēng', stemZh: '丙', stemPy: 'bǐng', isNight: true,  desc: '3. Nachtwache (ab 00:00)' },
-            { zh: '四更', py: 'sìgēng',  stemZh: '丁', stemPy: 'dīng', isNight: true,  desc: '4. Nachtwache (ab 02:24)' },
-            { zh: '五更', py: 'wǔgēng',  stemZh: '戊', stemPy: 'wù',   isNight: true,  desc: '5. Nachtwache (ab 04:48)' },
-            { zh: '朝',   py: 'zhāo',    stemZh: '己', stemPy: 'jǐ',   isNight: false, desc: 'Morgen (ab 07:12)' },
-            { zh: '禺',   py: 'yú',      stemZh: '庚', stemPy: 'gēng', isNight: false, desc: 'Vormittag (ab 09:36)' },
-            { zh: '中',   py: 'zhōng',   stemZh: '辛', stemPy: 'xīn',  isNight: false, desc: 'Mittag (ab 12:00)' },
-            { zh: '晡',   py: 'bū',      stemZh: '壬', stemPy: 'rén',  isNight: false, desc: 'Nachmittag (ab 14:24)' },
-            { zh: '夕',   py: 'xī',      stemZh: '癸', stemPy: 'guǐ',  isNight: false, desc: 'Abend (ab 16:48)' }
-        ];
-        const CN_HAN_15 = {
-            5:  '早朝 (Zǎocháo · Früher Morgen)',
-            6:  '晨明 (Chénmíng · Morgengrauen)',
-            7:  '朏明 (Fěimíng · Erstes Licht)',
-            8:  '旦明 (Dànmíng · Tagesanbruch)',
-            9:  '早食 (Zǎoshí · Frühe Mahlzeit)',
-            10: '宴食 (Yànshí · Festmahlzeit)',
-            11: '隅中 (Yúzhōng · Vormittag)',
-            12: '正中 (Zhèngzhōng · Hoher Mittag)',
-            13: '少還 (Shǎohuán · Kurzer Schatten)',
-            14: '餔時 (Būshí · Abendbrotzeit)',
-            15: '大還 (Dàhuán · Langer Schatten)',
-            16: '高舂 (Gāochōng · Hohes Stampfen)',
-            17: '下舂 (Xiàchōng · Tiefes Stampfen)',
-            18: '縣東 (Xuándōng · Sonnenuntergang)',
-            19: '黃昏 (Huánghūn · Abenddämmerung)',
-            20: '定昏 (Dìnghūn · Ruhezeit)'
-        };
-
-        function computeChineseTimeAtSec(secOfDay, era = 'trad') {
-            const sNorm = ((secOfDay % 86400) + 86400) % 86400;
-            const dayFrac = sNorm / 86400;
-
-            // 100-Kè-System (1 Groß-Kè = 864 s = 6 Klein-Kè = 60 Fēn; 1 Fēn = 14,4 s = 100 Miǎo)
-            const keFloat = sNorm / 864;
-            const keGlobal = Math.min(99, Math.floor(keFloat));
-            const remInKe = sNorm - keGlobal * 864;
-            const minorKe = Math.min(5, Math.floor(remInKe / 144));
-            const fenFloat = remInKe / 14.4;
-            const fen = Math.min(59, Math.floor(fenFloat));
-            const miaoFloat = (fenFloat - fen) * 100;
-            const miao = Math.min(99, Math.floor(miaoFloat));
-
-            // 12 Shíchén (時辰)
-            const shifted = era === 'trad' ? (sNorm + 3600) % 86400 : sNorm;
-            const shiIdx = Math.min(11, Math.floor(shifted / 7200));
-            const secInShi = shifted - shiIdx * 7200;
-            const isCentral = secInShi >= 3600;
-            const secInHalf = secInShi % 3600;
-            const halfIdx = Math.min(23, Math.floor(shifted / 3600));
-            const halfStartHour = era === 'trad' ? (halfIdx + 23) % 24 : halfIdx;
-            const halfStartSec = halfStartHour * 3600;
-            const firstMarkKe = Math.floor(halfStartSec / 864) + 1;
-            const keInHalf = keGlobal >= firstMarkKe ? Math.min(4, keGlobal - firstMarkKe + 1) : 0;
-            const keInShi8 = Math.min(8, Math.floor(secInShi / 864));
-
-            // System 1 (Am häufigsten / Qing-Standard): 96-Kè-System (1 Kè = 15 Min = 900 s)
-            const qingGlobalKe = Math.min(95, Math.floor(sNorm / 900));
-            const qingKe = Math.min(3, Math.floor(secInHalf / 900));
-            const qingKeInShi = Math.min(7, Math.floor(secInShi / 900));
-            const qingMin = Math.min(14, Math.floor((secInHalf % 900) / 60));
-            const qingSec = Math.min(59, Math.floor(secInHalf % 60));
-            const qingKeZh = qingKe === 0 ? '初刻' : `${CN_NUMS[qingKe]}刻`;
-            const qingKePy = qingKe === 0 ? 'chūkè' : `${qingKe} kè`;
-
-            const br = CN_BRANCHES[shiIdx];
-            const halfZh = isCentral ? '正' : '初';
-            const halfPy = isCentral ? 'zhèng' : 'chū';
-            const ke4Zh = keInHalf > 0 ? `${CN_NUMS[keInHalf]}刻` : '';
-            const ke4Py = keInHalf > 0 ? ` ${keInHalf} kè` : '';
-            const ke8Zh = keInShi8 > 0 ? `${CN_NUMS[keInShi8]}刻` : '';
-            const ke8Py = keInShi8 > 0 ? ` ${keInShi8} kè` : '';
-
-            // 10 Gēng & 6 Diǎn pro Gēng (Start 19:12 = 69120 s; 1 Diǎn = 1440 s = 100 Fēn)
-            const gengShifted = (sNorm - 69120 + 86400) % 86400;
-            const gengIdx = Math.min(9, Math.floor(gengShifted / 8640));
-            const secInGeng = gengShifted - gengIdx * 8640;
-            const dian = Math.min(5, Math.floor(secInGeng / 1440));
-            const secInDian = secInGeng - dian * 1440;
-            const gengFenFloat = secInDian / 14.4;
-            const gengFen = Math.min(99, Math.floor(gengFenFloat));
-            const gengMiao = Math.min(99, Math.floor((gengFenFloat - gengFen) * 100));
-            const gengInfo = CN_GENGS[gengIdx];
-            const dianZh = dian > 0 ? `${CN_NUMS[dian]}點` : '';
-            const dianPy = dian > 0 ? ` ${dian} diǎn` : '';
-
-            // Klassische 12 Tagesnamen + Han Huáinánzǐ + vollständige Buddhistische Skala
-            const h24 = Math.floor(sNorm / 3600);
-            const aliasText = `${br.aliasZh} (${br.aliasPy})`;
-            const hanText = CN_HAN_15[h24] || aliasText;
-            const xuyuIdx = Math.min(30, Math.floor(sNorm / 2880) + 1);
-            const luoyuIdx = Math.min(20, Math.floor((sNorm % 2880) / 144) + 1);
-            const tanzhiIdx = Math.min(20, Math.floor((sNorm % 144) / 7.2) + 1);
-            const shuenIdx = Math.min(20, Math.floor((sNorm % 7.2) / 0.36) + 1);
-            const nianIdx = Math.min(20, Math.floor((sNorm % 0.36) / 0.018) + 1);
-
-            return {
-                sNorm, dayFrac, era,
-                keFloat, keGlobal, minorKe, fenFloat, fen, miaoFloat, miao,
-                shiIdx, br, isCentral, halfZh, halfPy,
-                keInHalf, ke4Zh, ke4Py, keInShi8, ke8Zh, ke8Py,
-                qingGlobalKe, qingKe, qingKeInShi, qingMin, qingSec, qingKeZh, qingKePy,
-                gengIdx, gengInfo, dian, dianZh, dianPy, gengFen, gengMiao,
-                aliasText, hanText, xuyuIdx, luoyuIdx, tanzhiIdx, shuenIdx, nianIdx
-            };
-        }
-
-        const cnDom = {
-            eraSelect: document.getElementById('cnDialEraSelect'),
-            dynRing: document.getElementById('cnDynamicRing'),
-            nightArc: document.getElementById('cnNightArc'),
-            keArc: document.getElementById('cnKeArc'),
-            sunCenter: document.getElementById('cnSunCenter'),
-            moonCenter: document.getElementById('cnMoonCenter'),
-            shiHand: document.getElementById('cnShiHand'),
-            fenHand: document.getElementById('cnFenHand'),
-            miaoHand: document.getElementById('cnMiaoHand'),
-            badge: document.getElementById('clkCnBadge'),
-            digTitle: document.getElementById('clkCnDigTitle'),
-            digTime: document.getElementById('clkCnDigTime'),
-            sub96Ke: document.getElementById('clkCnSub96Ke'),
-            sub100Shi: document.getElementById('clkCnSub100Shi'),
-            sub100Ke: document.getElementById('clkCnSub100Ke'),
-            sub8Ke: document.getElementById('clkCnSub8Ke'),
-            shi: document.getElementById('clkCnShi'),
-            geng: document.getElementById('clkCnGeng'),
-            keDetail: document.getElementById('clkCnKeDetail'),
-            han: document.getElementById('clkCnHan'),
-            strip: document.getElementById('cnBranchesStrip'),
-            builtEra: '',
-            lastShiIdx: -1,
-            lastGengIdx: -1
-        };
-
-        function buildChineseDynamicRing(era) {
-            if (cnDom.builtEra === era && cnDom.dynRing && cnDom.strip) return;
-            cnDom.builtEra = era;
-            cnDom.lastShiIdx = -1;
-
-            const offsetDeg = era === 'trad' ? 0 : 15; // 180° = 00:00 unten
-            let ringHtml = '';
-            let stripHtml = '';
-
-            for (let i = 0; i < 12; i++) {
-                const startDeg = 180 - 15 + offsetDeg + i * 30;
-                const sRad = (startDeg - 90) * DEG2RAD;
-                const x1 = 100 + 62 * Math.cos(sRad), y1 = 100 + 62 * Math.sin(sRad);
-                const x2 = 100 + 81 * Math.cos(sRad), y2 = 100 + 81 * Math.sin(sRad);
-                ringHtml += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="rgba(218,179,86,0.38)" stroke-width="1"/>`;
-
-                const midDeg = startDeg + 15;
-                const mRad = (midDeg - 90) * DEG2RAD;
-                const tx = 100 + 71 * Math.cos(mRad), ty = 100 + 71 * Math.sin(mRad) + 3.5;
-                ringHtml += `<text id="cnBrDial_${i}" x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" text-anchor="middle" fill="#cbd5e1" font-family="Space Grotesk, sans-serif" font-size="9.5" font-weight="700">${CN_BRANCHES[i].zh}</text>`;
-
-                const rangeTxt = era === 'trad' ? CN_BRANCHES[i].tradRange : CN_BRANCHES[i].songRange;
-                stripHtml += `
-                    <div class="roman-hour-chip" data-cnidx="${i}">
-                        <span class="rh-num">${CN_BRANCHES[i].zh} · ${CN_BRANCHES[i].py}</span>
-                        <span class="rh-time">${rangeTxt}</span>
-                    </div>
-                `;
-            }
-            cnDom.dynRing.innerHTML = ringHtml;
-            cnDom.strip.innerHTML = stripHtml;
-        }
-
-        cnDom.eraSelect.addEventListener('change', () => {
-            buildChineseDynamicRing(cnDom.eraSelect.value);
-        });
-
-        function updateChineseClock(now) {
-            const era = cnDom.eraSelect.value;
-            buildChineseDynamicRing(era);
-
-            const secDay = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds() + now.getMilliseconds() / 1000;
-            const st = computeChineseTimeAtSec(secDay, era);
-
-            // Analoge Zeiger: Shí (24h, 00:00 unten=180°, 12:00 oben=0°), Fēn (60/Kè), Miǎo (100/Fēn)
-            const shiDeg = 180 + st.dayFrac * 360;
-            const fenDeg = (st.fenFloat / 60) * 360;
-            const miaoDeg = (st.miaoFloat / 100) * 360;
-
-            cnDom.shiHand.setAttribute('transform', `rotate(${shiDeg.toFixed(2)} 100 100)`);
-            cnDom.fenHand.setAttribute('transform', `rotate(${fenDeg.toFixed(2)} 100 100)`);
-            cnDom.miaoHand.setAttribute('transform', `rotate(${miaoDeg.toFixed(2)} 100 100)`);
-            cnDom.keArc.setAttribute('d', describeArc(100, 100, 91, st.dayFrac * 360, 180));
-
-            if (st.gengInfo.isNight) {
-                cnDom.sunCenter.style.display = 'none';
-                cnDom.moonCenter.style.display = 'inline';
-            } else {
-                cnDom.sunCenter.style.display = 'inline';
-                cnDom.moonCenter.style.display = 'none';
-            }
-
-            if (cnDom.lastShiIdx !== st.shiIdx) {
-                cnDom.lastShiIdx = st.shiIdx;
-                for (let i = 0; i < 12; i++) {
-                    const el = document.getElementById(`cnBrDial_${i}`);
-                    if (el) {
-                        el.setAttribute('fill', i === st.shiIdx ? '#f5d682' : '#cbd5e1');
-                        el.setAttribute('font-size', i === st.shiIdx ? '11.5' : '9.5');
-                    }
-                    const chip = cnDom.strip.children[i];
-                    if (chip) {
-                        chip.classList.remove('active-day', 'active-night');
-                        if (i === st.shiIdx) chip.classList.add(st.gengInfo.isNight ? 'active-night' : 'active-day');
-                    }
-                }
-            }
-
-            if (cnDom.lastGengIdx !== st.gengIdx) {
-                cnDom.lastGengIdx = st.gengIdx;
-                for (let i = 0; i < 10; i++) {
-                    const stemEl = document.getElementById(`cnStem_${i}`);
-                    if (stemEl) {
-                        stemEl.setAttribute('fill', i === st.gengIdx ? '#ffffff' : (i < 5 ? '#c4b5fd' : '#64748b'));
-                        stemEl.setAttribute('font-size', i === st.gengIdx ? '9' : '7.2');
-                    }
-                }
-            }
-
-            setTextCached('cnBadge', cnDom.badge, `${st.br.zh}時 · ${st.br.zh}${st.halfZh}${st.qingKeZh} · ${st.gengInfo.zh}${st.dianZh}`);
-            setTextCached('cnDigTitle', cnDom.digTitle, `${st.br.zh}${st.halfZh}${st.ke4Zh}`);
-            setTextCached('cnDigTime', cnDom.digTime, `${pad(st.fen)}分 ${pad(st.miao)}秒`);
-
-            setTextCached('cnSub96Ke', cnDom.sub96Ke, `${st.br.zh}${st.halfZh}${st.qingKeZh} · ${pad(st.qingMin)}m ${pad(st.qingSec)}s (${st.br.py} ${st.halfPy} ${st.qingKePy})`);
-            setTextCached('cnSub100Shi', cnDom.sub100Shi, `${st.br.zh}${st.halfZh}${st.ke4Zh} · ${pad(st.fen)}分 ${pad(st.miao)}秒 (${st.br.py} ${st.halfPy}${st.ke4Py})`);
-            setTextCached('cnSub100Ke', cnDom.sub100Ke, `${pad(st.keGlobal)}刻 ${pad(st.fen)}分 ${pad(st.miao)}秒`);
-            setTextCached('cnSub8Ke', cnDom.sub8Ke, `${st.br.zh}${st.ke8Zh} (${st.br.py}${st.ke8Py})`);
-
-            setTextCached('cnShi', cnDom.shi, `${st.br.zh} (${st.br.py}) · ${st.halfZh} (${st.halfPy}) · ${st.br.aliasZh}`);
-            setTextCached('cnKeDet', cnDom.keDetail, `96-Kè: ${pad(st.qingGlobalKe)}/96 · 100-Kè: ${st.keFloat.toFixed(2).replace('.', ',')} (小刻 ${st.minorKe + 1}/6)`);
-            setTextCached('cnGeng', cnDom.geng, `${st.gengInfo.zh}${st.dianZh} ${pad(st.gengFen)}分 · ${st.gengInfo.stemZh} (${st.gengInfo.stemPy})`);
-            setTextCached('cnHan', cnDom.han, `${st.hanText.split(' (')[0]} · Xūyú ${st.xuyuIdx}/30 · L ${st.luoyuIdx}/20`);
         }
 
         function tickObservatory() {
@@ -4998,9 +4811,6 @@
             // 3b. Chronometer 03: Römische Temporal-Uhr
             updateRomanClock(nowMs);
 
-            // 3c. Chronometer 04: Traditionelle Chinesische Uhr
-            updateChineseClock(now);
-
             // 4. Ewige Chronometer (I: 1949, II: 2009, III: 2022, IV: 2023)
             const todayCal = dateToCalObj(now);
             updateLedger1949(computeDateDiff(epoch1949, now), true, fmtCalDayBadge(computeCalendarDaysSpan(epoch1949Cal, todayCal)));
@@ -5037,19 +4847,19 @@
             setRingClockLayer('radYear', CIRC_RING.radYear, ringElems.ptrLineYear, ringElems.ptrDotYear, 38, pctYear);
 
             // Direkte Anzeigen in der unverdeckenden HUD-Spalte rechts
-            setTextCached('rtMin', ringElems.ringTxtMin, `${pad(sec)}s · ${pctMin.toFixed(0)} %`);
-            setTextCached('rtHour', ringElems.ringTxtHour, `${pad(min)}m · ${pctHour.toFixed(0)} %`);
-            setTextCached('rtDay', ringElems.ringTxtDay, `${pad(hr)}h · ${pctDay.toFixed(0)} %`);
-            setTextCached('rtWeek', ringElems.ringTxtWeek, `${SHORT_DAYS[dow]} · ${pctWeek.toFixed(0)} %`);
-            setTextCached('rtMonth', ringElems.ringTxtMonth, `${pad(now.getDate())}. · ${pctMonth.toFixed(0)} %`);
-            setTextCached('rtYear', ringElems.ringTxtYear, `${SHORT_MONTHS[now.getMonth()]} · ${pctYear.toFixed(1)} %`);
+            setTextCached('rtMin', ringElems.ringTxtMin, `${pad(sec)}s · ${pctMin.toFixed(1).replace('.', ',')} %`);
+            setTextCached('rtHour', ringElems.ringTxtHour, `${pad(min)}m · ${pctHour.toFixed(2).replace('.', ',')} %`);
+            setTextCached('rtDay', ringElems.ringTxtDay, `${pad(hr)}h · ${pctDay.toFixed(3).replace('.', ',')} %`);
+            setTextCached('rtWeek', ringElems.ringTxtWeek, `${SHORT_DAYS[dow]} · ${pctWeek.toFixed(4).replace('.', ',')} %`);
+            setTextCached('rtMonth', ringElems.ringTxtMonth, `${pad(now.getDate())}. · ${pctMonth.toFixed(5).replace('.', ',')} %`);
+            setTextCached('rtYear', ringElems.ringTxtYear, `${SHORT_MONTHS[now.getMonth()]} · ${pctYear.toFixed(6).replace('.', ',')} %`);
 
-            // Balken rechts
-            ringElems.pctMin.textContent = `${pctMin.toFixed(2).replace('.', ',')} %`;
+            // Balken rechts (Minute: 1, Stunde: 2, Tag: 3, Woche: 4, Monat: 5, Jahr: 6 Nachkommastellen)
+            ringElems.pctMin.textContent = `${pctMin.toFixed(1).replace('.', ',')} %`;
             ringElems.barMin.style.width = `${pctMin.toFixed(2)}%`;
             setTextCached('vdMin', ringElems.valMinDetail, `(${pad(sec)} / 60 s)`);
 
-            ringElems.pctHour.textContent = `${pctHour.toFixed(3).replace('.', ',')} %`;
+            ringElems.pctHour.textContent = `${pctHour.toFixed(2).replace('.', ',')} %`;
             ringElems.barHour.style.width = `${pctHour.toFixed(2)}%`;
             setTextCached('vdHour', ringElems.valHourDetail, `(${pad(min)} / 60 min)`);
 
@@ -5057,16 +4867,16 @@
             ringElems.barDay.style.width = `${pctDay.toFixed(2)}%`;
             setTextCached('vdDay', ringElems.valDayDetail, `(${pad(hr)} / 24 h)`);
 
-            ringElems.pctWeek.textContent = `${pctWeek.toFixed(3).replace('.', ',')} %`;
+            ringElems.pctWeek.textContent = `${pctWeek.toFixed(4).replace('.', ',')} %`;
             ringElems.barWeek.style.width = `${pctWeek.toFixed(2)}%`;
             setTextCached('vdWeek', ringElems.valWeekDetail, `(${SHORT_DAYS[dow]} · ${dow + 1}/7)`);
 
             setTextCached('lblMo', ringElems.lblMonthBar, `${now.toLocaleDateString('de-DE', { month: 'long' })} (${pad(now.getDate())}/${daysInCurMonth})`);
-            ringElems.pctMonth.textContent = `${pctMonth.toFixed(3).replace('.', ',')} %`;
+            ringElems.pctMonth.textContent = `${pctMonth.toFixed(5).replace('.', ',')} %`;
             ringElems.barMonth.style.width = `${pctMonth.toFixed(2)}%`;
 
             setTextCached('lblYr', ringElems.lblYearBar, `Jahr ${now.getFullYear()} (Tag ${doy}/${diy})`);
-            ringElems.pctYear.textContent = `${pctYear.toFixed(4).replace('.', ',')} %`;
+            ringElems.pctYear.textContent = `${pctYear.toFixed(6).replace('.', ',')} %`;
             ringElems.barYear.style.width = `${pctYear.toFixed(2)}%`;
 
             // 6. Diagramm 02: Berlin Sonnenstand & Dämmerung
@@ -5075,6 +4885,9 @@
             // 7. Sektor III Astronomie Live-Update
             if (!astroCustomTarget) {
                 updateAstronomyModule(now);
+            }
+            if (!lunarCustomTarget) {
+                updateLunarObservatory(now, true);
             }
 
             // 7b. Sektor III Kosmische Wegstrecke seit Wunschdatum (Live-Ticker)
@@ -5259,6 +5072,21 @@
             const mn = parseInt(document.getElementById('sMin').value, 10) || 0;
             const sc = parseInt(document.getElementById('sSec').value, 10) || 0;
 
+            const previews = [
+                ['prev_sYears', y, 'J'],
+                ['prev_sMonths', m, 'M'],
+                ['prev_sWeeks', w, 'Wo'],
+                ['prev_sDays', dy, 'T'],
+                ['prev_sHours', h, 'Std'],
+                ['prev_sMin', mn, 'Min'],
+                ['prev_sSec', sc, 'Sek']
+            ];
+            for (const [elId, val, unit] of previews) {
+                const el = document.getElementById(elId);
+                if (!el) continue;
+                el.textContent = val !== 0 ? `= ${val > 0 ? '+' : ''}${fmtNum(val)} ${unit}` : '';
+            }
+
             if (y !== 0 || m !== 0) {
                 d = addYearsMonthsClamped(d, y, m);
             }
@@ -5289,13 +5117,14 @@
         document.querySelectorAll('.shift-dyn').forEach(el => el.addEventListener('input', performSafeShift));
 
         /* ===================================================================== */
-        /* 9b. ANALYTIK 05: DEZIMALUHR <-> NORMALZEIT KONVERTER                  */
+        /* 9b. ANALYTIK 05: DEZIMALUHR <-> HEXADEZIMALZEIT <-> NORMALZEIT        */
         /* ===================================================================== */
         const decConvModeEl = document.getElementById('decConvMode');
         decConvModeEl.addEventListener('change', () => {
-            const isN2D = decConvModeEl.value === 'normToDec';
-            document.getElementById('decConvNormalWrap').style.display = isN2D ? 'flex' : 'none';
-            document.getElementById('decConvDecWrap').style.display = isN2D ? 'none' : 'flex';
+            const m = decConvModeEl.value;
+            document.getElementById('decConvNormalWrap').style.display = m === 'normToDec' ? 'flex' : 'none';
+            document.getElementById('decConvDecWrap').style.display = m === 'decToNorm' ? 'flex' : 'none';
+            document.getElementById('decConvHexWrap').style.display = m === 'hexToNorm' ? 'flex' : 'none';
         });
 
         function parseHmsFlexible(raw, maxH, maxMS) {
@@ -5308,9 +5137,65 @@
             return { h, min, sec };
         }
 
+        function parseHexDayFraction(raw) {
+            if (!raw || typeof raw !== 'string') return null;
+            const t = raw.trim().replace(',', '.');
+            const m = t.match(/^(?:0x)?([0-9a-fA-F]{1,4})(?:\.([0-9a-fA-F]{1,6}))?$/i);
+            if (!m) return null;
+            const intPart = parseInt(m[1], 16);
+            let fracPart = 0;
+            if (m[2]) {
+                fracPart = parseInt(m[2], 16) / Math.pow(16, m[2].length);
+            }
+            const ticks = intPart + fracPart;
+            if (ticks < 0 || ticks >= 65536) return null;
+            return { ticks, dayFrac: ticks / 65536 };
+        }
+
+        function formatHexTimeDetails(dayFrac) {
+            const clampedFrac = ((dayFrac % 1) + 1) % 1;
+            const hexTicksExact = clampedFrac * 65536;
+            const hexTicksInt = Math.floor(hexTicksExact);
+            const hex4 = hexTicksInt.toString(16).toUpperCase().padStart(4, '0');
+            const hexSub = Math.floor((hexTicksExact - hexTicksInt) * 256).toString(16).toUpperCase().padStart(2, '0');
+            return {
+                hexTicksExact,
+                hex4,
+                hexFull: `0x${hex4}`,
+                hexSub: `0x${hex4},${hexSub}`,
+                hexClock: `${hex4[0]}:${hex4[1]}${hex4[2]}:${hex4[3]}`
+            };
+        }
+
+        function renderAllThreeSystems(dayFrac, headlineHtml) {
+            const normTotalSec = dayFrac * 86400;
+            const nH = Math.floor(normTotalSec / 3600);
+            const nM = Math.floor((normTotalSec % 3600) / 60);
+            const nSFloat = normTotalSec % 60;
+            const nSInt = Math.floor(nSFloat);
+
+            const decTotalSec = dayFrac * 100000;
+            const dH = Math.floor(decTotalSec / 10000);
+            const dM = Math.floor((decTotalSec % 10000) / 100);
+            const dSFloat = decTotalSec % 100;
+            const dSInt = Math.floor(dSFloat);
+
+            const hx = formatHexTimeDetails(dayFrac);
+
+            document.getElementById('decConvResult').innerHTML = `
+                ${headlineHtml}
+                <div class="epoch-ledger">
+                    <div class="ledger-row"><span class="ledger-label">Normalzeit (24h)</span><span class="ledger-val" style="color: var(--brass-bright);">${pad(nH)}:${pad(nM)}:${pad(nSInt)} (${pad(nH)}:${pad(nM)}:${nSFloat.toFixed(2).padStart(5, '0').replace('.', ',')})</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Dezimalzeit (10h)</span><span class="ledger-val" style="color: var(--cryo);">${dH}:${pad(dM)}:${pad(dSInt)} (${dH}:${pad(dM)}:${dSFloat.toFixed(2).padStart(5, '0').replace('.', ',')})</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Hexadezimalzeit (16-Bit / 0x0000–0xFFFF)</span><span class="ledger-val" style="color: var(--sidereal);">${hx.hexFull} (exakt ${hx.hexSub} · Hex-Uhr ${hx.hexClock})</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Einheiten pro Tag (Sek / d-Sek / Hex-Ticks)</span><span class="ledger-val">${fmtNum(normTotalSec.toFixed(2))} / 86.400 · ${fmtNum(decTotalSec.toFixed(2))} / 100.000 · ${fmtNum(hx.hexTicksExact.toFixed(2))} / 65.536</span></div>
+                    <div class="ledger-row"><span class="ledger-label">Tagesfortschritt</span><span class="ledger-val">${fmtNum((dayFrac * 100).toFixed(6))} %</span></div>
+                </div>
+            `;
+        }
+
         function runDecConverter() {
             const mode = decConvModeEl.value;
-            const outEl = document.getElementById('decConvResult');
 
             if (mode === 'normToDec') {
                 const p = parseHmsFlexible(document.getElementById('decInputNormal').value, 23, 59);
@@ -5319,53 +5204,34 @@
                     return;
                 }
                 setErr('decInputNormal', 'err_decInputNormal', null);
-                const normSecTotal = p.h * 3600 + p.min * 60 + p.sec;
-                const dayFrac = normSecTotal / 86400;
-                const decTotalSec = dayFrac * 100000;
-                const dH = Math.floor(decTotalSec / 10000);
-                const dM = Math.floor((decTotalSec % 10000) / 100);
-                const dSFloat = decTotalSec % 100;
-                const dSInt = Math.floor(dSFloat);
-                const hexVal = `0x${Math.floor(dayFrac * 65536).toString(16).toUpperCase().padStart(4, '0')}`;
-
-                outEl.innerHTML = `
-                    <div style="font-size: 1.25rem; font-weight: 800; color: var(--cryo); margin-bottom: 8px;">
-                        Dezimalzeit: ${dH}:${pad(dM)}:${pad(dSInt)} <span style="font-size: 0.85rem; color: var(--text-secondary);">(${dH}:${pad(dM)}:${dSFloat.toFixed(2).padStart(5, '0').replace('.', ',')})</span>
-                    </div>
-                    <div class="epoch-ledger">
-                        <div class="ledger-row"><span class="ledger-label">Dezimal-Stunde / -Minute / -Sekunde</span><span class="ledger-val">${dH} d-Std · ${dM} d-Min · ${fmtNum(dSFloat.toFixed(3))} d-Sek</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Dezimalsekunden seit 00:00</span><span class="ledger-val">${fmtNum(decTotalSec.toFixed(2))} / 100.000</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Normalsekunden seit 00:00</span><span class="ledger-val">${fmtNum(normSecTotal.toFixed(2))} / 86.400</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Tagesfortschritt / Hexadezimal</span><span class="ledger-val">${fmtNum((dayFrac * 100).toFixed(4))} % · ${hexVal}</span></div>
-                    </div>
-                `;
-            } else {
+                const dayFrac = (p.h * 3600 + p.min * 60 + p.sec) / 86400;
+                const decTotal = dayFrac * 100000;
+                const hx = formatHexTimeDetails(dayFrac);
+                const headline = `<div style="font-size: 1.18rem; font-weight: 800; color: var(--cryo); margin-bottom: 8px;">Dezimal: ${Math.floor(decTotal / 10000)}:${pad(Math.floor((decTotal % 10000) / 100))}:${pad(Math.floor(decTotal % 100))} · Hex: <span style="color: var(--sidereal);">${hx.hexFull}</span></div>`;
+                renderAllThreeSystems(dayFrac, headline);
+            } else if (mode === 'decToNorm') {
                 const p = parseHmsFlexible(document.getElementById('decInputDecimal').value, 9, 99);
                 if (!p) {
                     setErr('decInputDecimal', 'err_decInputDecimal', 'Ungültig. Format: H:MM:SS (0:00:00 – 9:99:99,99)');
                     return;
                 }
                 setErr('decInputDecimal', 'err_decInputDecimal', null);
-                const decTotalSec = p.h * 10000 + p.min * 100 + p.sec;
-                const dayFrac = decTotalSec / 100000;
-                const normTotalSec = dayFrac * 86400;
-                const nH = Math.floor(normTotalSec / 3600);
-                const nM = Math.floor((normTotalSec % 3600) / 60);
-                const nSFloat = normTotalSec % 60;
-                const nSInt = Math.floor(nSFloat);
-                const hexVal = `0x${Math.floor(dayFrac * 65536).toString(16).toUpperCase().padStart(4, '0')}`;
-
-                outEl.innerHTML = `
-                    <div style="font-size: 1.25rem; font-weight: 800; color: var(--brass-bright); margin-bottom: 8px;">
-                        Normalzeit: ${pad(nH)}:${pad(nM)}:${pad(nSInt)} <span style="font-size: 0.85rem; color: var(--text-secondary);">(${pad(nH)}:${pad(nM)}:${nSFloat.toFixed(2).padStart(5, '0').replace('.', ',')})</span>
-                    </div>
-                    <div class="epoch-ledger">
-                        <div class="ledger-row"><span class="ledger-label">Normal-Stunde / -Minute / -Sekunde</span><span class="ledger-val">${nH} Std · ${nM} Min · ${fmtNum(nSFloat.toFixed(3))} Sek</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Normalsekunden seit 00:00</span><span class="ledger-val">${fmtNum(normTotalSec.toFixed(2))} / 86.400</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Dezimalsekunden seit 0:00:00</span><span class="ledger-val">${fmtNum(decTotalSec.toFixed(2))} / 100.000</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Tagesfortschritt / Hexadezimal</span><span class="ledger-val">${fmtNum((dayFrac * 100).toFixed(4))} % · ${hexVal}</span></div>
-                    </div>
-                `;
+                const dayFrac = (p.h * 10000 + p.min * 100 + p.sec) / 100000;
+                const normSec = dayFrac * 86400;
+                const hx = formatHexTimeDetails(dayFrac);
+                const headline = `<div style="font-size: 1.18rem; font-weight: 800; color: var(--brass-bright); margin-bottom: 8px;">Normal: ${pad(Math.floor(normSec / 3600))}:${pad(Math.floor((normSec % 3600) / 60))}:${pad(Math.floor(normSec % 60))} · Hex: <span style="color: var(--sidereal);">${hx.hexFull}</span></div>`;
+                renderAllThreeSystems(dayFrac, headline);
+            } else {
+                const hxIn = parseHexDayFraction(document.getElementById('decInputHex').value);
+                if (!hxIn) {
+                    setErr('decInputHex', 'err_decInputHex', 'Ungültig. Format: 0x0000 bis 0xFFFF (optional ,XX Nachkomma-Hex)');
+                    return;
+                }
+                setErr('decInputHex', 'err_decInputHex', null);
+                const normSec = hxIn.dayFrac * 86400;
+                const decTotal = hxIn.dayFrac * 100000;
+                const headline = `<div style="font-size: 1.18rem; font-weight: 800; color: var(--brass-bright); margin-bottom: 8px;">Normal: ${pad(Math.floor(normSec / 3600))}:${pad(Math.floor((normSec % 3600) / 60))}:${pad(Math.floor(normSec % 60))} · Dezimal: <span style="color: var(--cryo);">${Math.floor(decTotal / 10000)}:${pad(Math.floor((decTotal % 10000) / 100))}:${pad(Math.floor(decTotal % 100))}</span></div>`;
+                renderAllThreeSystems(hxIn.dayFrac, headline);
             }
         }
 
@@ -5387,16 +5253,32 @@
                     <td style="color: var(--brass-bright);">${fmtSecComposite(0.864, 'Normalsek', 'Sek', 'ms')}</td>
                 </tr>
                 <tr>
+                    <td><strong>1 Hex-Stunde (0x1000)</strong> (1/16 Tag)</td>
+                    <td style="color: var(--sidereal);">${fmtHourComposite(1.5, 60, 'Normalstd', 'Std', 'Min', 'Sek')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Hex-Maxime (0x0100)</strong> (1/256 Tag)</td>
+                    <td style="color: var(--sidereal);">${fmtMinComposite(5.625, 60, 'Normalmin', 'Min', 'Sek')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Hex-Sekunde (0x0010)</strong> (1/4.096 Tag)</td>
+                    <td style="color: var(--sidereal);">${fmtSecComposite(86400 / 4096, 'Normalsek', 'Sek', 'ms')}</td>
+                </tr>
+                <tr>
+                    <td><strong>1 Hex-Tick (0x0001)</strong> (1/65.536 Tag)</td>
+                    <td style="color: var(--sidereal);">${fmtSecComposite(86400 / 65536, 'Normalsek', 'Sek', 'ms')}</td>
+                </tr>
+                <tr>
                     <td><strong>1 Normalstunde</strong> (1/24 Tag)</td>
-                    <td style="color: var(--cryo);">${fmtHourComposite(1 / 2.4, 100, 'd-Std', 'd-Std', 'd-Min', 'd-Sek')}</td>
+                    <td style="color: var(--cryo);">${fmtHourComposite(1 / 2.4, 100, 'd-Std', 'd-Std', 'd-Min', 'd-Sek')} · 0x0AAA,AA</td>
                 </tr>
                 <tr>
                     <td><strong>1 Normalminute</strong> (1/1.440 Tag)</td>
-                    <td style="color: var(--cryo);">${fmtMinComposite(1 / 1.44, 100, 'd-Min', 'd-Min', 'd-Sek')}</td>
+                    <td style="color: var(--cryo);">${fmtMinComposite(1 / 1.44, 100, 'd-Min', 'd-Min', 'd-Sek')} · 45,5111 Hex-Ticks</td>
                 </tr>
                 <tr>
                     <td><strong>1 Normalsekunde</strong> (1/86.400 Tag)</td>
-                    <td style="color: var(--cryo);">${fmtSecComposite(1 / 0.864, 'd-Sek', 'd-Sek', 'd-ms')}</td>
+                    <td style="color: var(--cryo);">${fmtSecComposite(1 / 0.864, 'd-Sek', 'd-Sek', 'd-ms')} · 0,7585 Hex-Ticks</td>
                 </tr>
             `;
         }
@@ -5407,12 +5289,30 @@
             const decTotal = dayFrac * 100000;
             document.getElementById('decInputNormal').value = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
             document.getElementById('decInputDecimal').value = `${Math.floor(decTotal / 10000)}:${pad(Math.floor((decTotal % 10000) / 100))}:${pad(Math.floor(decTotal % 100))}`;
+            document.getElementById('decInputHex').value = formatHexTimeDetails(dayFrac).hexFull;
             runDecConverter();
         });
 
         /* ===================================================================== */
-        /* 9c. ANALYTIK 06: RÖMISCHER TEMPORAL-KONVERTER + TAGES-EINHEITENTABELLE*/
+        /* 9c. ANALYTIK 06: RÖMISCHER TEMPORAL-KONVERTER (BERLIN ↔ ROM)          */
         /* ===================================================================== */
+        let romConvLoc = 'berlin';
+        const btnSwitchRomConvLoc = document.getElementById('btnSwitchRomConvLoc');
+        btnSwitchRomConvLoc.addEventListener('click', () => {
+            romConvLoc = romConvLoc === 'berlin' ? 'rom' : 'berlin';
+            const isRom = romConvLoc === 'rom';
+            const loc = LOCATIONS[romConvLoc];
+            btnSwitchRomConvLoc.classList.toggle('is-alt', isRom);
+            btnSwitchRomConvLoc.setAttribute('aria-pressed', String(isRom));
+
+            document.getElementById('romConvKicker').textContent = `Analytik 06 · Datumsabhängige Sonnenstunden (${loc.name})`;
+            document.getElementById('lblRomConvDate').textContent = `Datum (${loc.name})`;
+            document.getElementById('lblRomConvNormal').textContent = `${loc.adj} Normalzeit (HH:MM:SS)`;
+            document.getElementById('btnRomConvNow').textContent = `Jetzt (${loc.name})`;
+
+            runRomanConverter();
+        });
+
         const romConvModeEl = document.getElementById('romConvMode');
         romConvModeEl.addEventListener('change', () => {
             const isN2R = romConvModeEl.value === 'normToRom';
@@ -5420,10 +5320,10 @@
             document.getElementById('romConvRomanWrap').style.display = isN2R ? 'none' : 'block';
         });
 
-        function updateRomanUnitTable(y, m, d) {
-            const evToday = computeBerlinDayEvents(y, m, d);
+        function updateRomanUnitTable(y, m, d, locKey = 'berlin') {
+            const evToday = computeLocDayEvents(locKey, y, m, d);
             const nd = makeUtcDate(y, m - 1, d + 1, 12, 0, 0);
-            const evTom = computeBerlinDayEvents(nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
+            const evTom = computeLocDayEvents(locKey, nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
             const tbody = document.getElementById('romUnitTableBody');
 
             if (!evToday.sun.riseMs || !evToday.sun.setMs || !evTom.sun.riseMs) {
@@ -5477,12 +5377,14 @@
             const [y, m, d] = dateStr.split('-').map(Number);
             if (!y || !m || !d) return;
 
-            updateRomanUnitTable(y, m, d);
+            const loc = LOCATIONS[romConvLoc];
+            updateRomanUnitTable(y, m, d, loc.key);
 
             const outEl = document.getElementById('romConvResult');
-            const evToday = computeBerlinDayEvents(y, m, d);
+            const evToday = computeLocDayEvents(loc.key, y, m, d);
             const nd = makeUtcDate(y, m - 1, d + 1, 12, 0, 0);
-            const evTom = computeBerlinDayEvents(nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
+            const evTom = computeLocDayEvents(loc.key, nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate());
+            const dayLenTxt = evToday.dayLengthSec !== null ? fmtDurationHMS(evToday.dayLengthSec) : '—';
 
             if (romConvModeEl.value === 'normToRom') {
                 const p = parseHmsFlexible(document.getElementById('romInputNormal').value, 23, 59);
@@ -5492,8 +5394,8 @@
                 }
                 setErr('romInputNormal', 'err_romInputNormal', null);
                 const minOfDay = p.h * 60 + p.min + p.sec / 60;
-                const utcMs = berlinLocalToUtcMs(y, m, d, minOfDay);
-                const st = computeRomanTemporalAtUtc(utcMs);
+                const utcMs = locLocalToUtcMs(loc.key, y, m, d, minOfDay);
+                const st = computeRomanTemporalAtUtc(utcMs, loc.key);
 
                 const phaseTitle = st.isDay
                     ? `Tag (Dies) · ${st.hourNum}. Tagstunde (Hora ${st.romanNum})`
@@ -5501,13 +5403,13 @@
 
                 outEl.innerHTML = `
                     <div style="font-size: 1.2rem; font-weight: 800; color: ${st.isDay ? 'var(--brass-bright)' : '#d8b4fe'}; margin-bottom: 8px;">
-                        Hora ${st.romanNum} · ${pad(st.hourNum)}:${pad(st.tMin)}:${pad(st.tSec)}
+                        ${loc.name} · Hora ${st.romanNum} · ${pad(st.hourNum)}:${pad(st.tMin)}:${pad(st.tSec)}
                     </div>
                     <div class="epoch-ledger">
                         <div class="ledger-row"><span class="ledger-label">Phase &amp; Nummerierung</span><span class="ledger-val">${phaseTitle}</span></div>
                         ${!st.isDay ? `<div class="ledger-row"><span class="ledger-label">Römische Nachtwache</span><span class="ledger-val">${st.vigilName}</span></div>` : ''}
-                        <div class="ledger-row"><span class="ledger-label">Sonnenaufgang / -untergang (${pad(d)}.${pad(m)}.${y})</span><span class="ledger-val">${fmtBerlinHMS(evToday.sun.riseMs)} / ${fmtBerlinHMS(evToday.sun.setMs)}</span></div>
-                        <div class="ledger-row"><span class="ledger-label">Laufende Periode (Start → Ende)</span><span class="ledger-val">${fmtBerlinHMS(st.periodStart)} → ${fmtBerlinHMS(st.periodEnd)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Sonnenaufgang / -untergang (${loc.name}, ${pad(d)}.${pad(m)}.${y})</span><span class="ledger-val">${fmtLocHMS(loc.key, evToday.sun.riseMs)} / ${fmtLocHMS(loc.key, evToday.sun.setMs)} (Tageslänge: ${dayLenTxt})</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Laufende Periode (Start → Ende)</span><span class="ledger-val">${fmtLocHMS(loc.key, st.periodStart)} → ${fmtLocHMS(loc.key, st.periodEnd)}</span></div>
                         <div class="ledger-row"><span class="ledger-label">Fortschritt in dieser Phase</span><span class="ledger-val">${fmtNum((st.frac * 100).toFixed(3))} %</span></div>
                     </div>
                 `;
@@ -5526,7 +5428,7 @@
                 document.getElementById('err_romInputRoman').style.display = 'none';
 
                 if (!evToday.sun.riseMs || !evToday.sun.setMs || !evTom.sun.riseMs) {
-                    outEl.innerHTML = `<span style="color: var(--crimson);">Für dieses Datum liegen keine Berliner Auf-/Untergangsdaten vor.</span>`;
+                    outEl.innerHTML = `<span style="color: var(--crimson);">Für dieses Datum liegen keine Auf-/Untergangsdaten für ${loc.name} vor.</span>`;
                     return;
                 }
 
@@ -5535,17 +5437,18 @@
                 const endMs = isDay ? evToday.sun.setMs : evTom.sun.riseMs;
                 const frac = ((rHour - 1) + rMin / 60 + rSec / 3600) / 12;
                 const targetUtcMs = startMs + frac * (endMs - startMs);
-                const bp = getBerlinParts(targetUtcMs);
+                const lp = getLocParts(loc.key, targetUtcMs);
                 const vigilIdx = Math.min(3, Math.floor((rHour - 1) / 3));
 
                 outEl.innerHTML = `
                     <div style="font-size: 1.2rem; font-weight: 800; color: var(--cryo); margin-bottom: 8px;">
-                        Berliner Normalzeit: ${pad(bp.hour)}:${pad(bp.minute)}:${pad(bp.second)} <span style="font-size: 0.85rem; color: var(--text-secondary);">(${pad(bp.day)}.${pad(bp.month)}.${bp.year})</span>
+                        ${loc.adj} Normalzeit: ${pad(lp.hour)}:${pad(lp.minute)}:${pad(lp.second)} <span style="font-size: 0.85rem; color: var(--text-secondary);">(${pad(lp.day)}.${pad(lp.month)}.${lp.year})</span>
                     </div>
                     <div class="epoch-ledger">
-                        <div class="ledger-row"><span class="ledger-label">Eingabe-Temporalzeit</span><span class="ledger-val">Hora ${ROMAN_HOURS[rHour - 1]} (${rHour}. ${isDay ? 'Tagstunde' : 'Nachtstunde'}) · ${pad(rHour)}:${pad(rMin)}:${pad(rSec)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Eingabe-Temporalzeit (${loc.name})</span><span class="ledger-val">Hora ${ROMAN_HOURS[rHour - 1]} (${rHour}. ${isDay ? 'Tagstunde' : 'Nachtstunde'}) · ${pad(rHour)}:${pad(rMin)}:${pad(rSec)}</span></div>
                         ${!isDay ? `<div class="ledger-row"><span class="ledger-label">Römische Nachtwache</span><span class="ledger-val">${ROMAN_VIGILS[vigilIdx]}</span></div>` : ''}
-                        <div class="ledger-row"><span class="ledger-label">${isDay ? 'Tag-Zeitraum (Auf → Unter)' : 'Nacht-Zeitraum (Unter → Auf +1d)'}</span><span class="ledger-val">${fmtBerlinHMS(startMs)} → ${fmtBerlinHMS(endMs)}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Sonnenaufgang / -untergang (${loc.name}, ${pad(d)}.${pad(m)}.${y})</span><span class="ledger-val">${fmtLocHMS(loc.key, evToday.sun.riseMs)} / ${fmtLocHMS(loc.key, evToday.sun.setMs)} (Tageslänge: ${dayLenTxt})</span></div>
+                        <div class="ledger-row"><span class="ledger-label">${isDay ? 'Tag-Zeitraum (Auf → Unter)' : 'Nacht-Zeitraum (Unter → Auf +1d)'}</span><span class="ledger-val">${fmtLocHMS(loc.key, startMs)} → ${fmtLocHMS(loc.key, endMs)}</span></div>
                         <div class="ledger-row"><span class="ledger-label">Phasen-Fortschritt</span><span class="ledger-val">${fmtNum((frac * 100).toFixed(3))} %</span></div>
                     </div>
                 `;
@@ -5556,214 +5459,15 @@
         document.getElementById('btnRunRomConv').addEventListener('click', runRomanConverter);
         document.getElementById('btnRomConvNow').addEventListener('click', () => {
             const nowMs = Date.now();
-            const bp = getBerlinParts(nowMs);
-            const st = computeRomanTemporalAtUtc(nowMs);
-            document.getElementById('romConvDate').value = `${bp.year}-${pad(bp.month)}-${pad(bp.day)}`;
-            document.getElementById('romInputNormal').value = `${pad(bp.hour)}:${pad(bp.minute)}:${pad(bp.second)}`;
+            const lp = getLocParts(romConvLoc, nowMs);
+            const st = computeRomanTemporalAtUtc(nowMs, romConvLoc);
+            document.getElementById('romConvDate').value = `${lp.year}-${pad(lp.month)}-${pad(lp.day)}`;
+            document.getElementById('romInputNormal').value = `${pad(lp.hour)}:${pad(lp.minute)}:${pad(lp.second)}`;
             document.getElementById('romInputPeriod').value = st.isDay ? 'day' : 'night';
             document.getElementById('romInputHour').value = String(st.hourNum);
             document.getElementById('romInputMin').value = String(st.tMin);
             document.getElementById('romInputSec').value = String(st.tSec);
             runRomanConverter();
-        });
-
-        /* ===================================================================== */
-        /* 9c-2. ANALYTIK 07: CHINESISCHER ZEIT-KONVERTER & EINHEITENTABELLE     */
-        /* ===================================================================== */
-        const cnConvModeEl = document.getElementById('cnConvMode');
-        cnConvModeEl.addEventListener('change', () => {
-            const m = cnConvModeEl.value;
-            document.getElementById('cnConvNormalWrap').style.display = m === 'normToCn' ? 'flex' : 'none';
-            document.getElementById('cnConvQingWrap').style.display = m === 'qing96ToNorm' ? 'block' : 'none';
-            document.getElementById('cnConvShiKeWrap').style.display = m === 'shiKeToNorm' ? 'block' : 'none';
-            document.getElementById('cnConvGengWrap').style.display = m === 'gengToNorm' ? 'block' : 'none';
-        });
-
-        function fmtTimeSecWithMs(secOfDay) {
-            const sNorm = ((secOfDay % 86400) + 86400) % 86400;
-            const totalMs = Math.round(sNorm * 1000) % 86400000;
-            const h = Math.floor(totalMs / 3600000);
-            const m = Math.floor((totalMs % 3600000) / 60000);
-            const s = Math.floor((totalMs % 60000) / 1000);
-            const ms = totalMs % 1000;
-            return `${pad(h)}:${pad(m)}:${pad(s)},${pad(ms, 3)}`;
-        }
-
-        function renderCnUnitTable() {
-            const tbody = document.getElementById('cnUnitTableBody');
-            if (!tbody) return;
-            tbody.innerHTML = `
-                <tr>
-                    <td><strong>1 Shíchén (時辰)</strong> (1/12 Tag)</td>
-                    <td style="color: var(--brass-bright);">2,000000 Normalstd (2 Std 00 Min 00,000 Sek) · 8 Kè (96er) · 8⅓ Groß-Kè (100er)</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Kè (96-Kè · Qing/Standard)</strong> (1/96 Tag)</td>
-                    <td style="color: var(--brass-bright);">15,000000 Normalmin (15 Min 00,000 Sek) · 4 Kè pro Halbstunde</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Großes Kè (大刻 · 100-Kè)</strong> (1/100 Tag)</td>
-                    <td style="color: var(--cryo);">${fmtMinComposite(14.4, 60, 'Normalmin', 'Min', 'Sek')} · 6 Klein-Kè · 60 Fēn</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Kleines Kè (小刻 · 100-Kè)</strong> (1/600 Tag)</td>
-                    <td style="color: var(--cryo);">${fmtMinComposite(2.4, 60, 'Normalmin', 'Min', 'Sek')} · 10 Fēn</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Gēng (更)</strong> (1/10 Tag)</td>
-                    <td style="color: var(--sidereal);">${fmtHourComposite(2.4, 60, 'Normalstd', 'Std', 'Min', 'Sek')} · 10 Groß-Kè · 6 Diǎn</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Diǎn (點)</strong> (1/60 Tag)</td>
-                    <td style="color: var(--sidereal);">24,000000 Normalmin (24 Min 00,000 Sek) · 1⅔ Groß-Kè (100 Fēn)</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Fēn (分 · 100-Kè/Diǎn)</strong> (1/6.000 Tag)</td>
-                    <td style="color: var(--atomic);">${fmtSecComposite(14.4, 'Normalsek', 'Sek', 'ms')} · 100 Miǎo</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Miǎo (秒)</strong> (1/600.000 Tag)</td>
-                    <td style="color: var(--atomic);">${fmtSecComposite(0.144, 'Normalsek', 'Sek', 'ms')}</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Normalstunde</strong> (1/24 Tag)</td>
-                    <td>0,500000 Shíchén · 4 Kè (96er) · 4,166667 Groß-Kè (100er)</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Normalminute</strong> (1/1.440 Tag)</td>
-                    <td>4,166667 Fēn (4 Fēn 16,667 Miǎo)</td>
-                </tr>
-                <tr>
-                    <td><strong>1 Normalsekunde</strong> (1/86.400 Tag)</td>
-                    <td>6,944444 Miǎo (6 Miǎo 944,444 Tausendstel)</td>
-                </tr>
-            `;
-        }
-
-        function renderCnConversionDetails(secOfDay, era, headline, headlineColor) {
-            const st = computeChineseTimeAtSec(secOfDay, era);
-            const tStr = fmtTimeSecWithMs(st.sNorm);
-            const rangeStr = era === 'trad' ? st.br.tradRange : st.br.songRange;
-
-            document.getElementById('cnConvResult').innerHTML = `
-                <div style="font-size: 1.15rem; font-weight: 800; color: ${headlineColor}; margin-bottom: 8px;">${headline}</div>
-                <div class="epoch-ledger">
-                    <div class="ledger-row"><span class="ledger-label">Normalzeit (24h · exakt)</span><span class="ledger-val" style="color: var(--cryo);">${tStr}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">1. Shí-Kè (96-Kè · Qing/Standard 15m)</span><span class="ledger-val" style="color: var(--brass-bright);">${st.br.zh}${st.halfZh}${st.qingKeZh} (${st.br.py} ${st.halfPy} ${st.qingKePy}) · ${pad(st.qingMin)}m ${pad(st.qingSec)}s · Kè ${pad(st.qingGlobalKe)}/96</span></div>
-                    <div class="ledger-row"><span class="ledger-label">2. Shí-Kè (100-Kè · Tang/Song 4-Kè)</span><span class="ledger-val" style="color: #fda4af;">${st.br.zh}${st.halfZh}${st.ke4Zh} (${st.br.py} ${st.halfPy}${st.ke4Py}) · ${pad(st.fen)}分 ${pad(st.miao)}秒</span></div>
-                    <div class="ledger-row"><span class="ledger-label">3. 100-Kè-Digitalzeit &amp; Kleines Kè</span><span class="ledger-val">${pad(st.keGlobal)}刻 : ${pad(st.fen)}分 : ${pad(st.miao)}秒 (${st.keFloat.toFixed(4).replace('.', ',')} Kè · 小刻 ${st.minorKe + 1}/6)</span></div>
-                    <div class="ledger-row"><span class="ledger-label">4. Shí-Kè (Vor-Tang · 8-Kè im 100er)</span><span class="ledger-val">${st.br.zh}${st.ke8Zh} (${st.br.py}${st.ke8Py}) · ${rangeStr}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">5. Gēng – Diǎn &amp; Himmelsstamm</span><span class="ledger-val" style="color: var(--sidereal);">${st.gengInfo.zh}${st.dianZh} ${pad(st.gengFen)}分 ${pad(st.gengMiao)}秒 · Stamm ${st.gengInfo.stemZh} (${st.gengInfo.stemPy}) · ${st.gengInfo.desc}</span></div>
-                    <div class="ledger-row"><span class="ledger-label">6. 12 Tagesnamen &amp; Han / Buddhistisch</span><span class="ledger-val">${st.aliasText} · ${st.hanText} · Xūyú ${st.xuyuIdx}/30 · Luóyù ${st.luoyuIdx}/20 · Tánzhǐ ${st.tanzhiIdx}/20 · Shùn ${st.shuenIdx}/20 · Niàn ${st.nianIdx}/20</span></div>
-                </div>
-            `;
-        }
-
-        function runCnConverter() {
-            const mode = cnConvModeEl.value;
-            const era = document.getElementById('cnConvEra').value;
-
-            if (mode === 'normToCn') {
-                const p = parseHmsFlexible(document.getElementById('cnInputNormal').value, 23, 59);
-                if (!p) {
-                    setErr('cnInputNormal', 'err_cnInputNormal', 'Ungültig. Format: HH:MM:SS (00:00:00 – 23:59:59,999)');
-                    return;
-                }
-                setErr('cnInputNormal', 'err_cnInputNormal', null);
-                const sec = p.h * 3600 + p.min * 60 + p.sec;
-                const st = computeChineseTimeAtSec(sec, era);
-                renderCnConversionDetails(sec, era, `${st.br.zh}${st.halfZh}${st.qingKeZh} (${st.br.zh}${st.halfZh}${st.ke4Zh} · ${pad(st.fen)}分 ${pad(st.miao)}秒)`, '#fda4af');
-            } else if (mode === 'qing96ToNorm') {
-                const brIdx = parseInt(document.getElementById('cnInQBranch').value, 10);
-                const half = parseInt(document.getElementById('cnInQHalf').value, 10);
-                const qKe = parseInt(document.getElementById('cnInQKe').value, 10);
-                const qMin = parseInt(document.getElementById('cnInQMin').value, 10);
-                const qSec = parseInt(document.getElementById('cnInQSec').value, 10);
-                const errEl = document.getElementById('err_cnInQing');
-
-                if (Number.isNaN(qKe) || qKe < 0 || qKe > 3 || Number.isNaN(qMin) || qMin < 0 || qMin > 14 || Number.isNaN(qSec) || qSec < 0 || qSec > 59) {
-                    errEl.textContent = '96-Kè 0–3, Min 0–14, Sek 0–59 erforderlich.';
-                    errEl.style.display = 'block';
-                    return;
-                }
-                errEl.style.display = 'none';
-
-                const halfIdx = brIdx * 2 + half;
-                const halfStartHour = era === 'trad' ? (halfIdx + 23) % 24 : halfIdx;
-                const totalSec = (halfStartHour * 3600 + qKe * 900 + qMin * 60 + qSec) % 86400;
-                renderCnConversionDetails(totalSec, era, `Normalzeit: ${fmtTimeSecWithMs(totalSec)}`, 'var(--cryo)');
-            } else if (mode === 'shiKeToNorm') {
-                const brIdx = parseInt(document.getElementById('cnInBranch').value, 10);
-                const half = parseInt(document.getElementById('cnInHalf').value, 10);
-                const ke = parseInt(document.getElementById('cnInKe').value, 10);
-                const fen = parseInt(document.getElementById('cnInFen').value, 10);
-                const miao = parseInt(document.getElementById('cnInMiao').value, 10);
-                const errEl = document.getElementById('err_cnInShiKe');
-
-                if (Number.isNaN(ke) || ke < 0 || ke > 4 || Number.isNaN(fen) || fen < 0 || fen > 59 || Number.isNaN(miao) || miao < 0 || miao > 99) {
-                    errEl.textContent = 'Kè 0–4, Fēn 0–59, Miǎo 0–99 erforderlich.';
-                    errEl.style.display = 'block';
-                    return;
-                }
-                errEl.style.display = 'none';
-
-                const halfIdx = brIdx * 2 + half;
-                const halfStartHour = era === 'trad' ? (halfIdx + 23) % 24 : halfIdx;
-                const halfStartSec = halfStartHour * 3600;
-                const baseKeGlobal = Math.floor(halfStartSec / 864) + ke;
-                let totalSec = (baseKeGlobal * 864 + fen * 14.4 + miao * 0.144) % 86400;
-                if (ke === 0) {
-                    const offsetInHalf = (totalSec - halfStartSec + 86400) % 86400;
-                    if (offsetInHalf > 3600) totalSec = halfStartSec;
-                }
-                renderCnConversionDetails(totalSec, era, `Normalzeit: ${fmtTimeSecWithMs(totalSec)}`, 'var(--cryo)');
-            } else {
-                const gIdx = parseInt(document.getElementById('cnInGeng').value, 10);
-                const dian = parseInt(document.getElementById('cnInDian').value, 10);
-                const fen = parseInt(document.getElementById('cnInGengFen').value, 10);
-                const miao = parseInt(document.getElementById('cnInGengMiao').value, 10);
-                const errEl = document.getElementById('err_cnInGeng');
-
-                if (Number.isNaN(dian) || dian < 0 || dian > 5 || Number.isNaN(fen) || fen < 0 || fen > 99 || Number.isNaN(miao) || miao < 0 || miao > 99) {
-                    errEl.textContent = 'Diǎn 0–5, Fēn 0–99, Miǎo 0–99 erforderlich (1 Diǎn = 100 Fēn).';
-                    errEl.style.display = 'block';
-                    return;
-                }
-                errEl.style.display = 'none';
-
-                const totalSec = (69120 + gIdx * 8640 + dian * 1440 + fen * 14.4 + miao * 0.144) % 86400;
-                renderCnConversionDetails(totalSec, era, `Normalzeit: ${fmtTimeSecWithMs(totalSec)}`, 'var(--cryo)');
-            }
-        }
-
-        document.getElementById('btnRunCnConv').addEventListener('click', runCnConverter);
-        document.getElementById('cnConvEra').addEventListener('change', runCnConverter);
-        document.getElementById('btnCnConvNow').addEventListener('click', () => {
-            const now = new Date();
-            const sec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-            const era = document.getElementById('cnConvEra').value;
-            const st = computeChineseTimeAtSec(sec, era);
-
-            document.getElementById('cnInputNormal').value = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-
-            document.getElementById('cnInQBranch').value = String(st.shiIdx);
-            document.getElementById('cnInQHalf').value = st.isCentral ? '1' : '0';
-            document.getElementById('cnInQKe').value = String(st.qingKe);
-            document.getElementById('cnInQMin').value = String(st.qingMin);
-            document.getElementById('cnInQSec').value = String(st.qingSec);
-
-            document.getElementById('cnInBranch').value = String(st.shiIdx);
-            document.getElementById('cnInHalf').value = st.isCentral ? '1' : '0';
-            document.getElementById('cnInKe').value = String(st.keInHalf);
-            document.getElementById('cnInFen').value = String(st.fen);
-            document.getElementById('cnInMiao').value = String(st.miao);
-
-            document.getElementById('cnInGeng').value = String(st.gengIdx);
-            document.getElementById('cnInDian').value = String(st.dian);
-            document.getElementById('cnInGengFen').value = String(st.gengFen);
-            document.getElementById('cnInGengMiao').value = String(st.miao);
-
-            runCnConverter();
         });
 
         /* ===================================================================== */
@@ -5939,120 +5643,45 @@
             return (m[1] === '-' ? -1 : 1) * (hh * 60 + mm);
         }
 
-        // Offizielle IERS TAI − UTC Schaltsekunden-Stufen (ab 1972)
-        const TAI_LEAP_STEPS = [
-            [Date.UTC(2017, 0, 1), 37], [Date.UTC(2015, 6, 1), 36], [Date.UTC(2012, 6, 1), 35],
-            [Date.UTC(2009, 0, 1), 34], [Date.UTC(2006, 0, 1), 33], [Date.UTC(1999, 0, 1), 32],
-            [Date.UTC(1997, 6, 1), 31], [Date.UTC(1996, 0, 1), 30], [Date.UTC(1994, 6, 1), 29],
-            [Date.UTC(1993, 6, 1), 28], [Date.UTC(1992, 6, 1), 27], [Date.UTC(1991, 0, 1), 26],
-            [Date.UTC(1990, 0, 1), 25], [Date.UTC(1988, 0, 1), 24], [Date.UTC(1985, 6, 1), 23],
-            [Date.UTC(1983, 6, 1), 22], [Date.UTC(1982, 6, 1), 21], [Date.UTC(1981, 6, 1), 20],
-            [Date.UTC(1980, 0, 1), 19], [Date.UTC(1979, 0, 1), 18], [Date.UTC(1978, 0, 1), 17],
-            [Date.UTC(1977, 0, 1), 16], [Date.UTC(1976, 0, 1), 15], [Date.UTC(1975, 0, 1), 14],
-            [Date.UTC(1974, 0, 1), 13], [Date.UTC(1973, 0, 1), 12], [Date.UTC(1972, 6, 1), 11],
-            [Date.UTC(1972, 0, 1), 10]
-        ];
-
-        function getTaiMinusUtc(utcMs) {
-            for (let i = 0; i < TAI_LEAP_STEPS.length; i++) {
-                if (utcMs >= TAI_LEAP_STEPS[i][0]) return TAI_LEAP_STEPS[i][1];
-            }
-            return null; // vor 1972 gab es keine ganzzahligen Schaltsekunden
-        }
-
         const jdEpochNoteHtml = `
             <div style="margin-top: 8px; padding: 8px 10px; border-radius: var(--r-sm); background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.2); font-size: 0.7rem; color: var(--text-secondary); line-height: 1.45;">
-                <strong>Systematik (Mittagswechsel vs. Mitternachtswechsel &amp; Atomzeit):</strong><br>
-                • <strong>JD / JDN (astron.) / DJD / J2000.0</strong> wechseln den Tag um <strong>12:00 UTC</strong> (Mittag), da Astronomen nächtliche Beobachtungen nicht um Mitternacht trennen wollten.<br>
-                • <strong>MJD, TJD, Unix, GPS, NTP, Excel, FILETIME, CJD, Lilian</strong> wechseln den Tag um <strong>00:00 UTC</strong> (Mitternacht) – durch die Verschiebung um „− 0,5 d“ weicht das Vorkomma-Datum ab 12:00 UTC um 1 Tag ab.<br>
-                • <strong>TAI, TT &amp; GPS</strong> laufen ohne Schaltsekunden weiter (seit 01.01.2017: TAI − UTC = +37 s · GPS − UTC = +18 s · TT − TAI = +32,184 s).
+                <strong>Systematik (Mittagswechsel vs. Mitternachtswechsel):</strong><br>
+                • <strong>JD &amp; J2000.0</strong> zählen ab <strong>12:00 UTC</strong> (Mittag), damit nächtliche Beobachtungen nicht um Mitternacht ihren Tageswert wechseln (J2000.0 = JD − 2.451.545,0).<br>
+                • <strong>MJD &amp; Unix</strong> wechseln den Tag um <strong>00:00 UTC</strong> (Mitternacht): MJD = JD − 2.400.000,5 (Beginn 17.11.1858 00:00 UTC); Unix zählt Sekunden seit 01.01.1970 00:00 UTC.<br>
+                • <strong>JDN (ab 00h UTC)</strong> wird nur zusätzlich ausgewiesen, wenn sich die bürgerliche Tageszahl zwischen 00:00 und 11:59 UTC vom ganzzahligen JD-Vorkommawert unterscheidet.
             </div>
         `;
 
-        function renderJdComprehensiveResult(utcMs, offMin, offStr, headlineStr, headlineColor) {
+        function renderJdComprehensiveResult(utcMs, offMin, offStr) {
             const locDate = new Date(utcMs + offMin * 60000);
             const utcDate = new Date(utcMs);
             const locStr = `${pad(locDate.getUTCDate())}.${pad(locDate.getUTCMonth() + 1)}.${fmtUtcYear(locDate.getUTCFullYear())} ${pad(locDate.getUTCHours())}:${pad(locDate.getUTCMinutes())}:${pad(locDate.getUTCSeconds())}`;
-            const isoStr = utcDate.toISOString();
+            const isoStr = utcDate.toISOString().replace('T', 'T ');
 
             const jd = (utcMs / 86400000) + 2440587.5;
-            const jdnAstron = Math.floor(jd);
+            const jdFloor = Math.floor(jd);
             const jdnCivil = Math.floor(jd + 0.5);
             const wd = WEEKDAYS[((jdnCivil % 7) + 7) % 7];
 
-            const unixSec = utcMs / 1000;
-            const unixMs = Math.round(utcMs);
-
-            // Alle Epochen vom ältesten (4713 v. Chr.) bis zum jüngsten (2001 n. Chr.) Fixdatum
-            const lilian = jdnCivil - 2299160;                         // 15.10.1582 (Tag 1 = 2299161)
-            const filetimeDays = jd - 2305813.5;                       // 01.01.1601 00:00 UTC
-            const filetimeTicks = BigInt(Math.round(unixSec) + 11644473600) * 10000000n;
-            const rjd = jd - 2400000.0;                                // 16.11.1858 12:00 UTC
-            const mjd = jd - 2400000.5;                                // 17.11.1858 00:00 UTC
-            const excelSerial = jd - 2415018.5;                        // 30.12.1899 00:00 UTC
-            const djd = jd - 2415020.0;                                // 31.12.1899 12:00 UTC (Dublin JD)
-            const ntpSec = unixSec + 2208988800;                       // 01.01.1900 00:00 UTC
-            const cjd = jd - 2433282.5;                                // 01.01.1950 00:00 UTC (CNES JD)
-            const tjd = jd - 2440000.5;                                // 24.05.1968 00:00 UTC (NASA TJD)
-
-            const taiOff = getTaiMinusUtc(utcMs);
-            const taiStr = taiOff !== null
-                ? `+${taiOff} s (TAI: ${fmtDateTimeUTC(new Date(utcMs + taiOff * 1000)).replace(' UTC', ' TAI')} · TT: +${(taiOff + 32.184).toFixed(3).replace('.', ',')} s)`
-                : 'vor 1972 (keine Schaltsekunden-Norm)';
-
-            // GPS (06.01.1980 00:00 UTC; TAI − 19 s)
-            const gpsDelta = taiOff !== null ? (taiOff - 19) : 0;
-            const gpsTotalSec = (unixSec - 315964800) + gpsDelta;
-            const gpsWeek = Math.floor(gpsTotalSec / 604800);
-            const gpsRolloverCycle = Math.floor(gpsWeek / 1024);
-            const gpsWeekMod = ((gpsWeek % 1024) + 1024) % 1024;
-            const gpsTow = ((gpsTotalSec % 604800) + 604800) % 604800;
-
-            // TAI93 (01.01.1993 00:00:00 TAI = Unix 725846400 TAI)
-            const tai93Sec = (unixSec + (taiOff ?? 0)) - 725846400;
-
-            // J2000.0 (01.01.2000 12:00:00)
+            const unixSec = Math.round(utcMs / 1000);
+            const mjd = jd - 2400000.5;
             const j2000Days = jd - 2451545.0;
-            const j2000Centuries = j2000Days / 36525.0;
-            const j2000Sec = j2000Days * 86400;
 
-            // Apple / Cocoa / CoreData (01.01.2001 00:00:00 UTC)
-            const appleSec = unixSec - 978307200;
+            const jdnRowHtml = (jdnCivil !== jdFloor)
+                ? `<div class="ledger-row"><span class="ledger-label">Julianische Tageszahl (JDN ab 00h UTC)</span><span class="ledger-val">${fmtNum(jdnCivil)}</span></div>`
+                : '';
 
             document.getElementById('jdConvertResult').innerHTML = `
-                <div style="font-size: 1.12rem; font-weight: 800; color: ${headlineColor}; margin-bottom: 10px;">${headlineStr}</div>
-
-                <div class="jd-section-block">
-                    <div class="ledger-section-title">A · Primäre Standard-Zeitskalen (geordnet nach Relevanz &amp; Häufigkeit)</div>
+                <div class="jd-section-block" style="margin-top: 0;">
+                    <div class="ledger-section-title">Bidirektionale Standard-Zeitskalen</div>
                     <div class="epoch-ledger">
-                        <div class="ledger-row"><span class="ledger-label">1. Lokalzeit (${offStr}) &amp; Wochentag</span><span class="ledger-val" style="color: var(--atomic);">${wd}, ${locStr}</span></div>
-                        <div class="ledger-row"><span class="ledger-label">2. UTC-Weltzeit &amp; ISO-8601</span><span class="ledger-val">${fmtDateTimeUTC(utcDate)} · ${isoStr}</span></div>
-                        <div class="ledger-row"><span class="ledger-label">3. Julianisches Datum (JD)</span><span class="ledger-val" style="color: var(--cryo);">${fmtNum(jd.toFixed(8))}</span></div>
-                        <div class="ledger-row"><span class="ledger-label">4. Julianische Tageszahl (JDN)</span><span class="ledger-val">${fmtNum(jdnCivil)} (ab 00h UTC) · ${fmtNum(jdnAstron)} (ab 12h UTC)</span></div>
-                        <div class="ledger-row"><span class="ledger-label">5. Unix-Zeitstempel (POSIX)</span><span class="ledger-val" style="color: var(--brass-bright);">${fmtNum(Math.round(unixSec))} s · ${fmtNum(unixMs)} ms</span></div>
-                        <div class="ledger-row"><span class="ledger-label">6. Modifiziertes JD (MJD)</span><span class="ledger-val">${fmtNum(mjd.toFixed(8))}</span></div>
-                    </div>
-                </div>
-
-                <div class="jd-section-block">
-                    <div class="ledger-section-title" style="color: var(--brass-bright);">B · Chronologische &amp; Raumfahrt-Epochen (ältestes → jüngstes Fixdatum)</div>
-                    <div class="epoch-ledger">
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">4713 v.Chr.</span>JD / JDN (01.01.-4712 12:00 UTC)</span><span class="ledger-val">${fmtNum(jd.toFixed(8))} (JDN ${fmtNum(jdnCivil)})</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1582</span>Lilianisches Datum (15.10.1582)</span><span class="ledger-val">${fmtTagPlural(lilian)}</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1601</span>Windows FILETIME (01.01.1601)</span><span class="ledger-val">${fmtNum(filetimeDays.toFixed(6))} d · ${filetimeTicks.toString()} Ticks</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1858</span>Reduziertes JD / RJD (16.11.1858 12h)</span><span class="ledger-val">${fmtNum(rjd.toFixed(8))}</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1858</span>Modifiziertes JD / MJD (17.11.1858 00h)</span><span class="ledger-val">${fmtNum(mjd.toFixed(8))}</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1899</span>Excel-Seriendatum (30.12.1899)</span><span class="ledger-val">${fmtNum(excelSerial.toFixed(6))}</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1899</span>Dublin JD / DJD (31.12.1899 12h)</span><span class="ledger-val">${fmtNum(djd.toFixed(8))}</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1900</span>NTP-Zeitstempel (01.01.1900)</span><span class="ledger-val">${fmtNum(Math.round(ntpSec))} s</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1950</span>CNES JD / B1950 (01.01.1950)</span><span class="ledger-val">${fmtNum(cjd.toFixed(8))}</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1958</span>TAI-Atomzeit &amp; TT (01.01.1958)</span><span class="ledger-val">${taiStr}</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1968</span>Truncated JD / TJD (24.05.1968)</span><span class="ledger-val">${fmtNum(tjd.toFixed(8))}</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1970</span>Unix-Zeitstempel (01.01.1970)</span><span class="ledger-val">${fmtNum(Math.round(unixSec))} s</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1980</span>GPS-Zeit (06.01.1980)</span><span class="ledger-val">Woche ${fmtNum(gpsWeek)} (10b: ${gpsWeekMod}, Zyk. ${gpsRolloverCycle}) · TOW ${fmtNum(Math.round(gpsTow))} s · Ges. ${fmtNum(Math.round(gpsTotalSec))} s</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">1993</span>TAI93 Raumfahrt (01.01.1993 TAI)</span><span class="ledger-val">${fmtNum(Math.round(tai93Sec))} s</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">2000</span>J2000.0 (01.01.2000 12:00)</span><span class="ledger-val">${fmtNum(j2000Days.toFixed(8))} d · ${j2000Centuries.toFixed(8).replace('.', ',')} Jh. · ${fmtNum(Math.round(j2000Sec))} s</span></div>
-                        <div class="ledger-row"><span class="ledger-label"><span class="jd-epoch-tag">2001</span>Apple / Cocoa (01.01.2001)</span><span class="ledger-val">${fmtNum(Math.round(appleSec))} s</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Lokalzeit (${offStr}) &amp; Wochentag</span><span class="ledger-val" style="color: var(--atomic);">${wd}, ${locStr}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">UTC-Weltzeit &amp; ISO-8601</span><span class="ledger-val">${fmtDateTimeUTC(utcDate)} · ${isoStr}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Julianisches Datum (JD)</span><span class="ledger-val" style="color: var(--cryo);">${fmtNum(jd.toFixed(8))}</span></div>
+                        ${jdnRowHtml}
+                        <div class="ledger-row"><span class="ledger-label">Unix-Zeitstempel (Sekunden)</span><span class="ledger-val" style="color: var(--brass-bright);">${fmtNum(unixSec)} s</span></div>
+                        <div class="ledger-row"><span class="ledger-label">Modifiziertes JD (MJD)</span><span class="ledger-val">${fmtNum(mjd.toFixed(8))}</span></div>
+                        <div class="ledger-row"><span class="ledger-label">J2000.0-Epoche (Tage seit 01.01.2000 12:00)</span><span class="ledger-val" style="color: var(--sidereal);">${fmtNum(j2000Days.toFixed(8))} d</span></div>
                     </div>
                 </div>
                 ${jdEpochNoteHtml}
@@ -6075,8 +5704,7 @@
                     p.date.getFullYear(), p.date.getMonth(), p.date.getDate(),
                     p.date.getHours(), p.date.getMinutes() - offMin, p.date.getSeconds()
                 ).getTime();
-                const jd = (utcMs / 86400000) + 2440587.5;
-                renderJdComprehensiveResult(utcMs, offMin, offStr, `JD: ${jd.toFixed(8)} · Unix: ${fmtNum(Math.round(utcMs / 1000))}`, 'var(--cryo)');
+                renderJdComprehensiveResult(utcMs, offMin, offStr);
             } else {
                 const numVal = parseFloat(jdValInput.value);
                 if (Number.isNaN(numVal)) { setErr('jdInputNumber', 'err_jdInputNumber', 'Ungültige Zahl'); return; }
@@ -6092,9 +5720,7 @@
                 } else if (mode === 'j2000ToDate') {
                     utcMs = Math.round(((numVal + 2451545.0) - 2440587.5) * 86400) * 1000;
                 }
-                const locDate = new Date(utcMs + offMin * 60000);
-                const locStr = `${pad(locDate.getUTCDate())}.${pad(locDate.getUTCMonth() + 1)}.${fmtUtcYear(locDate.getUTCFullYear())} ${pad(locDate.getUTCHours())}:${pad(locDate.getUTCMinutes())}:${pad(locDate.getUTCSeconds())}`;
-                renderJdComprehensiveResult(utcMs, offMin, offStr, `${locStr} (${offStr})`, 'var(--atomic)');
+                renderJdComprehensiveResult(utcMs, offMin, offStr);
             }
         });
 
@@ -6131,18 +5757,15 @@
             document.getElementById('subStart').value = fmtDateDE(sevenAgo);
             document.getElementById('subEnd').value = nowStr;
 
-            // Berlin Sonnenstand für heutigen Tag initialisieren
+            // Berlin Sonnenstand für heutigen Tag initialisieren (Textfeld bleibt leer = Live)
             const berlinToday = getBerlinParts(now.getTime());
-            const berlinTodayStr = `${berlinToday.year}-${pad(berlinToday.month)}-${pad(berlinToday.day)}`;
-            document.getElementById('berlinSunDate').value = berlinTodayStr;
+            document.getElementById('berlinSunDateTime').value = '';
             drawBerlinDayChart(berlinToday.year, berlinToday.month, berlinToday.day);
 
-            // Dezimal-, Römischen & Chinesischen Konverter samt Einheitentabellen initialisieren
+            // Dezimal- & Römischen Konverter samt Einheitentabellen initialisieren
             renderDecUnitTable();
-            renderCnUnitTable();
             document.getElementById('btnDecConvNow').click();
             document.getElementById('btnRomConvNow').click();
-            document.getElementById('btnCnConvNow').click();
 
             // Kosmisches Wunschdatum auf Jahresbeginn vorbelegen & starten
             document.getElementById('cosCustomDate').value = `01.01.${now.getFullYear()} 00:00:00`;
@@ -6150,6 +5773,7 @@
 
             // Sektor II & III Standard-Berechnungen initial ausführen
             updateAstronomyModule(now);
+            updateLunarObservatory(now, true);
             document.getElementById('btnCalcChrono').click();
             document.getElementById('btnCalcRelPercent').click();
             document.getElementById('btnRunJdConv').click();
